@@ -1,4 +1,4 @@
-import {configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 
 import reprsReducer from './reprs'
 import settingsReducer from './settings'
@@ -10,7 +10,7 @@ const reducer = {
   user: userReducer,
 }
 
-const store = configureStore({reducer})
+const store = configureStore({ reducer })
 
 export default store
 

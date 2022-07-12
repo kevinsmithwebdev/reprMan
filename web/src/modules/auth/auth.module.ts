@@ -11,13 +11,13 @@ class AuthModule {
   }
 
   signIn(callback: VoidFunction) {
-  this.isAuthenticated = true
+    this.isAuthenticated = true
     setTimeout(callback, 500)
   }
 
   signOut(callback: VoidFunction) {
     this.isAuthenticated = false
-    setTimeout(callback,500)
+    setTimeout(callback, 500)
   }
 }
 

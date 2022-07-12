@@ -1,1 +1,1 @@
-export {default} from './Reprs'
+export { default } from './Reprs'

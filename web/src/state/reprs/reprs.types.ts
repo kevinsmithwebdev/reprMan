@@ -1,3 +1,3 @@
-import {Repr} from 'types'
+import { Repr } from 'types'
 
-export type {Repr}
+export type { Repr }

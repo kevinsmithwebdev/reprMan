@@ -1,4 +1,4 @@
-import {Repr} from 'types'
+import { Repr } from 'types'
 
 export interface ReprsProps {
   reprs: Repr[]

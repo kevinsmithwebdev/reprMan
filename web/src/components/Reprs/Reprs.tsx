@@ -1,13 +1,13 @@
-import React, {FC} from 'react'
-import {ReprsProps} from './Reprs.types'
+import React, { FC } from 'react'
+import { ReprsProps } from './Reprs.types'
 import Repr from 'components/Repr'
 
-const Reprs: FC<ReprsProps> = ({reprs}) => {
+const Reprs: FC<ReprsProps> = ({ reprs }) => {
   return (
     <div>
-      {
-        reprs.map(r => <Repr key={r.id} repr={r} />)
-      }
+      {reprs.map((r) => (
+        <Repr key={r.id} repr={r} />
+      ))}
     </div>
   )
 }
@@ -20,5 +20,5 @@ const styles = {
     padding: '5px',
     borderRadius: '5px',
     boxShadow: '0.5px 1px 1px 2px #eee',
-  }
+  },
 }

@@ -15,5 +15,5 @@ export interface Repr {
 }
 
 export interface Settings {
-  daysOverdueTrigger: 30,
+  daysOverdueTrigger: 30
 }
