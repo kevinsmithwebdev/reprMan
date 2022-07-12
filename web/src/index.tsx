@@ -7,6 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import {BrowserRouter} from 'react-router-dom'
 import {Provider} from 'react-redux'
 import store from './state/store'
+import { Amplify } from 'aws-amplify'
+import awsExports from './aws-exports'
+
+Amplify.configure(awsExports);
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

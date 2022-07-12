@@ -1,14 +1,19 @@
 import React from 'react'
 import AuthModule from 'modules/auth/auth.module'
+import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import userEvent from '@testing-library/user-event';
+import {Auth} from '@aws-amplify/auth'
 
-const SignIn = () => {
-  console.log('SignIn AuthM', AuthModule)
+const SignIn = (props: any) => {
+  const {user, signOut} = props
+  console.log('asdf Auth', Auth)
   return (
     <>
-      <h2>You need to sign into the app.</h2>
-      <button onClick={() => AuthModule.signIn(() => console.log('auth callback'))}>Sign In</button>
+      <Heading level={1}>Hello, {user?.attributes?.email}</Heading>
+      <Button onClick={signOut}>Sign out</Button>
     </>
   )
 }
 
-export default SignIn
+export default withAuthenticator(SignIn)
