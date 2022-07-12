@@ -1,13 +1,21 @@
-import React from 'react'
-import AuthModule from 'modules/auth/auth.module'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { withAuthenticator, Button, Heading } from '@aws-amplify/ui-react'
+
 import '@aws-amplify/ui-react/styles.css'
-import userEvent from '@testing-library/user-event'
-import { Auth } from '@aws-amplify/auth'
 
 const SignIn = (props: any) => {
   const { user, signOut } = props
-  console.log('asdf Auth', Auth)
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user.attributes.email) {
+      console.log('asdf ********* should redirect')
+      navigate('/about', { replace: true })
+    }
+  }, [user.attributes.email])
+
   return (
     <>
       <Heading level={1}>

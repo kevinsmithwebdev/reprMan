@@ -1,24 +1,13 @@
 class AuthModule {
-  static _instance = new AuthModule()
+  static instance: AuthModule
 
-  isAuthenticated = false
-
-  constructor() {
-    console.log('asdf constructor')
-    if (!AuthModule._instance) {
-      AuthModule._instance = this
+  // eslint-disable-next-line class-methods-use-this
+  static getInstance() {
+    if (!AuthModule.instance) {
+      AuthModule.instance = new AuthModule()
     }
-  }
-
-  signIn(callback: VoidFunction) {
-    this.isAuthenticated = true
-    setTimeout(callback, 500)
-  }
-
-  signOut(callback: VoidFunction) {
-    this.isAuthenticated = false
-    setTimeout(callback, 500)
+    return AuthModule.instance
   }
 }
 
-export default AuthModule._instance
+export default AuthModule

@@ -1,8 +1,6 @@
 {
   "trigger": true,
-  "modules": [
-    "captcha-verify"
-  ],
+  "modules": ["captcha-verify"],
   "parentResource": "repr",
   "functionName": "reprVerifyAuthChallengeResponse",
   "resourceName": "reprVerifyAuthChallengeResponse",

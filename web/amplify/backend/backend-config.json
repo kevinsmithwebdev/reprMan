@@ -7,11 +7,7 @@
         {
           "category": "auth",
           "resourceName": "repr",
-          "attributes": [
-            "UserPoolId",
-            "AppClientIDWeb",
-            "AppClientID"
-          ]
+          "attributes": ["UserPoolId", "AppClientIDWeb", "AppClientID"]
         }
       ]
     },
@@ -23,50 +19,33 @@
           "category": "function",
           "resourceName": "reprCreateAuthChallenge",
           "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          "attributes": ["Arn", "Name"]
         },
         {
           "category": "function",
           "resourceName": "reprDefineAuthChallenge",
           "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          "attributes": ["Arn", "Name"]
         },
         {
           "category": "function",
           "resourceName": "reprVerifyAuthChallengeResponse",
           "triggerProvider": "Cognito",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          "attributes": ["Arn", "Name"]
         }
       ],
       "customAuth": true,
       "frontendAuthConfig": {
         "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "EMAIL"
-        ],
+        "usernameAttributes": ["EMAIL"],
+        "signupAttributes": ["EMAIL"],
         "passwordProtectionSettings": {
           "passwordPolicyMinLength": 8,
           "passwordPolicyCharacters": []
         },
         "mfaConfiguration": "OFF",
-        "mfaTypes": [
-          "SMS"
-        ],
-        "verificationMechanisms": [
-          "EMAIL"
-        ]
+        "mfaTypes": ["SMS"],
+        "verificationMechanisms": ["EMAIL"]
       }
     }
   },
@@ -94,9 +73,7 @@
         {
           "category": "auth",
           "resourceName": "repr",
-          "attributes": [
-            "UserPoolId"
-          ]
+          "attributes": ["UserPoolId"]
         }
       ]
     }
@@ -110,17 +87,12 @@
         {
           "category": "auth",
           "resourceName": "repr",
-          "attributes": [
-            "UserPoolId"
-          ]
+          "attributes": ["UserPoolId"]
         },
         {
           "category": "function",
           "resourceName": "AdminQueries3a630dc8",
-          "attributes": [
-            "Arn",
-            "Name"
-          ]
+          "attributes": ["Arn", "Name"]
         }
       ]
     }

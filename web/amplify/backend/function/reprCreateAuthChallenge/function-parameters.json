@@ -1,8 +1,6 @@
 {
   "trigger": true,
-  "modules": [
-    "captcha-create-challenge"
-  ],
+  "modules": ["captcha-create-challenge"],
   "parentResource": "repr",
   "functionName": "reprCreateAuthChallenge",
   "resourceName": "reprCreateAuthChallenge",

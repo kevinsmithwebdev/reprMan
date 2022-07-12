@@ -1,5 +1,6 @@
 import { createAction } from '@reduxjs/toolkit'
 import { NAMESPACE } from './user.constants'
+import { User } from './user.types'
 
-// export const setSelected = createAction<number>(`${NAMESPACE}/SET`);
-// export const clearSelected = createAction(`${NAMESPACE}/CLEAR`);
+export const clearUser = createAction(`${NAMESPACE}/CLEAR`)
+export const setUser = createAction<User>(`${NAMESPACE}/SET`)

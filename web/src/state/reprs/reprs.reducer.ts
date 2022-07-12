@@ -1,6 +1,6 @@
 import { createReducer } from '@reduxjs/toolkit'
-import { clearSelected, setSelected } from './reprs.actions'
-import { Repr } from './reprs.types'
+import { clearSelected } from './reprs.actions'
+
 import fixture from './__fixtures/reprs'
 // import {Selected} from './reprs.types'
 

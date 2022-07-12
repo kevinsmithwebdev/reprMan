@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
-import { ReprsProps } from './Reprs.types'
 import Repr from 'components/Repr'
+import { ReprsProps } from './Reprs.types'
 
 const Reprs: FC<ReprsProps> = ({ reprs }) => {
   return (
@@ -14,11 +14,11 @@ const Reprs: FC<ReprsProps> = ({ reprs }) => {
 
 export default Reprs
 
-const styles = {
-  card: {
-    margin: '20px',
-    padding: '5px',
-    borderRadius: '5px',
-    boxShadow: '0.5px 1px 1px 2px #eee',
-  },
-}
+// const styles = {
+//   card: {
+//     margin: '20px',
+//     padding: '5px',
+//     borderRadius: '5px',
+//     boxShadow: '0.5px 1px 1px 2px #eee',
+//   },
+// }

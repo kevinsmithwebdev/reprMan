@@ -1,20 +1,19 @@
 import React from 'react'
+import { Hub } from 'aws-amplify'
 import './App.css'
-import Home from './screens/Home'
 import Header from 'components/Header'
 import { Routes, Route } from 'react-router-dom'
 import SignIn from 'screens/SignIn'
-import { useUser } from 'state/user'
-import AuthProvider, { RequireAuth } from 'auth/AuthProvider'
 import About from 'screens/About'
+import RequireAuth from 'modules/auth/RequireAuth'
+import { listenToAuth } from 'App.helpers'
+import Home from './screens/Home'
+
+Hub.listen('auth', listenToAuth)
 
 const App = () => {
-  const { user } = useUser()
-  const isSignedIn = !!user.email
-  console.log('asdf user', isSignedIn, user)
-
   return (
-    <AuthProvider>
+    <>
       <Header />
       <Routes>
         <Route
@@ -28,7 +27,7 @@ const App = () => {
         <Route path="/about" element={<About />} />
         <Route path="/signin" element={<SignIn />} />
       </Routes>
-    </AuthProvider>
+    </>
   )
 }
 

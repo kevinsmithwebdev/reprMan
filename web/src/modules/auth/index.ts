@@ -1,2 +1,3 @@
-export * from './auth.module'
-export { default } from './auth.module'
+export * from './Auth.module'
+export { default } from './Auth.module'
+export * from './RequireAuth'

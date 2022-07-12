@@ -10,7 +10,6 @@ const initialState = {
 
 export default createReducer(initialState, (builder) => {
   builder.addCase('asdf', () => {
-    console.log('asdf reducer2')
     return initialState
   })
 })

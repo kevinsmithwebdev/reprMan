@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
-import { ReprProps } from './Repr.types'
 import Card from 'react-bootstrap/Card'
 import moment from 'moment'
 import { useSettings } from 'state/settings'
+import { ReprProps } from './Repr.types'
 
 type ReprColor = { bg: string; border: string }
 
-const Repr: FC<ReprProps> = ({ repr: { title, created, lastPracticed } }) => {
+const Repr: FC<ReprProps> = ({ repr: { title, lastPracticed } }) => {
   const {
     settings: { daysOverdueTrigger },
   } = useSettings()
@@ -52,11 +52,11 @@ const getReprColors = (
   return { bg: '#f6fff6', border: 'success' }
 }
 
-const styles = {
-  card: {
-    margin: '20px',
-    padding: '5px',
-    borderRadius: '5px',
-    boxShadow: '0.5px 1px 1px 2px #eee',
-  },
-}
+// const styles = {
+//   card: {
+//     margin: '20px',
+//     padding: '5px',
+//     borderRadius: '5px',
+//     boxShadow: '0.5px 1px 1px 2px #eee',
+//   },
+// }
