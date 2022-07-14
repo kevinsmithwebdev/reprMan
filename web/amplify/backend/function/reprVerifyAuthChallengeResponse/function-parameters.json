@@ -1,6 +1,8 @@
 {
   "trigger": true,
-  "modules": ["captcha-verify"],
+  "modules": [
+    "captcha-verify"
+  ],
   "parentResource": "repr",
   "functionName": "reprVerifyAuthChallengeResponse",
   "resourceName": "reprVerifyAuthChallengeResponse",
@@ -11,6 +13,6 @@
   "triggerEventPath": "VerifyAuthChallengeResponse.event.json",
   "roleName": "reprVerifyAuthChallengeResponse",
   "skipEdit": true,
-  "RECAPTCHASECRET": "",
+  "RECAPTCHASECRET": "musashi",
   "enableCors": false
 }

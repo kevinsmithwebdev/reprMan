@@ -3,15 +3,19 @@ import { Hub } from 'aws-amplify'
 import './App.css'
 import Header from 'components/Header'
 import { Routes, Route } from 'react-router-dom'
-import SignIn from 'screens/SignIn'
-import About from 'screens/About'
+import Signing from 'pages/Signing'
+import About from 'pages/About'
 import RequireAuth from 'modules/auth/RequireAuth'
-import { listenToAuth } from 'App.helpers'
-import Home from './screens/Home'
+import { listenToAuth, useAuthLoading } from 'App.helpers'
+import Home from './pages/Home'
 
 Hub.listen('auth', listenToAuth)
 
 const App = () => {
+  const { isLoadingAuth } = useAuthLoading()
+
+  if (isLoadingAuth) return null
+
   return (
     <>
       <Header />
@@ -25,7 +29,7 @@ const App = () => {
           }
         />
         <Route path="/about" element={<About />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signing" element={<Signing />} />
       </Routes>
     </>
   )

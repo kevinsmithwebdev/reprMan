@@ -1,56 +1,6 @@
 {
-  "auth": {
-    "userPoolGroups": {
-      "service": "Cognito-UserPool-Groups",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "repr",
-          "attributes": ["UserPoolId", "AppClientIDWeb", "AppClientID"]
-        }
-      ]
-    },
-    "repr": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
-        {
-          "category": "function",
-          "resourceName": "reprCreateAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": ["Arn", "Name"]
-        },
-        {
-          "category": "function",
-          "resourceName": "reprDefineAuthChallenge",
-          "triggerProvider": "Cognito",
-          "attributes": ["Arn", "Name"]
-        },
-        {
-          "category": "function",
-          "resourceName": "reprVerifyAuthChallengeResponse",
-          "triggerProvider": "Cognito",
-          "attributes": ["Arn", "Name"]
-        }
-      ],
-      "customAuth": true,
-      "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": ["EMAIL"],
-        "signupAttributes": ["EMAIL"],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
-        "mfaConfiguration": "OFF",
-        "mfaTypes": ["SMS"],
-        "verificationMechanisms": ["EMAIL"]
-      }
-    }
-  },
   "function": {
-    "reprCreateAuthChallenge": {
+    "reprPing": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -60,48 +10,59 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "reprVerifyAuthChallengeResponse": {
+    "reprCreateAuthChallenge": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "AdminQueries3a630dc8": {
-      "service": "Lambda",
-      "providerPlugin": "awscloudformation",
+    "reprVerifyAuthChallengeResponse": {
       "build": true,
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "repr",
-          "attributes": ["UserPoolId"]
-        }
-      ]
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "api": {
-    "AdminQueries": {
+    "apirepr": {
       "service": "API Gateway",
       "providerPlugin": "awscloudformation",
-      "authorizationType": "AMAZON_COGNITO_USER_POOLS",
       "dependsOn": [
         {
-          "category": "auth",
-          "resourceName": "repr",
-          "attributes": ["UserPoolId"]
-        },
-        {
           "category": "function",
-          "resourceName": "AdminQueries3a630dc8",
-          "attributes": ["Arn", "Name"]
+          "resourceName": "reprPing",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
         }
       ]
     }
   },
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
+  "auth": {
+    "repr3c9b0801": {
+      "service": "Cognito",
       "providerPlugin": "awscloudformation",
-      "type": "manual"
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      }
     }
   }
 }

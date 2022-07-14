@@ -12,7 +12,7 @@
       "suppressschemamigrationprompt": true,
       "securityenhancementnotification": false,
       "showfieldauthnotification": false,
-      "usesubusernamefordefaultidentityclaim": true,
+      "usesubusernamefordefaultidentityclaim": false,
       "usefieldnameforprimarykeyconnectionfield": false,
       "enableautoindexquerynames": false,
       "respectprimarykeyattributesonconnectionfield": false,

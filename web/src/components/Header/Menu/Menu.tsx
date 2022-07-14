@@ -1,8 +1,40 @@
-import React from 'react'
-import { Navbar } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Button, Navbar, Offcanvas } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
 
 const Menu = () => {
-  return <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+  const navigate = useNavigate()
+  const [shouldShow, setShouldShow] = useState(false)
+
+  const handleClick = (path: string) => {
+    setShouldShow(false)
+    navigate(path)
+  }
+
+  return (
+    <>
+      <Navbar.Toggle onClick={() => setShouldShow(true)} />
+      <Navbar.Offcanvas placement="end" show={shouldShow}>
+        <Offcanvas.Header closeButton onHide={() => setShouldShow(false)}>
+          <Offcanvas.Title>Menu</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body style={{ display: 'flex', flexDirection: 'column' }}>
+          <Button style={{ margin: 10 }} onClick={() => handleClick('/')}>
+            Home
+          </Button>
+          <Button style={{ margin: 10 }} onClick={() => handleClick('/about')}>
+            About
+          </Button>
+          <Button
+            style={{ margin: 10 }}
+            onClick={() => handleClick('/signing')}
+          >
+            Sign In/Out
+          </Button>
+        </Offcanvas.Body>
+      </Navbar.Offcanvas>
+    </>
+  )
 }
 
 export default Menu

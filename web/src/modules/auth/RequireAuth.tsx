@@ -7,10 +7,8 @@ export const RequireAuth = ({ children }: { children: JSX.Element }) => {
   const { user } = useUser()
   const location = useLocation()
 
-  console.log('RequireAuth1 user', user)
-
   if (!user.email) {
-    return <Navigate to="/signin" state={{ from: location }} replace />
+    return <Navigate to="/signing" state={{ from: location }} replace />
   }
 
   return children

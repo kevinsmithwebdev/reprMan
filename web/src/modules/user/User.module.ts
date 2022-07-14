@@ -7,11 +7,6 @@ class UserModule {
     return this.userInstance
   }
 
-  constructor() {
-    console.log('setting auth listener')
-    // Hub.listen('auth', listenToAuth)
-  }
-
   static getInstance() {
     if (!UserModule.instance) {
       UserModule.instance = new UserModule()

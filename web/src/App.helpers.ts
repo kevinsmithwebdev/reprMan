@@ -1,14 +1,19 @@
+import { Auth } from 'aws-amplify'
+import { useEffect, useState } from 'react'
 import store from 'state/store'
 import { clearUser, setUser } from 'state/user/user.actions'
+
+const getUserObjectFromAttributes = (attributes: any) => ({
+  email: attributes.email,
+  id: attributes.sub,
+})
 
 export const listenToAuth = (data: any) => {
   switch (data.payload.event) {
     case 'signIn':
     case 'signUp':
       store.dispatch(
-        setUser({
-          email: data.payload.data.attributes.email,
-        })
+        setUser(getUserObjectFromAttributes(data.payload.data.attributes))
       )
       break
 
@@ -26,4 +31,25 @@ export const listenToAuth = (data: any) => {
       break
     default:
   }
+}
+
+export const useAuthLoading = () => {
+  const [isLoadingAuth, setIsLoadingAuth] = useState(true)
+
+  useEffect(() => {
+    const checkForSignedIn = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser()
+        store.dispatch(setUser(getUserObjectFromAttributes(user.attributes)))
+        return
+      } catch {
+        store.dispatch(clearUser())
+      } finally {
+        setIsLoadingAuth(false)
+      }
+    }
+    checkForSignedIn()
+  }, [])
+
+  return { isLoadingAuth }
 }
