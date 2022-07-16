@@ -13,6 +13,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint'],
+  ignorePatterns: ['*.css'],
   rules: {
     semi: ['error', 'never'],
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
@@ -38,6 +39,8 @@ module.exports = {
     'no-restricted-exports': ['off'],
     'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,
+    'no-unused-vars': [1],
+    'no-shadow': 0,
   },
   settings: {
     'import/resolver': {

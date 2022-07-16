@@ -8,7 +8,3 @@ export interface Repr {
 }
 
 export type Reprs = Repr[]
-
-export interface Settings {
-  daysOverdueTrigger: 30
-}

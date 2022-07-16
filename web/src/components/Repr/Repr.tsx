@@ -1,24 +1,24 @@
 import React, { FC } from 'react'
 import Card from 'react-bootstrap/Card'
 import moment from 'moment'
-import { useSettings } from 'state/settings'
-import { ReprProps } from './Repr.types'
+import { Repr } from 'types'
+
+export interface ReprProps {
+  repr: Repr
+}
 
 type ReprColor = { bg: string; border: string }
 
-const Repr: FC<ReprProps> = ({ repr: { title, lastPracticed } }) => {
-  const {
-    settings: { daysOverdueTrigger },
-  } = useSettings()
-  const reprColors = getReprColors(lastPracticed, daysOverdueTrigger)
-  const lastPracticedMoment = moment(lastPracticed)
+const ReprComponent: FC<ReprProps> = ({ repr: { title } }) => {
+  const reprColors = getReprColors(1, 2)
+  const lastPracticedMoment = moment(1)
 
   return (
     <Card
       text="dark"
       className="mb-2"
       style={{
-        margin: '20px',
+        margin: '10px',
         padding: '5px',
         borderRadius: '5px',
         boxShadow: '0.5px 1px 1px 2px #eee',
@@ -36,7 +36,7 @@ const Repr: FC<ReprProps> = ({ repr: { title, lastPracticed } }) => {
   )
 }
 
-export default Repr
+export default ReprComponent
 
 const WARN_VALUE = 0.5
 
