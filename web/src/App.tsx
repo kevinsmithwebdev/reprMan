@@ -7,8 +7,6 @@ import ModalContainer from 'modals/ModalContainer'
 import Home from './pages/Home'
 
 const App = () => {
-  // const { Modal } = useModal()
-  // console.log('modal', Modal)
   return (
     <>
       <Header />

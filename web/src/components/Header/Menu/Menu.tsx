@@ -25,12 +25,6 @@ const Menu = () => {
           <Button style={{ margin: 10 }} onClick={() => handleClick('/about')}>
             About
           </Button>
-          <Button
-            style={{ margin: 10 }}
-            onClick={() => handleClick('/signing')}
-          >
-            Sign In/Out
-          </Button>
         </Offcanvas.Body>
       </Navbar.Offcanvas>
     </>

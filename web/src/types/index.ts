@@ -12,3 +12,5 @@ export type Reprs = Repr[]
 export interface Settings {
   daysOverdueTrigger: 30
 }
+
+export type Categories = string[]

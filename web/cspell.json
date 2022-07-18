@@ -6,7 +6,9 @@
     "reduxjs",
     "repr",
     "reprs",
-    "signin"
+    "signin",
+    "Typeahead",
+    "uuidv"
   ],
   "flagWords": []
 }
