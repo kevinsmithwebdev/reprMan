@@ -4,16 +4,14 @@ import { selectReprs, setReprs } from 'state/reprs'
 import { Reprs } from 'types'
 import { REMOVE_REPR } from '../reprs.actions'
 
-function* removeReprWorker({payload: id}: any) {
+function* removeReprWorker({ payload: id }: any) {
   const localStorage = LocalStorageModule.getInstance()
 
   const currentReprs = (yield select(selectReprs)) as Reprs
 
-  const index = currentReprs.findIndex(r => r.id === id)
+  const index = currentReprs.findIndex((r) => r.id === id)
 
-  if (index === -1) {
-     return
-  }
+  if (index === -1) return
 
   const newReprs = [...currentReprs]
   newReprs.splice(index, 1)
@@ -22,4 +20,4 @@ function* removeReprWorker({payload: id}: any) {
   yield localStorage.setReprs(newReprs)
 }
 
-  export default [takeLatest(REMOVE_REPR, removeReprWorker)]
+export default [takeLatest(REMOVE_REPR, removeReprWorker)]

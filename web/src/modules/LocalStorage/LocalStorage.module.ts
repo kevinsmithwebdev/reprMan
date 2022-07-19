@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-useless-constructor */
-import { Reprs } from "types"
-import { LocalStorageKey } from "./LocalStorage.types"
+import { Reprs } from 'types'
+import { LocalStorageKey } from './LocalStorage.types'
 
 class LocalStorageModule {
   private static instance: LocalStorageModule
@@ -20,11 +20,14 @@ class LocalStorageModule {
   // *************
 
   private async getLocalStorage(key: LocalStorageKey): Promise<any> {
-    const value = localStorage.getItem((key))
+    const value = localStorage.getItem(key)
     return value
   }
 
-  private async setLocalStorage(key: LocalStorageKey, value: any): Promise<void> {
+  private async setLocalStorage(
+    key: LocalStorageKey,
+    value: any
+  ): Promise<void> {
     localStorage.setItem(key, JSON.stringify(value))
   }
 
@@ -42,7 +45,6 @@ class LocalStorageModule {
   async setReprs(value: Reprs): Promise<void> {
     await this.setLocalStorage(LocalStorageKey.REPRS, value)
   }
-
 }
 
 export default LocalStorageModule

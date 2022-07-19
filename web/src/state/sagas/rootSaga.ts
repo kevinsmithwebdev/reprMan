@@ -1,13 +1,9 @@
 import { all } from 'redux-saga/effects'
-import {showPingSaga} from './ping'
+import { showPingSaga } from './ping'
 import reprWorkers from './reprs'
 
-import {genesisSaga} from './genesis'
+import { genesisSaga } from './genesis'
 
 export default function* rootSaga() {
-  yield all([
-    ...showPingSaga,
-    ...reprWorkers,
-    ...genesisSaga,
-  ])
+  yield all([...showPingSaga, ...reprWorkers, ...genesisSaga])
 }

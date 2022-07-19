@@ -1,1 +1,1 @@
-export {default as LocalStorageModule} from './LocalStorage/LocalStorage.module'
+export { default as LocalStorageModule } from './LocalStorage/LocalStorage.module'

@@ -6,21 +6,23 @@ import { selectReprs, setReprs } from 'state/reprs'
 import { Reprs } from 'types'
 import { ADD_REPR } from '../reprs.actions'
 
-function* addReprWorker({payload: repr}: any) {
+function* addReprWorker({ payload: repr }: any) {
   const localStorage = LocalStorageModule.getInstance()
 
   const currentReprs = (yield select(selectReprs)) as Reprs
 
   let newReprs = [] as Reprs
 
-  if (repr.id) { // existing repr
-    const index = currentReprs.findIndex(r => r.id === repr.id)
+  if (repr.id) {
+    // existing repr
+    const index = currentReprs.findIndex((r) => r.id === repr.id)
 
     if (index === -1) return
 
     newReprs = [...currentReprs]
     newReprs[index] = repr
-  } else { // new repr
+  } else {
+    // new repr
     const newRepr = {
       ...repr,
       id: uuidv4(),
@@ -33,4 +35,4 @@ function* addReprWorker({payload: repr}: any) {
   yield localStorage.setReprs(newReprs)
 }
 
-  export default [takeLatest(ADD_REPR, addReprWorker)]
+export default [takeLatest(ADD_REPR, addReprWorker)]

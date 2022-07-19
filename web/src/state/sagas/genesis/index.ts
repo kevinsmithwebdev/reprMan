@@ -1,1 +1,1 @@
-export {default as genesisSaga} from './genesis.saga'
+export { default as genesisSaga } from './genesis.saga'

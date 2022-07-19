@@ -11,4 +11,4 @@ function* clearAllReprsWorker() {
   yield put(clearAllReprs())
 }
 
-  export default [takeLatest(CLEAR_ALL_REPRS, clearAllReprsWorker)]
+export default [takeLatest(CLEAR_ALL_REPRS, clearAllReprsWorker)]

@@ -8,7 +8,11 @@ function* loadReprsWorker() {
   const localStorage = LocalStorageModule.getInstance()
 
   const reprs = (yield localStorage.getReprs()) as Reprs
+  reprs[0].datesPracticed[0] = 1655311551000
+  reprs[1].datesPracticed[0] = 1655829951000
+  reprs[2].datesPracticed[0] = 1656693951000
+
   yield put(setReprs(reprs))
 }
 
-  export default [takeLatest(LOAD_REPRS, loadReprsWorker)]
+export default [takeLatest(LOAD_REPRS, loadReprsWorker)]

@@ -29,7 +29,10 @@ export default createReducer(initialState, (builder) => {
     }
   })
 
-  builder.addCase(setReprs, (state, {payload: reprs}) => ({ ...state, reprs }))
+  builder.addCase(setReprs, (state, { payload: reprs }) => ({
+    ...state,
+    reprs,
+  }))
 
   builder.addCase(clearAllReprs, () => initialState)
 })
