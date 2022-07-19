@@ -2,6 +2,11 @@ import React, { FC } from 'react'
 import Card from 'react-bootstrap/Card'
 import moment from 'moment'
 import { Repr } from 'types'
+import { Button } from 'react-bootstrap'
+import store from 'state/store'
+import { removeReprSAC } from 'state/sagas/reprs/reprs.actions'
+import { setModal } from 'state/modal'
+import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
 
 export interface ReprProps {
   repr: Repr
@@ -9,7 +14,8 @@ export interface ReprProps {
 
 type ReprColor = { bg: string; border: string }
 
-const ReprComponent: FC<ReprProps> = ({ repr: { title } }) => {
+const ReprComponent: FC<ReprProps> = ({ repr }) => {
+  const { title, id } = repr
   const reprColors = getReprColors(1, 2)
   const lastPracticedMoment = moment(1)
 
@@ -32,6 +38,24 @@ const ReprComponent: FC<ReprProps> = ({ repr: { title } }) => {
           {lastPracticedMoment.fromNow()}
         </Card.Subtitle>
       </Card.Body>
+
+      <Button
+        variant="warning"
+        onClick={() =>
+          store.dispatch(
+            setModal({ selection: ModalSelection.EDIT_REPR, props: { repr } })
+          )
+        }
+      >
+        E
+      </Button>
+
+      <Button
+        variant="danger"
+        onClick={() => store.dispatch(removeReprSAC(id))}
+      >
+        X
+      </Button>
     </Card>
   )
 }

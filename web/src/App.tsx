@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './App.css'
 import Header from 'components/Header'
 import { Routes, Route } from 'react-router-dom'
 import About from 'pages/About'
 import ModalContainer from 'modals/ModalContainer'
+import { runGenesisSaga } from 'state/sagas/genesis/genesis.actions'
+import store from 'state/store'
 import Home from './pages/Home'
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(runGenesisSaga())
+  })
+
   return (
     <>
       <Header />

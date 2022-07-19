@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
+import createSagaMiddleware from 'redux-saga'
 
 import modalReducer from './modal'
 import reprsReducer from './reprs'
 import settingsReducer from './settings'
 import userReducer from './user'
+
+import rootSaga from './sagas/rootSaga'
 
 const reducer = {
   modal: modalReducer,
@@ -12,7 +15,17 @@ const reducer = {
   user: userReducer,
 }
 
-const store = configureStore({ reducer })
+const sagaMiddleware = createSagaMiddleware()
+
+const store = configureStore({
+  reducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+      serializableCheck: false,
+      thunk: false
+    }).concat(sagaMiddleware)
+})
+
+sagaMiddleware.run(rootSaga)
 
 export default store
 

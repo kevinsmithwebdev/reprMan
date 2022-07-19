@@ -3,13 +3,12 @@ import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
 import { createReducer } from '@reduxjs/toolkit'
 import { getUniqueArray } from 'helpers'
-import { addRepr } from './reprs.actions'
-
-import fixture from './__FIXTURES__/reprs1'
+import { Reprs } from 'types'
+import { setReprs, addRepr, clearAllReprs } from './reprs.actions'
 
 const initialState = {
-  reprs: fixture,
-  categories: ['Classical', 'Jazz', 'Pop', 'Rock'],
+  reprs: [] as Reprs,
+  categories: [] as string[],
 }
 
 export default createReducer(initialState, (builder) => {
@@ -29,4 +28,8 @@ export default createReducer(initialState, (builder) => {
       ]).sort(),
     }
   })
+
+  builder.addCase(setReprs, (state, {payload: reprs}) => ({ ...state, reprs }))
+
+  builder.addCase(clearAllReprs, () => initialState)
 })

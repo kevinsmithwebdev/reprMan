@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
-import EditRepr from 'modals/EditRepr'
+import EditRepr, { EditReprProps } from 'modals/EditRepr'
 import { clearModal, useModal } from 'state/modal'
 import { Modal } from 'react-bootstrap'
 import store from 'state/store'
@@ -17,7 +17,7 @@ const ModalContainer = () => {
       keyboard={false}
     >
       {selection === ModalSelection.EDIT_REPR && (
-        <EditRepr {...props} closeModal={closeModal} />
+        <EditRepr {...(props as EditReprProps)} closeModal={closeModal} />
       )}
     </Modal>
   )

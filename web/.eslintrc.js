@@ -39,8 +39,10 @@ module.exports = {
     'no-restricted-exports': ['off'],
     'import/prefer-default-export': 0,
     'no-underscore-dangle': 0,
-    'no-unused-vars': [1],
     'no-shadow': 0,
+    'no-unused-vars': 0,
+    '@typescript-eslint/no-unused-vars': 1,
+    'import/order': 1,
   },
   settings: {
     'import/resolver': {

@@ -1,23 +1,27 @@
-import { getComplement } from 'helpers'
 import React, { FC, useState } from 'react'
+import { getComplement } from 'helpers'
 import { Badge, Form } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import { addRepr, Repr, useReprs } from 'state/reprs'
+import { Repr, useReprs } from 'state/reprs'
 import store from 'state/store'
+import { addReprSAC } from 'state/sagas/reprs/reprs.actions'
 import CategoryLine from './CategoryLine'
 
-interface EditReprProps {
+export interface EditReprProps {
   closeModal: () => void
+  repr: Repr | undefined
 }
 
-const EditRepr: FC<EditReprProps> = ({ closeModal }) => {
+const EditRepr: FC<EditReprProps> = ({ closeModal, repr = {} as Repr }) => {
   const { categories: availableCategories } = useReprs()
   const [enteredCategory, setEnteredCategory] = useState('')
 
-  const [title, setTitle] = useState('')
-  const [categories, setCategories] = useState([] as string[])
-  const [comment, setComment] = useState('')
+  const [title, setTitle] = useState(repr!.title || '')
+  const [categories, setCategories] = useState(
+    repr!.categories || ([] as string[])
+  )
+  const [comment, setComment] = useState(repr!.comment || '')
 
   const removeCategory = (value: string) => {
     setCategories(categories.filter((c) => c !== value))
@@ -96,7 +100,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal }) => {
               ))}
             </div>
 
-            <Form.Label style={{ fontWeight: 600, paddingLeft: '5px' }} l>
+            <Form.Label style={{ fontWeight: 600, paddingLeft: '5px' }}>
               New Category:
             </Form.Label>
             <div
@@ -151,14 +155,14 @@ const EditRepr: FC<EditReprProps> = ({ closeModal }) => {
           variant="success"
           onClick={() => {
             const thisRepr = {
-              id: '',
+              id: repr.id || '',
               title,
               categories,
-              dateCreated: 0,
-              datesPracticed: [] as number[],
+              dateCreated: repr.dateCreated || NaN,
+              datesPracticed: repr.datesPracticed || ([] as number[]),
               comment,
             } as Repr
-            store.dispatch(addRepr(thisRepr))
+            store.dispatch(addReprSAC(thisRepr))
             closeModal()
           }}
         >
