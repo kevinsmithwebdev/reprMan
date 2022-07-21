@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import createSagaMiddleware from 'redux-saga'
 
+import categoriesReducer from './categories'
 import modalReducer from './modal'
 import reprsReducer from './reprs'
 import settingsReducer from './settings'
@@ -9,6 +10,7 @@ import userReducer from './user'
 import rootSaga from './sagas/rootSaga'
 
 const reducer = {
+  categories: categoriesReducer,
   modal: modalReducer,
   reprs: reprsReducer,
   settings: settingsReducer,

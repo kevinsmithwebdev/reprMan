@@ -4,10 +4,10 @@ import { NAMESPACE } from './reprs.constants'
 
 export const selectReprs = createSelector(
   (state: RootState) => state[NAMESPACE],
-  (data) => data.reprs
+  (data) => data
 )
 
-export const selectCategories = createSelector(
-  (state: RootState) => state[NAMESPACE],
-  (data) => data.categories
-)
+// export const selectCategories = createSelector(
+//   (state: RootState) => state[NAMESPACE],
+//   (data) => data.categories
+// )

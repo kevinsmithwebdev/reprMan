@@ -1,15 +1,10 @@
-/* eslint-disable no-console */
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
 import { createReducer } from '@reduxjs/toolkit'
-import { getUniqueArray } from 'helpers'
 import { Reprs } from 'types'
 import { setReprs, addRepr, clearAllReprs } from './reprs.actions'
 
-const initialState = {
-  reprs: [] as Reprs,
-  categories: [] as string[],
-}
+const initialState = [] as Reprs
 
 export default createReducer(initialState, (builder) => {
   builder.addCase(addRepr, (state, { payload }) => {
@@ -19,20 +14,9 @@ export default createReducer(initialState, (builder) => {
       dateCreated: payload.dateCreated || moment.utc().valueOf(),
     }
 
-    return {
-      ...state,
-      reprs: [newRepr, ...state.reprs],
-      categories: getUniqueArray([
-        ...payload.categories,
-        ...state.categories,
-      ]).sort(),
-    }
+    return [newRepr, ...state]
   })
 
-  builder.addCase(setReprs, (state, { payload: reprs }) => ({
-    ...state,
-    reprs,
-  }))
-
+  builder.addCase(setReprs, (_state, { payload: reprs }) => reprs)
   builder.addCase(clearAllReprs, () => initialState)
 })

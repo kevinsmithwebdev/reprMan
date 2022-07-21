@@ -3,9 +3,10 @@ import { getComplement } from 'helpers'
 import { Badge, Form } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import { Repr, useReprs } from 'state/reprs'
+import { Repr } from 'state/reprs'
 import store from 'state/store'
 import { addReprSAC } from 'state/sagas/reprs/reprs.actions'
+import { useCategories } from 'state/categories'
 import CategoryLine from './CategoryLine'
 
 export interface EditReprProps {
@@ -14,7 +15,7 @@ export interface EditReprProps {
 }
 
 const EditRepr: FC<EditReprProps> = ({ closeModal, repr = {} as Repr }) => {
-  const { categories: availableCategories } = useReprs()
+  const { categories: availableCategories } = useCategories()
   const [enteredCategory, setEnteredCategory] = useState('')
 
   const [title, setTitle] = useState(repr!.title || '')

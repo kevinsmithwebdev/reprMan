@@ -3,8 +3,10 @@ import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
 import { LocalStorageModule } from 'modules'
 import { selectReprs, setReprs } from 'state/reprs'
-import { Reprs } from 'types'
+import { Categories, Reprs } from 'types'
+import { selectCategories, setCategories } from 'state/categories'
 import { ADD_REPR } from '../reprs.actions'
+import { mergeCategories } from '../../reprs.helpers'
 
 function* addReprWorker({ payload: repr }: any) {
   const localStorage = LocalStorageModule.getInstance()
@@ -33,6 +35,11 @@ function* addReprWorker({ payload: repr }: any) {
 
   yield put(setReprs(newReprs))
   yield localStorage.setReprs(newReprs)
+
+  const currentCategories = (yield select(selectCategories)) as Categories
+  // TODO: more efficient way to merge?
+  const mergedCategories = mergeCategories(currentCategories, repr.categories)
+  yield put(setCategories(mergedCategories))
 }
 
 export default [takeLatest(ADD_REPR, addReprWorker)]
