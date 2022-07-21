@@ -1,10 +1,10 @@
 import React from 'react'
-import Reprs from 'components/Reprs'
+import ReprsList from 'components/ReprsList'
 
 const Home = () => {
   return (
     <div>
-      <Reprs reprs={[]} />
+      <ReprsList reprs={[]} />
     </div>
   )
 }

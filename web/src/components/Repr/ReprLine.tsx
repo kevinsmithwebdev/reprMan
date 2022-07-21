@@ -12,13 +12,13 @@ import { setModal } from 'state/modal'
 import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
 import { DEFAULT_DAYS_WARNING } from 'constants/index'
 
-export interface ReprProps {
+export interface ReprLineProps {
   repr: Repr
 }
 
 type ReprColor = { bg: string; border: string }
 
-const ReprComponent: FC<ReprProps> = ({ repr }) => {
+const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { title, id, datesPracticed } = repr
   const lastPracticed = datesPracticed[0] || 0
   const reprColors = getReprColors(lastPracticed)
@@ -82,7 +82,7 @@ const ReprComponent: FC<ReprProps> = ({ repr }) => {
   )
 }
 
-export default ReprComponent
+export default ReprLine
 
 const WARN_PERCENTAGE = 0.5
 

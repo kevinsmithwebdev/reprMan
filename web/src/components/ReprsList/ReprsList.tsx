@@ -1,13 +1,13 @@
 import React, { FC } from 'react'
-import ReprComponent from 'components/Repr'
+import Repr from 'components/Repr'
 import { useReprs } from 'state/reprs'
 import { Button } from 'react-bootstrap'
 import store from 'state/store'
 import { setModal } from 'state/modal'
 import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
-import { ReprsProps } from './Reprs.types'
+import { ReprsListProps } from './ReprsList.types'
 
-const Reprs: FC<ReprsProps> = () => {
+const ReprsList: FC<ReprsListProps> = () => {
   const { reprs } = useReprs()
 
   const hasReprs = !!reprs.length
@@ -15,7 +15,7 @@ const Reprs: FC<ReprsProps> = () => {
   return (
     <div>
       {hasReprs ? (
-        reprs.map((r) => <ReprComponent key={r.id} repr={r} />)
+        reprs.map((r) => <Repr key={r.id} repr={r} />)
       ) : (
         <p>No reprs found.</p>
       )}
@@ -35,4 +35,4 @@ const Reprs: FC<ReprsProps> = () => {
   )
 }
 
-export default Reprs
+export default ReprsList

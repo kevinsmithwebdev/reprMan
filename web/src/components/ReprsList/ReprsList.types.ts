@@ -1,5 +1,5 @@
 import { Repr } from 'types'
 
-export interface ReprsProps {
+export interface ReprsListProps {
   reprs: Repr[]
 }

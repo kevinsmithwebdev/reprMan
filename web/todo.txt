@@ -7,7 +7,7 @@ triple check delete all Reprs
 fill out about page
 settings page
 favicon
-
+i18n (at least for English)
 
 *** v2
 
