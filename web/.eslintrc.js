@@ -2,6 +2,7 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
   extends: ['plugin:react/recommended', 'airbnb', 'prettier'],
   parser: '@typescript-eslint/parser',
@@ -43,6 +44,8 @@ module.exports = {
     'no-unused-vars': 0,
     '@typescript-eslint/no-unused-vars': 1,
     'import/order': 1,
+    'react/require-default-props': 0,
+    'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
   },
   settings: {
     'import/resolver': {

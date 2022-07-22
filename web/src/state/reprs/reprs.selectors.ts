@@ -6,8 +6,3 @@ export const selectReprs = createSelector(
   (state: RootState) => state[NAMESPACE],
   (data) => data
 )
-
-// export const selectCategories = createSelector(
-//   (state: RootState) => state[NAMESPACE],
-//   (data) => data.categories
-// )

@@ -1,10 +1,6 @@
 import React, { FC } from 'react'
-import Repr from 'components/Repr'
+import Repr from 'components/ReprLine'
 import { useReprs } from 'state/reprs'
-import { Button } from 'react-bootstrap'
-import store from 'state/store'
-import { setModal } from 'state/modal'
-import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
 import { ReprsListProps } from './ReprsList.types'
 
 const ReprsList: FC<ReprsListProps> = () => {
@@ -19,18 +15,6 @@ const ReprsList: FC<ReprsListProps> = () => {
       ) : (
         <p>No reprs found.</p>
       )}
-      {/* TODO: move to App */}
-      <Button
-        variant="success"
-        style={{ margin: 10, padding: 10 }}
-        onClick={() =>
-          store.dispatch(
-            setModal({ selection: ModalSelection.EDIT_REPR, props: {} })
-          )
-        }
-      >
-        + Add Repr
-      </Button>
     </div>
   )
 }

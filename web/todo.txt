@@ -1,7 +1,5 @@
-view Repr page
-refactor category pills to their own component
-refactor Add Repr button to be in App page
-refactor Repr buttons into own components
+default to home
+Header page and back
 double check delete Repr
 triple check delete all Reprs
 fill out about page

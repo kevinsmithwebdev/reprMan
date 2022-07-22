@@ -2,15 +2,11 @@ import React, { FC } from 'react'
 import Card from 'react-bootstrap/Card'
 import moment from 'moment'
 import { Repr } from 'types'
-import { Button } from 'react-bootstrap'
-import store from 'state/store'
-import {
-  markReprPracticedSAC,
-  removeReprSAC,
-} from 'state/sagas/reprs/reprs.actions'
-import { setModal } from 'state/modal'
 import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
 import { DEFAULT_DAYS_WARNING } from 'constants/index'
+import { useNavigate } from 'react-router-dom'
+import { getDateAndFrom } from 'utilities/dates'
+import ReprButton, { ReprButtonType } from 'components/ReprButton'
 
 export interface ReprLineProps {
   repr: Repr
@@ -22,8 +18,7 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { title, id, datesPracticed } = repr
   const lastPracticed = datesPracticed[0] || 0
   const reprColors = getReprColors(lastPracticed)
-  const lastPracticedMoment = moment(lastPracticed)
-
+  const navigate = useNavigate()
   return (
     <Card
       text="dark"
@@ -37,47 +32,31 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
         display: 'flex',
         flexDirection: 'row',
       }}
+      onClick={() => navigate(`view/${id}`)}
     >
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Subtitle>
           Last Practiced:{' '}
-          {lastPracticed
-            ? `${lastPracticedMoment.format(
-                'MMMM Do YYYY, h:mm a'
-              )}, ${lastPracticedMoment.fromNow()}`
-            : 'never'}
+          {lastPracticed ? getDateAndFrom(lastPracticed) : 'never'}
         </Card.Subtitle>
       </Card.Body>
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <Button
-          variant="warning"
-          style={{ flex: 1, margin: '0 4px 2px 0' }}
-          onClick={() =>
-            store.dispatch(
-              setModal({ selection: ModalSelection.EDIT_REPR, props: { repr } })
-            )
-          }
-        >
-          Edit
-        </Button>
+        <ReprButton
+          type={ReprButtonType.EDIT}
+          actionData={{ selection: ModalSelection.EDIT_REPR, props: { repr } }}
+          style={{ margin: '0 4px 2px 0' }}
+        />
 
-        <Button
-          variant="danger"
-          style={{ flex: 1, margin: '2px 4px 0 0' }}
-          onClick={() => store.dispatch(removeReprSAC(id))}
-        >
-          Delete
-        </Button>
+        <ReprButton
+          type={ReprButtonType.DELETE}
+          actionData={id}
+          style={{ margin: '2px 4px 0 0' }}
+        />
       </div>
 
-      <Button
-        variant="success"
-        onClick={() => store.dispatch(markReprPracticedSAC(id))}
-      >
-        Practiced
-      </Button>
+      <ReprButton type={ReprButtonType.PRACTICED} actionData={id} />
     </Card>
   )
 }

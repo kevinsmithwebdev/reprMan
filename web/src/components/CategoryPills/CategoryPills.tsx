@@ -1,30 +1,49 @@
-import React, { FC } from 'react'
+import React, { CSSProperties, FC } from 'react'
 import { Badge } from 'react-bootstrap'
 import { Categories } from 'types'
 
-export interface CategoryPillsProps {
-  categories: Categories
-  onClick: (c: string) => void
+export enum CategoryPillSize {
+  SMALL = 'SMALL',
+  MEDIUM = 'MEDIUM',
 }
 
-const CategoryPills: FC<CategoryPillsProps> = ({ categories, onClick }) => (
-  <div>
-    {categories.map((c: string) => (
-      <Badge
-        pill
-        key={c}
-        style={{
-          padding: '5px',
-          paddingBottom: '7px',
-          margin: '5px',
-          backgroundColor: 'red',
-        }}
-        onClick={() => onClick(c)}
-      >
-        {c}
-      </Badge>
-    ))}
-  </div>
-)
+const pillStyle = {
+  [CategoryPillSize.SMALL]: {
+    padding: '5px',
+    paddingBottom: '7px',
+    margin: '5px',
+    fontSize: '12px',
+  },
+  [CategoryPillSize.MEDIUM]: {
+    padding: '6px',
+    paddingBottom: '8px',
+    margin: '6px',
+    fontSize: '14px',
+  },
+}
+
+export interface CategoryPillsProps {
+  categories: Categories
+  onClick?: (c: string) => void
+  containerStyle?: CSSProperties
+  size?: CategoryPillSize
+}
+
+const CategoryPills: FC<CategoryPillsProps> = ({
+  categories,
+  onClick = () => {},
+  containerStyle,
+  size = CategoryPillSize.SMALL,
+}) => {
+  return (
+    <div style={containerStyle}>
+      {categories.map((c: string) => (
+        <Badge pill key={c} style={pillStyle[size]} onClick={() => onClick(c)}>
+          {c}
+        </Badge>
+      ))}
+    </div>
+  )
+}
 
 export default CategoryPills

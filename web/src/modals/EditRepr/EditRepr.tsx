@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react'
-import { getComplement } from 'helpers'
-import { Badge, Form } from 'react-bootstrap'
+import { getComplement } from 'utilities'
+import { Form } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { Repr } from 'state/reprs'
@@ -12,7 +12,7 @@ import CategoryLine from './CategoryLine'
 
 export interface EditReprProps {
   closeModal: () => void
-  repr: Repr | undefined
+  repr: Repr
 }
 
 const EditRepr: FC<EditReprProps> = ({ closeModal, repr = {} as Repr }) => {
@@ -119,7 +119,6 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, repr = {} as Repr }) => {
               <div
                 style={{
                   width: '300px',
-                  backgroundColor: 'pink',
                   display: 'flex',
                   marginTop: '10px',
                 }}
