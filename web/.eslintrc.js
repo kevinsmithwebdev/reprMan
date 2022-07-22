@@ -45,7 +45,7 @@ module.exports = {
     '@typescript-eslint/no-unused-vars': 1,
     'import/order': 1,
     'react/require-default-props': 0,
-    'no-console': ['error', { allow: ['warn', 'error', 'info'] }],
+    'no-console': ['warning', { allow: ['warn', 'error', 'info'] }],
   },
   settings: {
     'import/resolver': {

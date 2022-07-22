@@ -3,7 +3,7 @@ import moment from 'moment'
 export const getDateAndFrom = (lastPracticed: number): string => {
   const lastPracticedMoment = moment(lastPracticed)
   return `${lastPracticedMoment.format(
-    'MMMM Do YYYY, h:mm a'
+    'MMMM Do YYYY, h:mm A'
   )}, ${lastPracticedMoment.fromNow()}`
 }
 

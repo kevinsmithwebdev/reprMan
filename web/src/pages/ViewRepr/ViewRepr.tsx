@@ -5,7 +5,7 @@ import ReprButton, { ReprButtonType } from 'components/ReprButton'
 import { MAX_PRACTICED_DATES } from 'constants/index'
 import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
 import { Card } from 'react-bootstrap'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { useReprs } from 'state/reprs'
 import { getDateAndFrom } from 'utilities/dates'
 import { getPracticedStr } from './ViewRepr.helpers'
@@ -13,8 +13,16 @@ import { getPracticedStr } from './ViewRepr.helpers'
 const ViewRepr = () => {
   const { id = '' } = useParams()
   const { getRepr } = useReprs()
+  const navigate = useNavigate()
 
   const repr = getRepr(id)
+
+  // FIXME: better way?
+  if (!repr) {
+    navigate('/', {replace: true})
+    return null
+  }
+
   const { title, categories, dateCreated, datesPracticed, comment } = repr
 
   const practicedStr = getPracticedStr(datesPracticed)
@@ -106,8 +114,9 @@ const Style = {
   },
   datesPracticedWrapper: {
     backgroundColor: '#eee',
-    height: '200px',
-    overflowY: 'scroll' as 'scroll',
-    width: '600px',
+    maxHeight: '200px',
+    overflowY: 'auto' as 'auto',
+    width: '400px',
+    margin: '10px 0',
   },
 }
