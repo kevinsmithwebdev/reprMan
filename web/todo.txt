@@ -1,5 +1,3 @@
-double check delete Repr
-triple check delete all Reprs
 fill out about page
 settings page
 favicon
@@ -8,9 +6,14 @@ i18n (at least for English)
 *** v2
 
 filter list
-sort list?
 
 *** vFuture
 
 backend, accounts
 dark mode
+
+toasts
+  remove repr?
+  delete all?
+
+sort list?
