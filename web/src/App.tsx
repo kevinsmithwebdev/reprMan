@@ -18,9 +18,9 @@ const App = () => {
     <>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/view/:id" element={<ViewRepr />} />
         <Route path="/about" element={<About />} />
+        <Route path="/" element={<Home />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

@@ -1,5 +1,3 @@
-default to home
-Header page and back
 double check delete Repr
 triple check delete all Reprs
 fill out about page
@@ -12,7 +10,7 @@ i18n (at least for English)
 filter list
 sort list?
 
-
 *** vFuture
 
 backend, accounts
+dark mode

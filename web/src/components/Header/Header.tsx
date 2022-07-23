@@ -1,21 +1,43 @@
 import React from 'react'
-import { Container, Navbar } from 'react-bootstrap'
-import Menu from './Menu'
+import { Nav, Navbar } from 'react-bootstrap'
+import { useLocation } from 'react-router-dom'
+
+interface RouteData {
+  name: string
+  path: string
+}
+
+const routes = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: '/about' },
+  { name: 'Settings', path: '/settings' },
+] as RouteData[]
 
 const Header = () => {
-  // FIXME: performance?
-  const helpText = 'Welcome'
+  const location = useLocation()
+  const rootPath = `/${location.pathname.split('/')[1]}`
 
   return (
     <Navbar bg="dark" expand={false} className="mb-3" variant="dark">
-      <Container fluid>
-        <Navbar.Brand href="#">ReprMan - Repertoire Management</Navbar.Brand>
-        <div className="row-1">{helpText}</div>
+      <Navbar.Brand style={{ padding: '0 20px' }} href="/">
+        ReprMan - Repertoire Management
+      </Navbar.Brand>
 
-        <Menu />
-      </Container>
+      <Nav
+        activeKey={rootPath}
+        className="justify-content-end flex-row"
+        style={{ padding: '0 30px' }}
+      >
+        {routes.map(renderLink)}
+      </Nav>
     </Navbar>
   )
 }
 
 export default Header
+
+const renderLink = (route: RouteData) => (
+  <Nav.Item key={route.name} as="li" style={{ padding: '0 15px' }}>
+    <Nav.Link href={route.path}>{route.name.toUpperCase()}</Nav.Link>
+  </Nav.Item>
+)

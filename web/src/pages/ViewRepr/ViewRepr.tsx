@@ -19,7 +19,7 @@ const ViewRepr = () => {
 
   // FIXME: better way?
   if (!repr) {
-    navigate('/', {replace: true})
+    navigate('/', { replace: true })
     return null
   }
 
