@@ -59,6 +59,7 @@ const About = () => {
           <li>mobile versions</li>
           <li>remote storage - all versions share the same list</li>
           <li>sharing</li>
+          <li>dark mode</li>
         </ul>
       </Card.Text>
 
