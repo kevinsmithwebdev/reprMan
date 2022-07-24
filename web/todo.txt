@@ -1,5 +1,5 @@
-fill out about page
 settings page
+conditional add button
 favicon
 i18n (at least for English)
 
