@@ -1,15 +1,17 @@
 import { createReducer } from '@reduxjs/toolkit'
-// import {clearSelected, setSelected} from './settings.actions'
+import { DEFAULT_DAYS_WARNING, DEFAULT_WARNING_RATIO } from 'constants/index'
+import { resetSettingsAC, setSettingsAC } from './settings.actions'
 import { Settings } from './settings.types'
-// import fixture from './__fixtures/reprs.json'
-// import {Selected} from './reprs.types'
 
 const initialState = {
-  daysOverdueTrigger: 30,
+  practiceDelay: DEFAULT_DAYS_WARNING,
+  warningRatio: DEFAULT_WARNING_RATIO,
 } as Settings
 
 export default createReducer(initialState, (builder) => {
-  builder.addCase('asdf', () => {
-    return initialState
-  })
+  builder.addCase(resetSettingsAC, () => initialState)
+  builder.addCase(setSettingsAC, (state, { payload }) => ({
+    ...state,
+    ...payload,
+  }))
 })

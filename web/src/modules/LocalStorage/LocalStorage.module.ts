@@ -1,7 +1,7 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-useless-constructor */
-import { Reprs } from 'types'
-import { LocalStorageKey } from './LocalStorage.types'
+import { Reprs, Settings } from 'types'
+import { LocalStorageKey, LS_KEY_PREFIX } from './LocalStorage.types'
 
 class LocalStorageModule {
   private static instance: LocalStorageModule
@@ -20,15 +20,18 @@ class LocalStorageModule {
   // *************
 
   private async getLocalStorage(key: LocalStorageKey): Promise<any> {
-    const value = localStorage.getItem(key)
-    return value
+    return localStorage.getItem(this.buildKey(key))
   }
 
   private async setLocalStorage(
     key: LocalStorageKey,
     value: any
   ): Promise<void> {
-    localStorage.setItem(key, JSON.stringify(value))
+    localStorage.setItem(this.buildKey(key), JSON.stringify(value))
+  }
+
+  private buildKey(key: LocalStorageKey) {
+    return `${LS_KEY_PREFIX}/${key}`
   }
 
   // *************
@@ -44,6 +47,23 @@ class LocalStorageModule {
 
   async setReprs(value: Reprs): Promise<void> {
     await this.setLocalStorage(LocalStorageKey.REPRS, value)
+  }
+
+  // *************
+
+  async getSettings(): Promise<Settings> {
+    const value = JSON.parse(
+      await this.getLocalStorage(LocalStorageKey.SETTINGS)
+    )
+
+    if (!value) {
+      return {} as Settings
+    }
+    return value
+  }
+
+  async setSettings(value: Settings): Promise<void> {
+    await this.setLocalStorage(LocalStorageKey.SETTINGS, value)
   }
 }
 

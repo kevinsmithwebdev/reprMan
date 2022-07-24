@@ -10,7 +10,8 @@ export interface Repr {
 export type Reprs = Repr[]
 
 export interface Settings {
-  daysOverdueTrigger: 30
+  practiceDelay: number
+  warningRatio: number
 }
 
 export type Categories = string[]

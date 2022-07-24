@@ -6,5 +6,3 @@ export const selectSettings = createSelector(
   (state: RootState) => state[NAMESPACE],
   (data) => data
 )
-
-export const dummy = 127
