@@ -63,7 +63,7 @@ const ViewRepr = () => {
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <ReprButton
           type={ReprButtonType.EDIT}
-          actionData={{ selection: ModalSelection.EDIT_REPR, props: { repr } }}
+          actionData={{ selection: ModalSelection.EDIT_REPR, props: { id } }}
           style={{ flex: 1, margin: '5px', minWidth: '400px' }}
         />
 

@@ -3,27 +3,32 @@ import { getComplement } from 'utilities'
 import { Form } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
-import { Repr } from 'state/reprs'
+import { Repr, useReprs } from 'state/reprs'
 import store from 'state/store'
 import { addReprSAC } from 'state/sagas/reprs/reprs.actions'
 import { useCategories } from 'state/categories'
 import CategoryPills from 'components/CategoryPills'
+import { MAX_FREE_REPRS } from 'constants/index'
 import CategoryLine from './CategoryLine'
 
 export interface EditReprProps {
   closeModal: () => void
-  repr: Repr
+  id: string
 }
 
-const EditRepr: FC<EditReprProps> = ({ closeModal, repr = {} as Repr }) => {
+const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const { categories: availableCategories } = useCategories()
   const [enteredCategory, setEnteredCategory] = useState('')
+  const { getRepr, reprs } = useReprs()
 
-  const [title, setTitle] = useState(repr!.title || '')
+  const repr = getRepr(id)
+  const numReprs = reprs.length
+
+  const [title, setTitle] = useState(repr.title || '')
   const [categories, setCategories] = useState(
-    repr!.categories || ([] as string[])
+    repr.categories || ([] as string[])
   )
-  const [comment, setComment] = useState(repr!.comment || '')
+  const [comment, setComment] = useState(repr.comment || '')
 
   const removeCategory = (value: string) => {
     setCategories(categories.filter((c) => c !== value))
@@ -49,6 +54,22 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, repr = {} as Repr }) => {
   }
 
   const categoriesComplement = getComplement(availableCategories, categories)
+
+  if (numReprs >= MAX_FREE_REPRS) {
+    return (
+      <>
+        <Modal.Header closeButton>
+          <Modal.Title>Allowed Reprs Exceeded</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>
+            For the free version of the app (currently the only version), there
+            is a limit of {MAX_FREE_REPRS} free reprs.
+          </p>
+        </Modal.Body>
+      </>
+    )
+  }
 
   return (
     <>
