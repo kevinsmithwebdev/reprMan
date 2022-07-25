@@ -72,5 +72,8 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "2.7.1",
     "repr": "^0.0.0"
-  }
+  },
+  "resolutions": {
+    "autoprefixer": "10.4.5"
+}
 }
