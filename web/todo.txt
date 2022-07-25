@@ -1,7 +1,8 @@
-i18n (at least for English)
-logos
+ci/cd
 
-tests
+unit tests
+
+e2e tests
 
 *** v2
 
