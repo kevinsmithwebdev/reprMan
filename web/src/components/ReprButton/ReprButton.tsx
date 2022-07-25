@@ -1,3 +1,4 @@
+import { useL10n } from 'modules/Localization'
 import React, { FC } from 'react'
 import { Button } from 'react-bootstrap'
 import { setModal } from 'state/modal'
@@ -19,25 +20,27 @@ export enum ReprButtonType {
   PRACTICED = 'PRACTICED',
 }
 
-const typeDataMap = {
-  [ReprButtonType.EDIT]: {
-    variant: 'warning',
-    actionCreator: setModal,
-    text: 'Edit',
-  },
-  [ReprButtonType.DELETE]: {
-    variant: 'danger',
-    actionCreator: removeReprSAC,
-    text: 'Delete',
-  },
-  [ReprButtonType.PRACTICED]: {
-    variant: 'success',
-    actionCreator: markReprPracticedSAC,
-    text: 'Practiced',
-  },
-}
-
 const ReprButton: FC<ReprButtonProps> = ({ type, actionData, style }) => {
+  const { t } = useL10n()
+
+  const typeDataMap = {
+    [ReprButtonType.EDIT]: {
+      variant: 'warning',
+      actionCreator: setModal,
+      text: t('buttons.edit'),
+    },
+    [ReprButtonType.DELETE]: {
+      variant: 'danger',
+      actionCreator: removeReprSAC,
+      text: t('buttons.delete'),
+    },
+    [ReprButtonType.PRACTICED]: {
+      variant: 'success',
+      actionCreator: markReprPracticedSAC,
+      text: t('buttons.practiced'),
+    },
+  }
+
   const typeData = typeDataMap[type]
   return (
     <Button

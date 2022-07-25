@@ -1,3 +1,4 @@
+import { useL10n } from 'modules/Localization'
 import React from 'react'
 import { Nav, Navbar } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
@@ -7,20 +8,21 @@ interface RouteData {
   path: string
 }
 
-const routes = [
-  { name: 'Home', path: '/' },
-  { name: 'About', path: '/about' },
-  { name: 'Settings', path: '/settings' },
-] as RouteData[]
-
 const Header = () => {
   const location = useLocation()
   const rootPath = `/${location.pathname.split('/')[1]}`
+  const { t } = useL10n()
+
+  const routes = [
+    { name: t('pages.home.title'), path: '/' },
+    { name: t('pages.about.title'), path: '/about' },
+    { name: t('pages.settings.title'), path: '/settings' },
+  ] as RouteData[]
 
   return (
     <Navbar bg="dark" expand={false} className="mb-3" variant="dark">
       <Navbar.Brand style={{ padding: '0 20px' }} href="/">
-        ReprMan - Repertoire Management
+        {`${t('brand.reprMan')} - ${t('brand.repertoireManagement')}`}
       </Navbar.Brand>
 
       <Nav

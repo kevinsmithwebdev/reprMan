@@ -7,6 +7,6 @@ export const useReprs = () => {
   return {
     reprs,
     // FIXME: use own selector
-    getRepr: (id: string) => ((reprs.find((el) => el.id === id)) || {}) as Repr,
+    getRepr: (id: string) => (reprs.find((el) => el.id === id) || {}) as Repr,
   }
 }

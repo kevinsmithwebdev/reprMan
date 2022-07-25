@@ -8,6 +8,7 @@ import { Card } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useReprs } from 'state/reprs'
 import { getDateAndFrom } from 'utilities/dates'
+import { useL10n } from 'modules/Localization'
 import { getPracticedStr } from './ViewRepr.helpers'
 
 const ViewRepr = () => {
@@ -27,28 +28,46 @@ const ViewRepr = () => {
 
   const practicedStr = getPracticedStr(datesPracticed)
 
+  const { t } = useL10n()
+
   return (
-    <Card style={{ margin: '5px', padding: '5px', backgroundColor: '#f6f6f6' }}>
-      <Card.Title>View Repr</Card.Title>
-      {renderCardBody('Title', title)}
+    <Card
+      style={{
+        margin: '5px',
+        padding: '5px',
+        backgroundColor: '#f6f6f6',
+        maxWidth: '600px',
+      }}
+    >
+      <Card.Title>{t('pages.viewRepr.title')}</Card.Title>
+
+      {renderCardBody(t('pages.viewRepr.data.title'), title)}
 
       {renderCardBody(
-        'Categories',
-        undefined,
-        <CategoryPills
-          categories={categories}
-          containerStyle={{ paddingTop: '15px' }}
-          size={CategoryPillSize.MEDIUM}
-        />
+        t('pages.viewRepr.data.categories'),
+        categories.length ? undefined : t('pages.viewRepr.data.noCategories'),
+        categories.length ? (
+          <CategoryPills
+            categories={categories}
+            containerStyle={{ paddingTop: '15px' }}
+            size={CategoryPillSize.MEDIUM}
+          />
+        ) : undefined
       )}
 
-      {renderCardBody('Comment', comment || '[No comment]')}
-
-      {renderCardBody('Date Created', getDateAndFrom(dateCreated))}
+      {renderCardBody(
+        t('pages.viewRepr.data.comment'),
+        comment || t('pages.viewRepr.data.noComment')
+      )}
 
       {renderCardBody(
-        'Dates Practiced',
-        `Note that we only store the last ${MAX_PRACTICED_DATES} practices for a repr.`,
+        t('pages.viewRepr.data.dateCreated'),
+        getDateAndFrom(dateCreated)
+      )}
+
+      {renderCardBody(
+        t('pages.viewRepr.data.datesPracticed'),
+        t('pages.viewRepr.data.noteMaxRepr', { max: MAX_PRACTICED_DATES }),
         <div style={Style.datesPracticedWrapper}>
           {datesPracticed.map((d: number) => (
             <Card.Text key={d} style={Style.dataWrapper}>
@@ -58,7 +77,8 @@ const ViewRepr = () => {
         </div>
       )}
 
-      {!!practicedStr && renderCardBody('Practice Data', practicedStr)}
+      {!!practicedStr &&
+        renderCardBody(t('pages.viewRepr.data.practiceData'), practicedStr)}
 
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         <ReprButton

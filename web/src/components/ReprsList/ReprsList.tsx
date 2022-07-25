@@ -1,10 +1,12 @@
 import React, { FC } from 'react'
 import Repr from 'components/ReprLine'
 import { useReprs } from 'state/reprs'
+import { useL10n } from 'modules/Localization'
 import { ReprsListProps } from './ReprsList.types'
 
 const ReprsList: FC<ReprsListProps> = () => {
   const { reprs } = useReprs()
+  const { t } = useL10n()
 
   const hasReprs = !!reprs.length
 
@@ -13,7 +15,7 @@ const ReprsList: FC<ReprsListProps> = () => {
       {hasReprs ? (
         reprs.map((r) => <Repr key={r.id} repr={r} />)
       ) : (
-        <p>No reprs found.</p>
+        <p>{t('components.reprsList.noReprs')}</p>
       )}
     </div>
   )

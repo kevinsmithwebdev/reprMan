@@ -11,6 +11,7 @@ import {
 } from 'state/sagas/settings/settings.actions'
 import { useSettings } from 'state/settings'
 import { clearAllReprsSAC } from 'state/sagas/reprs/reprs.actions'
+import { useL10n } from 'modules/Localization'
 import SettingsCardNumber from './SettingsCardNumber'
 
 const Settings = () => {
@@ -51,20 +52,21 @@ const Settings = () => {
     }
   }
 
+  const { t } = useL10n()
   return (
     <div style={{ margin: '10px' }}>
-      <h2>Settings</h2>
+      <h2>{t('pages.settings.title')}</h2>
       <SettingsCardNumber
         onChange={setPracticeDelay}
         value={practiceDelayValue}
-        subtitle="Practiced Delay"
-        text="After how many days do you want to be alerted of a need to practice?"
+        subtitle={t('pages.settings.practiceDelay.subtitle')}
+        text={t('pages.settings.practiceDelay.text')}
       />
       <SettingsCardNumber
         onChange={setWarningRatio}
         value={warningRatioValue}
-        subtitle="Warning Ratio"
-        text="After what portion of the practice delay time do you want to be warned? If you set it at 0.5, then after half of the time is lapsed, the card will turn orange to warn you."
+        subtitle={t('pages.settings.warningRatio.subtitle')}
+        text={t('pages.settings.warningRatio.text')}
         step={0.1}
       />
       <div style={{}}>
@@ -80,26 +82,28 @@ const Settings = () => {
             )
           }
         >
-          Save Settings Changes
+          {t('pages.settings.saveSettingsChanges')}
         </Button>
 
         <Button
           style={{ margin: '5px' }}
-          variant="danger"
+          variant="warning"
           onClick={() => {
             setPracticeDelayValue(previousSettings.practiceDelay)
             setWarningRatioValue(previousSettings.warningRatio)
           }}
         >
-          Clear Settings Changes
+          {t('pages.settings.clearSettingsChanges')}
         </Button>
       </div>
 
       <hr />
 
-      <Card bg="light">
-        <Card.Title>Reset All Settings to Default</Card.Title>
-        <Card.Title>This will reset the settings to their defaults.</Card.Title>
+      <Card bg="light" style={{ maxWidth: '600px' }}>
+        <Card.Title>{t('pages.settings.resetSettings.title')}</Card.Title>
+        <Card.Subtitle>
+          {t('pages.settings.resetSettings.subtitle')}
+        </Card.Subtitle>
         <Card.Body>
           <Button
             variant="warning"
@@ -107,16 +111,18 @@ const Settings = () => {
               store.dispatch(resetSettingsSAC())
             }}
           >
-            Reset All Settings
+            {t('pages.settings.resetSettings.button')}
           </Button>
         </Card.Body>
       </Card>
 
       <hr />
 
-      <Card bg="light">
-        <Card.Title>Reset All Reprs</Card.Title>
-        <Card.Title>Delete All Reprs and Categories</Card.Title>
+      <Card bg="light" style={{ maxWidth: '600px' }}>
+        <Card.Title>{t('pages.settings.deleteAllReprs.title')}</Card.Title>
+        <Card.Subtitle>
+          {t('pages.settings.deleteAllReprs.subtitle')}
+        </Card.Subtitle>
         <Card.Body>
           <Button
             variant="danger"
@@ -124,7 +130,7 @@ const Settings = () => {
               store.dispatch(clearAllReprsSAC())
             }}
           >
-            Delete All Reprs
+            {t('pages.settings.deleteAllReprs.button')}
           </Button>
         </Card.Body>
       </Card>

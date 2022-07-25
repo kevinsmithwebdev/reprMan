@@ -1,5 +1,7 @@
-favicon
 i18n (at least for English)
+logos
+
+tests
 
 *** v2
 

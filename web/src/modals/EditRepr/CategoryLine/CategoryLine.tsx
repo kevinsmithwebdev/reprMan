@@ -3,7 +3,6 @@ import { Button, Form } from 'react-bootstrap'
 
 interface CategoryLineProps {
   category: string
-  // eslint-disable-next-line no-unused-vars
   removeCategory: (value: string) => void
 }
 

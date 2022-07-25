@@ -2,6 +2,7 @@ import React, { FC } from 'react'
 import { ConfirmationModalResponse } from 'modals/ModalContainer/ModalContainer.types'
 import { Button, Modal } from 'react-bootstrap'
 import store from 'state/store'
+import { useL10n } from 'modules/Localization'
 
 export interface ConfirmationProps {
   closeModal: () => void
@@ -10,6 +11,7 @@ export interface ConfirmationProps {
 }
 
 const Confirmation: FC<ConfirmationProps> = ({ closeModal, title, body }) => {
+  const { t } = useL10n()
   return (
     <>
       <Modal.Header closeButton>
@@ -25,7 +27,7 @@ const Confirmation: FC<ConfirmationProps> = ({ closeModal, title, body }) => {
             closeModal()
           }}
         >
-          Yes
+          {t('common.yes')}
         </Button>
         <Button
           style={{ flex: 1 }}
@@ -35,7 +37,7 @@ const Confirmation: FC<ConfirmationProps> = ({ closeModal, title, body }) => {
             closeModal()
           }}
         >
-          No
+          {t('common.no')}
         </Button>
       </Modal.Footer>
     </>

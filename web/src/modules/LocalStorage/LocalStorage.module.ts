@@ -20,18 +20,14 @@ class LocalStorageModule {
   // *************
 
   private async getLocalStorage(key: LocalStorageKey): Promise<any> {
-    return localStorage.getItem(this.buildKey(key))
+    return localStorage.getItem(_buildKey(key))
   }
 
   private async setLocalStorage(
     key: LocalStorageKey,
     value: any
   ): Promise<void> {
-    localStorage.setItem(this.buildKey(key), JSON.stringify(value))
-  }
-
-  private buildKey(key: LocalStorageKey) {
-    return `${LS_KEY_PREFIX}/${key}`
+    localStorage.setItem(_buildKey(key), JSON.stringify(value))
   }
 
   // *************
@@ -68,3 +64,5 @@ class LocalStorageModule {
 }
 
 export default LocalStorageModule
+
+const _buildKey = (key: LocalStorageKey) => `${LS_KEY_PREFIX}/${key}`

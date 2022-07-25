@@ -9,6 +9,7 @@ import { addReprSAC } from 'state/sagas/reprs/reprs.actions'
 import { useCategories } from 'state/categories'
 import CategoryPills from 'components/CategoryPills'
 import { MAX_FREE_REPRS } from 'constants/index'
+import { useL10n } from 'modules/Localization'
 import CategoryLine from './CategoryLine'
 
 export interface EditReprProps {
@@ -17,6 +18,7 @@ export interface EditReprProps {
 }
 
 const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
+  const { t } = useL10n()
   const { categories: availableCategories } = useCategories()
   const [enteredCategory, setEnteredCategory] = useState('')
   const { getRepr, reprs } = useReprs()
@@ -59,13 +61,10 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
     return (
       <>
         <Modal.Header closeButton>
-          <Modal.Title>Allowed Reprs Exceeded</Modal.Title>
+          <Modal.Title>{t('modals.editRepr.exceeded.title')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>
-            For the free version of the app (currently the only version), there
-            is a limit of {MAX_FREE_REPRS} free reprs.
-          </p>
+          {t('modals.editRepr.exceeded.body', { num: MAX_FREE_REPRS })}
         </Modal.Body>
       </>
     )
@@ -74,7 +73,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   return (
     <>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Repr</Modal.Title>
+        <Modal.Title>{t('modals.editReprs.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -82,7 +81,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             <Form.Label style={{ fontWeight: 800 }}>Title:</Form.Label>
             <Form.Control
               type="title"
-              placeholder="Enter title"
+              placeholder={t('modals.editRepr.enterTitlePlaceHolder')}
               value={title}
               onChange={({ target: { value } }) => setTitle(value)}
             />
@@ -100,7 +99,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                   fontStyle: 'italic',
                 }}
               >
-                Current:
+                {t('modals.editRepr.current')}:
               </Form.Label>
               {categories.length ? (
                 categories.map((c) => (
@@ -115,7 +114,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                   className="text-muted"
                   style={{ paddingLeft: '10px' }}
                 >
-                  No categories selected.
+                  {t('modals.editRepr.noCategoriesSelected')}:
                 </Form.Text>
               )}
 
@@ -123,7 +122,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                 <>
                   <br />
                   <Form.Label style={{ fontWeight: 600, fontStyle: 'italic' }}>
-                    Available:
+                    {t('modals.editRepr.available')}:
                   </Form.Label>
                   <CategoryPills
                     categories={categoriesComplement}
@@ -135,7 +134,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
               <br />
 
               <Form.Label style={{ fontWeight: 600, fontStyle: 'italic' }}>
-                Add New Category:
+                {t('modals.editRepr.addNewCategory')}:
               </Form.Label>
               <div
                 style={{
@@ -147,7 +146,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                 <Form.Control
                   value={enteredCategory}
                   type="newCategory"
-                  placeholder="Enter new category"
+                  placeholder={t('modals.editRepr.enterCategoryPlaceholder')}
                   style={{}}
                   onChange={({ target: { value } }) =>
                     setEnteredCategory(value)
@@ -176,7 +175,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             <Form.Label style={{ fontWeight: 800 }}>Comment:</Form.Label>
             <Form.Control
               type="title"
-              placeholder="Enter comment"
+              placeholder={t('modals.enterCommentPlaceholder')}
               value={comment}
               onChange={({ target: { value } }) => setComment(value)}
             />
@@ -185,7 +184,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={closeModal}>
-          Close without Save
+          {t('common.closeWithoutSave')}
         </Button>
         <Button
           variant="success"
@@ -202,7 +201,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             closeModal()
           }}
         >
-          Save
+          {t('common.save')}
         </Button>
       </Modal.Footer>
     </>

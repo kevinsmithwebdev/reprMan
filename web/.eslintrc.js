@@ -14,7 +14,7 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint'],
-  ignorePatterns: ['*.css'],
+  ignorePatterns: ['*.css', '*.json'],
   rules: {
     semi: ['error', 'never'],
     'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],

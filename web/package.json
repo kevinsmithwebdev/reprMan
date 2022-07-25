@@ -13,6 +13,7 @@
     "@types/react-dom": "^18.0.5",
     "bootstrap": "^5.1.3",
     "eslint-import-resolver-typescript": "^3.2.5",
+    "i18next": "^21.8.14",
     "moment": "^2.29.3",
     "react": "^18.1.0",
     "react-bootstrap": "^2.4.0",
@@ -34,7 +35,7 @@
     "test:watch": "react-scripts test",
     "prettier": "prettier --write src",
     "lint": "eslint ./src/**  --max-warnings=0",
-    "inspect": "yarn prettier && yarn lint && yarn test"
+    "inspect": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent"
   },
   "eslintConfig": {
     "extends": [

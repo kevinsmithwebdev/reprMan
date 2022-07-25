@@ -7,6 +7,7 @@ import { DEFAULT_DAYS_WARNING } from 'constants/index'
 import { useNavigate } from 'react-router-dom'
 import { getDateAndFrom } from 'utilities/dates'
 import ReprButton, { ReprButtonType } from 'components/ReprButton'
+import { useL10n } from 'modules/Localization'
 
 export interface ReprLineProps {
   repr: Repr
@@ -15,6 +16,7 @@ export interface ReprLineProps {
 type ReprColor = { bg: string; border: string }
 
 const ReprLine: FC<ReprLineProps> = ({ repr }) => {
+  const { t } = useL10n()
   const { title, id, datesPracticed } = repr
   const lastPracticed = datesPracticed[0] || 0
   const reprColors = getReprColors(lastPracticed)
@@ -37,8 +39,8 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
       <Card.Body>
         <Card.Title>{title}</Card.Title>
         <Card.Subtitle>
-          Last Practiced:{' '}
-          {lastPracticed ? getDateAndFrom(lastPracticed) : 'never'}
+          {t('common.lastPracticed')}:{' '}
+          {lastPracticed ? getDateAndFrom(lastPracticed) : t('common.never')}
         </Card.Subtitle>
       </Card.Body>
 

@@ -4,8 +4,11 @@ import { Button } from 'react-bootstrap'
 import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
 import store from 'state/store'
 import { setModal } from 'state/modal'
+import { useL10n } from 'modules/Localization'
 
 const Home = () => {
+  const { t } = useL10n()
+
   return (
     <>
       <ReprsList reprs={[]} />
@@ -18,7 +21,7 @@ const Home = () => {
           )
         }
       >
-        + Add Repr
+        {t('buttons.addReprButton')}
       </Button>
     </>
   )
