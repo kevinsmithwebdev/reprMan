@@ -31,10 +31,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
+
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
+
     "prettier": "prettier --write src",
+
     "lint": "eslint ./src/**  --max-warnings=0",
+
     "inspect": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent"
   },
   "eslintConfig": {
