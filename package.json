@@ -37,7 +37,7 @@
 
     "prettier": "prettier --write src",
 
-    "lint": "eslint ./src/**  --max-warnings=0",
+    "lint": "eslint ./src/**/*.{js,jsx,ts,tsx} --max-warnings=0",
 
     "inspect": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent"
   },
@@ -70,6 +70,7 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
+    "gh-pages": "^4.0.0",
     "prettier": "2.7.1",
     "repr": "^0.0.0"
   }
