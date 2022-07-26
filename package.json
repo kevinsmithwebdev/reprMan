@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.1.0",
+  "version": "0.1.5",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",
@@ -29,16 +29,13 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "rm -rf build && react-scripts build",
     "eject": "react-scripts eject",
-
+    "nuke": "rm -rf node_modules && rm -f yarn.lock && yarn install",
     "test": "react-scripts test --watchAll=false",
     "test:watch": "react-scripts test",
-
     "prettier": "prettier --write src",
-
     "lint": "eslint ./src/**/*.{js,jsx,ts,tsx} --max-warnings=0",
-
     "inspect": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent"
   },
   "eslintConfig": {
@@ -76,5 +73,5 @@
   },
   "resolutions": {
     "autoprefixer": "10.4.5"
-}
+  }
 }

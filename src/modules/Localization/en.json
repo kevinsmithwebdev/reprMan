@@ -1,8 +1,10 @@
 {
   "brand": {
+    "copyright": "Copyright ©{{year}}",
     "repertoireManagement": "Repertoire Management",
     "repr": "Repr",
-    "reprMan": "ReprMan"
+    "reprMan": "ReprMan",
+    "versionNumber": "Version Number: {{versionNumber}}"
   },
   "buttons": {
     "addReprButton": "+ Add Repr",

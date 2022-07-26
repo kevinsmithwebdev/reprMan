@@ -12,6 +12,7 @@ import {
 import { useSettings } from 'state/settings'
 import { clearAllReprsSAC } from 'state/sagas/reprs/reprs.actions'
 import { useL10n } from 'modules/Localization'
+import packageJson from '../../../package.json'
 import SettingsCardNumber from './SettingsCardNumber'
 
 const Settings = () => {
@@ -134,6 +135,14 @@ const Settings = () => {
           </Button>
         </Card.Body>
       </Card>
+      <hr />
+      <Card.Body>
+        {`${t('brand.copyright', {
+          year: '2022',
+        })} - ${t('brand.versionNumber', {
+          versionNumber: packageJson.version,
+        })}`}
+      </Card.Body>
     </div>
   )
 }

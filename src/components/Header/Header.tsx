@@ -1,5 +1,5 @@
-import { useL10n } from 'modules/Localization'
 import React from 'react'
+import { useL10n } from 'modules/Localization'
 import { Nav, Navbar } from 'react-bootstrap'
 import { useLocation } from 'react-router-dom'
 
