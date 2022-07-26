@@ -15,7 +15,7 @@ const ReprsList: FC<ReprsListProps> = () => {
       {hasReprs ? (
         reprs.map((r) => <Repr key={r.id} repr={r} />)
       ) : (
-        <p>{t('components.reprsList.noReprs')}</p>
+        <p style={{ padding: '15px' }}>{t('components.reprsList.noReprs')}</p>
       )}
     </div>
   )
