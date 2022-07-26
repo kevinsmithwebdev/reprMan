@@ -81,7 +81,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             <Form.Label style={{ fontWeight: 800 }}>Title:</Form.Label>
             <Form.Control
               type="title"
-              placeholder={t('modals.editRepr.enterTitlePlaceHolder')}
+              placeholder={t('modals.editRepr.enterTitlePlaceholder')}
               value={title}
               onChange={({ target: { value } }) => setTitle(value)}
             />
@@ -175,18 +175,23 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             <Form.Label style={{ fontWeight: 800 }}>Comment:</Form.Label>
             <Form.Control
               type="title"
-              placeholder={t('modals.enterCommentPlaceholder')}
+              placeholder={t('modals.editRepr.enterCommentPlaceholder')}
               value={comment}
               onChange={({ target: { value } }) => setComment(value)}
             />
           </Form.Group>
         </Form>
       </Modal.Body>
-      <Modal.Footer>
-        <Button variant="danger" onClick={closeModal}>
-          {t('common.closeWithoutSave')}
+      <Modal.Footer style={{ display: 'flex', justifyContent: 'space-around' }}>
+        <Button
+          variant="danger"
+          onClick={closeModal}
+          style={{ flex: 1, maxWidth: '200px' }}
+        >
+          {t('buttons.closeWithoutSave')}
         </Button>
         <Button
+          style={{ flex: 1, maxWidth: '200px' }}
           variant="success"
           onClick={() => {
             const thisRepr = {
@@ -201,7 +206,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             closeModal()
           }}
         >
-          {t('common.save')}
+          {t('buttons.save')}
         </Button>
       </Modal.Footer>
     </>
