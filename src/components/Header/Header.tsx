@@ -20,7 +20,13 @@ const Header = () => {
   ] as RouteData[]
 
   return (
-    <Navbar bg="dark" expand={false} className="mb-3" variant="dark">
+    <Navbar
+      bg="dark"
+      expand={false}
+      className="mb-3"
+      variant="dark"
+      style={{ position: 'sticky', top: 0 }}
+    >
       <Navbar.Brand style={{ padding: '0 20px' }} href="/">
         {`${t('brand.reprMan')} - ${t('brand.repertoireManagement')}`}
       </Navbar.Brand>

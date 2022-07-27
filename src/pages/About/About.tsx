@@ -23,6 +23,14 @@ const About = () => {
 
       <AboutSection slug="pages.about.futureSection" />
 
+      <ul>
+        <li>accounts</li>
+        <li>mobile versions</li>
+        <li>remote storage - all versions share the same list</li>
+        <li>sharing</li>
+        <li>dark mode</li>
+      </ul>
+
       <Card.Text>{t('pages.about.suggestions', { email: MY_EMAIL })}</Card.Text>
     </Card.Body>
   )

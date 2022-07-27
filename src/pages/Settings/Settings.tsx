@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import {
   DEFAULT_DAYS_WARNING_MIN,
   DEFAULT_DAYS_WARNING_MAX,
+  COPYRIGHT_YEAR,
 } from 'constants/index'
 import { Button, Card } from 'react-bootstrap'
 import store from 'state/store'
@@ -138,7 +139,7 @@ const Settings = () => {
       <hr />
       <Card.Body>
         {`${t('brand.copyright', {
-          year: '2022',
+          year: COPYRIGHT_YEAR,
         })} - ${t('brand.versionNumber', {
           versionNumber: packageJson.version,
         })}`}

@@ -9,3 +9,5 @@ export const DEFAULT_WARNING_RATIO = 0.5
 export const MAX_PRACTICED_DATES = 100
 
 export const MY_EMAIL = 'kevinsmithwebdev@gmail.com'
+
+export const COPYRIGHT_YEAR = '2022'

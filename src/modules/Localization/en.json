@@ -1,6 +1,6 @@
 {
   "brand": {
-    "copyright": "Copyright ©{{year}}",
+    "copyright": "copyright ©{{year}}",
     "repertoireManagement": "Repertoire Management",
     "repr": "Repr",
     "reprMan": "ReprMan",
@@ -93,12 +93,7 @@
             "There will always be a free version of the app, but eventually there will be a more feature rich version.",
             "I will have to charge something to cover expenses (and make a little), but will try to keep prices low.",
             "Some things that are being considered:"
-          ],
-          ["• accounts"],
-          ["• mobile versions"],
-          ["• remote storage - all versions share the same list"],
-          ["• sharing"],
-          ["• dark mode"]
+          ]
         ]
       },
       "suggestions": "If you have any suggestions, please contact me at {{email}}."
