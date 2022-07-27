@@ -9,6 +9,7 @@ import Home from 'pages/Home'
 import About from 'pages/About'
 import Settings from 'pages/Settings'
 import ViewRepr from 'pages/ViewRepr'
+import Footer from 'components/Footer'
 
 const App = () => {
   useEffect(() => {
@@ -16,20 +17,31 @@ const App = () => {
   })
 
   return (
-    <>
+    <main
+      style={{
+        display: 'flex',
+        minHeight: '100vh',
+        flexDirection: 'column',
+      }}
+    >
       <Header />
-      <Routes>
-        <Route path="/view/:id" element={<ViewRepr />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/settings" element={<Settings />} />
 
-        <Route path="/" element={<Home />} />
+      <div style={{ flex: 1 }}>
+        <Routes>
+          <Route path="/view/:id" element={<ViewRepr />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/settings" element={<Settings />} />
 
-        <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+          <Route path="/" element={<Home />} />
 
-      <ModalContainer />
-    </>
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+
+        <ModalContainer />
+      </div>
+
+      <Footer />
+    </main>
   )
 }
 
