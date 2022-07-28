@@ -35,8 +35,15 @@ const CategoryPills: FC<CategoryPillsProps> = ({
   containerStyle,
   size = CategoryPillSize.SMALL,
 }) => {
+  const aggregateStyle: React.CSSProperties = {
+    display: 'flex',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    ...containerStyle,
+  }
+
   return (
-    <div style={containerStyle}>
+    <div style={aggregateStyle}>
       {categories.map((c: string) => (
         <Badge pill key={c} style={pillStyle[size]} onClick={() => onClick(c)}>
           {c}

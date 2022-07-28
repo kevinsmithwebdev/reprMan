@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom'
 import { getDateAndFrom } from 'utilities/dates'
 import ReprButton, { ReprButtonType } from 'components/ReprButton'
 import { useL10n } from 'modules/Localization'
+import CategoryPills from 'components/CategoryPills'
 
 export interface ReprLineProps {
   repr: Repr
@@ -17,7 +18,7 @@ type ReprColor = { bg: string; border: string }
 
 const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { t } = useL10n()
-  const { title, id, datesPracticed } = repr
+  const { title, id, datesPracticed, categories, comment } = repr
   const lastPracticed = datesPracticed[0] || 0
   const reprColors = getReprColors(lastPracticed)
   const navigate = useNavigate()
@@ -33,16 +34,35 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
         backgroundColor: reprColors.bg,
         display: 'flex',
         flexDirection: 'row',
+        alignItems: 'center',
       }}
       onClick={() => navigate(`view/${id}`)}
     >
-      <Card.Body>
-        <Card.Title>{title}</Card.Title>
-        <Card.Subtitle>
-          {t('common.lastPracticed')}:{' '}
+      <Card.Body style={{ minWidth: '50%' }}>
+        <Card.Title style={{ fontWeight: 700 }}>{title}</Card.Title>
+        {!!comment && (
+          <Card.Subtitle style={{ padding: '5px 0' }}>
+            <span style={{ fontWeight: 700 }}>
+              {`${t('pages.viewRepr.data.comment')}: `}
+            </span>
+            <span style={{ fontStyle: 'italic' }}>{comment}</span>
+          </Card.Subtitle>
+        )}
+        <Card.Subtitle style={{ padding: '2px 0' }}>
+          <span style={{ fontWeight: 700 }}>{t('common.lastPracticed')}:</span>{' '}
           {lastPracticed ? getDateAndFrom(lastPracticed) : t('common.never')}
         </Card.Subtitle>
       </Card.Body>
+
+      {!!categories.length && (
+        <CategoryPills
+          categories={categories}
+          containerStyle={{
+            width: '300px',
+            padding: '0 20px',
+          }}
+        />
+      )}
 
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <ReprButton
@@ -58,7 +78,11 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
         />
       </div>
 
-      <ReprButton type={ReprButtonType.PRACTICED} actionData={id} />
+      <ReprButton
+        style={{ height: '80px' }}
+        type={ReprButtonType.PRACTICED}
+        actionData={id}
+      />
     </Card>
   )
 }

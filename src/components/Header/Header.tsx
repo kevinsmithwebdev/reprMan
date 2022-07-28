@@ -1,7 +1,8 @@
 import React from 'react'
 import { useL10n } from 'modules/Localization'
 import { Nav, Navbar } from 'react-bootstrap'
-import { useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
+import './Header.css'
 
 interface RouteData {
   name: string
@@ -21,22 +22,22 @@ const Header = () => {
 
   return (
     <Navbar
+      id="Header"
       bg="dark"
       expand={false}
       className="mb-3"
       variant="dark"
-      style={{ position: 'sticky', top: 0 }}
+      style={{ position: 'sticky', top: 0, zIndex: 999 }}
     >
       <Navbar.Brand style={{ padding: '0 20px' }} href="/">
         {`${t('brand.reprMan')} - ${t('brand.repertoireManagement')}`}
       </Navbar.Brand>
 
       <Nav
-        activeKey={rootPath}
         className="justify-content-end flex-row"
         style={{ padding: '0 30px' }}
       >
-        {routes.map(renderLink)}
+        {routes.map((r) => renderLink(r, rootPath))}
       </Nav>
     </Navbar>
   )
@@ -44,8 +45,15 @@ const Header = () => {
 
 export default Header
 
-const renderLink = (route: RouteData) => (
-  <Nav.Item key={route.name} as="li" style={{ padding: '0 15px' }}>
-    <Nav.Link href={route.path}>{route.name.toUpperCase()}</Nav.Link>
-  </Nav.Item>
-)
+const renderLink = (route: RouteData, rootPath: string) => {
+  const isCurrent = route.path === rootPath
+
+  const className = isCurrent ? 'nav-link selected' : 'nav-link'
+  return (
+    <Nav.Item key={route.name} as="li" style={{ padding: '0 15px' }}>
+      <NavLink to={route.path} className={className}>
+        {route.name.toUpperCase()}
+      </NavLink>
+    </Nav.Item>
+  )
+}

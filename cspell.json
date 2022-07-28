@@ -3,6 +3,7 @@
   "language": "en",
   "words": [
     "browserslist",
+    "nums",
     "Offcanvas",
     "predeploy",
     "reduxjs",
@@ -13,7 +14,5 @@
     "Typeahead",
     "uuidv"
   ],
-  "flagWords": [
-
-  ]
+  "flagWords": []
 }
