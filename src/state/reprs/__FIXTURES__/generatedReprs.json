@@ -1,0 +1,89 @@
+[
+  {
+    "title": "Satin Doll",
+    "categories": ["jazz", "swing", "standard"],
+    "comment": "I can't play this without thinking about Alice",
+    "id": "id-0",
+    "dateCreated": 1656176023120,
+    "datesPracticed": [
+      1654448023120, 1653756823120, 1652460823120, 1649955223120
+    ]
+  },
+  {
+    "title": "Kansas City",
+    "categories": ["jazz", "swing", "rock", "blues"],
+    "id": "id-1",
+    "dateCreated": 1649350423120,
+    "datesPracticed": []
+  },
+  {
+    "title": "Don't Get Around Much Anymore",
+    "categories": ["jazz", "swing", "standard"],
+    "comment": "great opener",
+    "id": "id-2",
+    "dateCreated": 1647795223120,
+    "datesPracticed": [1647449623120, 1645980823120]
+  },
+  {
+    "title": "My One and Only Love",
+    "categories": ["jazz", "ballad", "standard"],
+    "comment": "also works as an uptempo double-time",
+    "id": "id-3",
+    "dateCreated": 1642524823120,
+    "datesPracticed": [1639673623120, 1638291223120, 1636390423120]
+  },
+  {
+    "title": "Body and Soul",
+    "categories": ["jazz", "ballad", "bossa"],
+    "id": "id-4",
+    "dateCreated": 1636044823120,
+    "datesPracticed": [
+      1635785623120, 1635526423120, 1635440023120, 1635353623120, 1635267223120,
+      1634921623120
+    ]
+  },
+  {
+    "title": "Girl from Ipanema",
+    "categories": ["jazz", "bossa"],
+    "id": "id-5",
+    "dateCreated": 1633884823120,
+    "datesPracticed": []
+  },
+  {
+    "title": "Blue Monk",
+    "categories": ["jazz", "blues"],
+    "comment": "Strange it up, a la Jim Hall.",
+    "id": "id-6",
+    "dateCreated": 1633625623120,
+    "datesPracticed": [
+      1633452823120, 1633280023120, 1633193623120, 1633107223120, 1633020823120
+    ]
+  },
+  {
+    "title": "Cissy Strut",
+    "categories": ["jazz", "funk"],
+    "id": "id-7",
+    "dateCreated": 1632416023120,
+    "datesPracticed": [
+      1632243223120, 1632156823120, 1631724823120, 1631638423120, 1631379223120
+    ]
+  },
+  {
+    "title": "Julia",
+    "categories": ["jazz", "pop"],
+    "comment": "like MM&W does it with Scofield",
+    "id": "id-8",
+    "dateCreated": 1628614423120,
+    "datesPracticed": [1627491223120, 1626454423120, 1625590423120]
+  },
+  {
+    "title": "Night and Day",
+    "categories": ["jazz", "bossa"],
+    "id": "id-9",
+    "dateCreated": 1623776023120,
+    "datesPracticed": [
+      1622134423120, 1621270423120, 1619888023120, 1619456023120, 1617814423120,
+      1617728023120, 1616604823120, 1616432023120
+    ]
+  }
+]

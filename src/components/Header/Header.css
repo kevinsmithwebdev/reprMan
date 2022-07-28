@@ -1,0 +1,12 @@
+#Header .nav-link {
+  color: #ccc;
+}
+
+#Header .nav-link:hover {
+  color: #fff;
+}
+
+#Header .selected {
+  color: #fff;
+  font-weight: bold;
+}

@@ -1,28 +1,21 @@
 import React from 'react'
 import ReprsList from 'components/ReprsList'
-import { Button } from 'react-bootstrap'
-import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
-import store from 'state/store'
-import { setModal } from 'state/modal'
-import { useL10n } from 'modules/Localization'
+import AddReprButton from 'components/AddReprButton'
+import { useReprs } from 'state/reprs'
+
+const MIN_REPRS_TO_SHOW_TOP_ADD_BUTTON = 7
 
 const Home = () => {
-  const { t } = useL10n()
-
+  const { reprs } = useReprs()
+  const shouldShowTopAddButton =
+    reprs.length >= MIN_REPRS_TO_SHOW_TOP_ADD_BUTTON
   return (
     <>
-      <ReprsList reprs={[]} />
-      <Button
-        variant="success"
-        style={{ margin: 10, padding: 10 }}
-        onClick={() =>
-          store.dispatch(
-            setModal({ selection: ModalSelection.EDIT_REPR, props: {} })
-          )
-        }
-      >
-        {t('buttons.addReprButton')}
-      </Button>
+      {shouldShowTopAddButton && <AddReprButton />}
+
+      <ReprsList reprs={reprs} />
+
+      <AddReprButton />
     </>
   )
 }

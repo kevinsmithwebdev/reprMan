@@ -1,11 +1,9 @@
 import React, { FC } from 'react'
 import Repr from 'components/ReprLine'
-import { useReprs } from 'state/reprs'
 import { useL10n } from 'modules/Localization'
 import { ReprsListProps } from './ReprsList.types'
 
-const ReprsList: FC<ReprsListProps> = () => {
-  const { reprs } = useReprs()
+const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
   const { t } = useL10n()
 
   const hasReprs = !!reprs.length
