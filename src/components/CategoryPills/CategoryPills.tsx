@@ -13,6 +13,7 @@ const pillStyle = {
     paddingBottom: '7px',
     margin: '5px',
     fontSize: '12px',
+    fontWeight: '500',
   },
   [CategoryPillSize.MEDIUM]: {
     padding: '6px',

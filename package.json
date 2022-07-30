@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.2",

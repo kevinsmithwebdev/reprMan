@@ -6,11 +6,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
 
 #ReprLine:hover {
-  transform: scale(1.01);
+  transform: scale(1.005);
 }
 
 #ReprLine.success-bg {
