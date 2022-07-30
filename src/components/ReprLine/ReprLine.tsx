@@ -1,41 +1,34 @@
 import React, { FC } from 'react'
 import Card from 'react-bootstrap/Card'
-import moment from 'moment'
+
 import { Repr } from 'types'
 import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
-import { DEFAULT_DAYS_WARNING } from 'constants/index'
 import { useNavigate } from 'react-router-dom'
 import { getDateAndFrom } from 'utilities/dates'
 import ReprButton, { ReprButtonType } from 'components/ReprButton'
 import { useL10n } from 'modules/Localization'
 import CategoryPills from 'components/CategoryPills'
+import { useSettings } from 'state/settings'
+import { getReprColors } from './ReprLine.helpers'
+import './ReprLine.css'
 
 export interface ReprLineProps {
   repr: Repr
 }
 
-type ReprColor = { bg: string; border: string }
-
 const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { t } = useL10n()
+  const { settings } = useSettings()
   const { title, id, datesPracticed, categories, comment } = repr
   const lastPracticed = datesPracticed[0] || 0
-  const reprColors = getReprColors(lastPracticed)
+  const reprColors = getReprColors(lastPracticed, settings)
   const navigate = useNavigate()
+
   return (
     <Card
+      id="ReprLine"
       text="dark"
-      className="mb-2"
-      style={{
-        padding: '5px',
-        margin: '10px 0',
-        borderRadius: '5px',
-        boxShadow: '0.5px 1px 1px 2px #eee',
-        backgroundColor: reprColors.bg,
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}
+      className={`mb-2 ${reprColors.className}`}
       onClick={() => navigate(`view/${id}`)}
     >
       <Card.Body style={{ minWidth: '50%' }}>
@@ -88,22 +81,3 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
 }
 
 export default ReprLine
-
-const WARN_PERCENTAGE = 0.5
-
-const getReprColors = (
-  lastPracticed: number,
-  daysOverdueTrigger: number = DEFAULT_DAYS_WARNING
-): ReprColor => {
-  const daysAgo = moment().diff(lastPracticed, 'days')
-
-  if (daysAgo > daysOverdueTrigger) {
-    return { bg: '#fff6f6', border: 'danger' }
-  }
-
-  if (daysAgo > daysOverdueTrigger * WARN_PERCENTAGE) {
-    return { bg: '#fef9e4', border: 'warning' }
-  }
-
-  return { bg: '#f6fff6', border: 'success' }
-}
