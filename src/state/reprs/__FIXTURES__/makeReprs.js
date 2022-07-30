@@ -2,8 +2,8 @@ const moment = require('moment')
 const fs = require('fs')
 const preData = require('./preData')
 
-const MAX_DAYS_AGO = 45
-const MAX_PRACTICED = 10
+const MAX_DAYS_AGO = 60
+const MAX_PRACTICED = 20
 
 const FILENAME = 'generatedReprs.json'
 
@@ -14,15 +14,18 @@ const randomIntInRange = (max, min = 0) =>
 const now = moment()
 
 const newData = preData.map((d, idx) => {
-  const daysAgo = randomFloatInRange(MAX_DAYS_AGO)
+  const secondsAgoCreated = randomFloatInRange(MAX_DAYS_AGO) * 24 * 60 * 60
 
-  const dateCreated = now.subtract(daysAgo, 'days').utc().valueOf()
+  const dateCreated = now.subtract(secondsAgoCreated, 'seconds').utc().valueOf()
 
   const numPracticed = randomIntInRange(MAX_PRACTICED)
 
   const datesPracticed = new Array(numPracticed).fill(null).map(() => {
-    const daysAgoThisPracticed = randomFloatInRange(daysAgo - 0.01, 0.01)
-    return now.subtract(daysAgoThisPracticed, 'days').utc().valueOf()
+    const secondsAgoThisPracticed = randomFloatInRange(
+      secondsAgoCreated - 10,
+      10
+    )
+    return now.subtract(secondsAgoThisPracticed, 'seconds').utc().valueOf()
   })
 
   return {
