@@ -23,7 +23,8 @@
   },
   "components": {
     "reprsList": {
-      "noReprs": "No reprs found."
+      "reprsCount_one": "{{count}} repr found.",
+      "reprsCount_other": "{{count}} reprs found."
     }
   },
   "modals": {
@@ -74,7 +75,10 @@
           [
             "It's fairly simple.",
             "Enter your songs.",
-            "Practice the song at the top of the list (the one you have not practiced in the longest time) and when you're done, press the \"Practiced\" button, and it moves to the bottom of the list."
+            "Practice the song at the top of the list (the one you have not practiced in the longest time) and when you're done, press the \"Practiced\" button, and it moves to the bottom of the list.",
+            "The list is sorted with the tune you have not practiced in the longest tile will be at the top.",
+            "Tunes that are overdue for practice will be in red, things that are getting close in orange.",
+            "Green means that has not become due."
           ],
           [
             "You can decide for yourself how to use it.",
@@ -92,6 +96,7 @@
             "This is the free version of the app.",
             "There will always be a free version of the app, but eventually there will be a more feature rich version.",
             "I will have to charge something to cover expenses (and make a little), but will try to keep prices low.",
+            "Right now I'm leaning towards a very cheap subscription, but might consider ads or donations.",
             "Some things that are being considered:"
           ]
         ]

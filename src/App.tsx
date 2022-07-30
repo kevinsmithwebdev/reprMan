@@ -20,13 +20,21 @@ const App = () => {
     <main
       style={{
         display: 'flex',
-        minHeight: '100vh',
+        height: '100vh',
         flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
       <Header />
 
-      <div style={{ flex: 1 }}>
+      <div
+        style={{
+          flex: 1,
+          padding: '20px',
+          maxWidth: '1200px',
+          minWidth: '400px',
+        }}
+      >
         <Routes>
           <Route path="/view/:id" element={<ViewRepr />} />
           <Route path="/about" element={<About />} />

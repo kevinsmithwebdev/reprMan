@@ -4,5 +4,10 @@ import { NAMESPACE } from './categories.constants'
 
 export const selectCategories = createSelector(
   (state: RootState) => state[NAMESPACE],
-  (data) => data
+  (data) => data.categories
+)
+
+export const selectCategoryFilter = createSelector(
+  (state: RootState) => state[NAMESPACE],
+  (data) => data.filter
 )
