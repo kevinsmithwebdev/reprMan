@@ -27,8 +27,8 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
       text="dark"
       className="mb-2"
       style={{
-        margin: '10px',
         padding: '5px',
+        margin: '10px 0',
         borderRadius: '5px',
         boxShadow: '0.5px 1px 1px 2px #eee',
         backgroundColor: reprColors.bg,

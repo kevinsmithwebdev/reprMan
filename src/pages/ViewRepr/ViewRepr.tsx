@@ -135,7 +135,6 @@ const Style = {
   datesPracticedWrapper: {
     backgroundColor: '#eee',
     maxHeight: '200px',
-    overflowY: 'auto' as 'auto',
     width: '400px',
     margin: '10px 0',
   },

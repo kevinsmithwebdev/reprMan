@@ -1,23 +1,30 @@
 import React from 'react'
 import ReprsList from 'components/ReprsList'
-import AddReprButton from 'components/AddReprButton'
 import { useReprs } from 'state/reprs'
-
-const MIN_REPRS_TO_SHOW_TOP_ADD_BUTTON = 7
+import { useCategories } from 'state/categories'
+import { CategoryFilter, Reprs } from 'types'
+import { getDoesContainsAll } from 'utilities'
 
 const Home = () => {
   const { reprs } = useReprs()
-  const shouldShowTopAddButton =
-    reprs.length >= MIN_REPRS_TO_SHOW_TOP_ADD_BUTTON
-  return (
-    <>
-      {shouldShowTopAddButton && <AddReprButton />}
+  const { filter } = useCategories()
 
-      <ReprsList reprs={reprs} />
-
-      <AddReprButton />
-    </>
-  )
+  const filteredReprs = getFilteredReprs(reprs, filter)
+  return <ReprsList reprs={filteredReprs} />
 }
 
 export default Home
+
+const getFilteredReprs = (reprs: Reprs, filter: CategoryFilter) =>
+  reprs.filter((r) => {
+    const shouldPassForText = r.title
+      .toLowerCase()
+      .includes(filter.text.toLowerCase())
+
+    const shouldCheckCategories = !!filter.categories.length
+    const shouldPassForCategories =
+      !shouldCheckCategories ||
+      getDoesContainsAll(r.categories, filter.categories)
+
+    return shouldPassForText && shouldPassForCategories
+  })

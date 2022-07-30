@@ -15,3 +15,8 @@ export interface Settings {
 }
 
 export type Categories = string[]
+
+export interface CategoryFilter {
+  text: string
+  categories: string[]
+}
