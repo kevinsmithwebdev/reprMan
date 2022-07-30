@@ -10,14 +10,14 @@ const AboutSection: FC<AboutSectionProps> = ({ slug }) => {
   const section = t(slug, { returnObjects: true }) as any
 
   return (
-    <>
+    <div style={{ maxWidth: '700px' }}>
       <Card.Subtitle style={{ padding: '10px 0' }}>
         {section.subtitle}
       </Card.Subtitle>
       {section.body.map((p: any) => (
         <Card.Text key={p}>{p.join(' ')}</Card.Text>
       ))}
-    </>
+    </div>
   )
 }
 

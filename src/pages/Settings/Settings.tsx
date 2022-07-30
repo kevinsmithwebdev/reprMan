@@ -55,6 +55,7 @@ const Settings = () => {
   }
 
   const { t } = useL10n()
+
   return (
     <div style={{ margin: '10px' }}>
       <h2>{t('pages.settings.title')}</h2>
@@ -99,7 +100,7 @@ const Settings = () => {
         </Button>
       </div>
 
-      <hr />
+      <hr style={{ borderWidth: '3px' }} />
 
       <Card bg="light" style={{ maxWidth: '600px' }}>
         <Card.Title>{t('pages.settings.resetSettings.title')}</Card.Title>
@@ -136,7 +137,9 @@ const Settings = () => {
           </Button>
         </Card.Body>
       </Card>
+
       <hr />
+
       <Card.Body>
         {`${t('brand.copyright', {
           year: COPYRIGHT_YEAR,
