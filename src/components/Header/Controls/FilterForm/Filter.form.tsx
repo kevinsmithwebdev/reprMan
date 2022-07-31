@@ -38,7 +38,7 @@ const FilterForm = () => {
   )
 
   return (
-    <>
+    <div id="filter-form">
       <Form.Control
         type="title"
         placeholder="filter for title"
@@ -50,7 +50,7 @@ const FilterForm = () => {
 
       <Dropdown.Divider />
       <Form.Group>{categories.map(renderCategoryCheckBox)}</Form.Group>
-    </>
+    </div>
   )
 }
 

@@ -71,7 +71,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   }
 
   return (
-    <>
+    <div id="edit-repr-modal">
       <Modal.Header closeButton>
         <Modal.Title>{t('modals.editReprs.title')}</Modal.Title>
       </Modal.Header>
@@ -80,6 +80,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
           <Form.Group className="mb-3">
             <Form.Label style={{ fontWeight: 800 }}>Title:</Form.Label>
             <Form.Control
+              id="edit-repr-title-input"
               type="title"
               placeholder={t('modals.editRepr.enterTitlePlaceholder')}
               value={title}
@@ -191,6 +192,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
           {t('buttons.closeWithoutSave')}
         </Button>
         <Button
+          id="edit-repr-save-button"
           style={{ flex: 1, maxWidth: '200px' }}
           variant="success"
           onClick={() => {
@@ -209,7 +211,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
           {t('buttons.save')}
         </Button>
       </Modal.Footer>
-    </>
+    </div>
   )
 }
 

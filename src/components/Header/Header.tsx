@@ -31,6 +31,7 @@ const Header = () => {
         zIndex: 999,
         width: '100%',
       }}
+      id="header-component"
     >
       <Navbar
         id="Header"
@@ -39,13 +40,14 @@ const Header = () => {
         className="mb-3"
         variant="dark"
       >
-        <Navbar.Brand style={{ padding: '0 20px' }} href="/">
+        <Navbar.Brand style={{ padding: '0 20px' }} href="/" id="header-brand">
           {`${t('brand.reprMan')} - ${t('brand.repertoireManagement')}`}
         </Navbar.Brand>
 
         <Nav
           className="justify-content-end flex-row"
           style={{ padding: '0 30px' }}
+          id="nav-links"
         >
           {routes.map((r) => renderLink(r, rootPath))}
         </Nav>
@@ -63,7 +65,12 @@ const renderLink = (route: RouteData, rootPath: string) => {
 
   const className = isCurrent ? 'nav-link selected' : 'nav-link'
   return (
-    <Nav.Item key={route.name} as="li" style={{ padding: '0 15px' }}>
+    <Nav.Item
+      key={route.name}
+      as="li"
+      style={{ padding: '0 15px' }}
+      id={`nav-link-${route.name}`}
+    >
       <NavLink to={route.path} className={className}>
         {route.name.toUpperCase()}
       </NavLink>

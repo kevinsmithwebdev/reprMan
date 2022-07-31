@@ -33,9 +33,10 @@ const Controls: FC<ControlsProps> = ({ shouldShow }) => {
         marginTop: '-20px',
         boxShadow: '0 3px 3px rgba(64,64, 64, 0.5)',
       }}
+      id="controls-component"
     >
       <AddReprButton />
-      <Dropdown>
+      <Dropdown id="filter-button">
         <Dropdown.Toggle style={{ display: 'flex', alignItems: 'center' }}>
           <FilterCircle size={20} style={{ marginRight: '10px' }} />
           {!!numFiltersText && (

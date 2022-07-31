@@ -57,7 +57,7 @@ const Settings = () => {
   const { t } = useL10n()
 
   return (
-    <div style={{ margin: '10px' }}>
+    <div style={{ margin: '10px' }} id="Settings-page">
       <h2>{t('pages.settings.title')}</h2>
       <SettingsCardNumber
         onChange={setPracticeDelay}

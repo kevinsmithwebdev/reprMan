@@ -10,7 +10,11 @@ const Home = () => {
   const { filter } = useCategories()
 
   const filteredReprs = getFilteredReprs(reprs, filter)
-  return <ReprsList reprs={filteredReprs} />
+  return (
+    <div id="Home-page">
+      <ReprsList reprs={filteredReprs} />
+    </div>
+  )
 }
 
 export default Home
