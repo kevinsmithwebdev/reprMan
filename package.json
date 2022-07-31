@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.1",
     "@types/node": "^16.11.36",
     "@types/react": "^18.0.9",
     "@types/react-dom": "^18.0.5",
@@ -35,7 +34,7 @@
     "eject": "react-scripts eject",
     "clean": "rm -rf node_modules && yarn install",
     "clean:lock": "rm -rf node_modules && rm -f yarn.lock && yarn install",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test --coverage --watchAll=false",
     "test:watch": "react-scripts test",
     "prettier": "prettier --write src",
     "lint": "eslint ./src/**/*.{js,jsx,ts,tsx} --max-warnings=0",
@@ -71,8 +70,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "gh-pages": "^4.0.0",
-    "prettier": "2.7.1",
-    "repr": "^0.0.0"
+    "prettier": "2.7.1"
   },
   "resolutions": {
     "autoprefixer": "10.4.5"

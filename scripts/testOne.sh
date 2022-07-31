@@ -1,0 +1,1 @@
+jest $1 --verbose --watchAll=false --coverage --collectCoverageOnlyFrom=\"$2\"

@@ -1,13 +1,13 @@
 import moment from 'moment'
 
-export const getDateAndFrom = (lastPracticed: number): string => {
-  const lastPracticedMoment = moment(lastPracticed)
+export const getDateAndFrom = (timeCode: number): string => {
+  const lastPracticedMoment = moment(timeCode)
   return `${lastPracticedMoment.format(
     'MMMM Do YYYY, h:mm A'
   )}, ${lastPracticedMoment.fromNow()}`
 }
 
-export const getDateDiff = (first?: number, last?: number): string =>
+export const getDateDiffText = (first?: number, last?: number): string =>
   !last || !first || first === last
     ? ''
     : moment.duration(last - first).humanize()
