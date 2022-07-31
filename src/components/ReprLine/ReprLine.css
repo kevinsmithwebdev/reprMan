@@ -1,4 +1,4 @@
-#ReprLine {
+.repr-line {
   padding: 5px;
   margin: 10px 0;
   border-radius: 5px;
@@ -9,18 +9,18 @@
   transition: all 0.2s ease-in-out;
 }
 
-#ReprLine:hover {
+.repr-line:hover {
   transform: scale(1.005);
 }
 
-#ReprLine.success-bg {
+.repr-line.success-bg {
   background-color: #f6fff6;
 }
 
-#ReprLine.warning-bg {
+.repr-line.warning-bg {
   background-color: #fef9e4;
 }
 
-#ReprLine.danger-bg {
+.repr-line.danger-bg {
   background-color: #fff6f6;
 }

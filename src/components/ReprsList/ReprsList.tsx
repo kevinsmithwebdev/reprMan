@@ -9,7 +9,7 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
   const hasReprs = !!reprs.length
 
   return (
-    <div>
+    <div id="reprs-list-component">
       <p>{t('components.reprsList.reprsCount', { count: reprs.length })}</p>
       {hasReprs && reprs.map((r) => <Repr key={r.id} repr={r} />)}
     </div>

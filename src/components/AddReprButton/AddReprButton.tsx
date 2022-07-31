@@ -18,6 +18,7 @@ const AddReprButton: FC<AddReprButtonProps> = () => {
         fontWeight: '600',
         fontSize: '20px',
       }}
+      id="add-repr-button"
       onClick={() =>
         store.dispatch(
           setModal({ selection: ModalSelection.EDIT_REPR, props: {} })

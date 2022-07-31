@@ -24,6 +24,7 @@ const App = () => {
         flexDirection: 'column',
         alignItems: 'center',
       }}
+      id="home-page"
     >
       <Header />
 

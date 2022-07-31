@@ -18,6 +18,7 @@ const Footer = () => {
         width: '100%',
         bottom: 0,
       }}
+      id="footer-component"
     >
       {`${t('brand.copyright', {
         year: COPYRIGHT_YEAR,

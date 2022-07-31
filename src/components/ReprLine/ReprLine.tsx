@@ -26,9 +26,8 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
 
   return (
     <Card
-      id="ReprLine"
       text="dark"
-      className={`mb-2 ${reprColors.className}`}
+      className={`repr-line-component mb-2 ${reprColors.className}`}
       onClick={() => navigate(`view/${id}`)}
     >
       <Card.Body style={{ minWidth: '50%' }}>
