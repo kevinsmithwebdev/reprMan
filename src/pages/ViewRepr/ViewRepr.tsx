@@ -7,7 +7,7 @@ import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
 import { Card } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useReprs } from 'state/reprs'
-import { getDateAndFrom } from 'utilities/dates'
+import { getDateAndFrom } from 'utilities'
 import { useL10n } from 'modules/Localization'
 import { getPracticedStr } from './ViewRepr.helpers'
 

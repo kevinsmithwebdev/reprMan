@@ -1,4 +1,4 @@
-import { getDateDiff } from 'utilities/dates'
+import { getDateDiffText } from 'utilities'
 
 export const getPracticedStr = (datesPracticed: number[]) => {
   const firstPracticed = datesPracticed.at(-1)
@@ -21,7 +21,7 @@ export const getPracticedStr = (datesPracticed: number[]) => {
     default:
       durationStr = `You have practiced this repr ${
         datesPracticed.length
-      } times over a span of ${getDateDiff(
+      } times over a span of ${getDateDiffText(
         firstPracticed,
         lastPracticed
       )}. That is a rate of ${_getRateOfPracticedStr(datesPracticed)}.`
