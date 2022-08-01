@@ -15,6 +15,6 @@ describe('App', () => {
 
     cy.get('#edit-repr-save-button').click()
     cy.get('#edit-repr-modal').should('not.exist')
-    cy.get('.repr-line').should('have.length', 1)
+    cy.get('.repr-line-component').should('have.length', 1)
   })
 })
