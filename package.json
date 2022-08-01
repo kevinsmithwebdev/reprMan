@@ -41,7 +41,7 @@
     "test:watch": "react-scripts test",
     "prettier": "prettier --write src",
     "lint": "eslint ./src/**/*.{js,jsx,ts,tsx} --max-warnings=0",
-    "cy": "yarn cypress run",
+    "cy": "yarn cypress run --config videoRecording=false",
     "inspect": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent",
     "inspect:pr": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent && yarn cy"
   },

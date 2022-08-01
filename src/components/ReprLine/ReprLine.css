@@ -1,26 +1,22 @@
-.repr-line {
+.repr-line-component {
   padding: 5px;
   margin: 10px 0;
-  border-radius: 5px;
   box-shadow: 0.5px 1px 1px 2px #eee;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   transition: all 0.2s ease-in-out;
 }
 
-.repr-line:hover {
+.repr-line-component:hover {
   transform: scale(1.005);
 }
 
-.repr-line.success-bg {
+.repr-line-component.success-bg {
   background-color: #f6fff6;
 }
 
-.repr-line.warning-bg {
+.repr-line-component.warning-bg {
   background-color: #fef9e4;
 }
 
-.repr-line.danger-bg {
+.repr-line-component.danger-bg {
   background-color: #fff6f6;
 }
