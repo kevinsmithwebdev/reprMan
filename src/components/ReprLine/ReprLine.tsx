@@ -29,6 +29,11 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
       text="dark"
       className={`repr-line-component mb-2 ${reprColors.className}`}
       onClick={() => navigate(`view/${id}`)}
+      style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+      }}
     >
       <Card.Body style={{ minWidth: '50%' }}>
         <Card.Title style={{ fontWeight: 700 }}>{title}</Card.Title>
