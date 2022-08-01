@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App snapshots basic render renders correctly 1`] = `
+<main
+  id="home-page"
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "column",
+      "height": "100vh",
+    }
+  }
+>
+  <Header />
+  <div
+    style={
+      Object {
+        "flex": 1,
+        "maxWidth": "1200px",
+        "minWidth": "400px",
+        "padding": "20px",
+      }
+    }
+  >
+    <Routes>
+      <Route
+        element={<ViewRepr />}
+        path="/view/:id"
+      />
+      <Route
+        element={<About />}
+        path="/about"
+      />
+      <Route
+        element={<Settings />}
+        path="/settings"
+      />
+      <Route
+        element={<Home />}
+        path="/"
+      />
+      <Route
+        element={
+          <Navigate
+            to="/"
+          />
+        }
+        path="*"
+      />
+    </Routes>
+    <ModalContainer />
+  </div>
+  <Footer />
+</main>
+`;

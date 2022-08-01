@@ -17,7 +17,10 @@ module.exports = {
   ignorePatterns: ['*.css', '*.json'],
   rules: {
     semi: ['error', 'never'],
-    'react/jsx-filename-extension': ['warn', { extensions: ['.tsx'] }],
+    'react/jsx-filename-extension': [
+      'warn',
+      { extensions: ['.tsx', 'test.js'] },
+    ],
     'react/function-component-definition': [
       'error',
       {
