@@ -15,10 +15,14 @@
     "save": "Save"
   },
   "common": {
+    "fail": "Fail",
+    "info": "Info",
     "lastPracticed": "Last Practiced",
     "never": "never",
     "no": "No",
+    "success": "Success",
     "title": "Title",
+    "warning": "Warning",
     "yes": "Yes"
   },
   "components": {
@@ -26,6 +30,12 @@
       "reprsCount_one": "{{count}} repr found.",
       "reprsCount_other": "{{count}} reprs found."
     }
+  },
+  "file": {
+    "reprReadFail": "Repr File Read Failed",
+    "reprReadSuccess": "Repr File Successfully Read",
+    "reprSaveFail": "Repr File Save Failed",
+    "reprSaveSuccess": "Repr File Successfully Saved"
   },
   "modals": {
     "editRepr": {

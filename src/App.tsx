@@ -10,6 +10,7 @@ import About from 'pages/About'
 import Settings from 'pages/Settings'
 import ViewRepr from 'pages/ViewRepr'
 import Footer from 'components/Footer'
+import ToastWrapper from 'components/ToastWrapper'
 
 const App = () => {
   useEffect(() => {
@@ -48,6 +49,8 @@ const App = () => {
 
         <ModalContainer />
       </div>
+
+      <ToastWrapper />
 
       <Footer />
     </main>

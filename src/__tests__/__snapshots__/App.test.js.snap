@@ -51,6 +51,7 @@ exports[`App snapshots basic render renders correctly 1`] = `
     </Routes>
     <ModalContainer />
   </div>
+  <ToastWrapper />
   <Footer />
 </main>
 `;
