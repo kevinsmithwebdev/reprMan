@@ -5,6 +5,7 @@ import Confirmation, { ConfirmationProps } from 'modals/Confirmation'
 import { clearModal, useModal } from 'state/modal'
 import { Modal } from 'react-bootstrap'
 import store from 'state/store'
+import Query, { QueryProps } from 'modals/Query'
 import { ModalSelection } from './ModalContainer.types'
 
 const ModalContainer = () => {
@@ -26,6 +27,10 @@ const ModalContainer = () => {
           {...(props as ConfirmationProps)}
           closeModal={closeModal}
         />
+      )}
+
+      {selection === ModalSelection.QUERY && (
+        <Query {...(props as QueryProps)} closeModal={closeModal} />
       )}
     </Modal>
   )

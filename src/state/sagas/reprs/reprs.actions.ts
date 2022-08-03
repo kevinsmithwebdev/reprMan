@@ -1,4 +1,4 @@
-import { Repr } from 'types'
+import { Repr, Reprs } from 'types'
 
 export const ADD_REPR = 'SAGA/ADD_REPR'
 export const addReprSAC = (repr: Repr) => ({
@@ -22,4 +22,10 @@ export const MARK_REPR_PRACTICED = 'SAGA/MARK_REPR_PRACTICED'
 export const markReprPracticedSAC = (id: string) => ({
   type: MARK_REPR_PRACTICED,
   payload: id,
+})
+
+export const STORE_REPRS = 'SAGA/STORE_REPRS'
+export const storeReprsSAC = (reprs: Reprs) => ({
+  type: STORE_REPRS,
+  payload: reprs,
 })

@@ -13,6 +13,10 @@ import {
 import { useSettings } from 'state/settings'
 import { clearAllReprsSAC } from 'state/sagas/reprs/reprs.actions'
 import { useL10n } from 'modules/Localization'
+import {
+  readLocalReprsFileSAC,
+  writeLocalReprsFileSAC,
+} from 'state/sagas/files/files.actions'
 import packageJson from '../../../package.json'
 import SettingsCardNumber from './SettingsCardNumber'
 
@@ -72,7 +76,7 @@ const Settings = () => {
         text={t('pages.settings.warningRatio.text')}
         step={0.1}
       />
-      <div style={{}}>
+      <div style={{ display: 'flex', justifyContent: 'space-around' }}>
         <Button
           style={{ margin: '5px' }}
           variant="success"
@@ -102,12 +106,15 @@ const Settings = () => {
 
       <hr style={{ borderWidth: '3px' }} />
 
-      <Card bg="light" style={{ maxWidth: '600px' }}>
+      <Card
+        bg="light"
+        style={{ maxWidth: '600px', padding: '10px 10px 0 10px' }}
+      >
         <Card.Title>{t('pages.settings.resetSettings.title')}</Card.Title>
         <Card.Subtitle>
           {t('pages.settings.resetSettings.subtitle')}
         </Card.Subtitle>
-        <Card.Body>
+        <Card.Body style={{ display: 'flex', justifyContent: 'center' }}>
           <Button
             variant="warning"
             onClick={() => {
@@ -121,12 +128,15 @@ const Settings = () => {
 
       <hr />
 
-      <Card bg="light" style={{ maxWidth: '600px' }}>
+      <Card
+        bg="light"
+        style={{ maxWidth: '600px', padding: '10px 10px 0 10px' }}
+      >
         <Card.Title>{t('pages.settings.deleteAllReprs.title')}</Card.Title>
         <Card.Subtitle>
           {t('pages.settings.deleteAllReprs.subtitle')}
         </Card.Subtitle>
-        <Card.Body>
+        <Card.Body style={{ display: 'flex', justifyContent: 'center' }}>
           <Button
             variant="danger"
             onClick={() => {
@@ -140,7 +150,39 @@ const Settings = () => {
 
       <hr />
 
-      <Card.Body>
+      <Card
+        bg="light"
+        style={{ maxWidth: '600px', padding: '10px 10px 0 10px' }}
+      >
+        <Card.Title>Save/Load from File</Card.Title>
+        <Card.Subtitle>
+          You can save your repr data to a text file on your computer or load
+          one from your computer.
+        </Card.Subtitle>
+        <Card.Body
+          style={{
+            display: 'flex',
+            justifyContent: 'space-around',
+          }}
+        >
+          <Button
+            variant="dark"
+            onClick={() => store.dispatch(writeLocalReprsFileSAC())}
+          >
+            Save to File
+          </Button>
+          <Button
+            variant="secondary"
+            onClick={() => store.dispatch(readLocalReprsFileSAC())}
+          >
+            Load from File
+          </Button>
+        </Card.Body>
+      </Card>
+
+      <hr />
+
+      <Card.Body style={{ textAlign: 'center' }}>
         {`${t('brand.copyright', {
           year: COPYRIGHT_YEAR,
         })} - ${t('brand.versionNumber', {

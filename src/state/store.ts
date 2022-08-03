@@ -5,6 +5,7 @@ import categoriesReducer from './categories'
 import modalReducer from './modal'
 import reprsReducer from './reprs'
 import settingsReducer from './settings'
+import toastsReducer from './toasts'
 import userReducer from './user'
 
 import rootSaga from './sagas/rootSaga'
@@ -14,6 +15,7 @@ const reducer = {
   modal: modalReducer,
   reprs: reprsReducer,
   settings: settingsReducer,
+  toasts: toastsReducer,
   user: userReducer,
 }
 
