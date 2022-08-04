@@ -64,7 +64,7 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <ReprButton
           type={ReprButtonType.EDIT}
-          actionData={{ selection: ModalSelection.EDIT_REPR, props: { repr } }}
+          actionData={{ selection: ModalSelection.EDIT_REPR, props: { id } }}
           style={{ margin: '0 4px 2px 0' }}
         />
 

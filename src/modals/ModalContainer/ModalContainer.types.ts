@@ -1,6 +1,7 @@
 export enum ModalSelection {
-  EDIT_REPR = 'EDIT_REPR',
   CONFIRMATION = 'CONFIRMATION',
+  EDIT_REPR = 'EDIT_REPR',
+  INFO = 'INFO',
   QUERY = 'QUERY',
 }
 

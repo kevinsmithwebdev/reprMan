@@ -12,6 +12,7 @@ export default createReducer(initialState, (builder) => {
     ...action.payload,
     props: action.payload.props || {},
   }))
+
   builder.addCase(clearModal, () => {
     return initialState
   })

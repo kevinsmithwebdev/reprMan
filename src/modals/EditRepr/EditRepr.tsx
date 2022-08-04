@@ -11,10 +11,22 @@ import CategoryPills from 'components/CategoryPills'
 import { MAX_FREE_REPRS } from 'constants/index'
 import { useL10n } from 'modules/Localization'
 import CategoryLine from './CategoryLine'
+import {
+  addCategory,
+  addPillCategory,
+  findFormErrors,
+  removeCategory,
+} from './EditRepr.helpers'
 
 export interface EditReprProps {
   closeModal: () => void
   id: string
+}
+
+export interface ReprForm {
+  title?: string
+  categoryInput?: string
+  comment?: string
 }
 
 const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
@@ -22,42 +34,26 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const { categories: availableCategories } = useCategories()
   const [enteredCategory, setEnteredCategory] = useState('')
   const { getRepr, reprs } = useReprs()
-
   const repr = getRepr(id)
-  const numReprs = reprs.length
+  const [categories, setCategories] = useState<string[]>(repr.categories || [])
 
-  const [title, setTitle] = useState(repr.title || '')
-  const [categories, setCategories] = useState(
-    repr.categories || ([] as string[])
-  )
-  const [comment, setComment] = useState(repr.comment || '')
+  const [form, setForm] = useState<ReprForm>({
+    title: repr.title,
+    categoryInput: '',
+    comment: repr.comment,
+  })
+  const [errors, setErrors] = useState<ReprForm>({})
 
-  const removeCategory = (value: string) => {
-    setCategories(categories.filter((c) => c !== value))
-  }
-
-  const addCategory = () => {
-    const index = categories.findIndex((c) => c === enteredCategory)
-
-    if (!enteredCategory || index !== -1) {
-      return
-    }
-
-    setCategories([...categories, enteredCategory])
-    setEnteredCategory('')
-  }
-
-  const addPillCategory = (category: string) => {
-    const index = categories.findIndex((c) => c === category)
-
-    if (index !== -1) return
-
-    setCategories([...categories, category])
+  const setField = (field: string, value: string) => {
+    setForm({
+      ...form,
+      [field]: value,
+    })
   }
 
   const categoriesComplement = getComplement(availableCategories, categories)
 
-  if (numReprs >= MAX_FREE_REPRS) {
+  if (reprs.length >= MAX_FREE_REPRS) {
     return (
       <>
         <Modal.Header closeButton>
@@ -73,25 +69,34 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   return (
     <div id="edit-repr-modal">
       <Modal.Header closeButton>
-        <Modal.Title>{t('modals.editReprs.title')}</Modal.Title>
+        <Modal.Title>{t('modals.editRepr.title')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group className="mb-3">
-            <Form.Label style={{ fontWeight: 800 }}>Title:</Form.Label>
+            <Form.Label style={{ fontWeight: 800 }}>
+              {t('pages.viewRepr.data.title')}:
+            </Form.Label>
             <Form.Control
               id="edit-repr-title-input"
               type="title"
               placeholder={t('modals.editRepr.enterTitlePlaceholder')}
-              value={title}
-              onChange={({ target: { value } }) => setTitle(value)}
+              value={form.title}
+              onChange={({ target: { value } }) => setField('title', value)}
+              isInvalid={!!errors.title}
+              required
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.title}
+            </Form.Control.Feedback>
           </Form.Group>
 
           <hr />
 
           <Form.Group className="mb-3">
-            <Form.Label style={{ fontWeight: 800 }}>Categories:</Form.Label>
+            <Form.Label style={{ fontWeight: 800 }}>
+              {t('pages.viewRepr.data.categories')}:
+            </Form.Label>
             <br />
             <div style={{ paddingLeft: '10px' }}>
               <Form.Label
@@ -102,12 +107,14 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
               >
                 {t('modals.editRepr.current')}:
               </Form.Label>
-              {categories.length ? (
+              {categories?.length ? (
                 categories.map((c) => (
                   <CategoryLine
                     key={c}
                     category={c}
-                    removeCategory={removeCategory}
+                    removeCategory={(value) =>
+                      removeCategory(value, categories, setCategories)
+                    }
                   />
                 ))
               ) : (
@@ -127,7 +134,9 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                   </Form.Label>
                   <CategoryPills
                     categories={categoriesComplement}
-                    onClick={addPillCategory}
+                    onClick={(category) =>
+                      addPillCategory(category, categories, setCategories)
+                    }
                   />
                 </>
               )}
@@ -148,38 +157,68 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                   value={enteredCategory}
                   type="newCategory"
                   placeholder={t('modals.editRepr.enterCategoryPlaceholder')}
-                  style={{}}
+                  style={{
+                    border: errors.categoryInput ? '1px solid #c00' : '',
+                  }}
                   onChange={({ target: { value } }) =>
                     setEnteredCategory(value)
                   }
                   onKeyPress={({ key }) => {
                     if (key === 'Enter') {
-                      addCategory()
+                      addCategory({
+                        form,
+                        setErrors,
+                        categories,
+                        setCategories,
+                        enteredCategory,
+                        setEnteredCategory,
+                      })
                     }
                   }}
                 />
+
                 <Button
                   variant="success"
                   size="sm"
                   style={{}}
-                  onClick={addCategory}
+                  onClick={() =>
+                    addCategory({
+                      form,
+                      setErrors,
+                      categories,
+                      setCategories,
+                      enteredCategory,
+                      setEnteredCategory,
+                    })
+                  }
                 >
                   +
                 </Button>
               </div>
+              {!!errors.categoryInput && (
+                <p style={{ color: '#c11', fontSize: '14px' }}>
+                  {errors.categoryInput}
+                </p>
+              )}
             </div>
           </Form.Group>
 
           <hr />
 
           <Form.Group className="mb-3">
-            <Form.Label style={{ fontWeight: 800 }}>Comment:</Form.Label>
+            <Form.Label style={{ fontWeight: 800 }}>
+              {t('pages.viewRepr.data.comment')}:
+            </Form.Label>
             <Form.Control
               type="title"
               placeholder={t('modals.editRepr.enterCommentPlaceholder')}
-              value={comment}
-              onChange={({ target: { value } }) => setComment(value)}
+              value={form.comment}
+              onChange={({ target: { value } }) => setField('comment', value)}
+              isInvalid={!!errors.comment}
             />
+            <Form.Control.Feedback type="invalid">
+              {errors.comment}
+            </Form.Control.Feedback>
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -196,16 +235,26 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
           style={{ flex: 1, maxWidth: '200px' }}
           variant="success"
           onClick={() => {
-            const thisRepr = {
-              id: repr.id || '',
-              title,
+            const foundErrors = findFormErrors({
+              form,
               categories,
-              dateCreated: repr.dateCreated || NaN,
-              datesPracticed: repr.datesPracticed || ([] as number[]),
-              comment,
-            } as Repr
-            store.dispatch(addReprSAC(thisRepr))
-            closeModal()
+              enteredCategory,
+            })
+
+            if (Object.keys(foundErrors).length > 0) {
+              setErrors(foundErrors)
+            } else {
+              const thisRepr = {
+                id: repr.id || '',
+                title: form.title,
+                categories,
+                dateCreated: repr.dateCreated || NaN,
+                datesPracticed: repr.datesPracticed || ([] as number[]),
+                comment: form.comment,
+              } as Repr
+              store.dispatch(addReprSAC(thisRepr))
+              closeModal()
+            }
           }}
         >
           {t('buttons.save')}
