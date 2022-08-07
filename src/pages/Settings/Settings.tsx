@@ -6,20 +6,13 @@ import {
 } from 'constants/index'
 import { Button, Card } from 'react-bootstrap'
 import store from 'state/store'
-import {
-  resetSettingsSAC,
-  setSettingsSAC,
-} from 'state/sagas/settings/settings.actions'
+import { setSettingsSAC } from 'state/sagas/settings/settings.actions'
 import { useSettings } from 'state/settings'
-import { clearAllReprsSAC } from 'state/sagas/reprs/reprs.actions'
 import { useL10n } from 'modules/Localization'
-import {
-  readLocalReprsFileSAC,
-  writeLocalReprsFileSAC,
-} from 'state/sagas/files/files.actions'
-import InfoButton from 'components/InfoButton'
 import packageJson from '../../../package.json'
 import SettingsCardNumber from './SettingsCardNumber'
+import SupplementalSettingsCard from './SupplementalSettingsCard'
+import { getSupplementalSettingsCardData } from './Settings.helpers'
 
 const Settings = () => {
   const { settings: previousSettings } = useSettings()
@@ -60,6 +53,8 @@ const Settings = () => {
   }
 
   const { t } = useL10n()
+
+  const supplementalSettingsCardData = getSupplementalSettingsCardData()
 
   return (
     <div style={{ margin: '10px' }} id="Settings-page">
@@ -107,92 +102,10 @@ const Settings = () => {
 
       <hr style={{ borderWidth: '3px' }} />
 
-      <Card
-        bg="light"
-        style={{ maxWidth: '600px', padding: '10px 10px 0 10px' }}
-      >
-        <Card.Title>{t('pages.settings.resetSettings.title')}</Card.Title>
-        <Card.Subtitle>
-          {t('pages.settings.resetSettings.subtitle')}
-        </Card.Subtitle>
-        <Card.Body style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button
-            variant="warning"
-            onClick={() => {
-              store.dispatch(resetSettingsSAC())
-            }}
-          >
-            {t('pages.settings.resetSettings.button')}
-          </Button>
-        </Card.Body>
-      </Card>
+      {/* @ts-ignore */}
+      {supplementalSettingsCardData.map(SupplementalSettingsCard)}
 
-      <hr />
-
-      <Card
-        bg="light"
-        style={{ maxWidth: '600px', padding: '10px 10px 0 10px' }}
-      >
-        <Card.Title>{t('pages.settings.deleteAllReprs.title')}</Card.Title>
-        <Card.Subtitle>
-          {t('pages.settings.deleteAllReprs.subtitle')}
-        </Card.Subtitle>
-        <Card.Body style={{ display: 'flex', justifyContent: 'center' }}>
-          <Button
-            variant="danger"
-            onClick={() => {
-              store.dispatch(clearAllReprsSAC())
-            }}
-          >
-            {t('pages.settings.deleteAllReprs.button')}
-          </Button>
-        </Card.Body>
-      </Card>
-
-      <hr />
-
-      <Card
-        bg="light"
-        style={{ maxWidth: '600px', padding: '10px 10px 0 10px' }}
-      >
-        <Card.Title>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <span>{t('pages.settings.textFile.title')}</span>
-            <InfoButton
-              title={t('pages.settings.textFile.info.title')}
-              body={
-                t('pages.settings.textFile.info.body', {
-                  returnObjects: true,
-                }) as unknown as string[]
-              }
-            />
-          </div>
-        </Card.Title>
-        <Card.Subtitle>{t('pages.settings.textFile.subtitle')}</Card.Subtitle>
-        <Card.Body
-          style={{
-            display: 'flex',
-            justifyContent: 'space-around',
-          }}
-        >
-          <Button
-            variant="dark"
-            onClick={() => store.dispatch(writeLocalReprsFileSAC())}
-          >
-            {t('pages.settings.textFile.saveButton')}
-          </Button>
-          <Button
-            variant="secondary"
-            onClick={() => store.dispatch(readLocalReprsFileSAC())}
-          >
-            {t('pages.settings.textFile.loadButton')}
-          </Button>
-        </Card.Body>
-      </Card>
-
-      <hr />
-
-      <Card.Body style={{ textAlign: 'center' }}>
+      <Card.Body style={{ textAlign: 'center', paddingTop: '20px' }}>
         {`${t('brand.copyright', {
           year: COPYRIGHT_YEAR,
         })} - ${t('brand.versionNumber', {

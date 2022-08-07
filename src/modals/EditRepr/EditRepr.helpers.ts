@@ -1,3 +1,5 @@
+import { FILE_LINE_DELIMITER } from 'state/sagas/files/constants'
+
 interface ReprForm {
   title?: string
   categoryInput?: string
@@ -9,7 +11,7 @@ export const findFormErrors = ({ form, categories, enteredCategory }) => {
   const newErrors = {} as ReprForm
 
   if (!title) newErrors.title = 'This field is required.'
-  if (title?.includes('*'))
+  if (title?.includes(FILE_LINE_DELIMITER))
     newErrors.title = 'This field cannot contain an asterisk (*).'
 
   const indexExistingCategories = categories.findIndex(
@@ -22,19 +24,19 @@ export const findFormErrors = ({ form, categories, enteredCategory }) => {
       'That category already exists.'
     )
 
-  if (enteredCategory.includes('*'))
+  if (enteredCategory.includes(FILE_LINE_DELIMITER))
     newErrors.categoryInput = appendError(
       newErrors.categoryInput,
       'This field cannot contain an asterisk (*).'
     )
 
-  if (comment?.includes('*'))
+  if (comment?.includes(FILE_LINE_DELIMITER))
     newErrors.comment = appendError(
       newErrors.comment,
       'This field cannot contain an asterisk (*).'
     )
 
-  if (categoryInput.includes('*'))
+  if (categoryInput.includes(FILE_LINE_DELIMITER))
     newErrors.categoryInput = appendError(
       newErrors.categoryInput,
       'This field cannot contain an asterisk (*).'

@@ -3,26 +3,33 @@ import { select, takeLatest, call, put } from 'redux-saga/effects'
 import { selectReprs } from 'state/reprs'
 import { makeToastSAC } from 'state/sagas/toast/toast.actions'
 import { Reprs, ToastLevel } from 'types'
-import { makeReprsTextFormat, writeFile } from 'utilities'
-import { WRITE_LOCAL_REPRS_FILE } from '../files.actions'
+import { getNewFileHandle, makeReprsTextFormat, writeFile } from 'utilities'
+import { DEFAULT_REPRS_TEXT_FILENAME, TEXT_FILE_TYPES } from '../constants'
+import { WRITE_REPRS_TO_TEXT_FILE } from '../files.actions'
 
-const FILENAME = 'reprsData.txt'
-
-function* writeLocalReprsFileWorker() {
+function* writeReprsToTextFileWorker() {
   const { t } = LocalizationModule.getInstance()
   const reprs = (yield select(selectReprs)) as Reprs
-  const reprsTextFormat = makeReprsTextFormat(reprs)
+
   try {
-    yield call(writeFile, FILENAME, reprsTextFormat)
+    const fileHandle = yield call(
+      getNewFileHandle,
+      DEFAULT_REPRS_TEXT_FILENAME,
+      TEXT_FILE_TYPES
+    )
+    const data = yield call(makeReprsTextFormat, reprs)
+    yield call(writeFile, fileHandle, data)
+
     yield put(
       makeToastSAC({
-        body: t('file.reprSaveSuccess'),
+        body: t('file.reprSaveSuccess', { count: reprs.length }),
         level: ToastLevel.SUCCESS,
         delay: 3000,
       })
     )
   } catch (err) {
     console.error(err)
+
     yield put(
       makeToastSAC({
         body: t('file.reprSaveFail'),
@@ -33,4 +40,6 @@ function* writeLocalReprsFileWorker() {
   }
 }
 
-export default [takeLatest(WRITE_LOCAL_REPRS_FILE, writeLocalReprsFileWorker)]
+export default [
+  takeLatest(WRITE_REPRS_TO_TEXT_FILE, writeReprsToTextFileWorker),
+]
