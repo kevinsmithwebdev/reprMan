@@ -32,10 +32,10 @@
     }
   },
   "file": {
-    "reprReadFail": "Repr File Read Failed",
-    "reprReadSuccess": "Repr File Successfully Read",
-    "reprSaveFail": "Repr File Save Failed",
-    "reprSaveSuccess": "Repr File Successfully Saved"
+    "reprReadFail": "Repr file read failed.",
+    "reprReadSuccess": "Repr file successfully read - started with {{startedCount}}, added {{addedCount}}.",
+    "reprSaveFail": "Repr file save failed.",
+    "reprSaveSuccess": "Repr file successfully saved - saved {{count}}."
   },
   "modals": {
     "editRepr": {
@@ -137,7 +137,7 @@
         "button": "Delete All Reprs"
       },
       "textFile": {
-        "title": "Save/Load from File",
+        "title": "Save/Load Text File",
         "info": {
           "title": "Repr Text Format",
           "body": [
@@ -160,8 +160,24 @@
           ]
         },
         "subtitle": "You can save your repr data to a text file on your computer or load one from your computer.",
-        "saveButton": "Save to File",
-        "loadButton": "Load from File"
+        "saveButton": "Save to Text File",
+        "loadButton": "Load from Text File"
+      },
+      "excelFile": {
+        "title": "Save/Load Spreadsheet File",
+        "info": {
+          "title": "Repr xlsx Format",
+          "body": [
+            "The top row is the header - it is ignored.",
+            "The categories are separated by asterisks.",
+            "No other values can contain an asterisk.",
+            "Dates are ISO dates, but can be left blank.",
+            "The ID must be unique, but can be left blank."
+          ]
+        },
+        "subtitle": "You can save your repr data to a spreadsheet file (in xlsx format) on your computer or load one from your computer.",
+        "saveButton": "Save to Spreadsheet",
+        "loadButton": "Load from Spreadsheet"
       },
       "saveSettingsChanges": "Save Settings Changes",
       "clearSettingsChanges": "Clear Settings Changes"

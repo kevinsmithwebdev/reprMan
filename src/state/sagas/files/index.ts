@@ -1,4 +1,13 @@
-import readLocalReprsFileWorker from './readLocalReprsFile/readLocalReprsFile.saga'
-import writeLocalReprsFileWorker from './writeLocalReprsFile/writeLocalReprsFile.saga'
+import readReprsFromTextFileWorker from './readReprsFromTextFile/readReprsFromTextFile.saga'
+import writeReprsToTextFileWorker from './writeReprsToTextFile/writeReprsToTextFile.saga'
 
-export default [...readLocalReprsFileWorker, ...writeLocalReprsFileWorker]
+import readReprsFromXlsxFile from './readReprsFromXlsxFile/readReprsFromXlsxFile.saga'
+import writeReprsToXlsxFileWorker from './writeReprsToXlsxFile/writeReprsToXlsxFile.saga'
+
+export default [
+  ...readReprsFromTextFileWorker,
+  ...writeReprsToTextFileWorker,
+
+  ...readReprsFromXlsxFile,
+  ...writeReprsToXlsxFileWorker,
+]
