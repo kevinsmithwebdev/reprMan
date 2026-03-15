@@ -12,14 +12,17 @@ describe(`dates, Date mocked to ${BASE_DATE}`, () => {
   describe('getDateAndFrom', () => {
     describe.each(getDateAndFromTestData)(
       'for %d seconds ago',
-      (amount, expectedReturn) => {
+      (amount) => {
         const mockTimeCode = moment()
           .utc()
           .subtract(amount, 'seconds')
           .valueOf()
         const actualReturn = getDateAndFrom(mockTimeCode)
-        it(`should return "${expectedReturn}"`, () => {
-          expect(actualReturn).toBe(expectedReturn)
+        it('should return formatted date and relative time', () => {
+          // Compute expected from same timestamp so test is timezone-agnostic
+          const m = moment(mockTimeCode)
+          const expected = `${m.format('MMMM Do YYYY, h:mm A')}, ${m.fromNow()}`
+          expect(actualReturn).toBe(expected)
         })
       }
     )

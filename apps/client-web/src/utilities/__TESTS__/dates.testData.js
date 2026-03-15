@@ -1,20 +1,7 @@
+// Seconds-before-midnight-UTC entries for getDateAndFrom tests (expected string computed in test for timezone-agnostic assertion)
 export const getDateAndFromTestData = [
-  [4, 'December 31st 2020, 12:59 AM, a few seconds ago'],
-  [42, 'December 31st 2020, 12:59 AM, a few seconds ago'],
-  [298, 'December 31st 2020, 12:55 AM, 5 minutes ago'],
-  [619, 'December 31st 2020, 12:49 AM, 10 minutes ago'],
-  [2327, 'December 31st 2020, 12:21 AM, 39 minutes ago'],
-  [8716, 'December 30th 2020, 10:34 PM, 2 hours ago'],
-  [12901, 'December 30th 2020, 9:24 PM, 4 hours ago'],
-  [43918, 'December 30th 2020, 12:48 PM, 12 hours ago'],
-  [74918, 'December 30th 2020, 4:11 AM, 21 hours ago'],
-  [300519, 'December 27th 2020, 1:31 PM, 3 days ago'],
-  [681092, 'December 23rd 2020, 3:48 AM, 8 days ago'],
-  [2091827, 'December 6th 2020, 7:56 PM, 24 days ago'],
-  [7701982, 'October 2nd 2020, 10:33 PM, 3 months ago'],
-  [19827361, 'May 15th 2020, 2:23 PM, 8 months ago'],
-  [40917255, 'September 14th 2019, 12:05 PM, a year ago'],
-  [86188972, 'April 8th 2018, 12:37 PM, 3 years ago'],
+  [4], [42], [298], [619], [2327], [8716], [12901], [43918], [74918],
+  [300519], [681092], [2091827], [7701982], [19827361], [40917255], [86188972],
 ]
 
 export const getDateDiffTextTestData = [

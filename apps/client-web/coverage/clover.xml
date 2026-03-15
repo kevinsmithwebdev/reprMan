@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1773577650485" clover="3.2.0">
-  <project timestamp="1773577650485" name="All files">
+<coverage generated="1773583725008" clover="3.2.0">
+  <project timestamp="1773583725008" name="All files">
     <metrics statements="800" coveredstatements="320" conditionals="317" coveredconditionals="44" methods="251" coveredmethods="71" elements="1368" coveredelements="435" complexity="0" loc="800" ncloc="800" packages="65" files="156" classes="156"/>
     <package name="src">
       <metrics statements="15" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="2"/>
@@ -1323,8 +1323,8 @@
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="dates.testData.js" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/__TESTS__/dates.testData.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="20" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
       </file>
       <file name="lists.testData.js" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/__TESTS__/lists.testData.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
