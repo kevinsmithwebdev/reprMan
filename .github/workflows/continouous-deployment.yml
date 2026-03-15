@@ -26,6 +26,12 @@ jobs:
     - name: Inspect - Prettier, Lint, Unit Tests
       run: |
         yarn inspect
+    - name: Check S3 bucket secret
+      run: |
+        if [ -z "${{ secrets.AWS_TEST_BUCKET_NAME }}" ]; then
+          echo "::error::AWS_TEST_BUCKET_NAME secret is not set. Add it in repo Settings → Secrets and variables → Actions."
+          exit 1
+        fi
     - name: Deploy to S3
       uses: jakejarvis/s3-sync-action@master
       with:
