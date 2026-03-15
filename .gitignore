@@ -13,7 +13,7 @@
 /apps/client-web/build
 
 # nx
-.nx/cache
+.nx/
 
 # misc
 .DS_Store
