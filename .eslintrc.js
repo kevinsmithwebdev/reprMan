@@ -58,4 +58,15 @@ module.exports = {
   globals: {
     JSX: true,
   },
+  overrides: [
+    {
+      files: [
+        'apps/client-web/src/**/*.{js,jsx,ts,tsx}',
+        'src/**/*.{js,jsx,ts,tsx}',
+      ],
+      rules: {
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+  ],
 }

@@ -10,6 +10,10 @@
 
 # production
 /build
+/apps/client-web/build
+
+# nx
+.nx/cache
 
 # misc
 .DS_Store

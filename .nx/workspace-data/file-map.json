@@ -1,0 +1,1542 @@
+{
+  "version": "6.0",
+  "nxVersion": "20.8.4",
+  "pathMappings": {},
+  "nxJsonPlugins": [],
+  "fileMap": {
+    "nonProjectFiles": [
+      {
+        "file": "yarn.lock",
+        "hash": "2731401476218557571"
+      },
+      {
+        "file": "babel.config.js",
+        "hash": "3789748147289960612"
+      },
+      {
+        "file": "tsconfig.json",
+        "hash": "16282541790342491075"
+      },
+      {
+        "file": "scripts/testOne.sh",
+        "hash": "17957120979996867897"
+      },
+      {
+        "file": ".gitignore",
+        "hash": "4985747283778317699"
+      },
+      {
+        "file": "README.md",
+        "hash": "4739376259808184198"
+      },
+      {
+        "file": ".github/workflows/continous-integration.yml",
+        "hash": "13336753806340087849"
+      },
+      {
+        "file": ".prettierrc.js",
+        "hash": "2741455211858068178"
+      },
+      {
+        "file": "tsconfig.base.json",
+        "hash": "11115603641788459583"
+      },
+      {
+        "file": ".prettierignore",
+        "hash": "6046302703008961005"
+      },
+      {
+        "file": "nx.json",
+        "hash": "14413115429844164130"
+      },
+      {
+        "file": ".eslintrc.js",
+        "hash": "11690684830956206551"
+      },
+      {
+        "file": "cspell.json",
+        "hash": "16388725547802551812"
+      },
+      {
+        "file": "jest.config.js",
+        "hash": "14127090520657317870"
+      },
+      {
+        "file": "package.json",
+        "hash": "17828843234760843622"
+      },
+      {
+        "file": ".github/workflows/continouous-deployment.yml",
+        "hash": "1203870910893984094"
+      }
+    ],
+    "projectFileMap": {
+      "client-web": [
+        {
+          "file": "apps/client-web/babel.config.js",
+          "hash": "3789748147289960612"
+        },
+        {
+          "file": "apps/client-web/coverage/coverage-final.json",
+          "hash": "13278452830649114358"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/base.css",
+          "hash": "6204767174569381253"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/block-navigation.js",
+          "hash": "1801078621803424330"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/favicon.png",
+          "hash": "13402560043085226048"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/index.html",
+          "hash": "12972145436822143271"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/prettify.css",
+          "hash": "8163588510556258587"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/prettify.js",
+          "hash": "15884788582061322779"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/sort-arrow-sprite.png",
+          "hash": "254831142482329146"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/sorter.js",
+          "hash": "17053119163225536857"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/App.tsx.html",
+          "hash": "808330645392271277"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/AddReprButton/AddReprButton.tsx.html",
+          "hash": "10264736874572876895"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/AddReprButton/index.html",
+          "hash": "6315074611755592551"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/AddReprButton/index.ts.html",
+          "hash": "13085756434644921484"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/CategoryPills/CategoryPills.tsx.html",
+          "hash": "6044504466942523873"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/CategoryPills/index.html",
+          "hash": "17362389342468120426"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/CategoryPills/index.ts.html",
+          "hash": "8950017644010252166"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Footer/Footer.tsx.html",
+          "hash": "17999907055773358942"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Footer/index.html",
+          "hash": "9579477309529514634"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Footer/index.ts.html",
+          "hash": "13342431562489758879"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/Controls/Controls.tsx.html",
+          "hash": "11581229894270777888"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/Controls/FilterForm/Filter.form.tsx.html",
+          "hash": "12182617079141963844"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/Controls/FilterForm/index.html",
+          "hash": "15609399039369705123"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/Controls/FilterForm/index.ts.html",
+          "hash": "813813816394436716"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/Controls/index.html",
+          "hash": "6094328929692264267"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/Controls/index.ts.html",
+          "hash": "4826477219146491317"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/Header.tsx.html",
+          "hash": "5851748955314142693"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/index.html",
+          "hash": "4195092632095961756"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/Header/index.ts.html",
+          "hash": "16532443898517104700"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/InfoButton/InfoButton.tsx.html",
+          "hash": "10082836299185182611"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/InfoButton/index.html",
+          "hash": "7698969554342626733"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/InfoButton/index.ts.html",
+          "hash": "6547056893362524434"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprButton/ReprButton.tsx.html",
+          "hash": "16603899287909348879"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprButton/index.html",
+          "hash": "16863547424962030535"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprButton/index.ts.html",
+          "hash": "16524102112166077676"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprLine/ReprLine.helpers.tsx.html",
+          "hash": "13431688403593157116"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprLine/ReprLine.tsx.html",
+          "hash": "9833614418010369288"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprLine/index.html",
+          "hash": "14160332750830985450"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprLine/index.ts.html",
+          "hash": "7975223021329955174"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprsList/ReprsList.tsx.html",
+          "hash": "3859243226135114586"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprsList/ReprsList.types.ts.html",
+          "hash": "16914072647630263614"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprsList/index.html",
+          "hash": "17365839832387206276"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ReprsList/index.ts.html",
+          "hash": "17451464690001908684"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ToastWrapper/ToastWrapper.tsx.html",
+          "hash": "42952817391893809"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ToastWrapper/index.html",
+          "hash": "214666740241796546"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/components/ToastWrapper/index.ts.html",
+          "hash": "10780862850789284737"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/constants/index.html",
+          "hash": "6254072803908313825"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/constants/index.ts.html",
+          "hash": "11713038396501606657"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/index.html",
+          "hash": "9522853945918717542"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/index.tsx.html",
+          "hash": "16362513340311014738"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Confirmation/Confirmation.helpers.ts.html",
+          "hash": "15261060819501873981"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Confirmation/Confirmation.tsx.html",
+          "hash": "17401861609221429057"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Confirmation/index.html",
+          "hash": "3090347122475704516"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Confirmation/index.ts.html",
+          "hash": "1824562855085362614"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/EditRepr/CategoryLine/CategoryLine.tsx.html",
+          "hash": "18124536273502092918"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/EditRepr/CategoryLine/index.html",
+          "hash": "10161110194650835857"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/EditRepr/CategoryLine/index.ts.html",
+          "hash": "8381155714352459772"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/EditRepr/EditRepr.helpers.ts.html",
+          "hash": "6297212870361265124"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/EditRepr/EditRepr.tsx.html",
+          "hash": "4339976131562436666"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/EditRepr/index.html",
+          "hash": "17651239741962924810"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/EditRepr/index.ts.html",
+          "hash": "3995991124831859836"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Info/Info.tsx.html",
+          "hash": "8648967131141560297"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Info/index.html",
+          "hash": "7857996661583127926"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Info/index.ts.html",
+          "hash": "14745584507178918752"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/ModalContainer/ModalContainer.tsx.html",
+          "hash": "7776075372084579023"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/ModalContainer/ModalContainer.types.ts.html",
+          "hash": "2421018058269801438"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/ModalContainer/index.html",
+          "hash": "6976180924076332301"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/ModalContainer/index.ts.html",
+          "hash": "10036262453070745542"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Query/Query.helpers.ts.html",
+          "hash": "1789679276778706242"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Query/Query.tsx.html",
+          "hash": "3099590981332918141"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Query/index.html",
+          "hash": "4017047114921831490"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modals/Query/index.ts.html",
+          "hash": "9517617723439020356"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/LocalStorage/LocalStorage.module.ts.html",
+          "hash": "2323900894650642497"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/LocalStorage/LocalStorage.types.ts.html",
+          "hash": "6489958047809370238"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/LocalStorage/index.html",
+          "hash": "4696491656853784324"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/Localization/Localization.hooks.ts.html",
+          "hash": "5877249781993503636"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/Localization/Localization.module.ts.html",
+          "hash": "16799304959736332816"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/Localization/index.html",
+          "hash": "6606402046970255538"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/Localization/index.ts.html",
+          "hash": "14998792446107417158"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/index.html",
+          "hash": "14036054581362975990"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/modules/index.ts.html",
+          "hash": "996767469491476192"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/About/About.tsx.html",
+          "hash": "13278605817786217133"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/About/AboutSection/AboutSection.tsx.html",
+          "hash": "5040901558443366010"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/About/AboutSection/index.html",
+          "hash": "646461991536114711"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/About/AboutSection/index.ts.html",
+          "hash": "7103079972310501835"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/About/index.html",
+          "hash": "17246367946674767317"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/About/index.ts.html",
+          "hash": "10086978656752030863"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Home/Home.tsx.html",
+          "hash": "15706280696424199377"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Home/index.html",
+          "hash": "5655171165285506004"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Home/index.ts.html",
+          "hash": "11181014050957408445"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/Settings.helpers.ts.html",
+          "hash": "1839306581953595523"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/Settings.tsx.html",
+          "hash": "9324696187888036599"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/SettingsCardNumber/SettingsCardNumber.tsx.html",
+          "hash": "17311597074439990809"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/SettingsCardNumber/index.html",
+          "hash": "5630453083085593827"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/SettingsCardNumber/index.ts.html",
+          "hash": "6079430662794186262"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/SupplementalSettingsCard/SupplementalSettingsCard.tsx.html",
+          "hash": "13700222605676148623"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/SupplementalSettingsCard/index.html",
+          "hash": "13677458534256466365"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/SupplementalSettingsCard/index.ts.html",
+          "hash": "107646442120409820"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/index.html",
+          "hash": "2051224147108044341"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/Settings/index.ts.html",
+          "hash": "3848490981738282163"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/ViewRepr/ViewRepr.helpers.ts.html",
+          "hash": "5203954524438513152"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/ViewRepr/ViewRepr.tsx.html",
+          "hash": "13527147361573135816"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/ViewRepr/index.html",
+          "hash": "4405062268511766869"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/pages/ViewRepr/index.ts.html",
+          "hash": "1191167940720651979"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/reportWebVitals.ts.html",
+          "hash": "16034386647277981195"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/categories/categories.actions.ts.html",
+          "hash": "9865997581010515854"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/categories/categories.constants.ts.html",
+          "hash": "11109193042820461261"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/categories/categories.hooks.ts.html",
+          "hash": "6901689439972718160"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/categories/categories.reducer.ts.html",
+          "hash": "11687874083279028397"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/categories/categories.selectors.ts.html",
+          "hash": "13086302899150511896"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/categories/categories.types.ts.html",
+          "hash": "11634447957133918102"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/categories/index.html",
+          "hash": "13478582979712117248"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/categories/index.ts.html",
+          "hash": "16152520881111535264"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/index.html",
+          "hash": "4131874408571136331"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/modal/index.html",
+          "hash": "1916670064812920517"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/modal/index.ts.html",
+          "hash": "15097403801109826550"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/modal/modal.actions.ts.html",
+          "hash": "12398898230255797065"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/modal/modal.constants.ts.html",
+          "hash": "10974910247575865964"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/modal/modal.hooks.ts.html",
+          "hash": "14626893324482009552"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/modal/modal.reducer.ts.html",
+          "hash": "5795829505812092970"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/modal/modal.selectors.ts.html",
+          "hash": "12267196822984913721"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/modal/modal.types.ts.html",
+          "hash": "8656455487656224759"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/__FIXTURES__/index.html",
+          "hash": "13896800247235968842"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/__FIXTURES__/makeReprs.js.html",
+          "hash": "6705657670566961090"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/__FIXTURES__/preData.js.html",
+          "hash": "2844407916615204747"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/index.html",
+          "hash": "7014518890537770620"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/index.ts.html",
+          "hash": "9632141041361669267"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/reprs.actions.ts.html",
+          "hash": "8785895460879268647"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/reprs.constants.ts.html",
+          "hash": "14792696783133397941"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/reprs.hooks.ts.html",
+          "hash": "15676897778769536771"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/reprs.reducer.ts.html",
+          "hash": "2090607250564518539"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/reprs.selectors.ts.html",
+          "hash": "12096198162746992149"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/reprs/reprs.types.ts.html",
+          "hash": "2451115221406270771"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/constants.ts.html",
+          "hash": "364490961514195874"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/files.actions.ts.html",
+          "hash": "18305954731346415826"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/index.html",
+          "hash": "16567588464041402189"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/index.ts.html",
+          "hash": "16386606692939656615"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/readReprsFromTextFile/index.html",
+          "hash": "11133734534869989605"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/readReprsFromTextFile/readReprsFromTextFile.saga.ts.html",
+          "hash": "15535499511830839847"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/readReprsFromXlsxFile/index.html",
+          "hash": "14474205575984440150"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/readReprsFromXlsxFile/readReprsFromXlsxFile.saga.ts.html",
+          "hash": "4989599721773466729"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/writeReprsToTextFile/index.html",
+          "hash": "8652173783468001755"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/writeReprsToTextFile/writeReprsToTextFile.saga.ts.html",
+          "hash": "2078540953788355816"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/writeReprsToXlsxFile/index.html",
+          "hash": "10825161288412943148"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/files/writeReprsToXlsxFile/writeReprsToXlsxFile.saga.ts.html",
+          "hash": "6642780364195894545"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/genesis/genesis.actions.ts.html",
+          "hash": "18092312243701318114"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/genesis/genesis.saga.ts.html",
+          "hash": "10071547319988719556"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/genesis/index.html",
+          "hash": "4589038979662417771"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/genesis/index.ts.html",
+          "hash": "810355208843199574"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/index.html",
+          "hash": "10829808343868700271"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/ping/index.html",
+          "hash": "5214496513216667220"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/ping/index.ts.html",
+          "hash": "10429845336220602171"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/ping/ping.actions.ts.html",
+          "hash": "7248837448923700393"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/ping/showPing/index.html",
+          "hash": "9833996187120497909"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/ping/showPing/index.ts.html",
+          "hash": "13839244132765411222"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/ping/showPing/showPing.saga.ts.html",
+          "hash": "15310249041250412998"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs.helpers.ts.html",
+          "hash": "11501802353660968684"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/addRepr/addRepr.saga.ts.html",
+          "hash": "5248080372917986508"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/addRepr/index.html",
+          "hash": "12452934487190367208"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/clearAllReprs/clearAllReprs.saga.ts.html",
+          "hash": "15287682447929649240"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/clearAllReprs/index.html",
+          "hash": "16393955321539908583"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/index.html",
+          "hash": "10900266112024102611"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/index.ts.html",
+          "hash": "6696312280456589613"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/loadReprs/index.html",
+          "hash": "1569712656543866390"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/loadReprs/loadReprs.saga.ts.html",
+          "hash": "4972023736359213876"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/markReprPracticed/index.html",
+          "hash": "18298604293930047369"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/markReprPracticed/markReprPracticed.saga.ts.html",
+          "hash": "5076389979246345702"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/removeRepr/index.html",
+          "hash": "8010112222925819444"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/removeRepr/removeRepr.saga.ts.html",
+          "hash": "13369976362666041367"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/reprs.actions.ts.html",
+          "hash": "10483964375379665019"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/storeReprs/index.html",
+          "hash": "6132532088871530821"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/reprs/storeReprs/storeReprs.saga.ts.html",
+          "hash": "3524556998158356654"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/rootSaga.ts.html",
+          "hash": "7070362553089964471"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/settings/index.html",
+          "hash": "12829975959037952420"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/settings/index.ts.html",
+          "hash": "11269116079029410828"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/settings/loadSettings/index.html",
+          "hash": "1553631850171626833"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/settings/resetSettings/index.html",
+          "hash": "6533680972290867085"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/sagas/settings/settings.actions.ts.html",
+          "hash": "11471356222723483881"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov-report/src/state/store.ts.html",
+          "hash": "17430689020947142457"
+        },
+        {
+          "file": "apps/client-web/coverage/lcov.info",
+          "hash": "495818795846628996"
+        },
+        {
+          "file": "apps/client-web/cypress.config.ts",
+          "hash": "4698185728044549441"
+        },
+        {
+          "file": "apps/client-web/cypress/constants/index.js",
+          "hash": "8336731985488314719"
+        },
+        {
+          "file": "apps/client-web/cypress/e2e/addingReprs/App.cy.js",
+          "hash": "11397169554034368174"
+        },
+        {
+          "file": "apps/client-web/cypress/e2e/pages/Home.cy.js",
+          "hash": "5494058566860512453"
+        },
+        {
+          "file": "apps/client-web/cypress/fixtures/example.json",
+          "hash": "11785586596216172004"
+        },
+        {
+          "file": "apps/client-web/cypress/support/commands.ts",
+          "hash": "9883532909609567882"
+        },
+        {
+          "file": "apps/client-web/cypress/support/e2e.ts",
+          "hash": "9400169756472368457"
+        },
+        {
+          "file": "apps/client-web/package.json",
+          "hash": "13234279038244604182"
+        },
+        {
+          "file": "apps/client-web/project.json",
+          "hash": "13208288199787355136"
+        },
+        {
+          "file": "apps/client-web/public/favicon.ico",
+          "hash": "10714814285870412328"
+        },
+        {
+          "file": "apps/client-web/public/index.html",
+          "hash": "17059344922645871507"
+        },
+        {
+          "file": "apps/client-web/public/logo192.png",
+          "hash": "4819300985156607546"
+        },
+        {
+          "file": "apps/client-web/public/logo512.png",
+          "hash": "7794022788751209955"
+        },
+        {
+          "file": "apps/client-web/public/manifest.json",
+          "hash": "13322222590967200538"
+        },
+        {
+          "file": "apps/client-web/public/robots.txt",
+          "hash": "2790380794362165217"
+        },
+        {
+          "file": "apps/client-web/src/App.css",
+          "hash": "3472201094699472689"
+        },
+        {
+          "file": "apps/client-web/src/App.tsx",
+          "hash": "11782530748036261796"
+        },
+        {
+          "file": "apps/client-web/src/__tests__/App.test.js",
+          "hash": "193489462602169999"
+        },
+        {
+          "file": "apps/client-web/src/__tests__/__snapshots__/App.test.js.snap",
+          "hash": "5661252890009128499"
+        },
+        {
+          "file": "apps/client-web/src/components/AddReprButton/AddReprButton.tsx",
+          "hash": "9847100754325480684"
+        },
+        {
+          "file": "apps/client-web/src/components/AddReprButton/index.ts",
+          "hash": "7901768178333560326"
+        },
+        {
+          "file": "apps/client-web/src/components/CategoryPills/CategoryPills.tsx",
+          "hash": "12629112192554036169"
+        },
+        {
+          "file": "apps/client-web/src/components/CategoryPills/index.ts",
+          "hash": "7906580111908087524"
+        },
+        {
+          "file": "apps/client-web/src/components/Footer/Footer.tsx",
+          "hash": "15175767142025110909"
+        },
+        {
+          "file": "apps/client-web/src/components/Footer/index.ts",
+          "hash": "4218009077856868998"
+        },
+        {
+          "file": "apps/client-web/src/components/Header/Controls/Controls.tsx",
+          "hash": "16166928094134804432"
+        },
+        {
+          "file": "apps/client-web/src/components/Header/Controls/FilterForm/Filter.form.tsx",
+          "hash": "5156958934663720887"
+        },
+        {
+          "file": "apps/client-web/src/components/Header/Controls/FilterForm/index.ts",
+          "hash": "10043324295804259597"
+        },
+        {
+          "file": "apps/client-web/src/components/Header/Controls/index.ts",
+          "hash": "12423408786742855464"
+        },
+        {
+          "file": "apps/client-web/src/components/Header/Header.css",
+          "hash": "10385294363902543235"
+        },
+        {
+          "file": "apps/client-web/src/components/Header/Header.tsx",
+          "hash": "5134594316986135039"
+        },
+        {
+          "file": "apps/client-web/src/components/Header/index.ts",
+          "hash": "9765099181978321385"
+        },
+        {
+          "file": "apps/client-web/src/components/InfoButton/InfoButton.tsx",
+          "hash": "1505026074573250831"
+        },
+        {
+          "file": "apps/client-web/src/components/InfoButton/index.ts",
+          "hash": "13354612093583216239"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprButton/ReprButton.tsx",
+          "hash": "14041750126311858588"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprButton/index.ts",
+          "hash": "4118539015316782613"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprLine/ReprLine.css",
+          "hash": "13399980401586454825"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprLine/ReprLine.helpers.tsx",
+          "hash": "8859005723932750751"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprLine/ReprLine.tsx",
+          "hash": "7797681808265851772"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprLine/__TESTS__/ReprLine.helpers.test.js",
+          "hash": "13191780243839166436"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprLine/index.ts",
+          "hash": "7057765391269528301"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprsList/ReprsList.tsx",
+          "hash": "3191441010699743589"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprsList/ReprsList.types.ts",
+          "hash": "16261086750467989934"
+        },
+        {
+          "file": "apps/client-web/src/components/ReprsList/index.ts",
+          "hash": "9566320856012382091"
+        },
+        {
+          "file": "apps/client-web/src/components/ToastWrapper/ToastWrapper.tsx",
+          "hash": "13132799368578193998"
+        },
+        {
+          "file": "apps/client-web/src/components/ToastWrapper/index.ts",
+          "hash": "12058400466790384859"
+        },
+        {
+          "file": "apps/client-web/src/constants/index.ts",
+          "hash": "3876345666555838759"
+        },
+        {
+          "file": "apps/client-web/src/index.css",
+          "hash": "7449127304287508823"
+        },
+        {
+          "file": "apps/client-web/src/index.tsx",
+          "hash": "8712779667515197006"
+        },
+        {
+          "file": "apps/client-web/src/modals/Confirmation/Confirmation.helpers.ts",
+          "hash": "13801114809763678393"
+        },
+        {
+          "file": "apps/client-web/src/modals/Confirmation/Confirmation.tsx",
+          "hash": "3650013037575928733"
+        },
+        {
+          "file": "apps/client-web/src/modals/Confirmation/index.ts",
+          "hash": "17056647850316578211"
+        },
+        {
+          "file": "apps/client-web/src/modals/EditRepr/CategoryLine/CategoryLine.tsx",
+          "hash": "8424690098321111341"
+        },
+        {
+          "file": "apps/client-web/src/modals/EditRepr/CategoryLine/index.ts",
+          "hash": "1958222544026440488"
+        },
+        {
+          "file": "apps/client-web/src/modals/EditRepr/EditRepr.helpers.ts",
+          "hash": "16488767938134746091"
+        },
+        {
+          "file": "apps/client-web/src/modals/EditRepr/EditRepr.tsx",
+          "hash": "5992581959045649689"
+        },
+        {
+          "file": "apps/client-web/src/modals/EditRepr/index.ts",
+          "hash": "9246676514751798689"
+        },
+        {
+          "file": "apps/client-web/src/modals/Info/Info.tsx",
+          "hash": "2093962235538010867"
+        },
+        {
+          "file": "apps/client-web/src/modals/Info/index.ts",
+          "hash": "12833567422926871599"
+        },
+        {
+          "file": "apps/client-web/src/modals/ModalContainer/ModalContainer.tsx",
+          "hash": "13564729586685284558"
+        },
+        {
+          "file": "apps/client-web/src/modals/ModalContainer/ModalContainer.types.ts",
+          "hash": "9775860578208226420"
+        },
+        {
+          "file": "apps/client-web/src/modals/ModalContainer/index.ts",
+          "hash": "5990570191784401084"
+        },
+        {
+          "file": "apps/client-web/src/modals/Query/Query.helpers.ts",
+          "hash": "8868366268880727340"
+        },
+        {
+          "file": "apps/client-web/src/modals/Query/Query.tsx",
+          "hash": "10517990462067137180"
+        },
+        {
+          "file": "apps/client-web/src/modals/Query/index.ts",
+          "hash": "18060166983169991830"
+        },
+        {
+          "file": "apps/client-web/src/modules/LocalStorage/LocalStorage.module.ts",
+          "hash": "13360469902157584515"
+        },
+        {
+          "file": "apps/client-web/src/modules/LocalStorage/LocalStorage.types.ts",
+          "hash": "13139474080513898159"
+        },
+        {
+          "file": "apps/client-web/src/modules/Localization/Localization.hooks.ts",
+          "hash": "17500216942252798538"
+        },
+        {
+          "file": "apps/client-web/src/modules/Localization/Localization.module.ts",
+          "hash": "4373920277194159937"
+        },
+        {
+          "file": "apps/client-web/src/modules/Localization/en.json",
+          "hash": "1769986169856244468"
+        },
+        {
+          "file": "apps/client-web/src/modules/Localization/index.ts",
+          "hash": "9950522703542531637"
+        },
+        {
+          "file": "apps/client-web/src/modules/index.ts",
+          "hash": "12919230340714576470"
+        },
+        {
+          "file": "apps/client-web/src/pages/About/About.tsx",
+          "hash": "11361617409402102824"
+        },
+        {
+          "file": "apps/client-web/src/pages/About/AboutSection/AboutSection.tsx",
+          "hash": "14314132137748815822"
+        },
+        {
+          "file": "apps/client-web/src/pages/About/AboutSection/index.ts",
+          "hash": "18016322143140066568"
+        },
+        {
+          "file": "apps/client-web/src/pages/About/index.ts",
+          "hash": "15838060757801481675"
+        },
+        {
+          "file": "apps/client-web/src/pages/Home/Home.tsx",
+          "hash": "17998002050727727435"
+        },
+        {
+          "file": "apps/client-web/src/pages/Home/index.ts",
+          "hash": "5303758018244298868"
+        },
+        {
+          "file": "apps/client-web/src/pages/Settings/Settings.helpers.ts",
+          "hash": "7070540249155216034"
+        },
+        {
+          "file": "apps/client-web/src/pages/Settings/Settings.tsx",
+          "hash": "18265107809083118323"
+        },
+        {
+          "file": "apps/client-web/src/pages/Settings/SettingsCardNumber/SettingsCardNumber.tsx",
+          "hash": "1087831341619125471"
+        },
+        {
+          "file": "apps/client-web/src/pages/Settings/SettingsCardNumber/index.ts",
+          "hash": "11260060097434302429"
+        },
+        {
+          "file": "apps/client-web/src/pages/Settings/SupplementalSettingsCard/SupplementalSettingsCard.tsx",
+          "hash": "18392130117601715416"
+        },
+        {
+          "file": "apps/client-web/src/pages/Settings/SupplementalSettingsCard/index.ts",
+          "hash": "13530752439500588549"
+        },
+        {
+          "file": "apps/client-web/src/pages/Settings/index.ts",
+          "hash": "4025758427510129049"
+        },
+        {
+          "file": "apps/client-web/src/pages/ViewRepr/ViewRepr.helpers.ts",
+          "hash": "4253998721992701861"
+        },
+        {
+          "file": "apps/client-web/src/pages/ViewRepr/ViewRepr.tsx",
+          "hash": "15145372846669183072"
+        },
+        {
+          "file": "apps/client-web/src/pages/ViewRepr/__TESTS__/ViewRepr.helpers.test.js",
+          "hash": "17057476013002951999"
+        },
+        {
+          "file": "apps/client-web/src/pages/ViewRepr/index.ts",
+          "hash": "16778485280588247608"
+        },
+        {
+          "file": "apps/client-web/src/react-app-env.d.ts",
+          "hash": "3195158367843515590"
+        },
+        {
+          "file": "apps/client-web/src/reportWebVitals.ts",
+          "hash": "11163340588745662263"
+        },
+        {
+          "file": "apps/client-web/src/setupTests.ts",
+          "hash": "17068284439919389423"
+        },
+        {
+          "file": "apps/client-web/src/state/categories/categories.actions.ts",
+          "hash": "1203275172867567869"
+        },
+        {
+          "file": "apps/client-web/src/state/categories/categories.constants.ts",
+          "hash": "15492933222000014758"
+        },
+        {
+          "file": "apps/client-web/src/state/categories/categories.hooks.ts",
+          "hash": "2190283593512115245"
+        },
+        {
+          "file": "apps/client-web/src/state/categories/categories.reducer.ts",
+          "hash": "15500313166074757439"
+        },
+        {
+          "file": "apps/client-web/src/state/categories/categories.selectors.ts",
+          "hash": "17671992545702750978"
+        },
+        {
+          "file": "apps/client-web/src/state/categories/categories.types.ts",
+          "hash": "9362886569438368605"
+        },
+        {
+          "file": "apps/client-web/src/state/categories/index.ts",
+          "hash": "16714079319094041731"
+        },
+        {
+          "file": "apps/client-web/src/state/modal/index.ts",
+          "hash": "5795092100990117527"
+        },
+        {
+          "file": "apps/client-web/src/state/modal/modal.actions.ts",
+          "hash": "12158307044778594236"
+        },
+        {
+          "file": "apps/client-web/src/state/modal/modal.constants.ts",
+          "hash": "3570472723437986811"
+        },
+        {
+          "file": "apps/client-web/src/state/modal/modal.hooks.ts",
+          "hash": "1658059509438836700"
+        },
+        {
+          "file": "apps/client-web/src/state/modal/modal.reducer.ts",
+          "hash": "6856344943993998537"
+        },
+        {
+          "file": "apps/client-web/src/state/modal/modal.selectors.ts",
+          "hash": "2080025127290064279"
+        },
+        {
+          "file": "apps/client-web/src/state/modal/modal.types.ts",
+          "hash": "5419475288627379296"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/__FIXTURES__/generatedReprs.json",
+          "hash": "7319693838020809536"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/__FIXTURES__/makeReprs.js",
+          "hash": "15598114268211151449"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/__FIXTURES__/preData.js",
+          "hash": "13802588755382225306"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/index.ts",
+          "hash": "15423587466621840266"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/reprs.actions.ts",
+          "hash": "10303625736492231269"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/reprs.constants.ts",
+          "hash": "13690018793710271847"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/reprs.hooks.ts",
+          "hash": "89285825571997198"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/reprs.reducer.ts",
+          "hash": "12762202170116209930"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/reprs.selectors.ts",
+          "hash": "9029175457575158531"
+        },
+        {
+          "file": "apps/client-web/src/state/reprs/reprs.types.ts",
+          "hash": "17014579345486833229"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/files/constants.ts",
+          "hash": "17884940978373313830"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/files/files.actions.ts",
+          "hash": "2539508305275975042"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/files/index.ts",
+          "hash": "12893039703163166870"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/files/readReprsFromTextFile/readReprsFromTextFile.saga.ts",
+          "hash": "12714639772015850621"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/files/readReprsFromXlsxFile/readReprsFromXlsxFile.saga.ts",
+          "hash": "17530037179809780481"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/files/writeReprsToTextFile/writeReprsToTextFile.saga.ts",
+          "hash": "15498094123384040827"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/files/writeReprsToXlsxFile/writeReprsToXlsxFile.saga.ts",
+          "hash": "4917446652814038347"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/genesis/genesis.actions.ts",
+          "hash": "11653508225594742923"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/genesis/genesis.saga.ts",
+          "hash": "952041391130447203"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/genesis/index.ts",
+          "hash": "14746662025169738570"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/ping/index.ts",
+          "hash": "2562538688381480828"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/ping/ping.actions.ts",
+          "hash": "1328361286752644714"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/ping/showPing/index.ts",
+          "hash": "7712042631353514581"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/ping/showPing/showPing.saga.ts",
+          "hash": "17388030574703478828"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs.helpers.ts",
+          "hash": "1365560520244191268"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs/addRepr/addRepr.saga.ts",
+          "hash": "163357582485912906"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs/clearAllReprs/clearAllReprs.saga.ts",
+          "hash": "6657331277988090076"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs/index.ts",
+          "hash": "2764976250299297296"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs/loadReprs/loadReprs.saga.ts",
+          "hash": "14884466169974462012"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs/markReprPracticed/markReprPracticed.saga.ts",
+          "hash": "3479241560192951418"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs/removeRepr/removeRepr.saga.ts",
+          "hash": "316429330880115731"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs/reprs.actions.ts",
+          "hash": "15340734939847815464"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/reprs/storeReprs/storeReprs.saga.ts",
+          "hash": "14067661535851595035"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/rootSaga.ts",
+          "hash": "7725746859664013286"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/settings/index.ts",
+          "hash": "14307794649748556675"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/settings/loadSettings/loadSettings.saga.ts",
+          "hash": "286775284328385163"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/settings/resetSettings/resetSettings.saga.ts",
+          "hash": "8240840546254934047"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/settings/setSettings/setSettings.saga.ts",
+          "hash": "13185755203405296727"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/settings/settings.actions.ts",
+          "hash": "5123429707182990403"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/toast/index.ts",
+          "hash": "3371601215228128458"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/toast/makeToast/makeToast.saga.ts",
+          "hash": "14497075536999632796"
+        },
+        {
+          "file": "apps/client-web/src/state/sagas/toast/toast.actions.ts",
+          "hash": "11112793991464132721"
+        },
+        {
+          "file": "apps/client-web/src/state/settings/index.ts",
+          "hash": "15064571853430360366"
+        },
+        {
+          "file": "apps/client-web/src/state/settings/settings.actions.ts",
+          "hash": "9053653257998022873"
+        },
+        {
+          "file": "apps/client-web/src/state/settings/settings.constants.ts",
+          "hash": "1070809134700216545"
+        },
+        {
+          "file": "apps/client-web/src/state/settings/settings.hooks.ts",
+          "hash": "1137823646220823948"
+        },
+        {
+          "file": "apps/client-web/src/state/settings/settings.reducer.ts",
+          "hash": "6023655159540509683"
+        },
+        {
+          "file": "apps/client-web/src/state/settings/settings.selectors.ts",
+          "hash": "16119190215303013241"
+        },
+        {
+          "file": "apps/client-web/src/state/settings/settings.types.ts",
+          "hash": "17827343085777800974"
+        },
+        {
+          "file": "apps/client-web/src/state/store.ts",
+          "hash": "11318410305738406340"
+        },
+        {
+          "file": "apps/client-web/src/state/toasts/index.ts",
+          "hash": "3346668688216689611"
+        },
+        {
+          "file": "apps/client-web/src/state/toasts/toasts.actions.ts",
+          "hash": "16814473064428109408"
+        },
+        {
+          "file": "apps/client-web/src/state/toasts/toasts.constants.ts",
+          "hash": "16890466878114941118"
+        },
+        {
+          "file": "apps/client-web/src/state/toasts/toasts.hooks.ts",
+          "hash": "384328781775746639"
+        },
+        {
+          "file": "apps/client-web/src/state/toasts/toasts.reducer.ts",
+          "hash": "10505485315028029254"
+        },
+        {
+          "file": "apps/client-web/src/state/toasts/toasts.selectors.ts",
+          "hash": "8612985303163667592"
+        },
+        {
+          "file": "apps/client-web/src/state/user/index.ts",
+          "hash": "15647869062126466233"
+        },
+        {
+          "file": "apps/client-web/src/state/user/user.actions.ts",
+          "hash": "16855198113846749756"
+        },
+        {
+          "file": "apps/client-web/src/state/user/user.constants.ts",
+          "hash": "6171575894339033207"
+        },
+        {
+          "file": "apps/client-web/src/state/user/user.hooks.ts",
+          "hash": "13661183331109885499"
+        },
+        {
+          "file": "apps/client-web/src/state/user/user.reducer.ts",
+          "hash": "4502178471768956048"
+        },
+        {
+          "file": "apps/client-web/src/state/user/user.selectors.ts",
+          "hash": "6963293522328636445"
+        },
+        {
+          "file": "apps/client-web/src/state/user/user.types.ts",
+          "hash": "7349975505800113528"
+        },
+        {
+          "file": "apps/client-web/src/themes/colors.ts",
+          "hash": "15336901467165808546"
+        },
+        {
+          "file": "apps/client-web/src/themes/light.ts",
+          "hash": "7524479959043865428"
+        },
+        {
+          "file": "apps/client-web/src/types/index.ts",
+          "hash": "17189317182429021386"
+        },
+        {
+          "file": "apps/client-web/src/utilities/__TESTS__/dates.test.js",
+          "hash": "1216469746699682679"
+        },
+        {
+          "file": "apps/client-web/src/utilities/__TESTS__/dates.testData.js",
+          "hash": "12114942540447053447"
+        },
+        {
+          "file": "apps/client-web/src/utilities/__TESTS__/lists.test.js",
+          "hash": "2080698660690887174"
+        },
+        {
+          "file": "apps/client-web/src/utilities/__TESTS__/lists.testData.js",
+          "hash": "1568733302756214357"
+        },
+        {
+          "file": "apps/client-web/src/utilities/dates.ts",
+          "hash": "9484949738204045077"
+        },
+        {
+          "file": "apps/client-web/src/utilities/files/files.ts",
+          "hash": "8245119561115103559"
+        },
+        {
+          "file": "apps/client-web/src/utilities/files/index.ts",
+          "hash": "17094205595863813053"
+        },
+        {
+          "file": "apps/client-web/src/utilities/index.ts",
+          "hash": "6723192763899156113"
+        },
+        {
+          "file": "apps/client-web/src/utilities/lists.ts",
+          "hash": "14309683326760837297"
+        },
+        {
+          "file": "apps/client-web/src/utilities/reprs/index.ts",
+          "hash": "7620638256687262694"
+        },
+        {
+          "file": "apps/client-web/src/utilities/reprs/reprs.ts",
+          "hash": "14411817588492467224"
+        },
+        {
+          "file": "apps/client-web/src/utilities/reprs/reprsText.ts",
+          "hash": "9171841560804455725"
+        },
+        {
+          "file": "apps/client-web/src/utilities/reprs/reprsXlsx.ts",
+          "hash": "2713394163267422629"
+        },
+        {
+          "file": "apps/client-web/tsconfig.json",
+          "hash": "15984945866773323478"
+        }
+      ]
+    }
+  }
+}

@@ -1,1 +1,1 @@
-yarn test $1 --collectCoverageOnlyFrom=$2
+yarn test -- $1 --collectCoverageOnlyFrom=$2

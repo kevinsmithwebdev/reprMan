@@ -1,0 +1,59 @@
+{
+  "name": "client-web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/client-web/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/build"],
+      "options": {
+        "command": "rm -rf build && npx react-scripts build",
+        "cwd": "apps/client-web"
+      },
+      "configurations": {
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx react-scripts start",
+        "cwd": "apps/client-web"
+      },
+      "configurations": {
+        "development": {}
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx react-scripts test --watchAll=false --coverage",
+        "cwd": "apps/client-web",
+        "forwardAllArgs": true
+      }
+    },
+    "test:watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx react-scripts test",
+        "cwd": "apps/client-web"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint ./src/**/*.{js,jsx,ts,tsx} --max-warnings=0",
+        "cwd": "apps/client-web"
+      }
+    },
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx cypress run --config videoRecording=false",
+        "cwd": "apps/client-web"
+      }
+    }
+  },
+  "tags": []
+}
