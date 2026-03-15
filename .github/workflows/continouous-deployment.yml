@@ -38,6 +38,11 @@ jobs:
         aws sts get-caller-identity
         echo "If the bucket reprman.com was created in a different AWS account, create an IAM user in the bucket's account and set AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY to that user's keys."
 
+    - name: List S3 buckets (sanity check – bucket names may be masked)
+      run: |
+        echo "Buckets in this account (names may appear as ***):"
+        aws s3 ls || true
+
     - name: Verify S3 bucket exists
       run: |
         BUCKET="${{ secrets.AWS_TEST_BUCKET_NAME }}"
@@ -55,5 +60,4 @@ jobs:
       run: |
         aws s3 sync apps/client-web/build s3://${{ secrets.AWS_TEST_BUCKET_NAME }}/ \
           --region ${{ secrets.AWS_REGION }} \
-          --acl public-read \
           --delete
