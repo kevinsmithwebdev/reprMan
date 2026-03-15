@@ -33,6 +33,11 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
 
+    - name: Show AWS account (verify this is the account that owns the bucket)
+      run: |
+        aws sts get-caller-identity
+        echo "If the bucket reprman.com was created in a different AWS account, create an IAM user in the bucket's account and set AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY to that user's keys."
+
     - name: Verify S3 bucket exists
       run: |
         BUCKET="${{ secrets.AWS_TEST_BUCKET_NAME }}"
