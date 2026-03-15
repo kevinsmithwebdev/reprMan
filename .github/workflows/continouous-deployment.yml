@@ -36,17 +36,19 @@ jobs:
     - name: Verify S3 bucket exists
       run: |
         BUCKET="${{ secrets.AWS_TEST_BUCKET_NAME }}"
+        REGION="${{ secrets.AWS_REGION }}"
         if [ -z "$BUCKET" ]; then
           echo "::error::Secret AWS_TEST_BUCKET_NAME is not set. Add it in Settings → Secrets and variables → Actions."
           exit 1
         fi
-        if ! aws s3 ls "s3://$BUCKET/" 2>&1; then
-          echo "::error::Bucket '$BUCKET' not found or credentials lack access. Create the bucket in the AWS Console (region: ${{ secrets.AWS_REGION }}) or fix the secret."
+        if ! aws s3 ls "s3://$BUCKET/" --region "$REGION" 2>&1; then
+          echo "::error::Bucket not found or no access. Check: (1) AWS_TEST_BUCKET_NAME is exactly the bucket name (e.g. reprman.com). (2) AWS_REGION matches the bucket region (e.g. eu-west-3 for Paris). (3) IAM user has s3:ListBucket and s3:PutObject on this bucket."
           exit 1
         fi
 
     - name: Deploy to S3
       run: |
         aws s3 sync apps/client-web/build s3://${{ secrets.AWS_TEST_BUCKET_NAME }}/ \
+          --region ${{ secrets.AWS_REGION }} \
           --acl public-read \
           --delete
