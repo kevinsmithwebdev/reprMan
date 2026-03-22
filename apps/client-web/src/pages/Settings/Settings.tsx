@@ -4,17 +4,24 @@ import {
   DEFAULT_DAYS_WARNING_MAX,
   COPYRIGHT_YEAR,
 } from 'constants/index'
-import { Button, Card } from 'react-bootstrap'
+import {
+  homeAuthGateActive,
+  isCognitoConfigured,
+} from 'config/configureAmplify'
+import { useCognitoAuth } from 'modules/CognitoAuth/CognitoAuthContext'
+import { useL10n } from 'modules/Localization'
+import { Button, Card, Spinner } from 'react-bootstrap'
+import { Navigate } from 'react-router-dom'
 import store from 'state/store'
 import { setSettingsSAC } from 'state/sagas/settings/settings.actions'
 import { useSettings } from 'state/settings'
-import { useL10n } from 'modules/Localization'
 import packageJson from '../../../package.json'
 import SettingsCardNumber from './SettingsCardNumber'
 import SupplementalSettingsCard from './SupplementalSettingsCard'
 import { getSupplementalSettingsCardData } from './Settings.helpers'
 
 const Settings = () => {
+  const { sessionChecked, signedIn } = useCognitoAuth()
   const { settings: previousSettings } = useSettings()
   const [practiceDelayValue, setPracticeDelayValue] = useState(
     previousSettings.practiceDelay
@@ -53,6 +60,18 @@ const Settings = () => {
   }
 
   const { t } = useL10n()
+
+  if (homeAuthGateActive && isCognitoConfigured && !sessionChecked) {
+    return (
+      <div className="d-flex justify-content-center py-5" id="Settings-page">
+        <Spinner animation="border" role="status" />
+      </div>
+    )
+  }
+
+  if (homeAuthGateActive && !signedIn) {
+    return <Navigate to="/" replace />
+  }
 
   const supplementalSettingsCardData = getSupplementalSettingsCardData()
 

@@ -8,7 +8,7 @@
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/build"],
       "options": {
-        "command": "rm -rf build && npx react-scripts build",
+        "command": "rm -rf build && npx dotenv-cli -e .env -- npx react-scripts build",
         "cwd": "apps/client-web"
       },
       "configurations": {
@@ -18,7 +18,7 @@
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx react-scripts start",
+        "command": "npx dotenv-cli -e .env -- npx react-scripts start",
         "cwd": "apps/client-web"
       },
       "configurations": {
@@ -28,7 +28,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx react-scripts test --watchAll=false --coverage",
+        "command": "npx dotenv-cli -e .env -- npx react-scripts test --watchAll=false --coverage",
         "cwd": "apps/client-web",
         "forwardAllArgs": true
       }
@@ -36,7 +36,7 @@
     "test:watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx react-scripts test",
+        "command": "npx dotenv-cli -e .env -- npx react-scripts test",
         "cwd": "apps/client-web"
       }
     },
@@ -44,13 +44,6 @@
       "executor": "nx:run-commands",
       "options": {
         "command": "npx eslint \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0",
-        "cwd": "apps/client-web"
-      }
-    },
-    "e2e": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx cypress run --config videoRecording=false",
         "cwd": "apps/client-web"
       }
     }

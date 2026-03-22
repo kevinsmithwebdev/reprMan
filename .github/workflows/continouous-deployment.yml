@@ -6,6 +6,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # CRA reads these at build time. Use Repository secrets and/or Variables with the same names.
+    env:
+      REACT_APP_COGNITO_USER_POOL_ID: ${{ secrets.REACT_APP_COGNITO_USER_POOL_ID || vars.REACT_APP_COGNITO_USER_POOL_ID }}
+      REACT_APP_COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.REACT_APP_COGNITO_USER_POOL_CLIENT_ID || vars.REACT_APP_COGNITO_USER_POOL_CLIENT_ID }}
+      REACT_APP_COGNITO_IDENTITY_POOL_ID: ${{ secrets.REACT_APP_COGNITO_IDENTITY_POOL_ID || vars.REACT_APP_COGNITO_IDENTITY_POOL_ID }}
+      REACT_APP_REQUIRE_HOME_SIGN_IN: ${{ secrets.REACT_APP_REQUIRE_HOME_SIGN_IN || vars.REACT_APP_REQUIRE_HOME_SIGN_IN }}
+      REACT_APP_ALLOW_ANONYMOUS_HOME: ${{ secrets.REACT_APP_ALLOW_ANONYMOUS_HOME || vars.REACT_APP_ALLOW_ANONYMOUS_HOME }}
 
     strategy:
       matrix:

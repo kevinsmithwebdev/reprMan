@@ -1,4 +1,42 @@
 {
+  "auth": {
+    "cancel": "Cancel",
+    "confirmPassword": "Confirm password",
+    "confirmationCode": "Confirmation code",
+    "createAccount": "Create an account",
+    "email": "Email",
+    "password": "Password",
+    "signIn": "Sign in",
+    "signInButton": "Sign In",
+    "signInTitle": "Sign in",
+    "signInUnavailable": "Sign in is not available because Cognito is not configured for this app.",
+    "signOut": "Sign out",
+    "userAvatarMenuLabel": "Open user menu",
+    "userMenuCurrentUser": "Signed in as",
+    "signInChallengeNotSupported": "This account requires an extra sign-in step (for example MFA or a new password). Complete that flow in a future update or in the Cognito hosted UI.",
+    "settingsDisabledHint": "Sign in to open Settings.",
+    "signInUnexpectedError": "Sign-in failed.",
+    "signUpBackHome": "Back to home",
+    "signUpCodeResent": "A new confirmation code was sent.",
+    "signUpCodeSent": "Check your email for a confirmation code.",
+    "signUpConfirmIntro": "Enter the code we sent to {{email}}.",
+    "signUpConfirmSubmit": "Confirm and sign in",
+    "signUpConfirmUnexpectedError": "Confirmation failed.",
+    "signUpEditEmail": "Use a different email",
+    "signUpPasswordHint": "Use at least 8 characters, matching your user pool password policy.",
+    "signUpPasswordMismatch": "Passwords do not match.",
+    "signUpResendCode": "Resend code",
+    "signUpResendUnexpectedError": "Could not resend the code.",
+    "signUpSubmit": "Create account",
+    "signUpSuccessSignedIn": "You are signed in.",
+    "signUpUnavailable": "Sign up is not available because Cognito is not configured for this app.",
+    "signUpUnexpectedError": "Sign up failed.",
+    "signUpUnexpectedNextStep": "Sign up needs an extra step that this page does not handle yet. Try the Cognito hosted UI or contact support.",
+    "homeCognitoEnvMissing": "Cognito is not configured in this build (missing REACT_APP_COGNITO_USER_POOL_ID / REACT_APP_COGNITO_USER_POOL_CLIENT_ID). Add them to apps/client-web/.env (see .env.example), then restart the dev server (`yarn start` from the repo root loads that file via dotenv-cli).",
+    "homeSignedOutBody": "Sign in or create an account to use your repertoire.",
+    "homeSignedOutTitle": "ReprMan",
+    "signUpButton": "Sign Up"
+  },
   "brand": {
     "copyright": "copyright ©{{year}}",
     "repertoireManagement": "Repertoire Management",
@@ -115,6 +153,12 @@
     },
     "home": {
       "title": "Home"
+    },
+    "signin": {
+      "title": "Sign in"
+    },
+    "signup": {
+      "title": "Sign up"
     },
     "settings": {
       "title": "Settings",

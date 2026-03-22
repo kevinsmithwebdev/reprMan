@@ -1,57 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`App snapshots basic render renders correctly 1`] = `
-<main
-  id="home-page"
-  style={
+<Context.Provider
+  value={
     Object {
-      "alignItems": "center",
-      "display": "flex",
-      "flexDirection": "column",
-      "height": "100vh",
+      "getServerState": undefined,
+      "store": Object {
+        "@@observable": [Function],
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+      },
+      "subscription": Object {
+        "addNestedSub": [Function],
+        "getListeners": [Function],
+        "handleChangeWrapper": [Function],
+        "isSubscribed": [Function],
+        "notifyNestedSubs": [Function],
+        "trySubscribe": [Function],
+        "tryUnsubscribe": [Function],
+      },
     }
   }
 >
-  <Header />
-  <div
-    style={
-      Object {
-        "flex": 1,
-        "maxWidth": "1200px",
-        "minWidth": "400px",
-        "padding": "20px",
-      }
-    }
-  >
-    <Routes>
-      <Route
-        element={<ViewRepr />}
-        path="/view/:id"
-      />
-      <Route
-        element={<About />}
-        path="/about"
-      />
-      <Route
-        element={<Settings />}
-        path="/settings"
-      />
-      <Route
-        element={<Home />}
-        path="/"
-      />
-      <Route
-        element={
-          <Navigate
-            to="/"
-          />
-        }
-        path="*"
-      />
-    </Routes>
-    <ModalContainer />
-  </div>
-  <ToastWrapper />
-  <Footer />
-</main>
+  <BrowserRouter>
+    <CognitoAuthProvider>
+      <App />
+    </CognitoAuthProvider>
+  </BrowserRouter>
+</Context.Provider>
 `;

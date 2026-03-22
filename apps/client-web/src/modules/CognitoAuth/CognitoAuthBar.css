@@ -1,0 +1,18 @@
+.cognito-avatar-dropdown-toggle::after {
+  display: none;
+}
+
+.cognito-avatar-dropdown-toggle {
+  box-shadow: none !important;
+}
+
+.cognito-user-avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 0.8125rem;
+}
+
+.cognito-avatar-dropdown-toggle:focus-visible .cognito-user-avatar,
+.cognito-avatar-dropdown-toggle:focus .cognito-user-avatar {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65);
+}

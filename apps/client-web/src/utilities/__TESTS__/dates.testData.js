@@ -1,7 +1,21 @@
 // Seconds-before-midnight-UTC entries for getDateAndFrom tests (expected string computed in test for timezone-agnostic assertion)
 export const getDateAndFromTestData = [
-  [4], [42], [298], [619], [2327], [8716], [12901], [43918], [74918],
-  [300519], [681092], [2091827], [7701982], [19827361], [40917255], [86188972],
+  [4],
+  [42],
+  [298],
+  [619],
+  [2327],
+  [8716],
+  [12901],
+  [43918],
+  [74918],
+  [300519],
+  [681092],
+  [2091827],
+  [7701982],
+  [19827361],
+  [40917255],
+  [86188972],
 ]
 
 export const getDateDiffTextTestData = [

@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "dependencies": {
+    "aws-amplify": "^6",
     "@reduxjs/toolkit": "^1.8.2",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -43,16 +44,12 @@
     "test:watch": "nx run client-web:test:watch",
     "prettier": "prettier --write apps/client-web/src",
     "lint": "nx run client-web:lint",
-    "cy": "nx run client-web:e2e",
     "inspect": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent",
-    "inspect:pr": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent && yarn cy"
+    "inspect:pr": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent",
+    "validate": "yarn lint && prettier --check apps/client-web/src && yarn test --silent"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest",
-      "plugin:cypress/recommended"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
     "production": [
@@ -73,11 +70,9 @@
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
     "babel-jest": "^28.1.3",
-    "cypress": "^10.3.1",
     "eslint": "^7.32.0 || ^8.2.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",

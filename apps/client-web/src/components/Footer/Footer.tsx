@@ -11,18 +11,24 @@ const Footer = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '40px',
+        minHeight: '40px',
+        padding: '8px 12px',
         backgroundColor: '#222',
         color: '#ddd',
         position: 'sticky',
         width: '100%',
         bottom: 0,
+        textAlign: 'center',
+        flexWrap: 'wrap',
+        gap: '4px',
       }}
       id="footer-component"
     >
-      {`${t('brand.copyright', {
-        year: COPYRIGHT_YEAR,
-      })}  -  ${MY_EMAIL}`}
+      <span>
+        {`${t('brand.copyright', {
+          year: COPYRIGHT_YEAR,
+        })}  -  ${MY_EMAIL}`}
+      </span>
     </footer>
   )
 }

@@ -5,13 +5,22 @@ import store from 'state/store'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import createMockStore from 'redux-mock-store'
+import { CognitoAuthProvider } from 'modules/CognitoAuth/CognitoAuthContext'
 import App from '../App'
 
 describe('App', () => {
   describe('snapshots', () => {
     const renderer = new ShallowRenderer()
     describe('basic render', () => {
-      const rendered = renderer.render(<App />)
+      const rendered = renderer.render(
+        <Provider store={store}>
+          <BrowserRouter>
+            <CognitoAuthProvider>
+              <App />
+            </CognitoAuthProvider>
+          </BrowserRouter>
+        </Provider>
+      )
       it('renders correctly', () => {
         expect(rendered).toMatchSnapshot()
       })
@@ -35,7 +44,9 @@ describe('App', () => {
         render(<App />, {
           wrapper: ({ children }) => (
             <Provider store={storeInstance}>
-              <BrowserRouter>{children}</BrowserRouter>
+              <BrowserRouter>
+                <CognitoAuthProvider>{children}</CognitoAuthProvider>
+              </BrowserRouter>
             </Provider>
           ),
         })

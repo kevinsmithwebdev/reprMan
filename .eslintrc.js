@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
   env: {
     browser: true,
@@ -52,7 +54,10 @@ module.exports = {
   },
   settings: {
     'import/resolver': {
-      typescript: {}, // this loads <rootdir>/tsconfig.json to eslint
+      typescript: {
+        // Root tsconfig is references-only; client-web uses baseUrl "src" for imports.
+        project: path.resolve(__dirname, 'apps/client-web/tsconfig.json'),
+      },
     },
   },
   globals: {

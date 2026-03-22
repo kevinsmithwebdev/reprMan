@@ -8,6 +8,8 @@ import store from 'state/store'
 import Home from 'pages/Home'
 import About from 'pages/About'
 import Settings from 'pages/Settings'
+import SignIn from 'pages/SignIn'
+import Signup from 'pages/Signup'
 import ViewRepr from 'pages/ViewRepr'
 import Footer from 'components/Footer'
 import ToastWrapper from 'components/ToastWrapper'
@@ -41,6 +43,8 @@ const App = () => {
           <Route path="/view/:id" element={<ViewRepr />} />
           <Route path="/about" element={<About />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/signup" element={<Signup />} />
 
           <Route path="/" element={<Home />} />
 
