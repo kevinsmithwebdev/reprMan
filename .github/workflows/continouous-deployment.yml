@@ -16,7 +16,8 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        # aws-amplify / @aws-sdk packages require Node >= 20
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v1
