@@ -1,5 +1,6 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
-import { LocalStorageModule } from 'modules'
+import { LocalStorageModule, ReprsApiModule } from 'modules'
+import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { selectReprs, setReprs } from 'state/reprs'
 import { Reprs } from 'types'
 import moment from 'moment'
@@ -7,6 +8,7 @@ import { MAX_PRACTICED_DATES } from 'constants/index'
 import { MARK_REPR_PRACTICED } from '../reprs.actions'
 
 function* markReprPracticedWorker({ payload: id }: any) {
+  const reprsApi = ReprsApiModule.getInstance()
   const localStorage = LocalStorageModule.getInstance()
 
   const currentReprs = (yield select(selectReprs)) as Reprs
@@ -27,7 +29,11 @@ function* markReprPracticedWorker({ payload: id }: any) {
   newReprs.push(newRepr)
 
   yield put(setReprs(newReprs))
-  yield localStorage.setReprs(newReprs)
+  if (isReprsApiConfigured) {
+    yield reprsApi.upsertRepr(newRepr)
+  } else {
+    yield localStorage.setReprs(newReprs)
+  }
 }
 
 export default [takeLatest(MARK_REPR_PRACTICED, markReprPracticedWorker)]

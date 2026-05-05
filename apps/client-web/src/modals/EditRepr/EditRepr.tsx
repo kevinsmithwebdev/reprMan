@@ -15,18 +15,14 @@ import {
   addCategory,
   addPillCategory,
   findFormErrors,
+  ReprForm,
+  ReprFormErrors,
   removeCategory,
 } from './EditRepr.helpers'
 
 export interface EditReprProps {
   closeModal: () => void
   id: string
-}
-
-export interface ReprForm {
-  title?: string
-  categoryInput?: string
-  comment?: string
 }
 
 const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
@@ -38,11 +34,11 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const [categories, setCategories] = useState<string[]>(repr.categories || [])
 
   const [form, setForm] = useState<ReprForm>({
-    title: repr.title,
+    title: repr.title ?? '',
     categoryInput: '',
-    comment: repr.comment,
+    comment: repr.comment ?? '',
   })
-  const [errors, setErrors] = useState<ReprForm>({})
+  const [errors, setErrors] = useState<ReprFormErrors>({})
 
   const setField = (field: string, value: string) => {
     setForm({

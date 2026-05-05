@@ -3,6 +3,7 @@
   "files": [],
   "include": [],
   "references": [
-    { "path": "./apps/client-web" }
+    { "path": "./apps/client-web" },
+    { "path": "./apps/server" }
   ]
 }

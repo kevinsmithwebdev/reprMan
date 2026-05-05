@@ -1,14 +1,24 @@
 import { FILE_LINE_DELIMITER } from 'state/sagas/files/constants'
 
-interface ReprForm {
-  title?: string
-  categoryInput?: string
-  comment?: string
+export interface ReprForm {
+  title: string
+  categoryInput: string
+  comment: string
 }
 
-export const findFormErrors = ({ form, categories, enteredCategory }) => {
+export type ReprFormErrors = Partial<ReprForm>
+
+export const findFormErrors = ({
+  form,
+  categories,
+  enteredCategory,
+}: {
+  form: ReprForm
+  categories: string[]
+  enteredCategory: string
+}) => {
   const { title, comment, categoryInput } = form
-  const newErrors = {} as ReprForm
+  const newErrors = {} as ReprFormErrors
 
   if (!title) newErrors.title = 'This field is required.'
   if (title?.includes(FILE_LINE_DELIMITER))
@@ -45,7 +55,7 @@ export const findFormErrors = ({ form, categories, enteredCategory }) => {
   return newErrors
 }
 
-const appendError = (originalError: string, newError: string) =>
+const appendError = (originalError: string | undefined, newError: string) =>
   originalError ? ` ${newError}` : newError
 
 export const removeCategory = (

@@ -1,0 +1,47 @@
+{
+  "name": "server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/server/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/dist"],
+      "options": {
+        "command": "rm -rf dist && npx tsc -p tsconfig.app.json",
+        "cwd": "apps/server"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint \"src/**/*.ts\" --max-warnings=0",
+        "cwd": "apps/server"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx jest --config jest.config.js",
+        "cwd": "apps/server"
+      }
+    },
+    "cdk:synth": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx cdk synth -a \"node dist/cdk/app.js\"",
+        "cwd": "apps/server"
+      },
+      "dependsOn": ["build"]
+    },
+    "cdk:deploy": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx cdk deploy -a \"node dist/cdk/app.js\" --require-approval never",
+        "cwd": "apps/server"
+      },
+      "dependsOn": ["build"]
+    }
+  },
+  "tags": []
+}

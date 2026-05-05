@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1774200944190" clover="3.2.0">
-  <project timestamp="1774200944190" name="All files">
-    <metrics statements="1011" coveredstatements="371" conditionals="438" coveredconditionals="64" methods="289" coveredmethods="80" elements="1738" coveredelements="515" complexity="0" loc="1011" ncloc="1011" packages="69" files="168" classes="168"/>
+<coverage generated="1777990514182" clover="3.2.0">
+  <project timestamp="1777990514182" name="All files">
+    <metrics statements="1094" coveredstatements="388" conditionals="478" coveredconditionals="69" methods="303" coveredmethods="83" elements="1875" coveredelements="540" complexity="0" loc="1094" ncloc="1094" packages="70" files="171" classes="171"/>
     <package name="src">
       <metrics statements="16" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="2"/>
-      <file name="App.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/App.tsx">
+      <file name="App.tsx" path="D:\dev\reprMan\apps\client-web\src\App.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
         <line num="19" count="1" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
       </file>
-      <file name="index.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/index.tsx">
+      <file name="index.tsx" path="D:\dev\reprMan\apps\client-web\src\index.tsx">
         <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="15" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
       </file>
-      <file name="reportWebVitals.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/reportWebVitals.ts">
+      <file name="reportWebVitals.ts" path="D:\dev\reprMan\apps\client-web\src\reportWebVitals.ts">
         <metrics statements="8" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="3" count="0" type="stmt"/>
         <line num="4" count="0" type="cond" truecount="0" falsecount="4"/>
@@ -32,20 +32,20 @@
     </package>
     <package name="src.components.AddReprButton">
       <metrics statements="4" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="AddReprButton.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/AddReprButton/AddReprButton.tsx">
+      <file name="AddReprButton.tsx" path="D:\dev\reprMan\apps\client-web\src\components\AddReprButton\AddReprButton.tsx">
         <metrics statements="4" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/AddReprButton/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\AddReprButton\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.CategoryPills">
       <metrics statements="5" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
-      <file name="CategoryPills.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/CategoryPills/CategoryPills.tsx">
+      <file name="CategoryPills.tsx" path="D:\dev\reprMan\apps\client-web\src\components\CategoryPills\CategoryPills.tsx">
         <metrics statements="5" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="10" count="1" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
@@ -53,25 +53,25 @@
         <line num="46" count="0" type="stmt"/>
         <line num="49" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/CategoryPills/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\CategoryPills\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.Footer">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="Footer.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/Footer/Footer.tsx">
+      <file name="Footer.tsx" path="D:\dev\reprMan\apps\client-web\src\components\Footer\Footer.tsx">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/Footer/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\Footer\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.Header">
       <metrics statements="16" coveredstatements="16" conditionals="12" coveredconditionals="10" methods="3" coveredmethods="3"/>
-      <file name="Header.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/Header/Header.tsx">
+      <file name="Header.tsx" path="D:\dev\reprMan\apps\client-web\src\components\Header\Header.tsx">
         <metrics statements="16" coveredstatements="16" conditionals="12" coveredconditionals="10" methods="3" coveredmethods="3"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
@@ -90,13 +90,13 @@
         <line num="86" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="87" count="3" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/Header/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\Header\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.Header.Controls">
       <metrics statements="8" coveredstatements="4" conditionals="10" coveredconditionals="1" methods="1" coveredmethods="1"/>
-      <file name="Controls.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/Header/Controls/Controls.tsx">
+      <file name="Controls.tsx" path="D:\dev\reprMan\apps\client-web\src\components\Header\Controls\Controls.tsx">
         <metrics statements="8" coveredstatements="4" conditionals="10" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
@@ -107,13 +107,13 @@
         <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="23" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/Header/Controls/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\Header\Controls\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.Header.Controls.FilterForm">
       <metrics statements="15" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="6" coveredmethods="0"/>
-      <file name="Filter.form.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/Header/Controls/FilterForm/Filter.form.tsx">
+      <file name="Filter.form.tsx" path="D:\dev\reprMan\apps\client-web\src\components\Header\Controls\FilterForm\Filter.form.tsx">
         <metrics statements="15" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="10" count="1" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
@@ -131,25 +131,25 @@
         <line num="40" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/Header/Controls/FilterForm/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\Header\Controls\FilterForm\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.InfoButton">
       <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="InfoButton.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/InfoButton/InfoButton.tsx">
+      <file name="InfoButton.tsx" path="D:\dev\reprMan\apps\client-web\src\components\InfoButton\InfoButton.tsx">
         <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/InfoButton/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\InfoButton\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.ReprButton">
       <metrics statements="7" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="ReprButton.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ReprButton/ReprButton.tsx">
+      <file name="ReprButton.tsx" path="D:\dev\reprMan\apps\client-web\src\components\ReprButton\ReprButton.tsx">
         <metrics statements="7" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="23" count="1" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
@@ -159,13 +159,13 @@
         <line num="50" count="0" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ReprButton/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\ReprButton\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.ReprLine">
       <metrics statements="20" coveredstatements="12" conditionals="12" coveredconditionals="4" methods="3" coveredmethods="1"/>
-      <file name="ReprLine.helpers.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ReprLine/ReprLine.helpers.tsx">
+      <file name="ReprLine.helpers.tsx" path="D:\dev\reprMan\apps\client-web\src\components\ReprLine\ReprLine.helpers.tsx">
         <metrics statements="11" coveredstatements="11" conditionals="4" coveredconditionals="4" methods="1" coveredmethods="1"/>
         <line num="4" count="2" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
@@ -179,7 +179,7 @@
         <line num="23" count="2" type="stmt"/>
         <line num="26" count="3" type="stmt"/>
       </file>
-      <file name="ReprLine.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ReprLine/ReprLine.tsx">
+      <file name="ReprLine.tsx" path="D:\dev\reprMan\apps\client-web\src\components\ReprLine\ReprLine.tsx">
         <metrics statements="9" coveredstatements="1" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
@@ -191,13 +191,13 @@
         <line num="27" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ReprLine/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\ReprLine\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.ReprsList">
       <metrics statements="5" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="ReprsList.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ReprsList/ReprsList.tsx">
+      <file name="ReprsList.tsx" path="D:\dev\reprMan\apps\client-web\src\components\ReprsList\ReprsList.tsx">
         <metrics statements="5" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -205,16 +205,16 @@
         <line num="11" count="0" type="stmt"/>
         <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
-      <file name="ReprsList.types.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ReprsList/ReprsList.types.ts">
+      <file name="ReprsList.types.ts" path="D:\dev\reprMan\apps\client-web\src\components\ReprsList\ReprsList.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ReprsList/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\ReprsList\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.ToastWrapper">
       <metrics statements="11" coveredstatements="7" conditionals="5" coveredconditionals="1" methods="4" coveredmethods="1"/>
-      <file name="ToastWrapper.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ToastWrapper/ToastWrapper.tsx">
+      <file name="ToastWrapper.tsx" path="D:\dev\reprMan\apps\client-web\src\components\ToastWrapper\ToastWrapper.tsx">
         <metrics statements="11" coveredstatements="7" conditionals="5" coveredconditionals="1" methods="4" coveredmethods="1"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
@@ -228,13 +228,13 @@
         <line num="68" count="1" type="stmt"/>
         <line num="70" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/components/ToastWrapper/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\ToastWrapper\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.config">
       <metrics statements="14" coveredstatements="8" conditionals="11" coveredconditionals="5" methods="2" coveredmethods="1"/>
-      <file name="configureAmplify.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/config/configureAmplify.ts">
+      <file name="configureAmplify.ts" path="D:\dev\reprMan\apps\client-web\src\config\configureAmplify.ts">
         <metrics statements="14" coveredstatements="8" conditionals="11" coveredconditionals="5" methods="2" coveredmethods="1"/>
         <line num="3" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="10" count="1" type="stmt"/>
@@ -254,7 +254,7 @@
     </package>
     <package name="src.constants">
       <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/constants/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\constants\index.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -268,13 +268,13 @@
     </package>
     <package name="src.modals.Confirmation">
       <metrics statements="10" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
-      <file name="Confirmation.helpers.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/Confirmation/Confirmation.helpers.ts">
+      <file name="Confirmation.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\modals\Confirmation\Confirmation.helpers.ts">
         <metrics statements="3" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="10" count="0" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="25" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
-      <file name="Confirmation.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/Confirmation/Confirmation.tsx">
+      <file name="Confirmation.tsx" path="D:\dev\reprMan\apps\client-web\src\modals\Confirmation\Confirmation.tsx">
         <metrics statements="7" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="13" count="4" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
@@ -284,13 +284,13 @@
         <line num="36" count="0" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/Confirmation/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modals\Confirmation\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.modals.EditRepr">
       <metrics statements="61" coveredstatements="6" conditionals="42" coveredconditionals="0" methods="19" coveredmethods="0"/>
-      <file name="EditRepr.helpers.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/EditRepr/EditRepr.helpers.ts">
+      <file name="EditRepr.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\modals\EditRepr\EditRepr.helpers.ts">
         <metrics statements="31" coveredstatements="5" conditionals="20" coveredconditionals="0" methods="8" coveredmethods="0"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
@@ -324,7 +324,7 @@
         <line num="81" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="83" count="0" type="stmt"/>
       </file>
-      <file name="EditRepr.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/EditRepr/EditRepr.tsx">
+      <file name="EditRepr.tsx" path="D:\dev\reprMan\apps\client-web\src\modals\EditRepr\EditRepr.tsx">
         <metrics statements="30" coveredstatements="1" conditionals="22" coveredconditionals="0" methods="11" coveredmethods="0"/>
         <line num="32" count="1" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
@@ -357,25 +357,25 @@
         <line num="255" count="0" type="stmt"/>
         <line num="256" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/EditRepr/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modals\EditRepr\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.modals.EditRepr.CategoryLine">
       <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="CategoryLine.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/EditRepr/CategoryLine/CategoryLine.tsx">
+      <file name="CategoryLine.tsx" path="D:\dev\reprMan\apps\client-web\src\modals\EditRepr\CategoryLine\CategoryLine.tsx">
         <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/EditRepr/CategoryLine/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modals\EditRepr\CategoryLine\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.modals.Info">
       <metrics statements="5" coveredstatements="1" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="Info.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/Info/Info.tsx">
+      <file name="Info.tsx" path="D:\dev\reprMan\apps\client-web\src\modals\Info\Info.tsx">
         <metrics statements="5" coveredstatements="1" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="9" count="1" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
@@ -383,30 +383,30 @@
         <line num="18" count="0" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/Info/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modals\Info\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.modals.ModalContainer">
       <metrics statements="5" coveredstatements="5" conditionals="8" coveredconditionals="4" methods="2" coveredmethods="1"/>
-      <file name="ModalContainer.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/ModalContainer/ModalContainer.tsx">
+      <file name="ModalContainer.tsx" path="D:\dev\reprMan\apps\client-web\src\modals\ModalContainer\ModalContainer.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="8" coveredconditionals="4" methods="2" coveredmethods="1"/>
         <line num="12" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="16" count="1" type="stmt"/>
       </file>
-      <file name="ModalContainer.types.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/ModalContainer/ModalContainer.types.ts">
+      <file name="ModalContainer.types.ts" path="D:\dev\reprMan\apps\client-web\src\modals\ModalContainer\ModalContainer.types.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="13" count="4" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/ModalContainer/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modals\ModalContainer\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.modals.Query">
       <metrics statements="19" coveredstatements="4" conditionals="10" coveredconditionals="0" methods="10" coveredmethods="0"/>
-      <file name="Query.helpers.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/Query/Query.helpers.ts">
+      <file name="Query.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\modals\Query\Query.helpers.ts">
         <metrics statements="8" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="15" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
@@ -417,7 +417,7 @@
         <line num="41" count="4" type="stmt"/>
         <line num="42" count="4" type="stmt"/>
       </file>
-      <file name="Query.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/Query/Query.tsx">
+      <file name="Query.tsx" path="D:\dev\reprMan\apps\client-web\src\modals\Query\Query.tsx">
         <metrics statements="11" coveredstatements="2" conditionals="10" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="21" count="4" type="stmt"/>
         <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -431,19 +431,19 @@
         <line num="70" count="0" type="stmt"/>
         <line num="74" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modals/Query/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modals\Query\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.modules">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modules\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.modules.CognitoAuth">
       <metrics statements="93" coveredstatements="38" conditionals="46" coveredconditionals="7" methods="18" coveredmethods="7"/>
-      <file name="CognitoAuthBar.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/CognitoAuth/CognitoAuthBar.tsx">
+      <file name="CognitoAuthBar.tsx" path="D:\dev\reprMan\apps\client-web\src\modules\CognitoAuth\CognitoAuthBar.tsx">
         <metrics statements="25" coveredstatements="12" conditionals="16" coveredconditionals="2" methods="5" coveredmethods="1"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
@@ -471,7 +471,7 @@
         <line num="98" count="0" type="stmt"/>
         <line num="118" count="0" type="stmt"/>
       </file>
-      <file name="CognitoAuthContext.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/CognitoAuth/CognitoAuthContext.tsx">
+      <file name="CognitoAuthContext.tsx" path="D:\dev\reprMan\apps\client-web\src\modules\CognitoAuth\CognitoAuthContext.tsx">
         <metrics statements="27" coveredstatements="22" conditionals="10" coveredconditionals="5" methods="5" coveredmethods="5"/>
         <line num="21" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
@@ -501,14 +501,14 @@
         <line num="78" count="0" type="stmt"/>
         <line num="80" count="3" type="stmt"/>
       </file>
-      <file name="CognitoSignInFields.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/CognitoAuth/CognitoSignInFields.tsx">
+      <file name="CognitoSignInFields.tsx" path="D:\dev\reprMan\apps\client-web\src\modules\CognitoAuth\CognitoSignInFields.tsx">
         <metrics statements="4" coveredstatements="1" conditionals="3" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="19" count="1" type="stmt"/>
         <line num="32" count="0" type="stmt"/>
         <line num="39" count="0" type="stmt"/>
         <line num="50" count="0" type="stmt"/>
       </file>
-      <file name="cognitoSession.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/CognitoAuth/cognitoSession.ts">
+      <file name="cognitoSession.ts" path="D:\dev\reprMan\apps\client-web\src\modules\CognitoAuth\cognitoSession.ts">
         <metrics statements="6" coveredstatements="3" conditionals="5" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="5" count="1" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -517,7 +517,7 @@
         <line num="9" count="0" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
       </file>
-      <file name="getUserInitials.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/CognitoAuth/getUserInitials.ts">
+      <file name="getUserInitials.ts" path="D:\dev\reprMan\apps\client-web\src\modules\CognitoAuth\getUserInitials.ts">
         <metrics statements="8" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
@@ -528,10 +528,10 @@
         <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/CognitoAuth/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modules\CognitoAuth\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="useCognitoSignIn.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/CognitoAuth/useCognitoSignIn.ts">
+      <file name="useCognitoSignIn.ts" path="D:\dev\reprMan\apps\client-web\src\modules\CognitoAuth\useCognitoSignIn.ts">
         <metrics statements="23" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="13" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
@@ -560,7 +560,7 @@
     </package>
     <package name="src.modules.LocalStorage">
       <metrics statements="17" coveredstatements="14" conditionals="6" coveredconditionals="4" methods="9" coveredmethods="8"/>
-      <file name="LocalStorage.module.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/LocalStorage/LocalStorage.module.ts">
+      <file name="LocalStorage.module.ts" path="D:\dev\reprMan\apps\client-web\src\modules\LocalStorage\LocalStorage.module.ts">
         <metrics statements="16" coveredstatements="13" conditionals="6" coveredconditionals="4" methods="9" coveredmethods="8"/>
         <line num="13" count="3" type="cond" truecount="2" falsecount="0"/>
         <line num="14" count="1" type="stmt"/>
@@ -579,20 +579,20 @@
         <line num="62" count="0" type="stmt"/>
         <line num="68" count="4" type="stmt"/>
       </file>
-      <file name="LocalStorage.types.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/LocalStorage/LocalStorage.types.ts">
+      <file name="LocalStorage.types.ts" path="D:\dev\reprMan\apps\client-web\src\modules\LocalStorage\LocalStorage.types.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="6" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.modules.Localization">
       <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
-      <file name="Localization.hooks.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/Localization/Localization.hooks.ts">
+      <file name="Localization.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\modules\Localization\Localization.hooks.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
       </file>
-      <file name="Localization.module.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/Localization/Localization.module.ts">
+      <file name="Localization.module.ts" path="D:\dev\reprMan\apps\client-web\src\modules\Localization\Localization.module.ts">
         <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="10" count="1" type="stmt"/>
         <line num="18" count="5" type="cond" truecount="2" falsecount="0"/>
@@ -600,25 +600,91 @@
         <line num="22" count="5" type="stmt"/>
         <line num="26" count="6" type="cond" truecount="2" falsecount="0"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/modules/Localization/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modules\Localization\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="src.modules.ReprsApi">
+      <metrics statements="54" coveredstatements="13" conditionals="26" coveredconditionals="3" methods="14" coveredmethods="3"/>
+      <file name="ReprsApi.module.ts" path="D:\dev\reprMan\apps\client-web\src\modules\ReprsApi\ReprsApi.module.ts">
+        <metrics statements="32" coveredstatements="9" conditionals="16" coveredconditionals="3" methods="11" coveredmethods="3"/>
+        <line num="9" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="4" type="stmt"/>
+        <line num="11" count="4" type="stmt"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="20" count="4" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="59" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="60" count="1" type="stmt"/>
+        <line num="62" count="1" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="72" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+      </file>
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modules\ReprsApi\index.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+      <file name="reprsMigration.ts" path="D:\dev\reprMan\apps\client-web\src\modules\ReprsApi\reprsMigration.ts">
+        <metrics statements="22" coveredstatements="4" conditionals="10" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="9" count="4" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="19" count="4" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.pages.About">
       <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="About.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/About/About.tsx">
+      <file name="About.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\About\About.tsx">
         <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/About/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\About\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.pages.About.AboutSection">
       <metrics statements="5" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="AboutSection.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/About/AboutSection/AboutSection.tsx">
+      <file name="AboutSection.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\About\AboutSection\AboutSection.tsx">
         <metrics statements="5" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="8" count="1" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
@@ -626,13 +692,13 @@
         <line num="12" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/About/AboutSection/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\About\AboutSection\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.pages.Home">
       <metrics statements="21" coveredstatements="11" conditionals="15" coveredconditionals="4" methods="5" coveredmethods="2"/>
-      <file name="Home.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Home/Home.tsx">
+      <file name="Home.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\Home\Home.tsx">
         <metrics statements="21" coveredstatements="11" conditionals="15" coveredconditionals="4" methods="5" coveredmethods="2"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
@@ -656,13 +722,13 @@
         <line num="87" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Home/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\Home\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.pages.Settings">
       <metrics statements="37" coveredstatements="3" conditionals="17" coveredconditionals="0" methods="13" coveredmethods="0"/>
-      <file name="Settings.helpers.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Settings/Settings.helpers.ts">
+      <file name="Settings.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\pages\Settings\Settings.helpers.ts">
         <metrics statements="9" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="0"/>
         <line num="12" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
@@ -674,7 +740,7 @@
         <line num="69" count="0" type="stmt"/>
         <line num="74" count="0" type="stmt"/>
       </file>
-      <file name="Settings.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Settings/Settings.tsx">
+      <file name="Settings.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\Settings\Settings.tsx">
         <metrics statements="28" coveredstatements="1" conditionals="17" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="23" count="1" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
@@ -705,37 +771,37 @@
         <line num="114" count="0" type="stmt"/>
         <line num="115" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Settings/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\Settings\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.pages.Settings.SettingsCardNumber">
       <metrics statements="2" coveredstatements="1" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="SettingsCardNumber.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Settings/SettingsCardNumber/SettingsCardNumber.tsx">
+      <file name="SettingsCardNumber.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\Settings\SettingsCardNumber\SettingsCardNumber.tsx">
         <metrics statements="2" coveredstatements="1" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="12" count="1" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Settings/SettingsCardNumber/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\Settings\SettingsCardNumber\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.pages.Settings.SupplementalSettingsCard">
       <metrics statements="4" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="SupplementalSettingsCard.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Settings/SupplementalSettingsCard/SupplementalSettingsCard.tsx">
+      <file name="SupplementalSettingsCard.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\Settings\SupplementalSettingsCard\SupplementalSettingsCard.tsx">
         <metrics statements="4" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="18" count="1" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
         <line num="57" count="1" type="stmt"/>
         <line num="58" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Settings/SupplementalSettingsCard/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\Settings\SupplementalSettingsCard\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.pages.SignIn">
       <metrics statements="15" coveredstatements="1" conditionals="12" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <file name="SignIn.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/SignIn/SignIn.tsx">
+      <file name="SignIn.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\SignIn\SignIn.tsx">
         <metrics statements="15" coveredstatements="1" conditionals="12" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
@@ -753,13 +819,13 @@
         <line num="53" count="0" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/SignIn/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\SignIn\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.pages.Signup">
       <metrics statements="69" coveredstatements="1" conditionals="22" coveredconditionals="0" methods="13" coveredmethods="0"/>
-      <file name="Signup.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Signup/Signup.tsx">
+      <file name="Signup.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\Signup\Signup.tsx">
         <metrics statements="69" coveredstatements="1" conditionals="22" coveredconditionals="0" methods="13" coveredmethods="0"/>
         <line num="21" count="1" type="stmt"/>
         <line num="22" count="0" type="stmt"/>
@@ -831,13 +897,13 @@
         <line num="267" count="0" type="stmt"/>
         <line num="268" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/Signup/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\Signup\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.pages.ViewRepr">
       <metrics statements="46" coveredstatements="22" conditionals="34" coveredconditionals="15" methods="5" coveredmethods="1"/>
-      <file name="ViewRepr.helpers.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/ViewRepr/ViewRepr.helpers.ts">
+      <file name="ViewRepr.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\pages\ViewRepr\ViewRepr.helpers.ts">
         <metrics statements="30" coveredstatements="19" conditionals="19" coveredconditionals="15" methods="2" coveredmethods="1"/>
         <line num="3" count="2" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -870,7 +936,7 @@
         <line num="61" count="4" type="stmt"/>
         <line num="63" count="4" type="stmt"/>
       </file>
-      <file name="ViewRepr.tsx" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/ViewRepr/ViewRepr.tsx">
+      <file name="ViewRepr.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\ViewRepr\ViewRepr.tsx">
         <metrics statements="16" coveredstatements="3" conditionals="15" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="0" type="cond" truecount="0" falsecount="1"/>
@@ -889,13 +955,13 @@
         <line num="109" count="0" type="stmt"/>
         <line num="116" count="1" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/pages/ViewRepr/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\ViewRepr\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.state">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="store.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/store.ts">
+      <file name="store.ts" path="D:\dev\reprMan\apps\client-web\src\state\store.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="13" count="4" type="stmt"/>
         <line num="22" count="4" type="stmt"/>
@@ -906,7 +972,7 @@
     </package>
     <package name="src.state.categories">
       <metrics statements="29" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="15" coveredmethods="7"/>
-      <file name="categories.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/categories/categories.actions.ts">
+      <file name="categories.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\categories.actions.ts">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
@@ -918,16 +984,16 @@
         <line num="25" count="4" type="stmt"/>
         <line num="29" count="4" type="stmt"/>
       </file>
-      <file name="categories.constants.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/categories/categories.constants.ts">
+      <file name="categories.constants.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\categories.constants.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="categories.hooks.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/categories/categories.hooks.ts">
+      <file name="categories.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\categories.hooks.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="4" count="4" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
       </file>
-      <file name="categories.reducer.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/categories/categories.reducer.ts">
+      <file name="categories.reducer.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\categories.reducer.ts">
         <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="2"/>
         <line num="15" count="4" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
@@ -941,7 +1007,7 @@
         <line num="67" count="4" type="stmt"/>
         <line num="75" count="4" type="stmt"/>
       </file>
-      <file name="categories.selectors.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/categories/categories.selectors.ts">
+      <file name="categories.selectors.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\categories.selectors.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -950,71 +1016,71 @@
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
       </file>
-      <file name="categories.types.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/categories/categories.types.ts">
+      <file name="categories.types.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\categories.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/categories/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.state.modal">
       <metrics statements="11" coveredstatements="10" conditionals="2" coveredconditionals="0" methods="6" coveredmethods="4"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/modal/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\modal\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="modal.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/modal/modal.actions.ts">
+      <file name="modal.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\modal\modal.actions.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
       </file>
-      <file name="modal.constants.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/modal/modal.constants.ts">
+      <file name="modal.constants.ts" path="D:\dev\reprMan\apps\client-web\src\state\modal\modal.constants.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="modal.hooks.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/modal/modal.hooks.ts">
+      <file name="modal.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\state\modal\modal.hooks.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="4" count="4" type="stmt"/>
       </file>
-      <file name="modal.reducer.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/modal/modal.reducer.ts">
+      <file name="modal.reducer.ts" path="D:\dev\reprMan\apps\client-web\src\state\modal\modal.reducer.ts">
         <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="5" count="4" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
         <line num="16" count="4" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
       </file>
-      <file name="modal.selectors.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/modal/modal.selectors.ts">
+      <file name="modal.selectors.ts" path="D:\dev\reprMan\apps\client-web\src\state\modal\modal.selectors.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
       </file>
-      <file name="modal.types.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/modal/modal.types.ts">
+      <file name="modal.types.ts" path="D:\dev\reprMan\apps\client-web\src\state\modal\modal.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.state.reprs">
       <metrics statements="17" coveredstatements="14" conditionals="6" coveredconditionals="0" methods="9" coveredmethods="5"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="reprs.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/reprs.actions.ts">
+      <file name="reprs.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.actions.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="4" type="stmt"/>
         <line num="7" count="4" type="stmt"/>
         <line num="9" count="4" type="stmt"/>
       </file>
-      <file name="reprs.constants.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/reprs.constants.ts">
+      <file name="reprs.constants.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.constants.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="reprs.hooks.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/reprs.hooks.ts">
+      <file name="reprs.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.hooks.ts">
         <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
-      <file name="reprs.reducer.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/reprs.reducer.ts">
+      <file name="reprs.reducer.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.reducer.ts">
         <metrics statements="6" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="2"/>
         <line num="7" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
@@ -1023,19 +1089,19 @@
         <line num="20" count="4" type="stmt"/>
         <line num="21" count="4" type="stmt"/>
       </file>
-      <file name="reprs.selectors.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/reprs.selectors.ts">
+      <file name="reprs.selectors.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.selectors.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
       </file>
-      <file name="reprs.types.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/reprs.types.ts">
+      <file name="reprs.types.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.state.reprs.__FIXTURES__">
       <metrics statements="23" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="0"/>
-      <file name="makeReprs.js" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/__FIXTURES__/makeReprs.js">
+      <file name="makeReprs.js" path="D:\dev\reprMan\apps\client-web\src\state\reprs\__FIXTURES__\makeReprs.js">
         <metrics statements="22" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
         <line num="2" count="0" type="stmt"/>
@@ -1060,14 +1126,14 @@
         <line num="41" count="0" type="stmt"/>
         <line num="43" count="0" type="stmt"/>
       </file>
-      <file name="preData.js" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/reprs/__FIXTURES__/preData.js">
+      <file name="preData.js" path="D:\dev\reprMan\apps\client-web\src\state\reprs\__FIXTURES__\preData.js">
         <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.state.sagas">
       <metrics statements="11" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="2"/>
-      <file name="reprs.helpers.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs.helpers.ts">
+      <file name="reprs.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs.helpers.ts">
         <metrics statements="10" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="1"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -1080,14 +1146,14 @@
         <line num="14" count="0" type="stmt"/>
         <line num="15" count="0" type="stmt"/>
       </file>
-      <file name="rootSaga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/rootSaga.ts">
+      <file name="rootSaga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\rootSaga.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="11" count="4" type="stmt"/>
       </file>
     </package>
     <package name="src.state.sagas.files">
       <metrics statements="20" coveredstatements="20" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
-      <file name="constants.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/files/constants.ts">
+      <file name="constants.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\files\constants.ts">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -1102,7 +1168,7 @@
         <line num="23" count="4" type="stmt"/>
         <line num="32" count="4" type="stmt"/>
       </file>
-      <file name="files.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/files/files.actions.ts">
+      <file name="files.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\files\files.actions.ts">
         <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="2" count="4" type="stmt"/>
@@ -1113,13 +1179,13 @@
         <line num="14" count="4" type="stmt"/>
         <line num="17" count="4" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/files/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\files\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.state.sagas.files.readReprsFromTextFile">
       <metrics statements="17" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="readReprsFromTextFile.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/files/readReprsFromTextFile/readReprsFromTextFile.saga.ts">
+      <file name="readReprsFromTextFile.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\files\readReprsFromTextFile\readReprsFromTextFile.saga.ts">
         <metrics statements="17" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="17" count="0" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
@@ -1142,7 +1208,7 @@
     </package>
     <package name="src.state.sagas.files.readReprsFromXlsxFile">
       <metrics statements="33" coveredstatements="1" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="0"/>
-      <file name="readReprsFromXlsxFile.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/files/readReprsFromXlsxFile/readReprsFromXlsxFile.saga.ts">
+      <file name="readReprsFromXlsxFile.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\files\readReprsFromXlsxFile\readReprsFromXlsxFile.saga.ts">
         <metrics statements="33" coveredstatements="1" conditionals="4" coveredconditionals="0" methods="8" coveredmethods="0"/>
         <line num="26" count="0" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
@@ -1181,7 +1247,7 @@
     </package>
     <package name="src.state.sagas.files.writeReprsToTextFile">
       <metrics statements="9" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="writeReprsToTextFile.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/files/writeReprsToTextFile/writeReprsToTextFile.saga.ts">
+      <file name="writeReprsToTextFile.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\files\writeReprsToTextFile\writeReprsToTextFile.saga.ts">
         <metrics statements="9" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
@@ -1196,7 +1262,7 @@
     </package>
     <package name="src.state.sagas.files.writeReprsToXlsxFile">
       <metrics statements="10" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="writeReprsToXlsxFile.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/files/writeReprsToXlsxFile/writeReprsToXlsxFile.saga.ts">
+      <file name="writeReprsToXlsxFile.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\files\writeReprsToXlsxFile\writeReprsToXlsxFile.saga.ts">
         <metrics statements="10" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="10" count="4" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
@@ -1212,26 +1278,26 @@
     </package>
     <package name="src.state.sagas.genesis">
       <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-      <file name="genesis.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/genesis/genesis.actions.ts">
+      <file name="genesis.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\genesis\genesis.actions.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
       </file>
-      <file name="genesis.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/genesis/genesis.saga.ts">
+      <file name="genesis.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\genesis\genesis.saga.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/genesis/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\genesis\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.state.sagas.ping">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/ping/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\ping\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="ping.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/ping/ping.actions.ts">
+      <file name="ping.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\ping\ping.actions.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
         <line num="3" count="4" type="stmt"/>
@@ -1239,10 +1305,10 @@
     </package>
     <package name="src.state.sagas.ping.showPing">
       <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/ping/showPing/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\ping\showPing\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="showPing.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/ping/showPing/showPing.saga.ts">
+      <file name="showPing.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\ping\showPing\showPing.saga.ts">
         <metrics statements="3" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="5" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
@@ -1251,10 +1317,10 @@
     </package>
     <package name="src.state.sagas.reprs">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="2"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="reprs.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs/reprs.actions.ts">
+      <file name="reprs.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\reprs.actions.ts">
         <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="2"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
@@ -1271,108 +1337,137 @@
       </file>
     </package>
     <package name="src.state.sagas.reprs.addRepr">
-      <metrics statements="15" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="addRepr.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs/addRepr/addRepr.saga.ts">
-        <metrics statements="15" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="19" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="addRepr.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\addRepr\addRepr.saga.ts">
+        <metrics statements="19" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="20" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="40" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.state.sagas.reprs.clearAllReprs">
+      <metrics statements="16" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="clearAllReprs.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\clearAllReprs\clearAllReprs.saga.ts">
+        <metrics statements="16" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.state.sagas.reprs.loadReprs">
+      <metrics statements="11" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <file name="loadReprs.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\loadReprs\loadReprs.saga.ts">
+        <metrics statements="11" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="9" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.state.sagas.reprs.markReprPracticed">
+      <metrics statements="14" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="markReprPracticed.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\markReprPracticed\markReprPracticed.saga.ts">
+        <metrics statements="14" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="11" count="0" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="14" count="0" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
         <line num="18" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="20" count="0" type="stmt"/>
-        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="41" count="0" type="stmt"/>
-        <line num="42" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="src.state.sagas.reprs.clearAllReprs">
-      <metrics statements="10" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="clearAllReprs.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs/clearAllReprs/clearAllReprs.saga.ts">
-        <metrics statements="10" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="29" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="src.state.sagas.reprs.loadReprs">
-      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="loadReprs.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs/loadReprs/loadReprs.saga.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="src.state.sagas.reprs.markReprPracticed">
-      <metrics statements="11" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="markReprPracticed.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs/markReprPracticed/markReprPracticed.saga.ts">
-        <metrics statements="11" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="12" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="16" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
         <line num="29" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-      </file>
-    </package>
-    <package name="src.state.sagas.reprs.removeRepr">
-      <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <file name="removeRepr.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs/removeRepr/removeRepr.saga.ts">
-        <metrics statements="11" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="3" coveredmethods="0"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="24" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
+        <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="33" count="0" type="stmt"/>
         <line num="35" count="0" type="stmt"/>
       </file>
     </package>
+    <package name="src.state.sagas.reprs.removeRepr">
+      <metrics statements="15" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
+      <file name="removeRepr.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\removeRepr\removeRepr.saga.ts">
+        <metrics statements="15" coveredstatements="0" conditionals="6" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+      </file>
+    </package>
     <package name="src.state.sagas.reprs.storeReprs">
-      <metrics statements="11" coveredstatements="7" conditionals="8" coveredconditionals="0" methods="5" coveredmethods="2"/>
-      <file name="storeReprs.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/reprs/storeReprs/storeReprs.saga.ts">
-        <metrics statements="11" coveredstatements="7" conditionals="8" coveredconditionals="0" methods="5" coveredmethods="2"/>
-        <line num="12" count="1" type="stmt"/>
+      <metrics statements="15" coveredstatements="10" conditionals="10" coveredconditionals="1" methods="5" coveredmethods="2"/>
+      <file name="storeReprs.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\storeReprs\storeReprs.saga.ts">
+        <metrics statements="15" coveredstatements="10" conditionals="10" coveredconditionals="1" methods="5" coveredmethods="2"/>
+        <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
-        <line num="23" count="4" type="stmt"/>
+        <line num="18" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="37" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="31" count="1" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="4"/>
       </file>
     </package>
     <package name="src.state.sagas.settings">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/settings/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\settings\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="settings.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/settings/settings.actions.ts">
+      <file name="settings.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\settings\settings.actions.ts">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
@@ -1384,7 +1479,7 @@
     </package>
     <package name="src.state.sagas.settings.loadSettings">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-      <file name="loadSettings.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/settings/loadSettings/loadSettings.saga.ts">
+      <file name="loadSettings.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\settings\loadSettings\loadSettings.saga.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="8" count="1" type="stmt"/>
         <line num="10" count="1" type="stmt"/>
@@ -1393,14 +1488,14 @@
     </package>
     <package name="src.state.sagas.settings.resetSettings">
       <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="resetSettings.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/settings/resetSettings/resetSettings.saga.ts">
+      <file name="resetSettings.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\settings\resetSettings\resetSettings.saga.ts">
         <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="6" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.state.sagas.settings.setSettings">
       <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="setSettings.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/settings/setSettings/setSettings.saga.ts">
+      <file name="setSettings.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\settings\setSettings\setSettings.saga.ts">
         <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="8" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>
@@ -1408,10 +1503,10 @@
     </package>
     <package name="src.state.sagas.toast">
       <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/toast/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\toast\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="toast.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/toast/toast.actions.ts">
+      <file name="toast.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\toast\toast.actions.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="3" count="4" type="stmt"/>
         <line num="5" count="4" type="stmt"/>
@@ -1419,7 +1514,7 @@
     </package>
     <package name="src.state.sagas.toast.makeToast">
       <metrics statements="7" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="makeToast.saga.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/sagas/toast/makeToast/makeToast.saga.ts">
+      <file name="makeToast.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\toast\makeToast\makeToast.saga.ts">
         <metrics statements="7" coveredstatements="0" conditionals="5" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="9" count="0" type="stmt"/>
         <line num="10" count="0" type="stmt"/>
@@ -1432,58 +1527,58 @@
     </package>
     <package name="src.state.settings">
       <metrics statements="10" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="2"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/settings/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\settings\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="settings.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/settings/settings.actions.ts">
+      <file name="settings.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\settings\settings.actions.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
       </file>
-      <file name="settings.constants.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/settings/settings.constants.ts">
+      <file name="settings.constants.ts" path="D:\dev\reprMan\apps\client-web\src\state\settings\settings.constants.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="settings.hooks.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/settings/settings.hooks.ts">
+      <file name="settings.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\state\settings\settings.hooks.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="4" count="4" type="stmt"/>
       </file>
-      <file name="settings.reducer.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/settings/settings.reducer.ts">
+      <file name="settings.reducer.ts" path="D:\dev\reprMan\apps\client-web\src\state\settings\settings.reducer.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="6" count="4" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
       </file>
-      <file name="settings.selectors.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/settings/settings.selectors.ts">
+      <file name="settings.selectors.ts" path="D:\dev\reprMan\apps\client-web\src\state\settings\settings.selectors.ts">
         <metrics statements="3" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
       </file>
-      <file name="settings.types.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/settings/settings.types.ts">
+      <file name="settings.types.ts" path="D:\dev\reprMan\apps\client-web\src\state\settings\settings.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.state.toasts">
       <metrics statements="17" coveredstatements="12" conditionals="2" coveredconditionals="0" methods="8" coveredmethods="4"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/toasts/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\toasts\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="toasts.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/toasts/toasts.actions.ts">
+      <file name="toasts.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\toasts\toasts.actions.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
         <line num="7" count="4" type="stmt"/>
       </file>
-      <file name="toasts.constants.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/toasts/toasts.constants.ts">
+      <file name="toasts.constants.ts" path="D:\dev\reprMan\apps\client-web\src\state\toasts\toasts.constants.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="toasts.hooks.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/toasts/toasts.hooks.ts">
+      <file name="toasts.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\state\toasts\toasts.hooks.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="4" count="4" type="stmt"/>
       </file>
-      <file name="toasts.reducer.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/toasts/toasts.reducer.ts">
+      <file name="toasts.reducer.ts" path="D:\dev\reprMan\apps\client-web\src\state\toasts\toasts.reducer.ts">
         <metrics statements="9" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="1"/>
         <line num="5" count="4" type="stmt"/>
         <line num="8" count="4" type="stmt"/>
@@ -1495,7 +1590,7 @@
         <line num="20" count="0" type="stmt"/>
         <line num="23" count="4" type="stmt"/>
       </file>
-      <file name="toasts.selectors.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/toasts/toasts.selectors.ts">
+      <file name="toasts.selectors.ts" path="D:\dev\reprMan\apps\client-web\src\state\toasts\toasts.selectors.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
@@ -1504,59 +1599,59 @@
     </package>
     <package name="src.state.user">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="4"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/user/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\user\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="user.actions.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/user/user.actions.ts">
+      <file name="user.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\user\user.actions.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="4" type="stmt"/>
       </file>
-      <file name="user.constants.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/user/user.constants.ts">
+      <file name="user.constants.ts" path="D:\dev\reprMan\apps\client-web\src\state\user\user.constants.ts">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="4" type="stmt"/>
       </file>
-      <file name="user.hooks.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/user/user.hooks.ts">
+      <file name="user.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\state\user\user.hooks.ts">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="4" count="4" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
       </file>
-      <file name="user.reducer.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/user/user.reducer.ts">
+      <file name="user.reducer.ts" path="D:\dev\reprMan\apps\client-web\src\state\user\user.reducer.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="8" count="4" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
         <line num="14" count="4" type="stmt"/>
       </file>
-      <file name="user.selectors.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/user/user.selectors.ts">
+      <file name="user.selectors.ts" path="D:\dev\reprMan\apps\client-web\src\state\user\user.selectors.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="5" count="4" type="stmt"/>
         <line num="6" count="1" type="stmt"/>
         <line num="8" count="1" type="stmt"/>
       </file>
-      <file name="user.types.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/state/user/user.types.ts">
+      <file name="user.types.ts" path="D:\dev\reprMan\apps\client-web\src\state\user\user.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.themes">
       <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="colors.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/themes/colors.ts">
+      <file name="colors.ts" path="D:\dev\reprMan\apps\client-web\src\themes\colors.ts">
         <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="0" type="stmt"/>
       </file>
-      <file name="light.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/themes/light.ts">
+      <file name="light.ts" path="D:\dev\reprMan\apps\client-web\src\themes\light.ts">
         <metrics statements="1" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.types">
       <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/types/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\types\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.utilities">
       <metrics statements="12" coveredstatements="12" conditionals="7" coveredconditionals="5" methods="9" coveredmethods="9"/>
-      <file name="dates.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/dates.ts">
+      <file name="dates.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\dates.ts">
         <metrics statements="5" coveredstatements="5" conditionals="5" coveredconditionals="5" methods="2" coveredmethods="2"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="16" type="stmt"/>
@@ -1564,10 +1659,10 @@
         <line num="10" count="4" type="stmt"/>
         <line num="11" count="22" type="cond" truecount="5" falsecount="0"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="lists.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/lists.ts">
+      <file name="lists.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\lists.ts">
         <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="0" methods="7" coveredmethods="7"/>
         <line num="1" count="5" type="stmt"/>
         <line num="3" count="4" type="cond" truecount="0" falsecount="2"/>
@@ -1580,12 +1675,12 @@
     </package>
     <package name="src.utilities.__TESTS__">
       <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="dates.testData.js" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/__TESTS__/dates.testData.js">
+      <file name="dates.testData.js" path="D:\dev\reprMan\apps\client-web\src\utilities\__TESTS__\dates.testData.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
       </file>
-      <file name="lists.testData.js" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/__TESTS__/lists.testData.js">
+      <file name="lists.testData.js" path="D:\dev\reprMan\apps\client-web\src\utilities\__TESTS__\lists.testData.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
@@ -1595,7 +1690,7 @@
     </package>
     <package name="src.utilities.files">
       <metrics statements="15" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
-      <file name="files.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/files/files.ts">
+      <file name="files.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\files\files.ts">
         <metrics statements="15" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="0" type="stmt"/>
@@ -1613,16 +1708,16 @@
         <line num="29" count="0" type="stmt"/>
         <line num="31" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/files/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\files\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.utilities.reprs">
       <metrics statements="92" coveredstatements="4" conditionals="93" coveredconditionals="0" methods="14" coveredmethods="0"/>
-      <file name="index.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/reprs/index.ts">
+      <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\reprs\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
-      <file name="reprs.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/reprs/reprs.ts">
+      <file name="reprs.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\reprs\reprs.ts">
         <metrics statements="12" coveredstatements="1" conditionals="9" coveredconditionals="0" methods="3" coveredmethods="0"/>
         <line num="7" count="4" type="stmt"/>
         <line num="23" count="0" type="stmt"/>
@@ -1637,7 +1732,7 @@
         <line num="46" count="0" type="stmt"/>
         <line num="49" count="0" type="stmt"/>
       </file>
-      <file name="reprsText.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/reprs/reprsText.ts">
+      <file name="reprsText.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\reprs\reprsText.ts">
         <metrics statements="37" coveredstatements="2" conditionals="48" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="15" count="4" type="stmt"/>
         <line num="16" count="0" type="stmt"/>
@@ -1677,7 +1772,7 @@
         <line num="116" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="119" count="0" type="stmt"/>
       </file>
-      <file name="reprsXlsx.ts" path="/Users/ksmith/dev/zzz/reprMan/apps/client-web/src/utilities/reprs/reprsXlsx.ts">
+      <file name="reprsXlsx.ts" path="D:\dev\reprMan\apps\client-web\src\utilities\reprs\reprsXlsx.ts">
         <metrics statements="43" coveredstatements="1" conditionals="36" coveredconditionals="0" methods="6" coveredmethods="0"/>
         <line num="8" count="0" type="stmt"/>
         <line num="9" count="0" type="stmt"/>

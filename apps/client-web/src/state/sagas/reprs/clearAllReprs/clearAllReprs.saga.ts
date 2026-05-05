@@ -1,7 +1,9 @@
-import { LocalStorageModule } from 'modules'
+import { LocalStorageModule, ReprsApiModule } from 'modules'
+import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { clearAllReprs } from 'state/reprs'
+import { selectReprs } from 'state/reprs/reprs.selectors'
 import { Reprs } from 'types'
-import { call, delay, put, takeLatest } from 'redux-saga/effects'
+import { call, delay, put, select, takeLatest } from 'redux-saga/effects'
 import { clearCategories } from 'state/categories'
 import { callConfirmation } from 'modals/Confirmation'
 import { CLEAR_ALL_REPRS } from '../reprs.actions'
@@ -34,7 +36,16 @@ function* clearAllReprsWorker() {
 export default [takeLatest(CLEAR_ALL_REPRS, clearAllReprsWorker)]
 
 function* clearThemAll() {
+  const reprsApi = ReprsApiModule.getInstance()
+  const localStorage = LocalStorageModule.getInstance()
+  const currentReprs = (yield select(selectReprs)) as Reprs
   yield put(clearAllReprs())
   yield put(clearCategories())
-  yield LocalStorageModule.getInstance().setReprs([] as Reprs)
+  if (isReprsApiConfigured) {
+    for (let i = 0; i < currentReprs.length; i += 1) {
+      yield reprsApi.removeRepr(currentReprs[i].id)
+    }
+  } else {
+    yield localStorage.setReprs([] as Reprs)
+  }
 }
