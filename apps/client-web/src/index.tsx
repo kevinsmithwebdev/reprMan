@@ -14,6 +14,15 @@ import store from './state/store'
 
 configureAmplify()
 
+const clientBuildInfo = {
+  version: process.env.REACT_APP_VERSION ?? 'unknown',
+  buildNumber: process.env.REACT_APP_BUILD_NUMBER ?? 'local',
+  buildTimeUtc: process.env.REACT_APP_BUILD_TIME_UTC ?? 'unknown',
+  gitSha: process.env.REACT_APP_GIT_SHA ?? 'unknown',
+}
+
+console.info('[client-build]', clientBuildInfo)
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(

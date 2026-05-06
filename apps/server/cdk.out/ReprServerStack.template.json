@@ -130,13 +130,17 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-823737573954-eu-west-3",
-     "S3Key": "64bbb71ab53797463aaf2c1d9fd1cbde4f7d2892ce04eb64069bcdda56ee9553.zip"
+     "S3Key": "c77749d54b13aa9beefee9c2bb6b8e4ede1ad996a02c9e24db7b2ab52a706cd8.zip"
     },
     "Environment": {
      "Variables": {
       "REPRS_TABLE_NAME": {
        "Ref": "ReprsTable82FF80A0"
-      }
+      },
+      "APP_VERSION": "0.2.0",
+      "APP_BUILD_NUMBER": "local",
+      "APP_BUILD_TIME_UTC": "2026-05-06T12:06:00.628Z",
+      "APP_GIT_SHA": "86e2299"
      }
     },
     "Handler": "handlers/router.handler",
@@ -154,7 +158,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/ReprHandler/Resource",
-    "aws:asset:path": "asset.64bbb71ab53797463aaf2c1d9fd1cbde4f7d2892ce04eb64069bcdda56ee9553",
+    "aws:asset:path": "asset.c77749d54b13aa9beefee9c2bb6b8e4ede1ad996a02c9e24db7b2ab52a706cd8",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }

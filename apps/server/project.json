@@ -29,7 +29,7 @@
     "cdk:synth": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx cdk synth -a \"node dist/cdk/app.js\"",
+        "command": "node ../../scripts/with-build-metadata.mjs APP \"npx cdk synth -a \\\"node dist/cdk/app.js\\\"\"",
         "cwd": "apps/server"
       },
       "dependsOn": ["build"]
@@ -37,7 +37,7 @@
     "cdk:deploy": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx cdk deploy -a \"node dist/cdk/app.js\" --require-approval never",
+        "command": "node ../../scripts/with-build-metadata.mjs APP \"npx cdk deploy -a \\\"node dist/cdk/app.js\\\" --require-approval never\"",
         "cwd": "apps/server"
       },
       "dependsOn": ["build"]

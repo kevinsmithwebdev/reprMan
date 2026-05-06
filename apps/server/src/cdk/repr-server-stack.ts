@@ -32,6 +32,10 @@ export class ReprServerStack extends cdk.Stack {
       code: lambda.Code.fromAsset('dist'),
       environment: {
         REPRS_TABLE_NAME: table.tableName,
+        APP_VERSION: process.env.APP_VERSION ?? 'unknown',
+        APP_BUILD_NUMBER: process.env.APP_BUILD_NUMBER ?? 'local',
+        APP_BUILD_TIME_UTC: process.env.APP_BUILD_TIME_UTC ?? 'unknown',
+        APP_GIT_SHA: process.env.APP_GIT_SHA ?? 'unknown',
       },
     })
 
