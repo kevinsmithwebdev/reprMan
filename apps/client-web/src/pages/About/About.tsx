@@ -26,7 +26,6 @@ const About = () => {
       <ul>
         <li>accounts</li>
         <li>mobile versions</li>
-        <li>remote storage - all versions share the same list</li>
         <li>sharing</li>
         <li>similar feature for things like scales, etc.</li>
         <li>dark mode</li>
