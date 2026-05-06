@@ -130,7 +130,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-823737573954-eu-west-3",
-     "S3Key": "c77749d54b13aa9beefee9c2bb6b8e4ede1ad996a02c9e24db7b2ab52a706cd8.zip"
+     "S3Key": "8edd915b1502dd1edbe0be3e59a16249035ca406ad160df2535d7fb8ac4a2a76.zip"
     },
     "Environment": {
      "Variables": {
@@ -139,8 +139,8 @@
       },
       "APP_VERSION": "0.2.0",
       "APP_BUILD_NUMBER": "local",
-      "APP_BUILD_TIME_UTC": "2026-05-06T12:06:00.628Z",
-      "APP_GIT_SHA": "86e2299"
+      "APP_BUILD_TIME_UTC": "2026-05-06T13:01:45.521Z",
+      "APP_GIT_SHA": "a5e359d"
      }
     },
     "Handler": "handlers/router.handler",
@@ -158,7 +158,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/ReprHandler/Resource",
-    "aws:asset:path": "asset.c77749d54b13aa9beefee9c2bb6b8e4ede1ad996a02c9e24db7b2ab52a706cd8",
+    "aws:asset:path": "asset.8edd915b1502dd1edbe0be3e59a16249035ca406ad160df2535d7fb8ac4a2a76",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -179,7 +179,9 @@
       "OPTIONS"
      ],
      "AllowOrigins": [
-      "http://localhost:3000"
+      "http://localhost:3000",
+      "https://www.reprman.com",
+      "https://reprman.com"
      ]
     },
     "Name": "repr-api",
