@@ -51,7 +51,11 @@ export class ReprServerStack extends cdk.Stack {
     const httpApi = new apigwv2.HttpApi(this, 'ReprApi', {
       apiName: 'repr-api',
       corsPreflight: {
-        allowOrigins: ['http://localhost:3000'],
+        allowOrigins: [
+          'http://localhost:3000',
+          'https://www.reprman.com',
+          'https://reprman.com',
+        ],
         allowMethods: [
           apigwv2.CorsHttpMethod.GET,
           apigwv2.CorsHttpMethod.POST,
