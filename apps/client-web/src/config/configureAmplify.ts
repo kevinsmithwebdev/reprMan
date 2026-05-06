@@ -46,19 +46,19 @@ export const homeAuthGateActive =
  * Call once at startup. When env vars are unset, the app runs without Cognito (unchanged behavior).
  */
 export function configureAmplify(): void {
-  console.log(
+  console.info(
     '[env] REACT_APP_COGNITO_USER_POOL_ID=',
     maskEnv(process.env.REACT_APP_COGNITO_USER_POOL_ID)
   )
-  console.log(
+  console.info(
     '[env] REACT_APP_COGNITO_USER_POOL_CLIENT_ID=',
     maskEnv(process.env.REACT_APP_COGNITO_USER_POOL_CLIENT_ID)
   )
-  console.log(
+  console.info(
     '[env] REACT_APP_COGNITO_IDENTITY_POOL_ID=',
     maskEnv(process.env.REACT_APP_COGNITO_IDENTITY_POOL_ID)
   )
-  console.log(
+  console.info(
     '[env] REACT_APP_REPRS_API_BASE_URL=',
     maskEnv(process.env.REACT_APP_REPRS_API_BASE_URL)
   )
