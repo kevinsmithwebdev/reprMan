@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1778244907773" clover="3.2.0">
-  <project timestamp="1778244907773" name="All files">
-    <metrics statements="1131" coveredstatements="396" conditionals="516" coveredconditionals="72" methods="310" coveredmethods="84" elements="1957" coveredelements="552" complexity="0" loc="1131" ncloc="1131" packages="70" files="171" classes="171"/>
+<coverage generated="1778246355302" clover="3.2.0">
+  <project timestamp="1778246355302" name="All files">
+    <metrics statements="1168" coveredstatements="396" conditionals="532" coveredconditionals="72" methods="318" coveredmethods="84" elements="2018" coveredelements="552" complexity="0" loc="1168" ncloc="1168" packages="70" files="171" classes="171"/>
     <package name="src">
       <metrics statements="18" coveredstatements="4" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="2"/>
       <file name="App.tsx" path="D:\dev\reprMan\apps\client-web\src\App.tsx">
@@ -208,13 +208,50 @@
       </file>
     </package>
     <package name="src.components.ReprsList">
-      <metrics statements="4" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="41" coveredstatements="1" conditionals="18" coveredconditionals="0" methods="10" coveredmethods="0"/>
       <file name="ReprsList.tsx" path="D:\dev\reprMan\apps\client-web\src\components\ReprsList\ReprsList.tsx">
-        <metrics statements="4" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="0" type="stmt"/>
+        <metrics statements="41" coveredstatements="1" conditionals="18" coveredconditionals="0" methods="10" coveredmethods="0"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
-        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="10" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="46" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="50" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="54" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="61" count="0" type="stmt"/>
+        <line num="62" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
       </file>
       <file name="ReprsList.types.ts" path="D:\dev\reprMan\apps\client-web\src\components\ReprsList\ReprsList.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
