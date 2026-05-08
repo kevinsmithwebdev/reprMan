@@ -9,7 +9,7 @@ class LocalizationModule {
   private constructor() {
     i18next.init({
       lng: 'en', // FIXME: detect language?
-      debug: true,
+      debug: process.env.NODE_ENV !== 'production',
       resources: { en: { translation: enL10ns } },
     })
   }

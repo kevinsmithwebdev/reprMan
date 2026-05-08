@@ -2,9 +2,10 @@ import { takeLatest, put, select } from 'redux-saga/effects'
 import { LocalStorageModule, ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { selectReprs, setReprs } from 'state/reprs'
-import { Reprs } from 'types'
+import { Reprs, ToastLevel } from 'types'
 import moment from 'moment'
 import { MAX_PRACTICED_DATES } from 'constants/index'
+import { makeToastSAC } from 'state/sagas/toast/toast.actions'
 import { MARK_REPR_PRACTICED } from '../reprs.actions'
 
 function* markReprPracticedWorker({ payload: id }: any) {
@@ -29,10 +30,21 @@ function* markReprPracticedWorker({ payload: id }: any) {
   newReprs.push(newRepr)
 
   yield put(setReprs(newReprs))
-  if (isReprsApiConfigured) {
-    yield reprsApi.upsertRepr(newRepr)
-  } else {
-    yield localStorage.setReprs(newReprs)
+  try {
+    if (isReprsApiConfigured) {
+      yield reprsApi.upsertRepr(newRepr)
+    } else {
+      yield localStorage.setReprs(newReprs)
+    }
+  } catch {
+    yield put(setReprs(currentReprs))
+    yield put(
+      makeToastSAC({
+        body: 'Could not mark repr practiced. Your list was restored.',
+        level: ToastLevel.FAIL,
+        delay: 6000,
+      })
+    )
   }
 }
 

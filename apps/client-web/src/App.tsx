@@ -17,7 +17,7 @@ import ToastWrapper from 'components/ToastWrapper'
 const App = () => {
   useEffect(() => {
     store.dispatch(runGenesisSaga())
-  })
+  }, [])
 
   return (
     <main

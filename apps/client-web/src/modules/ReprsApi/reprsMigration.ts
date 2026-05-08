@@ -10,7 +10,7 @@ const getUserIdFromToken = async (): Promise<string | null> => {
   try {
     const { fetchAuthSession } = await import('aws-amplify/auth')
     const session = await fetchAuthSession()
-    return session.tokens?.idToken?.payload?.sub ?? null
+    return session.tokens?.accessToken?.payload?.sub ?? null
   } catch {
     return null
   }

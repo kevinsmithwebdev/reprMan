@@ -4,8 +4,9 @@ import { v4 as uuidv4 } from 'uuid'
 import { LocalStorageModule, ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { selectReprs, setReprs } from 'state/reprs'
-import { Categories, Reprs } from 'types'
+import { Categories, Reprs, ToastLevel } from 'types'
 import { selectCategories, setCategories } from 'state/categories'
+import { makeToastSAC } from 'state/sagas/toast/toast.actions'
 import { ADD_REPR } from '../reprs.actions'
 import { mergeCategories } from '../../reprs.helpers'
 
@@ -36,11 +37,23 @@ function* addReprWorker({ payload: repr }: any) {
   }
 
   yield put(setReprs(newReprs))
-  if (isReprsApiConfigured) {
-    const targetRepr = repr.id ? repr : newReprs[0]
-    yield reprsApi.upsertRepr(targetRepr)
-  } else {
-    yield localStorage.setReprs(newReprs)
+  try {
+    if (isReprsApiConfigured) {
+      const targetRepr = repr.id ? repr : newReprs[0]
+      yield reprsApi.upsertRepr(targetRepr)
+    } else {
+      yield localStorage.setReprs(newReprs)
+    }
+  } catch {
+    yield put(setReprs(currentReprs))
+    yield put(
+      makeToastSAC({
+        body: 'Could not save repr changes. Your list was restored.',
+        level: ToastLevel.FAIL,
+        delay: 6000,
+      })
+    )
+    return
   }
 
   const currentCategories = (yield select(selectCategories)) as Categories

@@ -13,6 +13,10 @@ export class ReprServerStack extends cdk.Stack {
 
     const userPoolId = this.node.tryGetContext('userPoolId') as string
     const userPoolClientId = this.node.tryGetContext('userPoolClientId') as string
+    const apiScopes = String(this.node.tryGetContext('apiScopes') ?? '')
+      .split(',')
+      .map((scope) => scope.trim())
+      .filter(Boolean)
 
     if (!userPoolId || !userPoolClientId) {
       throw new Error('Pass userPoolId and userPoolClientId via CDK context')
@@ -85,6 +89,7 @@ export class ReprServerStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.GET],
       integration,
       authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
     httpApi.addRoutes({
@@ -92,6 +97,7 @@ export class ReprServerStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.PUT, apigwv2.HttpMethod.DELETE],
       integration,
       authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
     httpApi.addRoutes({
@@ -99,6 +105,7 @@ export class ReprServerStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.POST],
       integration,
       authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
     httpApi.addRoutes({
@@ -106,6 +113,7 @@ export class ReprServerStack extends cdk.Stack {
       methods: [apigwv2.HttpMethod.POST],
       integration,
       authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
     // eslint-disable-next-line no-new

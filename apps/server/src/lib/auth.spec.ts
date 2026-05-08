@@ -26,6 +26,6 @@ describe('auth', () => {
           },
         },
       } as any)
-    ).toThrow('Missing user claim')
+    ).toThrow('Unauthorized')
   })
 })

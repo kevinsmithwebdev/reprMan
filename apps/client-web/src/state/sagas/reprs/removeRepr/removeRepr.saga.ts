@@ -2,8 +2,9 @@ import { LocalStorageModule, ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { call, put, select, takeLatest } from 'redux-saga/effects'
 import { selectReprs, setReprs } from 'state/reprs'
-import { Reprs } from 'types'
+import { Reprs, ToastLevel } from 'types'
 import { callConfirmation } from 'modals/Confirmation'
+import { makeToastSAC } from 'state/sagas/toast/toast.actions'
 import { REMOVE_REPR } from '../reprs.actions'
 
 // @ts-ignore
@@ -35,9 +36,20 @@ function* removeRepr(currentReprs: Reprs, index: number) {
   const [removed] = newReprs.splice(index, 1)
 
   yield put(setReprs(newReprs))
-  if (isReprsApiConfigured) {
-    yield reprsApi.removeRepr(removed.id)
-  } else {
-    yield localStorage.setReprs(newReprs)
+  try {
+    if (isReprsApiConfigured) {
+      yield reprsApi.removeRepr(removed.id)
+    } else {
+      yield localStorage.setReprs(newReprs)
+    }
+  } catch {
+    yield put(setReprs(currentReprs))
+    yield put(
+      makeToastSAC({
+        body: 'Could not remove repr. Your list was restored.',
+        level: ToastLevel.FAIL,
+        delay: 6000,
+      })
+    )
   }
 }

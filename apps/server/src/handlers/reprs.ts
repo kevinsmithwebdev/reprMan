@@ -1,4 +1,4 @@
-import { getUserId } from '../lib/auth'
+import { getUserId, UnauthorizedError } from '../lib/auth'
 import { jsonResponse } from '../lib/http'
 import {
   deleteRepr,
@@ -12,13 +12,27 @@ import { parseRepr, parseReprs } from '../lib/reprValidation'
 type Event = any
 type Result = any
 
+const handleError = (
+  error: unknown,
+  options: { defaultStatus: number; defaultMessage: string }
+): Result => {
+  if (error instanceof UnauthorizedError) {
+    return jsonResponse(401, { message: 'Unauthorized' })
+  }
+
+  return jsonResponse(options.defaultStatus, { message: options.defaultMessage })
+}
+
 export const getReprsHandler = async (event: Event): Promise<Result> => {
   try {
     const userId = getUserId(event)
     const reprs = await listReprs(userId)
     return jsonResponse(200, { reprs })
-  } catch (error) {
-    return jsonResponse(500, { message: (error as Error).message })
+  } catch (error: unknown) {
+    return handleError(error, {
+      defaultStatus: 500,
+      defaultMessage: 'Internal server error',
+    })
   }
 }
 
@@ -34,8 +48,8 @@ export const putReprHandler = async (event: Event): Promise<Result> => {
 
     await upsertRepr(userId, repr)
     return jsonResponse(200, { repr })
-  } catch (error) {
-    return jsonResponse(400, { message: (error as Error).message })
+  } catch (error: unknown) {
+    return handleError(error, { defaultStatus: 400, defaultMessage: 'Bad request' })
   }
 }
 
@@ -53,8 +67,8 @@ export const markReprPracticedHandler = async (event: Event): Promise<Result> =>
     }
 
     return jsonResponse(200, { repr })
-  } catch (error) {
-    return jsonResponse(400, { message: (error as Error).message })
+  } catch (error: unknown) {
+    return handleError(error, { defaultStatus: 400, defaultMessage: 'Bad request' })
   }
 }
 
@@ -68,8 +82,8 @@ export const deleteReprHandler = async (event: Event): Promise<Result> => {
 
     await deleteRepr(userId, reprId)
     return jsonResponse(200, { ok: true })
-  } catch (error) {
-    return jsonResponse(400, { message: (error as Error).message })
+  } catch (error: unknown) {
+    return handleError(error, { defaultStatus: 400, defaultMessage: 'Bad request' })
   }
 }
 
@@ -80,7 +94,7 @@ export const migrateReprsHandler = async (event: Event): Promise<Result> => {
     const reprs = parseReprs(payload)
     await replaceAllReprs(userId, reprs)
     return jsonResponse(200, { imported: reprs.length })
-  } catch (error) {
-    return jsonResponse(400, { message: (error as Error).message })
+  } catch (error: unknown) {
+    return handleError(error, { defaultStatus: 400, defaultMessage: 'Bad request' })
   }
 }

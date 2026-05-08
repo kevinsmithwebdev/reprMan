@@ -2,10 +2,11 @@ import { LocalStorageModule, ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { clearAllReprs } from 'state/reprs'
 import { selectReprs } from 'state/reprs/reprs.selectors'
-import { Reprs } from 'types'
+import { Reprs, ToastLevel } from 'types'
 import { call, delay, put, select, takeLatest } from 'redux-saga/effects'
 import { clearCategories } from 'state/categories'
 import { callConfirmation } from 'modals/Confirmation'
+import { makeToastSAC } from 'state/sagas/toast/toast.actions'
 import { CLEAR_ALL_REPRS } from '../reprs.actions'
 
 // @ts-ignore
@@ -39,13 +40,23 @@ function* clearThemAll() {
   const reprsApi = ReprsApiModule.getInstance()
   const localStorage = LocalStorageModule.getInstance()
   const currentReprs = (yield select(selectReprs)) as Reprs
-  yield put(clearAllReprs())
-  yield put(clearCategories())
-  if (isReprsApiConfigured) {
-    for (let i = 0; i < currentReprs.length; i += 1) {
-      yield reprsApi.removeRepr(currentReprs[i].id)
+  try {
+    if (isReprsApiConfigured) {
+      for (let i = 0; i < currentReprs.length; i += 1) {
+        yield reprsApi.removeRepr(currentReprs[i].id)
+      }
+    } else {
+      yield localStorage.setReprs([] as Reprs)
     }
-  } else {
-    yield localStorage.setReprs([] as Reprs)
+    yield put(clearAllReprs())
+    yield put(clearCategories())
+  } catch {
+    yield put(
+      makeToastSAC({
+        body: 'Could not clear all reprs. No changes were applied.',
+        level: ToastLevel.FAIL,
+        delay: 6000,
+      })
+    )
   }
 }
