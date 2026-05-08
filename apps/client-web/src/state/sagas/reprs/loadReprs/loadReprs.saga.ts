@@ -2,12 +2,11 @@ import { put, takeLatest } from 'redux-saga/effects'
 import { ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { Reprs } from 'types'
-import { generateMockReprs } from 'state/reprs/__FIXTURES__/makeReprs'
 import { LOAD_REPRS, storeReprsSAC } from '../reprs.actions'
 
 function* loadReprsWorker() {
   if (!isReprsApiConfigured) {
-    yield put(storeReprsSAC(generateMockReprs(45) as Reprs))
+    yield put(storeReprsSAC([] as Reprs))
     return
   }
   try {
