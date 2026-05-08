@@ -1,4 +1,5 @@
 import { getUserId, UnauthorizedError } from '../lib/auth'
+import { trackAction, trackDailyUniqueUser } from '../lib/analytics'
 import { jsonResponse } from '../lib/http'
 import {
   deleteRepr,
@@ -26,6 +27,7 @@ const handleError = (
 export const getReprsHandler = async (event: Event): Promise<Result> => {
   try {
     const userId = getUserId(event)
+    await trackDailyUniqueUser(userId)
     const reprs = await listReprs(userId)
     return jsonResponse(200, { reprs })
   } catch (error: unknown) {
@@ -39,6 +41,7 @@ export const getReprsHandler = async (event: Event): Promise<Result> => {
 export const putReprHandler = async (event: Event): Promise<Result> => {
   try {
     const userId = getUserId(event)
+    await trackDailyUniqueUser(userId)
     const payload = JSON.parse(event.body ?? '{}')
     const repr = parseRepr(payload)
     const pathReprId = event.pathParameters?.id
@@ -46,7 +49,8 @@ export const putReprHandler = async (event: Event): Promise<Result> => {
       return jsonResponse(400, { message: 'Path id and repr id must match' })
     }
 
-    await upsertRepr(userId, repr)
+    const result = await upsertRepr(userId, repr)
+    trackAction(result === 'created' ? 'create' : 'edit')
     return jsonResponse(200, { repr })
   } catch (error: unknown) {
     return handleError(error, { defaultStatus: 400, defaultMessage: 'Bad request' })
@@ -56,6 +60,7 @@ export const putReprHandler = async (event: Event): Promise<Result> => {
 export const markReprPracticedHandler = async (event: Event): Promise<Result> => {
   try {
     const userId = getUserId(event)
+    await trackDailyUniqueUser(userId)
     const reprId = event.pathParameters?.id
     if (!reprId) {
       return jsonResponse(400, { message: 'Missing repr id' })
@@ -66,6 +71,7 @@ export const markReprPracticedHandler = async (event: Event): Promise<Result> =>
       return jsonResponse(404, { message: 'Not found' })
     }
 
+    trackAction('practice')
     return jsonResponse(200, { repr })
   } catch (error: unknown) {
     return handleError(error, { defaultStatus: 400, defaultMessage: 'Bad request' })
@@ -75,12 +81,14 @@ export const markReprPracticedHandler = async (event: Event): Promise<Result> =>
 export const deleteReprHandler = async (event: Event): Promise<Result> => {
   try {
     const userId = getUserId(event)
+    await trackDailyUniqueUser(userId)
     const reprId = event.pathParameters?.id
     if (!reprId) {
       return jsonResponse(400, { message: 'Missing repr id' })
     }
 
     await deleteRepr(userId, reprId)
+    trackAction('delete')
     return jsonResponse(200, { ok: true })
   } catch (error: unknown) {
     return handleError(error, { defaultStatus: 400, defaultMessage: 'Bad request' })
@@ -90,6 +98,7 @@ export const deleteReprHandler = async (event: Event): Promise<Result> => {
 export const migrateReprsHandler = async (event: Event): Promise<Result> => {
   try {
     const userId = getUserId(event)
+    await trackDailyUniqueUser(userId)
     const payload = JSON.parse(event.body ?? '[]')
     const reprs = parseReprs(payload)
     await replaceAllReprs(userId, reprs)

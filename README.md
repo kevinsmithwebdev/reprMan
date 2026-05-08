@@ -26,3 +26,8 @@ Add these values in `.env` (see `.env.example`):
 Run from repo root:
 
 `nx run server:cdk:deploy -- --context userPoolId=<pool-id> --context userPoolClientId=<client-id>`
+
+Optional monitoring contexts:
+
+- `--context billingAlertEmail=<you@example.com>` to receive monthly billing alarm emails
+- `--context monthlyBudgetUsd=<number>` (default: `25`)

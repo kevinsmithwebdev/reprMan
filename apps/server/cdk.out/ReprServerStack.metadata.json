@@ -16,7 +16,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:111:9)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:132:9)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -57,7 +57,22 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Table2 in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:42:23)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:50:23)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack/DailyUsageTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DailyUsageTableA3BB95C3"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Table2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:57:33)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -72,7 +87,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Function2 in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:49:29)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:64:29)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -87,7 +102,52 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new HttpApi2 in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:64:25)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:81:25)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack/NoActionsInDayAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NoActionsInDayAlarm6B9F5243"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:143:9)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack/BillingAlertsTopic/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BillingAlertsTopic00FB10CB"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Topic2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:156:27)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack/MonthlyEstimatedChargesAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "MonthlyEstimatedChargesAlarm073D47DC"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:167:34)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -115,7 +175,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Function2 in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:49:29)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:64:29)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -130,7 +190,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new HttpApi2 in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:64:25)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:81:25)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -147,7 +207,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:86:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:103:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -164,7 +224,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:86:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:103:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -181,7 +241,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:86:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:103:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -198,7 +258,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:92:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:110:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -215,7 +275,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:92:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:110:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -232,7 +292,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:92:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:110:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -249,7 +309,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:92:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:110:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -266,7 +326,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:98:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:117:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -283,7 +343,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:98:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:117:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -300,7 +360,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:104:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:124:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -317,7 +377,22 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:104:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:124:17)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack/BillingAlertsTopic/kevinsmithwebdev@gmail.com/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BillingAlertsTopickevinsmithwebdevgmailcomE07C6674"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addSubscription in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:159:19)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -332,7 +407,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.grantReadWriteData in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:61:15)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:77:15)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -349,7 +424,7 @@
         "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
         "Array.map (:)",
         "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:86:17)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:103:17)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]

@@ -1,0 +1,1 @@
+{"version":3,"file":"http.js","sourceRoot":"","sources":["../../src/lib/http.ts"],"names":[],"mappings":";;;AAAO,MAAM,YAAY,GAAG,CAAC,UAAkB,EAAE,IAAa,EAAE,EAAE,CAAC,CAAC;IAClE,UAAU;IACV,OAAO,EAAE;QACP,cAAc,EAAE,kBAAkB;KACnC;IACD,IAAI,EAAE,IAAI,CAAC,SAAS,CAAC,IAAI,CAAC;CAC3B,CAAC,CAAA;AANW,QAAA,YAAY,gBAMvB"}

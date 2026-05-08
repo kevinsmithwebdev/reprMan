@@ -34,6 +34,41 @@
     "aws:cdk:path": "ReprServerStack/ReprsTable/Resource"
    }
   },
+  "DailyUsageTableA3BB95C3": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "pk",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "sk",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "KeySchema": [
+     {
+      "AttributeName": "pk",
+      "KeyType": "HASH"
+     },
+     {
+      "AttributeName": "sk",
+      "KeyType": "RANGE"
+     }
+    ],
+    "TimeToLiveSpecification": {
+     "AttributeName": "expiresAt",
+     "Enabled": true
+    }
+   },
+   "UpdateReplacePolicy": "Retain",
+   "DeletionPolicy": "Retain",
+   "Metadata": {
+    "aws:cdk:path": "ReprServerStack/DailyUsageTable/Resource"
+   }
+  },
   "ReprHandlerServiceRoleB2759D1D": {
    "Type": "AWS::IAM::Role",
    "Properties": {
@@ -110,6 +145,24 @@
          ]
         }
        ]
+      },
+      {
+       "Action": [
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "DailyUsageTableA3BB95C3",
+          "Arn"
+         ]
+        }
+       ]
       }
      ],
      "Version": "2012-10-17"
@@ -130,17 +183,20 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-823737573954-eu-west-3",
-     "S3Key": "8edd915b1502dd1edbe0be3e59a16249035ca406ad160df2535d7fb8ac4a2a76.zip"
+     "S3Key": "7abdd6e097a12b2e8a62fb2cfeaa4351e99c580bb243f5f2291949987c412895.zip"
     },
     "Environment": {
      "Variables": {
       "REPRS_TABLE_NAME": {
        "Ref": "ReprsTable82FF80A0"
       },
+      "DAILY_USAGE_TABLE_NAME": {
+       "Ref": "DailyUsageTableA3BB95C3"
+      },
       "APP_VERSION": "0.2.0",
       "APP_BUILD_NUMBER": "local",
-      "APP_BUILD_TIME_UTC": "2026-05-06T13:01:45.521Z",
-      "APP_GIT_SHA": "a5e359d"
+      "APP_BUILD_TIME_UTC": "2026-05-08T15:21:44.007Z",
+      "APP_GIT_SHA": "cffb88b"
      }
     },
     "Handler": "handlers/router.handler",
@@ -158,7 +214,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/ReprHandler/Resource",
-    "aws:asset:path": "asset.8edd915b1502dd1edbe0be3e59a16249035ca406ad160df2535d7fb8ac4a2a76",
+    "aws:asset:path": "asset.7abdd6e097a12b2e8a62fb2cfeaa4351e99c580bb243f5f2291949987c412895",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -540,10 +596,85 @@
     "aws:cdk:path": "ReprServerStack/ReprApi/POST--reprs--migrate/Resource"
    }
   },
+  "NoActionsInDayAlarm6B9F5243": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmDescription": "No user actions were tracked in the last 24 hours.",
+    "ComparisonOperator": "LessThanThreshold",
+    "DatapointsToAlarm": 1,
+    "Dimensions": [
+     {
+      "Name": "Environment",
+      "Value": "prod"
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "ActionCount",
+    "Namespace": "ReprMan/Product",
+    "Period": 86400,
+    "Statistic": "Sum",
+    "Threshold": 1,
+    "TreatMissingData": "breaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ReprServerStack/NoActionsInDayAlarm/Resource"
+   }
+  },
+  "BillingAlertsTopic00FB10CB": {
+   "Type": "AWS::SNS::Topic",
+   "Properties": {
+    "DisplayName": "ReprMan Billing Alerts"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ReprServerStack/BillingAlertsTopic/Resource"
+   }
+  },
+  "BillingAlertsTopickevinsmithwebdevgmailcomE07C6674": {
+   "Type": "AWS::SNS::Subscription",
+   "Properties": {
+    "Endpoint": "kevinsmithwebdev@gmail.com",
+    "Protocol": "email",
+    "TopicArn": {
+     "Ref": "BillingAlertsTopic00FB10CB"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ReprServerStack/BillingAlertsTopic/kevinsmithwebdev@gmail.com/Resource"
+   }
+  },
+  "MonthlyEstimatedChargesAlarm073D47DC": {
+   "Type": "AWS::CloudWatch::Alarm",
+   "Properties": {
+    "AlarmActions": [
+     {
+      "Ref": "BillingAlertsTopic00FB10CB"
+     }
+    ],
+    "AlarmDescription": "Estimated AWS charges crossed 25 USD.",
+    "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+    "DatapointsToAlarm": 1,
+    "Dimensions": [
+     {
+      "Name": "Currency",
+      "Value": "USD"
+     }
+    ],
+    "EvaluationPeriods": 1,
+    "MetricName": "EstimatedCharges",
+    "Namespace": "AWS/Billing",
+    "Period": 21600,
+    "Statistic": "Maximum",
+    "Threshold": 25,
+    "TreatMissingData": "notBreaching"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ReprServerStack/MonthlyEstimatedChargesAlarm/Resource"
+   }
+  },
   "CDKMetadata": {
    "Type": "AWS::CDK::Metadata",
    "Properties": {
-    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12Oy26DMBBFvyV7M6VElbollap01Yh0Hw3GpRPARp5xEEX8e2WjPtTVPXfmzqOA4qGAfIcTZ7rpsp5qWM6CulM48WVpZouDa2pY3rDujXp6twlW1eNQNwjLc7BayNnY+ssn4wdiJmdXRTjAUrltPunJ9aTnlEu0Kt5fkNkIQxlF8R4OQXdGDshG4UgtiplwvhWwHEXGcqQ4HiXas2Cb1m8QS5ULstGLFdN6/H7tn/3NlUE+nKdP49PqH7euqjLsgtdGpe/iEbJtTL0GGYOsyrrGwJXvbkUO94+Q765MlPlghQYD1aZfVG+o/m8BAAA="
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/12QzU7DMBCEn6V3dympkLimSAhOVGnv1cYxZdvEjrzrRsXyuyM7KlSc5ht79seuoHqqYLXAiZe6Oy97aiHuBPVZ4cSH2F0tDq5rIe6x7Y16+bQFkupxaDuE+BqsFnI2X93z1viBmMnZpAgHiI2b64tuXU/6WnKFkuL1AZmNMNRZFK9hE/TZyAbZKBzpiGImvF4qiG8iYz1SLs+S7U7wWNrPkI8aF2Smdyvm6PG22j/7l6uDfDlP38aX1r8uKd270E0o+gti3aMfSiBDUmwZ4t6NpMv3FNiFlrWn8Tbj3qekGsMueG1UeWtemewx5z6CjEGSsq4zcOKHS7WCx2dYLU5MtPTBCg0Gmll/AO0Otfe9AQAA"
    },
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/CDKMetadata/Default"

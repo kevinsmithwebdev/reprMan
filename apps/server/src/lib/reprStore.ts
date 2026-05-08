@@ -2,6 +2,7 @@ import {
   BatchWriteCommand,
   DeleteCommand,
   DynamoDBDocumentClient,
+  GetCommand,
   PutCommand,
   QueryCommand,
 } from '@aws-sdk/lib-dynamodb'
@@ -46,13 +47,29 @@ export const listReprs = async (userId: string): Promise<Repr[]> => {
   return reprs
 }
 
-export const upsertRepr = async (userId: string, repr: Repr): Promise<void> => {
+export type UpsertResult = 'created' | 'updated'
+
+export const upsertRepr = async (
+  userId: string,
+  repr: Repr
+): Promise<UpsertResult> => {
+  const key = keyFor(userId, repr.id)
+  const existing = await client.send(
+    new GetCommand({
+      TableName: TABLE_NAME,
+      Key: key,
+      ProjectionExpression: 'pk',
+    })
+  )
+
   await client.send(
     new PutCommand({
       TableName: TABLE_NAME,
       Item: toDbItem(userId, repr),
     })
   )
+
+  return existing.Item ? 'updated' : 'created'
 }
 
 export const markPracticed = async (
