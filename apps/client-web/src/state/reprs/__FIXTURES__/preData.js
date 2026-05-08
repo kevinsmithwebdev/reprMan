@@ -1,4 +1,4 @@
-module.exports = [
+const preData = [
   {
     title: 'Satin Doll',
     categories: ['jazz', 'swing', 'standard'],
@@ -30,3 +30,5 @@ module.exports = [
   },
   { title: 'Night and Day', categories: ['jazz', 'bossa'] },
 ]
+
+export default preData

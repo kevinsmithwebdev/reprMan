@@ -1,4 +1,4 @@
-const preData = require('./preData')
+import preData from './preData'
 
 const SPAIN_TIME_ZONE = 'Europe/Madrid'
 const MIN_HOUR = 10
@@ -40,7 +40,7 @@ const randomPracticeTimestamp = (fromMs, toMs) => {
  * @param {Array<{title: string, categories: string[], comment?: string}>} [baseData]
  * @returns {import('types').Reprs}
  */
-const generateMockReprs = (numDays, baseData = preData) => {
+export const generateMockReprs = (numDays, baseData = preData) => {
   if (!Number.isInteger(numDays) || numDays < 0) {
     throw new Error('numDays must be an integer greater than or equal to 0.')
   }
@@ -61,8 +61,4 @@ const generateMockReprs = (numDays, baseData = preData) => {
       datesPracticed: [practicedAt],
     }
   })
-}
-
-module.exports = {
-  generateMockReprs,
 }
