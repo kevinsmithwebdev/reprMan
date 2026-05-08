@@ -1,23 +1,19 @@
 import { put, takeLatest } from 'redux-saga/effects'
-import { LocalStorageModule, ReprsApiModule } from 'modules'
+import { ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
-import { tryMigrateLocalReprsOnce } from 'modules/ReprsApi/reprsMigration'
 import { Reprs } from 'types'
+import { generateMockReprs } from 'state/reprs/__FIXTURES__/makeReprs'
 import { LOAD_REPRS, storeReprsSAC } from '../reprs.actions'
 
 function* loadReprsWorker() {
   if (!isReprsApiConfigured) {
-    const localReprs =
-      (yield LocalStorageModule.getInstance().getReprs()) as Reprs
-    yield put(storeReprsSAC(localReprs))
+    yield put(storeReprsSAC(generateMockReprs(45) as Reprs))
     return
   }
   try {
     const reprsApi = ReprsApiModule.getInstance()
     const cloudReprs = (yield reprsApi.listReprs()) as Reprs
-    yield tryMigrateLocalReprsOnce(cloudReprs)
-    const latestReprs = (yield reprsApi.listReprs()) as Reprs
-    yield put(storeReprsSAC(latestReprs))
+    yield put(storeReprsSAC(cloudReprs))
   } catch {
     yield put(storeReprsSAC([] as Reprs))
   }

@@ -77,7 +77,11 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
   }, [reprs, prefersReducedMotion])
 
   return (
-    <div id="reprs-list-component" style={{ paddingTop: '8px' }} ref={containerRef}>
+    <div
+      id="reprs-list-component"
+      style={{ paddingTop: '8px' }}
+      ref={containerRef}
+    >
       {hasReprs &&
         reprs.map((r) => (
           <div key={r.id} data-row-id={r.id}>

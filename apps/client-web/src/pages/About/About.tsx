@@ -13,6 +13,18 @@ const About = () => {
         'brand.repertoireManagement'
       )}`}</Card.Title>
 
+      <img
+        src="/static/repr.jpg"
+        alt="repr.jpg"
+        style={{
+          maxWidth: '100%',
+          height: 'auto',
+          display: 'block',
+          marginTop: '20px',
+          marginBottom: '12px',
+        }}
+      />
+
       <AboutSection slug="pages.about.historySection" />
 
       <hr />

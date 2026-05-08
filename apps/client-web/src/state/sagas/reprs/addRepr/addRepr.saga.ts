@@ -1,7 +1,7 @@
 import { put, select, takeLatest } from 'redux-saga/effects'
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
-import { LocalStorageModule, ReprsApiModule } from 'modules'
+import { ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { selectReprs, setReprs } from 'state/reprs'
 import { Categories, Reprs, ToastLevel } from 'types'
@@ -12,7 +12,6 @@ import { mergeCategories } from '../../reprs.helpers'
 
 function* addReprWorker({ payload: repr }: any) {
   const reprsApi = ReprsApiModule.getInstance()
-  const localStorage = LocalStorageModule.getInstance()
 
   const currentReprs = (yield select(selectReprs)) as Reprs
 
@@ -41,8 +40,6 @@ function* addReprWorker({ payload: repr }: any) {
     if (isReprsApiConfigured) {
       const targetRepr = repr.id ? repr : newReprs[0]
       yield reprsApi.upsertRepr(targetRepr)
-    } else {
-      yield localStorage.setReprs(newReprs)
     }
   } catch {
     yield put(setReprs(currentReprs))

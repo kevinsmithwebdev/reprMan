@@ -1,4 +1,4 @@
-import { LocalStorageModule, ReprsApiModule } from 'modules'
+import { ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { clearAllReprs } from 'state/reprs'
 import { selectReprs } from 'state/reprs/reprs.selectors'
@@ -38,15 +38,12 @@ export default [takeLatest(CLEAR_ALL_REPRS, clearAllReprsWorker)]
 
 function* clearThemAll() {
   const reprsApi = ReprsApiModule.getInstance()
-  const localStorage = LocalStorageModule.getInstance()
   const currentReprs = (yield select(selectReprs)) as Reprs
   try {
     if (isReprsApiConfigured) {
       for (let i = 0; i < currentReprs.length; i += 1) {
         yield reprsApi.removeRepr(currentReprs[i].id)
       }
-    } else {
-      yield localStorage.setReprs([] as Reprs)
     }
     yield put(clearAllReprs())
     yield put(clearCategories())

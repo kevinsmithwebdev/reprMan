@@ -1,4 +1,4 @@
-import { LocalStorageModule, ReprsApiModule } from 'modules'
+import { ReprsApiModule } from 'modules'
 import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { call, put, select, takeLatest } from 'redux-saga/effects'
 import { selectReprs, setReprs } from 'state/reprs'
@@ -31,7 +31,6 @@ export default [takeLatest(REMOVE_REPR, removeReprWorker)]
 
 function* removeRepr(currentReprs: Reprs, index: number) {
   const reprsApi = ReprsApiModule.getInstance()
-  const localStorage = LocalStorageModule.getInstance()
   const newReprs = [...currentReprs]
   const [removed] = newReprs.splice(index, 1)
 
@@ -39,8 +38,6 @@ function* removeRepr(currentReprs: Reprs, index: number) {
   try {
     if (isReprsApiConfigured) {
       yield reprsApi.removeRepr(removed.id)
-    } else {
-      yield localStorage.setReprs(newReprs)
     }
   } catch {
     yield put(setReprs(currentReprs))
