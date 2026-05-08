@@ -22,7 +22,7 @@ import {
 
 export interface EditReprProps {
   closeModal: () => void
-  id: string
+  id?: string
 }
 
 const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
@@ -31,14 +31,28 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const [enteredCategory, setEnteredCategory] = useState('')
   const { getRepr, reprs } = useReprs()
   const repr = getRepr(id)
-  const [categories, setCategories] = useState<string[]>(repr.categories || [])
+  const isCreateMode = !id
+  const initialCategories = repr.categories || []
+  const initialTitle = repr.title ?? ''
+  const initialComment = repr.comment ?? ''
+  const [categories, setCategories] = useState<string[]>(initialCategories)
 
   const [form, setForm] = useState<ReprForm>({
-    title: repr.title ?? '',
+    title: initialTitle,
     categoryInput: '',
-    comment: repr.comment ?? '',
+    comment: initialComment,
   })
   const [errors, setErrors] = useState<ReprFormErrors>({})
+
+  const isTitleValid = form.title.length >= 1
+  const categoriesDirty =
+    categories.length !== initialCategories.length ||
+    categories.some((category, index) => category !== initialCategories[index])
+  const isDirty =
+    form.title !== initialTitle ||
+    form.comment !== initialComment ||
+    categoriesDirty
+  const disableSave = !isTitleValid || (!isCreateMode && !isDirty)
 
   const setField = (field: string, value: string) => {
     setForm({
@@ -65,7 +79,11 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   return (
     <div id="edit-repr-modal">
       <Modal.Header closeButton>
-        <Modal.Title>{t('modals.editRepr.title')}</Modal.Title>
+        <Modal.Title>
+          {isCreateMode
+            ? t('modals.editRepr.createTitle')
+            : t('modals.editRepr.title')}
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -80,6 +98,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
               value={form.title}
               onChange={({ target: { value } }) => setField('title', value)}
               isInvalid={!!errors.title}
+              autoFocus
               required
             />
             <Form.Control.Feedback type="invalid">
@@ -230,6 +249,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
           id="edit-repr-save-button"
           style={{ flex: 1, maxWidth: '200px' }}
           variant="success"
+          disabled={disableSave}
           onClick={() => {
             const foundErrors = findFormErrors({
               form,

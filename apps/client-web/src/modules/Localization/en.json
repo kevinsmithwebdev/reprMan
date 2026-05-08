@@ -46,10 +46,11 @@
   },
   "buttons": {
     "addReprButton": "+ Add Repr",
+    "back": "Back",
     "closeWithoutSave": "Close Without Save",
     "delete": "Delete",
     "edit": "Edit",
-    "practiced": "Practiced",
+    "practiced": "Mark Practiced",
     "save": "Save"
   },
   "common": {
@@ -65,6 +66,7 @@
   },
   "components": {
     "reprsList": {
+      "reprsCountShort": "{{count}} reprs",
       "reprsCount_one": "{{count}} repr found.",
       "reprsCount_other": "{{count}} reprs found."
     }
@@ -80,6 +82,7 @@
       "addNewCategory": "Add New Category",
       "available": "Available",
       "closeWithoutSave": "Close Without Save",
+      "createTitle": "Create Repr",
       "current": "Current",
       "enterCategoryPlaceholder": "Enter new category...",
       "enterCommentPlaceholder": "Enter comment...",

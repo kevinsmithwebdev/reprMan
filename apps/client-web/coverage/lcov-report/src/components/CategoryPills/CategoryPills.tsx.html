@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>2/6</span>
+                <span class='fraction'>2/8</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">40% </span>
+                <span class="strong">33.33% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>2/5</span>
+                <span class='fraction'>2/6</span>
             </div>
         
             
@@ -120,7 +120,13 @@
 <a name='L55'></a><a href='#L55'>55</a>
 <a name='L56'></a><a href='#L56'>56</a>
 <a name='L57'></a><a href='#L57'>57</a>
-<a name='L58'></a><a href='#L58'>58</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L58'></a><a href='#L58'>58</a>
+<a name='L59'></a><a href='#L59'>59</a>
+<a name='L60'></a><a href='#L60'>60</a>
+<a name='L61'></a><a href='#L61'>61</a>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -152,11 +158,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -190,15 +202,19 @@ const pillStyle = {
   [CategoryPillSize.SMALL]: {
     padding: '5px',
     paddingBottom: '7px',
-    margin: '5px',
+    margin: '2.5px',
     fontSize: '12px',
     fontWeight: '500',
+    backgroundColor: '#0c63e4',
+    borderRadius: '6px',
   },
   [CategoryPillSize.MEDIUM]: {
     padding: '6px',
     paddingBottom: '8px',
-    margin: '6px',
+    margin: '3px',
     fontSize: '14px',
+    backgroundColor: '#0c63e4',
+    borderRadius: '6px',
   },
 }
 &nbsp;
@@ -215,6 +231,8 @@ const CategoryPills: FC&lt;CategoryPillsProps&gt; = <span class="fstat-no" title
   containerStyle,
   size = <span class="branch-0 cbranch-no" title="branch not covered" >CategoryPillSize.SMALL,</span>
 }) =&gt; {
+  const sortedCategories = <span class="cstat-no" title="statement not covered" >[...categories].sort(<span class="fstat-no" title="function not covered" >(a</span>, b) =&gt; <span class="cstat-no" title="statement not covered" >a.localeCompare(b))</span></span>
+&nbsp;
   const aggregateStyle: React.CSSProperties = <span class="cstat-no" title="statement not covered" >{</span>
     display: 'flex',
     justifyContent: 'center',
@@ -224,8 +242,8 @@ const CategoryPills: FC&lt;CategoryPillsProps&gt; = <span class="fstat-no" title
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  return (</span>
     &lt;div style={aggregateStyle}&gt;
-      {categories.map(<span class="fstat-no" title="function not covered" >(c</span>: string) =&gt; (
-<span class="cstat-no" title="statement not covered" >        &lt;Badge pill key={c} style={pillStyle[size]} onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onClick(c)}</span>&gt;</span>
+      {sortedCategories.map(<span class="fstat-no" title="function not covered" >(c</span>: string) =&gt; (
+<span class="cstat-no" title="statement not covered" >        &lt;Badge key={c} style={pillStyle[size]} onClick={<span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >onClick(c)}</span>&gt;</span>
           {c}
         &lt;/Badge&gt;
       ))}
@@ -241,7 +259,7 @@ export default CategoryPills
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-05-05T14:15:13.924Z
+                at 2026-05-08T12:55:07.573Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

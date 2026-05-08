@@ -2,7 +2,11 @@ import AddReprButton from 'components/AddReprButton'
 import React, { FC } from 'react'
 import { Badge, Dropdown } from 'react-bootstrap'
 import { FilterCircle } from 'react-bootstrap-icons'
+import { useL10n } from 'modules/Localization'
 import { useCategories } from 'state/categories'
+import { useReprs } from 'state/reprs'
+import { CategoryFilter, Reprs } from 'types'
+import { getDoesContainsAll } from 'utilities'
 import FilterForm from './FilterForm'
 
 interface ControlsProps {
@@ -10,6 +14,8 @@ interface ControlsProps {
 }
 
 const Controls: FC<ControlsProps> = ({ shouldShow }) => {
+  const { t } = useL10n()
+  const { reprs } = useReprs()
   const { filter } = useCategories()
 
   if (!shouldShow) {
@@ -19,6 +25,7 @@ const Controls: FC<ControlsProps> = ({ shouldShow }) => {
   const numFilters = +!!filter.text + filter.categories.length
   const numText = numFilters > 9 ? '9+' : numFilters
   const numFiltersText = numFilters ? `${numText}` : ''
+  const filteredReprs = getFilteredReprs(reprs, filter)
 
   return (
     <div
@@ -36,6 +43,11 @@ const Controls: FC<ControlsProps> = ({ shouldShow }) => {
       id="controls-component"
     >
       <AddReprButton />
+      <span style={{ color: '#d0d0d0', fontWeight: 600 }}>
+        {t('components.reprsList.reprsCountShort', {
+          count: filteredReprs.length,
+        })}
+      </span>
       <Dropdown id="filter-button">
         <Dropdown.Toggle style={{ display: 'flex', alignItems: 'center' }}>
           <FilterCircle size={20} style={{ marginRight: '10px' }} />
@@ -70,3 +82,17 @@ const Controls: FC<ControlsProps> = ({ shouldShow }) => {
 }
 
 export default Controls
+
+const getFilteredReprs = (reprs: Reprs, filter: CategoryFilter) =>
+  reprs.filter((r) => {
+    const shouldPassForText = r.title
+      .toLowerCase()
+      .includes(filter.text.toLowerCase())
+
+    const shouldCheckCategories = !!filter.categories.length
+    const shouldPassForCategories =
+      !shouldCheckCategories ||
+      getDoesContainsAll(r.categories, filter.categories)
+
+    return shouldPassForText && shouldPassForCategories
+  })

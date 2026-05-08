@@ -11,15 +11,19 @@ const pillStyle = {
   [CategoryPillSize.SMALL]: {
     padding: '5px',
     paddingBottom: '7px',
-    margin: '5px',
+    margin: '2.5px',
     fontSize: '12px',
     fontWeight: '500',
+    backgroundColor: '#0c63e4',
+    borderRadius: '6px',
   },
   [CategoryPillSize.MEDIUM]: {
     padding: '6px',
     paddingBottom: '8px',
-    margin: '6px',
+    margin: '3px',
     fontSize: '14px',
+    backgroundColor: '#0c63e4',
+    borderRadius: '6px',
   },
 }
 
@@ -36,6 +40,8 @@ const CategoryPills: FC<CategoryPillsProps> = ({
   containerStyle,
   size = CategoryPillSize.SMALL,
 }) => {
+  const sortedCategories = [...categories].sort((a, b) => a.localeCompare(b))
+
   const aggregateStyle: React.CSSProperties = {
     display: 'flex',
     justifyContent: 'center',
@@ -45,8 +51,8 @@ const CategoryPills: FC<CategoryPillsProps> = ({
 
   return (
     <div style={aggregateStyle}>
-      {categories.map((c: string) => (
-        <Badge pill key={c} style={pillStyle[size]} onClick={() => onClick(c)}>
+      {sortedCategories.map((c: string) => (
+        <Badge key={c} style={pillStyle[size]} onClick={() => onClick(c)}>
           {c}
         </Badge>
       ))}

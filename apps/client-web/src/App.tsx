@@ -34,7 +34,7 @@ const App = () => {
       <div
         style={{
           flex: 1,
-          padding: '20px',
+          padding: '120px 20px 20px',
           maxWidth: '1200px',
           minWidth: '400px',
         }}

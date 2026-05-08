@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1777990514182" clover="3.2.0">
-  <project timestamp="1777990514182" name="All files">
-    <metrics statements="1094" coveredstatements="388" conditionals="478" coveredconditionals="69" methods="303" coveredmethods="83" elements="1875" coveredelements="540" complexity="0" loc="1094" ncloc="1094" packages="70" files="171" classes="171"/>
+<coverage generated="1778244907773" clover="3.2.0">
+  <project timestamp="1778244907773" name="All files">
+    <metrics statements="1131" coveredstatements="396" conditionals="516" coveredconditionals="72" methods="310" coveredmethods="84" elements="1957" coveredelements="552" complexity="0" loc="1131" ncloc="1131" packages="70" files="171" classes="171"/>
     <package name="src">
-      <metrics statements="16" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="2"/>
+      <metrics statements="18" coveredstatements="4" conditionals="12" coveredconditionals="0" methods="4" coveredmethods="2"/>
       <file name="App.tsx" path="D:\dev\reprMan\apps\client-web\src\App.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="17" count="1" type="stmt"/>
@@ -12,11 +12,13 @@
         <line num="22" count="1" type="stmt"/>
       </file>
       <file name="index.tsx" path="D:\dev\reprMan\apps\client-web\src\index.tsx">
-        <metrics statements="4" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="6" coveredstatements="0" conditionals="8" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="15" count="0" type="stmt"/>
         <line num="17" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
       </file>
       <file name="reportWebVitals.ts" path="D:\dev\reprMan\apps\client-web\src\reportWebVitals.ts">
         <metrics statements="8" coveredstatements="0" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
@@ -44,14 +46,15 @@
       </file>
     </package>
     <package name="src.components.CategoryPills">
-      <metrics statements="5" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
+      <metrics statements="6" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="0"/>
       <file name="CategoryPills.tsx" path="D:\dev\reprMan\apps\client-web\src\components\CategoryPills\CategoryPills.tsx">
-        <metrics statements="5" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <metrics statements="6" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="46" count="0" type="stmt"/>
-        <line num="49" count="0" type="stmt"/>
+        <line num="37" count="1" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\CategoryPills\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -82,30 +85,39 @@
         <line num="29" count="1" type="cond" truecount="2" falsecount="1"/>
         <line num="31" count="1" type="cond" truecount="3" falsecount="0"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="63" count="3" type="stmt"/>
-        <line num="76" count="1" type="stmt"/>
-        <line num="82" count="3" type="stmt"/>
-        <line num="83" count="3" type="stmt"/>
-        <line num="84" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="84" count="3" type="stmt"/>
+        <line num="85" count="3" type="stmt"/>
         <line num="86" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="87" count="3" type="stmt"/>
+        <line num="88" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="89" count="3" type="stmt"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\Header\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.Header.Controls">
-      <metrics statements="8" coveredstatements="4" conditionals="10" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <metrics statements="17" coveredstatements="7" conditionals="14" coveredconditionals="1" methods="3" coveredmethods="1"/>
       <file name="Controls.tsx" path="D:\dev\reprMan\apps\client-web\src\components\Header\Controls\Controls.tsx">
-        <metrics statements="8" coveredstatements="4" conditionals="10" coveredconditionals="1" methods="1" coveredmethods="1"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="15" count="1" type="cond" truecount="1" falsecount="1"/>
+        <metrics statements="17" coveredstatements="7" conditionals="14" coveredconditionals="1" methods="3" coveredmethods="1"/>
         <line num="16" count="1" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="20" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="23" count="0" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="1" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="86" count="1" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="88" count="0" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="94" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="97" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\Header\Controls\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -181,29 +193,28 @@
       </file>
       <file name="ReprLine.tsx" path="D:\dev\reprMan\apps\client-web\src\components\ReprLine\ReprLine.tsx">
         <metrics statements="9" coveredstatements="1" conditionals="8" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="19" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
         <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="22" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="23" count="0" type="stmt"/>
         <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="31" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\components\ReprLine\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
     </package>
     <package name="src.components.ReprsList">
-      <metrics statements="5" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <metrics statements="4" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
       <file name="ReprsList.tsx" path="D:\dev\reprMan\apps\client-web\src\components\ReprsList\ReprsList.tsx">
-        <metrics statements="5" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="0" type="stmt"/>
-        <line num="9" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+        <metrics statements="4" coveredstatements="1" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
       <file name="ReprsList.types.ts" path="D:\dev\reprMan\apps\client-web\src\components\ReprsList\ReprsList.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -233,23 +244,34 @@
       </file>
     </package>
     <package name="src.config">
-      <metrics statements="14" coveredstatements="8" conditionals="11" coveredconditionals="5" methods="2" coveredmethods="1"/>
+      <metrics statements="25" coveredstatements="9" conditionals="17" coveredconditionals="5" methods="3" coveredmethods="1"/>
       <file name="configureAmplify.ts" path="D:\dev\reprMan\apps\client-web\src\config\configureAmplify.ts">
-        <metrics statements="14" coveredstatements="8" conditionals="11" coveredconditionals="5" methods="2" coveredmethods="1"/>
+        <metrics statements="25" coveredstatements="9" conditionals="17" coveredconditionals="5" methods="3" coveredmethods="1"/>
         <line num="3" count="3" type="cond" truecount="2" falsecount="0"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="14" count="1" type="stmt"/>
-        <line num="16" count="1" type="cond" truecount="2" falsecount="0"/>
-        <line num="23" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="7" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="22" count="1" type="cond" truecount="2" falsecount="0"/>
         <line num="29" count="1" type="stmt"/>
-        <line num="37" count="1" type="cond" truecount="1" falsecount="2"/>
-        <line num="43" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="44" count="0" type="stmt"/>
-        <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="58" count="0" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="43" count="1" type="cond" truecount="1" falsecount="2"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
         <line num="61" count="0" type="stmt"/>
+        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="72" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="73" count="0" type="stmt"/>
+        <line num="76" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="87" count="0" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.constants">
@@ -289,73 +311,82 @@
       </file>
     </package>
     <package name="src.modals.EditRepr">
-      <metrics statements="61" coveredstatements="6" conditionals="42" coveredconditionals="0" methods="19" coveredmethods="0"/>
+      <metrics statements="70" coveredstatements="6" conditionals="56" coveredconditionals="0" methods="20" coveredmethods="0"/>
       <file name="EditRepr.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\modals\EditRepr\EditRepr.helpers.ts">
         <metrics statements="31" coveredstatements="5" conditionals="20" coveredconditionals="0" methods="8" coveredmethods="0"/>
-        <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
-        <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
         <line num="28" count="0" type="stmt"/>
-        <line num="33" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="39" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="45" count="0" type="stmt"/>
-        <line num="48" count="1" type="stmt"/>
+        <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="43" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="44" count="0" type="stmt"/>
         <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="51" count="1" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
         <line num="55" count="0" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="59" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="61" count="1" type="stmt"/>
         <line num="65" count="0" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
-        <line num="68" count="0" type="cond" truecount="0" falsecount="4"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="71" count="0" type="stmt"/>
-        <line num="74" count="1" type="stmt"/>
-        <line num="79" count="0" type="stmt"/>
-        <line num="81" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="83" count="0" type="stmt"/>
+        <line num="67" count="1" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="78" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="89" count="0" type="stmt"/>
+        <line num="91" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="93" count="0" type="stmt"/>
       </file>
       <file name="EditRepr.tsx" path="D:\dev\reprMan\apps\client-web\src\modals\EditRepr\EditRepr.tsx">
-        <metrics statements="30" coveredstatements="1" conditionals="22" coveredconditionals="0" methods="11" coveredmethods="0"/>
-        <line num="32" count="1" type="stmt"/>
+        <metrics statements="39" coveredstatements="1" conditionals="36" coveredconditionals="0" methods="12" coveredmethods="0"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="31" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="35" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="36" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="37" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="38" count="0" type="stmt"/>
         <line num="40" count="0" type="stmt"/>
         <line num="45" count="0" type="stmt"/>
         <line num="47" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
-        <line num="54" count="0" type="stmt"/>
-        <line num="56" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="52" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="55" count="0" type="cond" truecount="0" falsecount="3"/>
         <line num="57" count="0" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="112" count="0" type="stmt"/>
-        <line num="116" count="0" type="stmt"/>
-        <line num="138" count="0" type="stmt"/>
-        <line num="164" count="0" type="stmt"/>
-        <line num="167" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="168" count="0" type="stmt"/>
-        <line num="185" count="0" type="stmt"/>
-        <line num="216" count="0" type="stmt"/>
-        <line num="238" count="0" type="stmt"/>
-        <line num="244" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="245" count="0" type="stmt"/>
-        <line num="247" count="0" type="stmt"/>
-        <line num="255" count="0" type="stmt"/>
-        <line num="256" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="66" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="99" count="0" type="stmt"/>
+        <line num="127" count="0" type="stmt"/>
+        <line num="131" count="0" type="stmt"/>
+        <line num="153" count="0" type="stmt"/>
+        <line num="179" count="0" type="stmt"/>
+        <line num="182" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="183" count="0" type="stmt"/>
+        <line num="200" count="0" type="stmt"/>
+        <line num="231" count="0" type="stmt"/>
+        <line num="254" count="0" type="stmt"/>
+        <line num="260" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="261" count="0" type="stmt"/>
+        <line num="263" count="0" type="stmt"/>
+        <line num="271" count="0" type="stmt"/>
+        <line num="272" count="0" type="stmt"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modals\EditRepr\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -559,19 +590,19 @@
       </file>
     </package>
     <package name="src.modules.LocalStorage">
-      <metrics statements="17" coveredstatements="14" conditionals="6" coveredconditionals="4" methods="9" coveredmethods="8"/>
+      <metrics statements="17" coveredstatements="9" conditionals="6" coveredconditionals="3" methods="9" coveredmethods="5"/>
       <file name="LocalStorage.module.ts" path="D:\dev\reprMan\apps\client-web\src\modules\LocalStorage\LocalStorage.module.ts">
-        <metrics statements="16" coveredstatements="13" conditionals="6" coveredconditionals="4" methods="9" coveredmethods="8"/>
-        <line num="13" count="3" type="cond" truecount="2" falsecount="0"/>
+        <metrics statements="16" coveredstatements="8" conditionals="6" coveredconditionals="3" methods="9" coveredmethods="5"/>
+        <line num="13" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="17" count="3" type="stmt"/>
-        <line num="23" count="2" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
-        <line num="36" count="1" type="stmt"/>
-        <line num="38" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="39" count="1" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="38" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="39" count="0" type="stmt"/>
         <line num="41" count="0" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
         <line num="51" count="1" type="stmt"/>
         <line num="55" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="56" count="1" type="stmt"/>
@@ -589,15 +620,15 @@
       <file name="Localization.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\modules\Localization\Localization.hooks.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="4" type="stmt"/>
-        <line num="4" count="4" type="stmt"/>
-        <line num="5" count="4" type="stmt"/>
+        <line num="4" count="5" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
       </file>
       <file name="Localization.module.ts" path="D:\dev\reprMan\apps\client-web\src\modules\Localization\Localization.module.ts">
         <metrics statements="5" coveredstatements="5" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="10" count="1" type="stmt"/>
-        <line num="18" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="6" type="cond" truecount="2" falsecount="0"/>
         <line num="19" count="1" type="stmt"/>
-        <line num="22" count="5" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
         <line num="26" count="6" type="cond" truecount="2" falsecount="0"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modules\Localization\index.ts">
@@ -605,41 +636,41 @@
       </file>
     </package>
     <package name="src.modules.ReprsApi">
-      <metrics statements="54" coveredstatements="13" conditionals="26" coveredconditionals="3" methods="14" coveredmethods="3"/>
+      <metrics statements="54" coveredstatements="23" conditionals="26" coveredconditionals="5" methods="14" coveredmethods="8"/>
       <file name="ReprsApi.module.ts" path="D:\dev\reprMan\apps\client-web\src\modules\ReprsApi\ReprsApi.module.ts">
-        <metrics statements="32" coveredstatements="9" conditionals="16" coveredconditionals="3" methods="11" coveredmethods="3"/>
-        <line num="9" count="4" type="cond" truecount="2" falsecount="0"/>
+        <metrics statements="32" coveredstatements="19" conditionals="16" coveredconditionals="5" methods="11" coveredmethods="8"/>
+        <line num="9" count="4" type="cond" truecount="1" falsecount="1"/>
         <line num="10" count="4" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
         <line num="13" count="4" type="stmt"/>
-        <line num="14" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="14" count="2" type="cond" truecount="1" falsecount="1"/>
         <line num="15" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
         <line num="20" count="4" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="24" count="0" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="23" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="24" count="2" type="stmt"/>
         <line num="26" count="0" type="stmt"/>
         <line num="29" count="4" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
         <line num="45" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="46" count="0" type="stmt"/>
         <line num="47" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="50" count="0" type="stmt"/>
-        <line num="59" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="59" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="60" count="1" type="stmt"/>
-        <line num="62" count="1" type="stmt"/>
-        <line num="66" count="0" type="stmt"/>
+        <line num="62" count="2" type="stmt"/>
+        <line num="66" count="1" type="stmt"/>
         <line num="67" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="71" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
         <line num="76" count="0" type="stmt"/>
-        <line num="77" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
         <line num="81" count="0" type="stmt"/>
         <line num="85" count="0" type="stmt"/>
+        <line num="89" count="1" type="stmt"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\modules\ReprsApi\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -655,19 +686,19 @@
         <line num="13" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="15" count="0" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="21" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="25" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="30" count="0" type="stmt"/>
-        <line num="31" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="27" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
         <line num="32" count="0" type="stmt"/>
-        <line num="33" count="0" type="stmt"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
+        <line num="33" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
       </file>
     </package>
     <package name="src.pages.About">
@@ -697,9 +728,9 @@
       </file>
     </package>
     <package name="src.pages.Home">
-      <metrics statements="21" coveredstatements="11" conditionals="15" coveredconditionals="4" methods="5" coveredmethods="2"/>
+      <metrics statements="23" coveredstatements="11" conditionals="17" coveredconditionals="4" methods="5" coveredmethods="2"/>
       <file name="Home.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\Home\Home.tsx">
-        <metrics statements="21" coveredstatements="11" conditionals="15" coveredconditionals="4" methods="5" coveredmethods="2"/>
+        <metrics statements="23" coveredstatements="11" conditionals="17" coveredconditionals="4" methods="5" coveredmethods="2"/>
         <line num="16" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
@@ -714,13 +745,15 @@
         <line num="35" count="0" type="stmt"/>
         <line num="52" count="0" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
-        <line num="70" count="0" type="stmt"/>
-        <line num="79" count="1" type="stmt"/>
-        <line num="80" count="1" type="stmt"/>
+        <line num="70" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="71" count="0" type="stmt"/>
         <line num="81" count="0" type="stmt"/>
-        <line num="85" count="0" type="stmt"/>
-        <line num="87" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="90" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="90" count="1" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="92" count="0" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+        <line num="98" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="101" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\Home\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -902,7 +935,7 @@
       </file>
     </package>
     <package name="src.pages.ViewRepr">
-      <metrics statements="46" coveredstatements="22" conditionals="34" coveredconditionals="15" methods="5" coveredmethods="1"/>
+      <metrics statements="47" coveredstatements="22" conditionals="34" coveredconditionals="15" methods="6" coveredmethods="1"/>
       <file name="ViewRepr.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\pages\ViewRepr\ViewRepr.helpers.ts">
         <metrics statements="30" coveredstatements="19" conditionals="19" coveredconditionals="15" methods="2" coveredmethods="1"/>
         <line num="3" count="2" type="stmt"/>
@@ -937,7 +970,7 @@
         <line num="63" count="4" type="stmt"/>
       </file>
       <file name="ViewRepr.tsx" path="D:\dev\reprMan\apps\client-web\src\pages\ViewRepr\ViewRepr.tsx">
-        <metrics statements="16" coveredstatements="3" conditionals="15" coveredconditionals="0" methods="3" coveredmethods="0"/>
+        <metrics statements="17" coveredstatements="3" conditionals="15" coveredconditionals="0" methods="4" coveredmethods="0"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="16" count="0" type="stmt"/>
@@ -951,9 +984,10 @@
         <line num="31" count="0" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
         <line num="73" count="0" type="stmt"/>
-        <line num="108" count="1" type="stmt"/>
-        <line num="109" count="0" type="stmt"/>
-        <line num="116" count="1" type="stmt"/>
+        <line num="97" count="0" type="stmt"/>
+        <line num="109" count="1" type="stmt"/>
+        <line num="110" count="0" type="stmt"/>
+        <line num="117" count="1" type="stmt"/>
       </file>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\pages\ViewRepr\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -971,7 +1005,7 @@
       </file>
     </package>
     <package name="src.state.categories">
-      <metrics statements="29" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="15" coveredmethods="7"/>
+      <metrics statements="29" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="15" coveredmethods="6"/>
       <file name="categories.actions.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\categories.actions.ts">
         <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="5" count="4" type="stmt"/>
@@ -994,7 +1028,7 @@
         <line num="5" count="2" type="stmt"/>
       </file>
       <file name="categories.reducer.ts" path="D:\dev\reprMan\apps\client-web\src\state\categories\categories.reducer.ts">
-        <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="2"/>
+        <metrics statements="11" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="10" coveredmethods="1"/>
         <line num="15" count="4" type="stmt"/>
         <line num="24" count="4" type="stmt"/>
         <line num="28" count="4" type="stmt"/>
@@ -1059,7 +1093,7 @@
       </file>
     </package>
     <package name="src.state.reprs">
-      <metrics statements="17" coveredstatements="14" conditionals="6" coveredconditionals="0" methods="9" coveredmethods="5"/>
+      <metrics statements="20" coveredstatements="17" conditionals="10" coveredconditionals="2" methods="10" coveredmethods="6"/>
       <file name="index.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\index.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       </file>
@@ -1074,26 +1108,29 @@
         <line num="1" count="4" type="stmt"/>
       </file>
       <file name="reprs.hooks.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.hooks.ts">
-        <metrics statements="4" coveredstatements="3" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
+        <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="5" count="4" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="10" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+        <line num="12" count="0" type="cond" truecount="0" falsecount="2"/>
       </file>
       <file name="reprs.reducer.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.reducer.ts">
-        <metrics statements="6" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="4" coveredmethods="2"/>
+        <metrics statements="6" coveredstatements="4" conditionals="6" coveredconditionals="0" methods="4" coveredmethods="2"/>
         <line num="7" count="4" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
         <line num="11" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="17" count="0" type="cond" truecount="0" falsecount="2"/>
         <line num="20" count="4" type="stmt"/>
         <line num="21" count="4" type="stmt"/>
       </file>
       <file name="reprs.selectors.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.selectors.ts">
-        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
-        <line num="5" count="4" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
+        <metrics statements="5" coveredstatements="5" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="10" count="1" type="cond" truecount="2" falsecount="0"/>
+        <line num="13" count="4" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
       </file>
       <file name="reprs.types.ts" path="D:\dev\reprMan\apps\client-web\src\state\reprs\reprs.types.ts">
         <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -1132,14 +1169,14 @@
       </file>
     </package>
     <package name="src.state.sagas">
-      <metrics statements="11" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="2"/>
+      <metrics statements="11" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="6" coveredmethods="1"/>
       <file name="reprs.helpers.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs.helpers.ts">
-        <metrics statements="10" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="1"/>
+        <metrics statements="10" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="5" coveredmethods="0"/>
         <line num="3" count="4" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
         <line num="11" count="4" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
@@ -1384,20 +1421,20 @@
       </file>
     </package>
     <package name="src.state.sagas.reprs.loadReprs">
-      <metrics statements="11" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <metrics statements="11" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="loadReprs.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\loadReprs\loadReprs.saga.ts">
-        <metrics statements="11" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <metrics statements="11" coveredstatements="5" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="9" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="10" count="1" type="stmt"/>
-        <line num="11" count="1" type="stmt"/>
-        <line num="12" count="1" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
         <line num="18" count="0" type="stmt"/>
         <line num="19" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.state.sagas.reprs.markReprPracticed">
@@ -1442,18 +1479,18 @@
       </file>
     </package>
     <package name="src.state.sagas.reprs.storeReprs">
-      <metrics statements="15" coveredstatements="10" conditionals="10" coveredconditionals="1" methods="5" coveredmethods="2"/>
+      <metrics statements="15" coveredstatements="8" conditionals="10" coveredconditionals="1" methods="5" coveredmethods="2"/>
       <file name="storeReprs.saga.ts" path="D:\dev\reprMan\apps\client-web\src\state\sagas\reprs\storeReprs\storeReprs.saga.ts">
-        <metrics statements="15" coveredstatements="10" conditionals="10" coveredconditionals="1" methods="5" coveredmethods="2"/>
+        <metrics statements="15" coveredstatements="8" conditionals="10" coveredconditionals="1" methods="5" coveredmethods="2"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="15" count="1" type="stmt"/>
         <line num="17" count="1" type="stmt"/>
         <line num="18" count="1" type="cond" truecount="1" falsecount="1"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="21" count="1" type="stmt"/>
-        <line num="24" count="1" type="stmt"/>
-        <line num="25" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
         <line num="30" count="4" type="stmt"/>
         <line num="31" count="1" type="stmt"/>
         <line num="33" count="0" type="stmt"/>

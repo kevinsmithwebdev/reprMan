@@ -2,7 +2,6 @@ import React, { FC } from 'react'
 import Card from 'react-bootstrap/Card'
 
 import { Repr } from 'types'
-import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
 import { useNavigate } from 'react-router-dom'
 import { getDateAndFrom } from 'utilities'
 import ReprButton, { ReprButtonType } from 'components/ReprButton'
@@ -61,22 +60,13 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
         />
       )}
 
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <ReprButton
-          type={ReprButtonType.EDIT}
-          actionData={{ selection: ModalSelection.EDIT_REPR, props: { id } }}
-          style={{ margin: '0 4px 2px 0' }}
-        />
-
-        <ReprButton
-          type={ReprButtonType.DELETE}
-          actionData={id}
-          style={{ margin: '2px 4px 0 0' }}
-        />
-      </div>
-
       <ReprButton
-        style={{ height: '80px' }}
+        style={{
+          height: '80px',
+          width: '96px',
+          minWidth: '96px',
+          maxWidth: '96px',
+        }}
         type={ReprButtonType.PRACTICED}
         actionData={id}
       />

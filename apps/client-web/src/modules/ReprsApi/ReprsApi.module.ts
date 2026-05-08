@@ -68,7 +68,11 @@ class ReprsApiModule {
   }
 
   async upsertRepr(repr: Repr): Promise<Repr> {
-    const data = await request(`/reprs/${repr.id}`, 'PUT', repr as unknown as Json)
+    const data = await request(
+      `/reprs/${repr.id}`,
+      'PUT',
+      repr as unknown as Json
+    )
     return data.repr as Repr
   }
 

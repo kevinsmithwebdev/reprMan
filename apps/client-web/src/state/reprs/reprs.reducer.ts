@@ -4,7 +4,7 @@ import { createReducer } from '@reduxjs/toolkit'
 import { Reprs } from 'types'
 import { setReprs, addRepr, clearAllReprs } from './reprs.actions'
 
-const initialState = [] as Reprs
+const initialState = null as Reprs | null
 
 export default createReducer(initialState, (builder) => {
   builder.addCase(addRepr, (state, { payload }) => {
@@ -14,9 +14,9 @@ export default createReducer(initialState, (builder) => {
       dateCreated: payload.dateCreated || moment.utc().valueOf(),
     }
 
-    return [newRepr, ...state]
+    return [newRepr, ...(state || [])]
   })
 
   builder.addCase(setReprs, (_state, { payload: reprs }) => reprs)
-  builder.addCase(clearAllReprs, () => initialState)
+  builder.addCase(clearAllReprs, () => [] as Reprs)
 })

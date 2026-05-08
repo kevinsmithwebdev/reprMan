@@ -4,7 +4,7 @@ import { CategoryPillSize } from 'components/CategoryPills/CategoryPills'
 import ReprButton, { ReprButtonType } from 'components/ReprButton'
 import { MAX_PRACTICED_DATES } from 'constants/index'
 import { ModalSelection } from 'modals/ModalContainer/ModalContainer.types'
-import { Card } from 'react-bootstrap'
+import { Button, Card } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useReprs } from 'state/reprs'
 import { getDateAndFrom } from 'utilities'
@@ -34,7 +34,7 @@ const ViewRepr = () => {
     <Card
       style={{
         margin: '5px',
-        padding: '5px',
+        padding: '16px',
         backgroundColor: '#f6f6f6',
         maxWidth: '600px',
       }}
@@ -80,24 +80,25 @@ const ViewRepr = () => {
       {!!practicedStr &&
         renderCardBody(t('pages.viewRepr.data.practiceData'), practicedStr)}
 
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <ReprButton
           type={ReprButtonType.EDIT}
           actionData={{ selection: ModalSelection.EDIT_REPR, props: { id } }}
-          style={{ flex: 1, margin: '5px', minWidth: '400px' }}
+          style={{ width: '100%' }}
         />
 
         <ReprButton
           type={ReprButtonType.DELETE}
           actionData={id}
-          style={{ flex: 1, margin: '5px', minWidth: '400px' }}
+          style={{ width: '100%' }}
         />
-
-        <ReprButton
-          type={ReprButtonType.PRACTICED}
-          actionData={id}
-          style={{ flex: 1, margin: '5px', minWidth: '400px' }}
-        />
+        <Button
+          variant="secondary"
+          onClick={() => navigate(-1)}
+          style={{ width: '100%' }}
+        >
+          {t('buttons.back')}
+        </Button>
       </div>
     </Card>
   )

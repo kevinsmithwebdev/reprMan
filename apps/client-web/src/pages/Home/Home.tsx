@@ -16,7 +16,7 @@ import { useL10n } from 'modules/Localization'
 const Home = () => {
   const navigate = useNavigate()
   const { t } = useL10n()
-  const { reprs } = useReprs()
+  const { reprs, reprsLoaded } = useReprs()
   const { filter } = useCategories()
   const { sessionChecked, signedIn } = useCognitoAuth()
 
@@ -63,6 +63,17 @@ const Home = () => {
             </div>
           </Card.Body>
         </Card>
+      </div>
+    )
+  }
+
+  if (!reprsLoaded) {
+    return (
+      <div
+        id="Home-page"
+        className="d-flex justify-content-center align-items-center h-100"
+      >
+        <Spinner animation="border" role="status" />
       </div>
     )
   }

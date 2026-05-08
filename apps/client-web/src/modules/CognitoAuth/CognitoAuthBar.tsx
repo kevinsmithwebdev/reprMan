@@ -74,7 +74,7 @@ const CognitoAuthBar = () => {
             aria-label={t('auth.userAvatarMenuLabel')}
           >
             <span
-              className="cognito-user-avatar rounded-circle bg-secondary d-inline-flex align-items-center justify-content-center text-white fw-semibold user-select-none"
+              className="cognito-user-avatar rounded-circle bg-success d-inline-flex align-items-center justify-content-center text-white fw-semibold user-select-none"
               aria-hidden
             >
               {initials}

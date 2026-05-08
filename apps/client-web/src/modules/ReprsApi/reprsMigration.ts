@@ -16,7 +16,9 @@ const getUserIdFromToken = async (): Promise<string | null> => {
   }
 }
 
-export const tryMigrateLocalReprsOnce = async (cloudReprs: Reprs): Promise<void> => {
+export const tryMigrateLocalReprsOnce = async (
+  cloudReprs: Reprs
+): Promise<void> => {
   const userId = await getUserIdFromToken()
   if (!userId) return
 

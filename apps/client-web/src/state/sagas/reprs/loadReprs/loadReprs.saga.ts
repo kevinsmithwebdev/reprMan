@@ -7,7 +7,8 @@ import { LOAD_REPRS, storeReprsSAC } from '../reprs.actions'
 
 function* loadReprsWorker() {
   if (!isReprsApiConfigured) {
-    const localReprs = (yield LocalStorageModule.getInstance().getReprs()) as Reprs
+    const localReprs =
+      (yield LocalStorageModule.getInstance().getReprs()) as Reprs
     yield put(storeReprsSAC(localReprs))
     return
   }
