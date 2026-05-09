@@ -1,4 +1,5 @@
 import React from 'react'
+import PasswordFormControl from 'components/PasswordFormControl'
 import { Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
@@ -43,8 +44,7 @@ const CognitoSignInFields = ({
     </Form.Group>
     <Form.Group className="mb-3" controlId={`${idPrefix}-password`}>
       <Form.Label>{passwordLabel}</Form.Label>
-      <Form.Control
-        type="password"
+      <PasswordFormControl
         autoComplete="current-password"
         value={password}
         onChange={(ev) => setPassword(ev.target.value)}

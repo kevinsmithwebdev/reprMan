@@ -6,6 +6,7 @@ import {
   signIn,
   signUp,
 } from 'aws-amplify/auth'
+import PasswordFormControl from 'components/PasswordFormControl'
 import { Button, Card, Form, Spinner } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
@@ -195,8 +196,7 @@ const Signup = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="signup-password">
             <Form.Label>{t('auth.password')}</Form.Label>
-            <Form.Control
-              type="password"
+            <PasswordFormControl
               autoComplete="new-password"
               value={password}
               onChange={(ev) => setPassword(ev.target.value)}
@@ -210,8 +210,7 @@ const Signup = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="signup-password-confirm">
             <Form.Label>{t('auth.confirmPassword')}</Form.Label>
-            <Form.Control
-              type="password"
+            <PasswordFormControl
               autoComplete="new-password"
               value={confirmPassword}
               onChange={(ev) => setConfirmPassword(ev.target.value)}

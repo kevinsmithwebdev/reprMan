@@ -4,6 +4,7 @@ import {
   confirmResetPassword,
   resetPassword,
 } from 'aws-amplify/auth'
+import PasswordFormControl from 'components/PasswordFormControl'
 import { Button, Card, Form, Spinner } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
@@ -229,8 +230,7 @@ const ForgotPassword = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="forgot-new-password">
             <Form.Label>{t('auth.changePasswordNew')}</Form.Label>
-            <Form.Control
-              type="password"
+            <PasswordFormControl
               autoComplete="new-password"
               value={newPassword}
               onChange={(ev) => setNewPassword(ev.target.value)}
@@ -244,8 +244,7 @@ const ForgotPassword = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="forgot-confirm-password">
             <Form.Label>{t('auth.confirmPassword')}</Form.Label>
-            <Form.Control
-              type="password"
+            <PasswordFormControl
               autoComplete="new-password"
               value={confirmPassword}
               onChange={(ev) => setConfirmPassword(ev.target.value)}

@@ -12,6 +12,8 @@
     "createAccount": "Create an account",
     "email": "Email",
     "password": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
     "signIn": "Sign in",
     "signInButton": "Sign In",
     "signInTitle": "Sign in",

@@ -1,4 +1,5 @@
 import React from 'react'
+import PasswordFormControl from 'components/PasswordFormControl'
 import { Button, Card, Form, Spinner } from 'react-bootstrap'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { isCognitoConfigured } from 'config/configureAmplify'
@@ -59,8 +60,7 @@ const ChangePassword = () => {
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="change-password-old">
           <Form.Label>{tForm('auth.changePasswordCurrent')}</Form.Label>
-          <Form.Control
-            type="password"
+          <PasswordFormControl
             autoComplete="current-password"
             value={oldPassword}
             onChange={(ev) => setOldPassword(ev.target.value)}
@@ -70,8 +70,7 @@ const ChangePassword = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="change-password-new">
           <Form.Label>{tForm('auth.changePasswordNew')}</Form.Label>
-          <Form.Control
-            type="password"
+          <PasswordFormControl
             autoComplete="new-password"
             value={newPassword}
             onChange={(ev) => setNewPassword(ev.target.value)}
@@ -81,8 +80,7 @@ const ChangePassword = () => {
         </Form.Group>
         <Form.Group className="mb-3" controlId="change-password-confirm">
           <Form.Label>{tForm('auth.confirmPassword')}</Form.Label>
-          <Form.Control
-            type="password"
+          <PasswordFormControl
             autoComplete="new-password"
             value={confirmPassword}
             onChange={(ev) => setConfirmPassword(ev.target.value)}
