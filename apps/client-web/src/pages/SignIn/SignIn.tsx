@@ -78,6 +78,9 @@ const SignIn = () => {
             ) : null}
             {tForm('auth.signInButton')}
           </Button>
+          <Link to="/forgot-password" className="small">
+            {t('auth.forgotPasswordLink')}
+          </Link>
           <Link to="/" className="small">
             {t('auth.signUpBackHome')}
           </Link>

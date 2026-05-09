@@ -12,6 +12,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { isCognitoConfigured } from 'config/configureAmplify'
 import { userFromCognitoSession } from 'modules/CognitoAuth'
 import { useL10n } from 'modules/Localization'
+import { runGenesisSaga } from 'state/sagas/genesis/genesis.actions'
 import { setUser } from 'state/user/user.actions'
 import { makeToastSAC } from 'state/sagas/toast/toast.actions'
 import { ToastLevel } from 'types'
@@ -45,6 +46,7 @@ const Signup = () => {
     if (nextUser) {
       dispatch(setUser(nextUser))
     }
+    dispatch(runGenesisSaga({ afterSignIn: true }))
     dispatch(
       makeToastSAC({
         body: t('auth.signUpSuccessSignedIn'),

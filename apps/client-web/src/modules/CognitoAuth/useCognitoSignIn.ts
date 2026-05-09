@@ -49,7 +49,7 @@ export function useCognitoSignIn(
         return
       }
       await refreshSession()
-      dispatch(runGenesisSaga())
+      dispatch(runGenesisSaga({ afterSignIn: true }))
       setPassword('')
       onSuccess()
     } catch (err) {

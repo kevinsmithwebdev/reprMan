@@ -41,7 +41,16 @@
     "homeCognitoEnvMissing": "Cognito is not configured in this build (missing REACT_APP_COGNITO_USER_POOL_ID / REACT_APP_COGNITO_USER_POOL_CLIENT_ID). Add them to apps/client-web/.env (see .env.example), then restart the dev server (`yarn start` from the repo root loads that file via dotenv-cli).",
     "homeSignedOutBody": "Sign in or create an account to use your repertoire.",
     "homeSignedOutTitle": "ReprMan",
-    "signUpButton": "Sign Up"
+    "signUpButton": "Sign Up",
+    "forgotPasswordLink": "I can't remember my password",
+    "forgotPasswordCodeSent": "Check your email for a password reset code.",
+    "forgotPasswordSendCode": "Send reset code",
+    "forgotPasswordSubmit": "Set new password",
+    "forgotPasswordSuccess": "Your password was reset. You can sign in now.",
+    "forgotPasswordUnexpectedError": "Could not start password reset.",
+    "forgotPasswordConfirmUnexpectedError": "Could not reset password. Check the code and try again.",
+    "forgotPasswordUnexpectedNextStep": "Password reset needs an extra step that this page does not handle yet.",
+    "forgotPasswordConfirmIntro": "Enter the code we sent to {{email}}, then choose a new password."
   },
   "brand": {
     "copyright": "copyright ©{{year}}",
@@ -166,6 +175,10 @@
     },
     "signin": {
       "title": "Sign in"
+    },
+    "forgotPassword": {
+      "title": "Reset password",
+      "subtitle": "Enter the email for your account. We will send you a code to choose a new password."
     },
     "changePassword": {
       "title": "Change password",

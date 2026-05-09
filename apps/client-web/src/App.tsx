@@ -10,6 +10,7 @@ import About from 'pages/About'
 import Settings from 'pages/Settings'
 import SignIn from 'pages/SignIn'
 import Signup from 'pages/Signup'
+import ForgotPassword from 'pages/ForgotPassword'
 import ChangePassword from 'pages/ChangePassword'
 import ViewRepr from 'pages/ViewRepr'
 import Footer from 'components/Footer'
@@ -46,6 +47,7 @@ const App = () => {
           <Route path="/settings" element={<Settings />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/change-password" element={<ChangePassword />} />
 
           <Route path="/" element={<Home />} />
