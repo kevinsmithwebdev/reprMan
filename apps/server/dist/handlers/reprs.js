@@ -5,7 +5,13 @@ const auth_1 = require("../lib/auth");
 const analytics_1 = require("../lib/analytics");
 const http_1 = require("../lib/http");
 const reprStore_1 = require("../lib/reprStore");
+const userConfig_1 = require("../lib/userConfig");
 const reprValidation_1 = require("../lib/reprValidation");
+const reprLimitExceededResponse = (maxReprsAllowed) => (0, http_1.jsonResponse)(403, {
+    code: 'REPR_LIMIT_EXCEEDED',
+    message: `You cannot create more than ${maxReprsAllowed} reprs.`,
+    maxReprsAllowed,
+});
 const handleError = (error, options) => {
     if (error instanceof auth_1.UnauthorizedError) {
         return (0, http_1.jsonResponse)(401, { message: 'Unauthorized' });
@@ -16,8 +22,9 @@ const getReprsHandler = async (event) => {
     try {
         const userId = (0, auth_1.getUserId)(event);
         await (0, analytics_1.trackDailyUniqueUser)(userId);
-        const reprs = await (0, reprStore_1.listReprs)(userId);
-        return (0, http_1.jsonResponse)(200, { reprs });
+        const [reprs, config] = await Promise.all([(0, reprStore_1.listReprs)(userId), (0, reprStore_1.getUserConfig)(userId)]);
+        const maxReprsAllowed = (0, userConfig_1.resolveMaxReprsAllowed)(config);
+        return (0, http_1.jsonResponse)(200, { reprs, maxReprsAllowed });
     }
     catch (error) {
         return handleError(error, {
@@ -36,6 +43,17 @@ const putReprHandler = async (event) => {
         const pathReprId = event.pathParameters?.id;
         if (!pathReprId || pathReprId !== repr.id) {
             return (0, http_1.jsonResponse)(400, { message: 'Path id and repr id must match' });
+        }
+        const [alreadyExists, config] = await Promise.all([
+            (0, reprStore_1.reprExists)(userId, repr.id),
+            (0, reprStore_1.getUserConfig)(userId),
+        ]);
+        const maxReprsAllowed = (0, userConfig_1.resolveMaxReprsAllowed)(config);
+        if (!alreadyExists && maxReprsAllowed !== null) {
+            const count = await (0, reprStore_1.countReprsForUser)(userId);
+            if (count >= maxReprsAllowed) {
+                return reprLimitExceededResponse(maxReprsAllowed);
+            }
         }
         const result = await (0, reprStore_1.upsertRepr)(userId, repr);
         (0, analytics_1.trackAction)(result === 'created' ? 'create' : 'edit');
@@ -89,6 +107,11 @@ const migrateReprsHandler = async (event) => {
         await (0, analytics_1.trackDailyUniqueUser)(userId);
         const payload = JSON.parse(event.body ?? '[]');
         const reprs = (0, reprValidation_1.parseReprs)(payload);
+        const config = await (0, reprStore_1.getUserConfig)(userId);
+        const maxReprsAllowed = (0, userConfig_1.resolveMaxReprsAllowed)(config);
+        if (maxReprsAllowed !== null && reprs.length > maxReprsAllowed) {
+            return reprLimitExceededResponse(maxReprsAllowed);
+        }
         await (0, reprStore_1.replaceAllReprs)(userId, reprs);
         return (0, http_1.jsonResponse)(200, { imported: reprs.length });
     }

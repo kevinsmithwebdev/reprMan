@@ -1,5 +1,3 @@
-export const MAX_FREE_REPRS = 50
-
 export const DEFAULT_DAYS_WARNING = 30
 export const DEFAULT_DAYS_WARNING_MIN = 0
 export const DEFAULT_DAYS_WARNING_MAX = 365

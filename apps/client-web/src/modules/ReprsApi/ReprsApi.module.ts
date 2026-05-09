@@ -6,6 +6,11 @@ import { Repr, Reprs } from 'types'
 
 type Json = Record<string, unknown>
 
+export type ListReprsResponse = {
+  reprs: Reprs
+  maxReprsAllowed: number | null | undefined
+}
+
 const trimEnv = (v: string | undefined) => (v ?? '').trim()
 const apiBaseUrl = trimEnv(process.env.REACT_APP_REPRS_API_BASE_URL)
 export const isReprsApiConfigured = Boolean(apiBaseUrl)
@@ -62,9 +67,19 @@ class ReprsApiModule {
     return ReprsApiModule.instance
   }
 
-  async listReprs(): Promise<Reprs> {
+  async listReprs(): Promise<ListReprsResponse> {
     const data = await request('/reprs', 'GET')
-    return (data.reprs ?? []) as Reprs
+    const reprs = (data.reprs ?? []) as Reprs
+    const raw = data.maxReprsAllowed
+    let maxReprsAllowed: number | null | undefined
+    if (raw === null) {
+      maxReprsAllowed = null
+    } else if (typeof raw === 'number') {
+      maxReprsAllowed = raw
+    } else {
+      maxReprsAllowed = undefined
+    }
+    return { reprs, maxReprsAllowed }
   }
 
   async upsertRepr(repr: Repr): Promise<Repr> {

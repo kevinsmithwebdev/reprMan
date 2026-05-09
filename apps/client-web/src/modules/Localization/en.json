@@ -107,6 +107,10 @@
         "body": "For the free version of the app (currently the only version), there is a limit of {{num}} free reprs.",
         "title": "Allowed Reprs Exceeded"
       },
+      "quotaUnavailable": {
+        "body": "Your repr limit could not be loaded. Check your connection, sign in if required, then try again.",
+        "title": "Repr limit unavailable"
+      },
       "noCategoriesSelected": "No categories selected.",
       "title": "Edit Repr"
     }

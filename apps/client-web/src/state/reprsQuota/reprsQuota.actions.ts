@@ -1,0 +1,9 @@
+import { createAction } from '@reduxjs/toolkit'
+import { NAMESPACE } from './reprsQuota.constants'
+
+/** From API: number = cap, null = unlimited. undefined clears (use client default). */
+export const setMaxReprsQuota = createAction<number | null | undefined>(
+  `${NAMESPACE}/SET_MAX_REPRS`
+)
+
+export const resetMaxReprsQuota = createAction(`${NAMESPACE}/RESET`)

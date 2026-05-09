@@ -8,7 +8,7 @@ import store from 'state/store'
 import { addReprSAC } from 'state/sagas/reprs/reprs.actions'
 import { useCategories } from 'state/categories'
 import CategoryPills from 'components/CategoryPills'
-import { MAX_FREE_REPRS } from 'constants/index'
+import { useReprCreationCap } from 'state/reprsQuota'
 import { useL10n } from 'modules/Localization'
 import CategoryLine from './CategoryLine'
 import {
@@ -30,6 +30,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const { categories: availableCategories } = useCategories()
   const [enteredCategory, setEnteredCategory] = useState('')
   const { getRepr, reprs } = useReprs()
+  const { quotaLoaded, reprCreationCap } = useReprCreationCap()
   const repr = getRepr(id)
   const isCreateMode = !id
   const initialCategories = repr.categories || []
@@ -63,14 +64,30 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
 
   const categoriesComplement = getComplement(availableCategories, categories)
 
-  if (reprs.length >= MAX_FREE_REPRS) {
+  if (isCreateMode && !quotaLoaded) {
+    return (
+      <>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            {t('modals.editRepr.quotaUnavailable.title')}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{t('modals.editRepr.quotaUnavailable.body')}</Modal.Body>
+      </>
+    )
+  }
+
+  const atCreationLimit =
+    isCreateMode && reprCreationCap !== null && reprs.length >= reprCreationCap
+
+  if (atCreationLimit) {
     return (
       <>
         <Modal.Header closeButton>
           <Modal.Title>{t('modals.editRepr.exceeded.title')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {t('modals.editRepr.exceeded.body', { num: MAX_FREE_REPRS })}
+          {t('modals.editRepr.exceeded.body', { num: reprCreationCap })}
         </Modal.Body>
       </>
     )

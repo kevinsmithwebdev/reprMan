@@ -16,7 +16,9 @@ export class ReprServerStack extends cdk.Stack {
     super(scope, id, props)
 
     const userPoolId = this.node.tryGetContext('userPoolId') as string
-    const userPoolClientId = this.node.tryGetContext('userPoolClientId') as string
+    const userPoolClientId = this.node.tryGetContext(
+      'userPoolClientId'
+    ) as string
     const apiScopes = String(this.node.tryGetContext('apiScopes') ?? '')
       .split(',')
       .map((scope) => scope.trim())
@@ -49,6 +51,9 @@ export class ReprServerStack extends cdk.Stack {
       environment: {
         REPRS_TABLE_NAME: table.tableName,
         DAILY_USAGE_TABLE_NAME: dailyUsageTable.tableName,
+        DEFAULT_MAX_REPRS_ALLOWED: String(
+          this.node.tryGetContext('defaultMaxReprsAllowed') ?? '25'
+        ),
         APP_VERSION: process.env.APP_VERSION ?? 'unknown',
         APP_BUILD_NUMBER: process.env.APP_BUILD_NUMBER ?? 'local',
         APP_BUILD_TIME_UTC: process.env.APP_BUILD_TIME_UTC ?? 'unknown',
@@ -59,7 +64,11 @@ export class ReprServerStack extends cdk.Stack {
     table.grantReadWriteData(reprHandler)
     dailyUsageTable.grantWriteData(reprHandler)
 
-    const userPool = cognito.UserPool.fromUserPoolId(this, 'UserPool', userPoolId)
+    const userPool = cognito.UserPool.fromUserPoolId(
+      this,
+      'UserPool',
+      userPoolId
+    )
     const userPoolClient = cognito.UserPoolClient.fromUserPoolClientId(
       this,
       'UserPoolClient',
@@ -154,7 +163,9 @@ export class ReprServerStack extends cdk.Stack {
       alarmDescription: 'No user actions were tracked in the last 24 hours.',
     })
 
-    const billingAlertEmail = this.node.tryGetContext('billingAlertEmail') as string | undefined
+    const billingAlertEmail = this.node.tryGetContext('billingAlertEmail') as
+      | string
+      | undefined
     const monthlyBudgetUsdRaw = this.node.tryGetContext('monthlyBudgetUsd') as
       | string
       | undefined
@@ -174,15 +185,20 @@ export class ReprServerStack extends cdk.Stack {
         dimensionsMap: { Currency: 'USD' },
       })
 
-      const billingAlarm = new cloudwatch.Alarm(this, 'MonthlyEstimatedChargesAlarm', {
-        metric: estimatedChargesMetric,
-        threshold: monthlyBudgetUsd,
-        evaluationPeriods: 1,
-        datapointsToAlarm: 1,
-        comparisonOperator: cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
-        treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
-        alarmDescription: `Estimated AWS charges crossed ${monthlyBudgetUsd} USD.`,
-      })
+      const billingAlarm = new cloudwatch.Alarm(
+        this,
+        'MonthlyEstimatedChargesAlarm',
+        {
+          metric: estimatedChargesMetric,
+          threshold: monthlyBudgetUsd,
+          evaluationPeriods: 1,
+          datapointsToAlarm: 1,
+          comparisonOperator:
+            cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+          treatMissingData: cloudwatch.TreatMissingData.NOT_BREACHING,
+          alarmDescription: `Estimated AWS charges crossed ${monthlyBudgetUsd} USD.`,
+        }
+      )
 
       billingAlarm.addAlarmAction(new cloudwatchActions.SnsAction(topic))
     }

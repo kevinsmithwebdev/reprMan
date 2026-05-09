@@ -4,6 +4,7 @@ import createSagaMiddleware from 'redux-saga'
 import categoriesReducer from './categories'
 import modalReducer from './modal'
 import reprsReducer from './reprs'
+import reprsQuotaReducer from './reprsQuota'
 import settingsReducer from './settings'
 import toastsReducer from './toasts'
 import userReducer from './user'
@@ -14,6 +15,7 @@ const reducer = {
   categories: categoriesReducer,
   modal: modalReducer,
   reprs: reprsReducer,
+  reprsQuota: reprsQuotaReducer,
   settings: settingsReducer,
   toasts: toastsReducer,
   user: userReducer,

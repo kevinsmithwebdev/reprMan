@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.replaceAllReprs = exports.deleteRepr = exports.markPracticed = exports.upsertRepr = exports.listReprs = void 0;
+exports.replaceAllReprs = exports.deleteRepr = exports.markPracticed = exports.upsertRepr = exports.reprExists = exports.countReprsForUser = exports.getUserConfig = exports.listReprs = void 0;
 const lib_dynamodb_1 = require("@aws-sdk/lib-dynamodb");
 const client_dynamodb_1 = require("@aws-sdk/client-dynamodb");
+const userConfig_1 = require("./userConfig");
 const TABLE_NAME = process.env.REPRS_TABLE_NAME ?? '';
 const MAX_PRACTICED_DATES = 100;
 if (!TABLE_NAME) {
@@ -32,6 +33,36 @@ const listReprs = async (userId) => {
     return reprs;
 };
 exports.listReprs = listReprs;
+const getUserConfig = async (userId) => {
+    const result = await client.send(new lib_dynamodb_1.GetCommand({
+        TableName: TABLE_NAME,
+        Key: (0, userConfig_1.keyForUserConfig)(userId),
+    }));
+    return result.Item ?? null;
+};
+exports.getUserConfig = getUserConfig;
+const countReprsForUser = async (userId) => {
+    const result = await client.send(new lib_dynamodb_1.QueryCommand({
+        TableName: TABLE_NAME,
+        KeyConditionExpression: 'pk = :pk AND begins_with(sk, :reprPrefix)',
+        ExpressionAttributeValues: {
+            ':pk': `USER#${userId}`,
+            ':reprPrefix': 'REPR#',
+        },
+        Select: 'COUNT',
+    }));
+    return result.Count ?? 0;
+};
+exports.countReprsForUser = countReprsForUser;
+const reprExists = async (userId, reprId) => {
+    const result = await client.send(new lib_dynamodb_1.GetCommand({
+        TableName: TABLE_NAME,
+        Key: keyFor(userId, reprId),
+        ProjectionExpression: 'pk',
+    }));
+    return Boolean(result.Item);
+};
+exports.reprExists = reprExists;
 const upsertRepr = async (userId, repr) => {
     const key = keyFor(userId, repr.id);
     const existing = await client.send(new lib_dynamodb_1.GetCommand({

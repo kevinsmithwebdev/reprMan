@@ -68,6 +68,7 @@ class ReprServerStack extends cdk.Stack {
             environment: {
                 REPRS_TABLE_NAME: table.tableName,
                 DAILY_USAGE_TABLE_NAME: dailyUsageTable.tableName,
+                DEFAULT_MAX_REPRS_ALLOWED: String(this.node.tryGetContext('defaultMaxReprsAllowed') ?? '25'),
                 APP_VERSION: process.env.APP_VERSION ?? 'unknown',
                 APP_BUILD_NUMBER: process.env.APP_BUILD_NUMBER ?? 'local',
                 APP_BUILD_TIME_UTC: process.env.APP_BUILD_TIME_UTC ?? 'unknown',

@@ -8,6 +8,7 @@ import {
 } from '@aws-sdk/lib-dynamodb'
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { Repr } from '../types/repr'
+import { keyForUserConfig, type UserConfigItem } from './userConfig'
 
 const TABLE_NAME = process.env.REPRS_TABLE_NAME ?? ''
 const MAX_PRACTICED_DATES = 100
@@ -47,6 +48,47 @@ export const listReprs = async (userId: string): Promise<Repr[]> => {
   return reprs
 }
 
+export const getUserConfig = async (
+  userId: string
+): Promise<UserConfigItem | null> => {
+  const result = await client.send(
+    new GetCommand({
+      TableName: TABLE_NAME,
+      Key: keyForUserConfig(userId),
+    })
+  )
+  return (result.Item as UserConfigItem | undefined) ?? null
+}
+
+export const countReprsForUser = async (userId: string): Promise<number> => {
+  const result = await client.send(
+    new QueryCommand({
+      TableName: TABLE_NAME,
+      KeyConditionExpression: 'pk = :pk AND begins_with(sk, :reprPrefix)',
+      ExpressionAttributeValues: {
+        ':pk': `USER#${userId}`,
+        ':reprPrefix': 'REPR#',
+      },
+      Select: 'COUNT',
+    })
+  )
+  return result.Count ?? 0
+}
+
+export const reprExists = async (
+  userId: string,
+  reprId: string
+): Promise<boolean> => {
+  const result = await client.send(
+    new GetCommand({
+      TableName: TABLE_NAME,
+      Key: keyFor(userId, reprId),
+      ProjectionExpression: 'pk',
+    })
+  )
+  return Boolean(result.Item)
+}
+
 export type UpsertResult = 'created' | 'updated'
 
 export const upsertRepr = async (
@@ -84,14 +126,20 @@ export const markPracticed = async (
 
   const next: Repr = {
     ...repr,
-    datesPracticed: [Date.now(), ...repr.datesPracticed].slice(0, MAX_PRACTICED_DATES),
+    datesPracticed: [Date.now(), ...repr.datesPracticed].slice(
+      0,
+      MAX_PRACTICED_DATES
+    ),
   }
 
   await upsertRepr(userId, next)
   return next
 }
 
-export const deleteRepr = async (userId: string, reprId: string): Promise<void> => {
+export const deleteRepr = async (
+  userId: string,
+  reprId: string
+): Promise<void> => {
   await client.send(
     new DeleteCommand({
       TableName: TABLE_NAME,
@@ -100,7 +148,10 @@ export const deleteRepr = async (userId: string, reprId: string): Promise<void> 
   )
 }
 
-export const replaceAllReprs = async (userId: string, reprs: Repr[]): Promise<void> => {
+export const replaceAllReprs = async (
+  userId: string,
+  reprs: Repr[]
+): Promise<void> => {
   const chunks: Repr[][] = []
   for (let i = 0; i < reprs.length; i += 25) {
     chunks.push(reprs.slice(i, i + 25))
