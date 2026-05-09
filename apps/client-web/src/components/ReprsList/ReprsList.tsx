@@ -1,10 +1,12 @@
 import React, { FC, useLayoutEffect, useRef } from 'react'
 import Repr from 'components/ReprLine'
+import { useL10n } from 'modules/Localization'
 import { ReprsListProps } from './ReprsList.types'
 
 const SECONDS_PER_SCREEN = 0.5
 
 const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
+  const { t } = useL10n()
   const hasReprs = reprs.length > 0
   const prefersReducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
@@ -79,9 +81,19 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
   return (
     <div
       id="reprs-list-component"
-      style={{ paddingTop: '8px' }}
+      className={
+        hasReprs
+          ? undefined
+          : 'd-flex justify-content-center align-items-center text-center h-100'
+      }
+      style={hasReprs ? { paddingTop: '8px' } : undefined}
       ref={containerRef}
     >
+      {!hasReprs ? (
+        <p className="text-muted mb-0 px-3" role="status">
+          {t('components.reprsList.emptyList')}
+        </p>
+      ) : null}
       {hasReprs &&
         reprs.map((r) => (
           <div key={r.id} data-row-id={r.id}>

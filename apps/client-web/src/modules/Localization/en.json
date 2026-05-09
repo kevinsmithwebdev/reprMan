@@ -66,6 +66,7 @@
   },
   "components": {
     "reprsList": {
+      "emptyList": "No reprs were found. Please add some with the \"Add Repr\" button in the upper left.",
       "reprsCountShort": "{{count}} reprs",
       "reprsCount_one": "{{count}} repr found.",
       "reprsCount_other": "{{count}} reprs found."

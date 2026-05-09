@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { AuthError, signIn } from 'aws-amplify/auth'
 import { useDispatch } from 'react-redux'
 import { useL10n } from 'modules/Localization'
+import { runGenesisSaga } from 'state/sagas/genesis/genesis.actions'
 import { makeToastSAC } from 'state/sagas/toast/toast.actions'
 import { ToastLevel } from 'types'
 
@@ -48,6 +49,7 @@ export function useCognitoSignIn(
         return
       }
       await refreshSession()
+      dispatch(runGenesisSaga())
       setPassword('')
       onSuccess()
     } catch (err) {

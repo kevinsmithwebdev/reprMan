@@ -7,3 +7,5 @@ export const addRepr = createAction<Repr>(`${NAMESPACE}/ADD`)
 export const setReprs = createAction<Reprs>(`${NAMESPACE}/SET_MULTIPLE`)
 
 export const clearAllReprs = createAction(`${NAMESPACE}/CLEAR_ALL`)
+
+export const resetReprs = createAction(`${NAMESPACE}/RESET`)

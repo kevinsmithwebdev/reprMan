@@ -5,6 +5,9 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useL10n } from 'modules/Localization'
 import { isCognitoConfigured } from 'config/configureAmplify'
+import { clearAllCategoryData } from 'state/categories'
+import { resetReprs } from 'state/reprs'
+import { resetSettingsAC } from 'state/settings/settings.actions'
 import { clearUser } from 'state/user/user.actions'
 import { useUser } from 'state/user/user.hooks'
 import { makeToastSAC } from 'state/sagas/toast/toast.actions'
@@ -38,6 +41,9 @@ const CognitoAuthBar = () => {
     try {
       await signOut()
       dispatch(clearUser())
+      dispatch(resetReprs())
+      dispatch(clearAllCategoryData())
+      dispatch(resetSettingsAC())
     } catch (err) {
       notifyAuthError(err)
     } finally {

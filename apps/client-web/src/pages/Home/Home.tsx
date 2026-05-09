@@ -79,7 +79,7 @@ const Home = () => {
   }
 
   return (
-    <div id="Home-page">
+    <div id="Home-page" className="h-100">
       <ReprsList reprs={filteredReprs} />
     </div>
   )
