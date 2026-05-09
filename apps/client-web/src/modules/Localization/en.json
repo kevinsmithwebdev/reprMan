@@ -1,6 +1,12 @@
 {
   "auth": {
     "cancel": "Cancel",
+    "changePasswordMenu": "Change password",
+    "changePasswordCurrent": "Current password",
+    "changePasswordNew": "New password",
+    "changePasswordSubmit": "Update password",
+    "changePasswordSuccess": "Your password was updated.",
+    "changePasswordMismatch": "New password and confirmation do not match.",
     "confirmPassword": "Confirm password",
     "confirmationCode": "Confirmation code",
     "createAccount": "Create an account",
@@ -160,6 +166,10 @@
     },
     "signin": {
       "title": "Sign in"
+    },
+    "changePassword": {
+      "title": "Change password",
+      "subtitle": "Enter your current password, then choose a new one."
     },
     "signup": {
       "title": "Sign up"

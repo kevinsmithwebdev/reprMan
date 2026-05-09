@@ -57,7 +57,7 @@
     "lint:server": "nx run server:lint",
     "inspect": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent",
     "inspect:pr": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent",
-    "validate": "yarn lint && prettier --check apps/client-web/src && yarn test --silent",
+    "validate": "yarn prettier && yarn lint && prettier --check apps/client-web/src && yarn test --silent",
     "test:server": "nx run server:test"
   },
   "eslintConfig": {

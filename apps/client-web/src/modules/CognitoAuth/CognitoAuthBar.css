@@ -16,3 +16,7 @@
 .cognito-avatar-dropdown-toggle:focus .cognito-user-avatar {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.65);
 }
+
+.cognito-user-dropdown-menu {
+  min-width: 20rem;
+}

@@ -86,7 +86,7 @@ const CognitoAuthBar = () => {
               {initials}
             </span>
           </Dropdown.Toggle>
-          <Dropdown.Menu>
+          <Dropdown.Menu className="cognito-user-dropdown-menu">
             <Dropdown.ItemText className="text-wrap text-break">
               <div className="small text-muted text-uppercase mb-1">
                 {t('auth.userMenuCurrentUser')}
@@ -96,6 +96,15 @@ const CognitoAuthBar = () => {
                 <div className="small text-muted mt-1">{user.name}</div>
               ) : null}
             </Dropdown.ItemText>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              as="button"
+              type="button"
+              onClick={() => navigate('/change-password')}
+              id="cognito-change-password"
+            >
+              {t('auth.changePasswordMenu')}
+            </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item
               as="button"
