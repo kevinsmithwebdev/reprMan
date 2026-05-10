@@ -32,6 +32,7 @@ export interface CategoryPillsProps {
   onClick?: (c: string) => void
   containerStyle?: CSSProperties
   size?: CategoryPillSize
+  className?: string
 }
 
 const CategoryPills: FC<CategoryPillsProps> = ({
@@ -39,6 +40,7 @@ const CategoryPills: FC<CategoryPillsProps> = ({
   onClick = () => {},
   containerStyle,
   size = CategoryPillSize.SMALL,
+  className,
 }) => {
   const sortedCategories = [...categories].sort((a, b) => a.localeCompare(b))
 
@@ -50,7 +52,7 @@ const CategoryPills: FC<CategoryPillsProps> = ({
   }
 
   return (
-    <div style={aggregateStyle}>
+    <div style={aggregateStyle} className={className}>
       {sortedCategories.map((c: string) => (
         <Badge key={c} style={pillStyle[size]} onClick={() => onClick(c)}>
           {c}

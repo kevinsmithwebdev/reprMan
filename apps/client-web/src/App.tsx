@@ -25,20 +25,20 @@ const App = () => {
     <main
       style={{
         display: 'flex',
-        height: '100vh',
         flexDirection: 'column',
-        alignItems: 'center',
+        minHeight: '100vh',
       }}
       id="home-page"
     >
       <Header />
 
       <div
+        className="app-content-container"
         style={{
           flex: 1,
-          padding: '120px 20px 20px',
+          width: '100%',
           maxWidth: '1200px',
-          minWidth: '400px',
+          margin: '0 auto',
         }}
       >
         <Routes>

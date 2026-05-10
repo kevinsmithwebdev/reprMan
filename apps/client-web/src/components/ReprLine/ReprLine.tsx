@@ -28,13 +28,8 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
       text="dark"
       className={`repr-line-component mb-2 ${reprColors.className}`}
       onClick={() => navigate(`view/${id}`)}
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-      }}
     >
-      <Card.Body style={{ minWidth: '50%' }}>
+      <Card.Body className="repr-line-body">
         <Card.Title style={{ fontWeight: 700 }}>{title}</Card.Title>
         {!!comment && (
           <Card.Subtitle style={{ padding: '5px 0' }}>
@@ -53,20 +48,13 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
       {!!categories.length && (
         <CategoryPills
           categories={categories}
-          containerStyle={{
-            width: '300px',
-            padding: '0 20px',
-          }}
+          containerStyle={{ padding: '0 20px' }}
+          className="repr-line-pills"
         />
       )}
 
       <ReprButton
-        style={{
-          height: '80px',
-          width: '96px',
-          minWidth: '96px',
-          maxWidth: '96px',
-        }}
+        className="repr-line-button"
         type={ReprButtonType.PRACTICED}
         actionData={id}
       />

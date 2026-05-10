@@ -12,6 +12,7 @@ interface ReprButtonProps {
   style?: any
   type: ReprButtonType
   actionData: any
+  className?: string
 }
 
 export enum ReprButtonType {
@@ -20,7 +21,12 @@ export enum ReprButtonType {
   PRACTICED = 'PRACTICED',
 }
 
-const ReprButton: FC<ReprButtonProps> = ({ type, actionData, style }) => {
+const ReprButton: FC<ReprButtonProps> = ({
+  type,
+  actionData,
+  style,
+  className,
+}) => {
   const { t } = useL10n()
 
   const typeDataMap = {
@@ -45,6 +51,7 @@ const ReprButton: FC<ReprButtonProps> = ({ type, actionData, style }) => {
   return (
     <Button
       style={style}
+      className={className}
       variant={typeData.variant}
       onClick={(e) => {
         e.stopPropagation()

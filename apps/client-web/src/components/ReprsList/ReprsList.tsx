@@ -86,7 +86,11 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
           ? undefined
           : 'd-flex justify-content-center align-items-center text-center h-100'
       }
-      style={hasReprs ? { paddingTop: '8px' } : undefined}
+      style={
+        hasReprs
+          ? { display: 'flex', flexDirection: 'column', gap: '10px' }
+          : undefined
+      }
       ref={containerRef}
     >
       {!hasReprs ? (

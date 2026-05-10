@@ -1,8 +1,13 @@
 .repr-line-component {
   padding: 5px;
-  margin: 10px 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
   box-shadow: 0.5px 1px 1px 2px #eee;
   transition: all 0.2s ease-in-out;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .repr-line-component:hover {
@@ -19,4 +24,45 @@
 
 .repr-line-component.danger-bg {
   background-color: #fff6f6;
+}
+
+.repr-line-body {
+  flex: 1 1 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.repr-line-pills {
+  flex: 0 1 300px;
+  min-width: 0;
+}
+
+.repr-line-button {
+  height: 80px;
+  flex: 0 0 96px;
+}
+
+@media (max-width: 550px) {
+  .repr-line-component {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .repr-line-body {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .repr-line-pills {
+    flex: 0 0 auto;
+    width: 100%;
+    padding: 4px 8px 8px !important;
+  }
+
+  .repr-line-button {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 56px;
+    margin-top: 4px;
+  }
 }
