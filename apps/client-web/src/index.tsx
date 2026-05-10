@@ -11,7 +11,7 @@ import './index.css'
 
 configureAmplify()
 
-function LogBuildInfoOnMount() {
+const LogBuildInfoOnMount = () => {
   const didLog = React.useRef(false)
   React.useEffect(() => {
     if (didLog.current) {

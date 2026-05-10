@@ -194,10 +194,10 @@
        "Ref": "DailyUsageTableA3BB95C3"
       },
       "DEFAULT_MAX_REPRS_ALLOWED": "25",
-      "APP_VERSION": "0.8.0",
+      "APP_VERSION": "0.9.0",
       "APP_BUILD_NUMBER": "local",
-      "APP_BUILD_TIME_UTC": "2026-05-10T17:28:48.430Z",
-      "APP_GIT_SHA": "a9266f1"
+      "APP_BUILD_TIME_UTC": "2026-05-10T17:40:27.325Z",
+      "APP_GIT_SHA": "69e9bb5"
      }
     },
     "Handler": "handlers/router.handler",
