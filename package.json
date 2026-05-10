@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -58,7 +58,11 @@
     "inspect:pr": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent",
     "validate": "yarn prettier && yarn lint && prettier --check apps/client-web/src && yarn test --silent",
     "test:server": "nx run server:test",
-    "migrate:user-config": "node scripts/backfill-user-config.mjs"
+    "migrate:user-config": "node scripts/backfill-user-config.mjs",
+    "postinstall": "simple-git-hooks",
+    "bump:minor": "npm version minor --no-git-tag-version",
+    "bump:major": "npm version major --no-git-tag-version",
+    "bump:minor:commit": "npm version minor --no-git-tag-version && git add package.json"
   },
   "eslintConfig": {
     "extends": [
@@ -97,9 +101,13 @@
     "jest": "^28.1.3",
     "nx": "^20.0.0",
     "prettier": "2.7.1",
-    "react-test-renderer": "^18.2.0"
+    "react-test-renderer": "^18.2.0",
+    "simple-git-hooks": "^2.13.1"
   },
   "resolutions": {
     "autoprefixer": "10.4.5"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "yarn bump:minor:commit"
   }
 }

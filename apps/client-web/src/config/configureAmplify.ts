@@ -1,12 +1,6 @@
 import { Amplify } from 'aws-amplify'
 
 const trimEnv = (v: string | undefined) => (v ?? '').trim()
-const maskEnv = (v: string | undefined): string => {
-  const s = trimEnv(v)
-  if (!s) return '[MISSING]'
-  if (s.length <= 6) return `${s.slice(0, 1)}...${s.slice(-1)}`
-  return `${s.slice(0, 3)}...${s.slice(-3)}`
-}
 
 /**
  * CRA injects env at compile time. `yarn start` / build / test load `apps/client-web/.env`
@@ -46,22 +40,11 @@ export const homeAuthGateActive =
  * Call once at startup. When env vars are unset, the app runs without Cognito (unchanged behavior).
  */
 export function configureAmplify(): void {
-  console.info(
-    '[env] REACT_APP_COGNITO_USER_POOL_ID=',
-    maskEnv(process.env.REACT_APP_COGNITO_USER_POOL_ID)
-  )
-  console.info(
-    '[env] REACT_APP_COGNITO_USER_POOL_CLIENT_ID=',
-    maskEnv(process.env.REACT_APP_COGNITO_USER_POOL_CLIENT_ID)
-  )
-  console.info(
-    '[env] REACT_APP_COGNITO_IDENTITY_POOL_ID=',
-    maskEnv(process.env.REACT_APP_COGNITO_IDENTITY_POOL_ID)
-  )
-  console.info(
-    '[env] REACT_APP_REPRS_API_BASE_URL=',
-    maskEnv(process.env.REACT_APP_REPRS_API_BASE_URL)
-  )
+  if (!userPoolId || !userPoolClientId) {
+    console.error(
+      '[env] Missing Cognito configuration: REACT_APP_COGNITO_USER_POOL_ID and/or REACT_APP_COGNITO_USER_POOL_CLIENT_ID'
+    )
+  }
 
   if (!trimEnv(process.env.REACT_APP_REPRS_API_BASE_URL)) {
     console.error(
