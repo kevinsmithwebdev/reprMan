@@ -46,6 +46,7 @@
     "start": "nx serve client-web",
     "build": "nx run client-web:build",
     "build:server": "nx run server:build",
+    "deploy:server": "nx run server:cdk:deploy",
     "eject": "cd apps/client-web && npx react-scripts eject",
     "clean": "rm -rf node_modules && yarn install",
     "clean:lock": "rm -rf node_modules && rm -f yarn.lock && yarn install",
@@ -58,7 +59,8 @@
     "inspect": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent",
     "inspect:pr": "yarn prettier --loglevel=warn && yarn lint && yarn test --silent",
     "validate": "yarn prettier && yarn lint && prettier --check apps/client-web/src && yarn test --silent",
-    "test:server": "nx run server:test"
+    "test:server": "nx run server:test",
+    "migrate:user-config": "node scripts/backfill-user-config.mjs"
   },
   "eslintConfig": {
     "extends": [

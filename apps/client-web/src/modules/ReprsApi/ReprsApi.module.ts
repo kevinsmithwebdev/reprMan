@@ -6,8 +6,7 @@ import { Repr, Reprs } from 'types'
 
 type Json = Record<string, unknown>
 
-export type ListReprsResponse = {
-  reprs: Reprs
+export type UserConfigResponse = {
   maxReprsAllowed: number | null | undefined
 }
 
@@ -55,6 +54,16 @@ const request = async (
   return response.json()
 }
 
+const parseMaxReprsAllowed = (raw: unknown): number | null | undefined => {
+  if (raw === null) {
+    return null
+  }
+  if (typeof raw === 'number') {
+    return raw
+  }
+  return undefined
+}
+
 class ReprsApiModule {
   private static instance: ReprsApiModule
 
@@ -67,19 +76,14 @@ class ReprsApiModule {
     return ReprsApiModule.instance
   }
 
-  async listReprs(): Promise<ListReprsResponse> {
+  async listReprs(): Promise<Reprs> {
     const data = await request('/reprs', 'GET')
-    const reprs = (data.reprs ?? []) as Reprs
-    const raw = data.maxReprsAllowed
-    let maxReprsAllowed: number | null | undefined
-    if (raw === null) {
-      maxReprsAllowed = null
-    } else if (typeof raw === 'number') {
-      maxReprsAllowed = raw
-    } else {
-      maxReprsAllowed = undefined
-    }
-    return { reprs, maxReprsAllowed }
+    return (data.reprs ?? []) as Reprs
+  }
+
+  async getUserConfig(): Promise<UserConfigResponse> {
+    const data = await request('/user/config', 'GET')
+    return { maxReprsAllowed: parseMaxReprsAllowed(data.maxReprsAllowed) }
   }
 
   async upsertRepr(repr: Repr): Promise<Repr> {

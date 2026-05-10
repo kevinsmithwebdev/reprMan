@@ -41,12 +41,11 @@ export const getReprsHandler = async (event: Event): Promise<Result> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
-    const [reprs, config] = await Promise.all([
+    const [reprs] = await Promise.all([
       listReprs(userId),
       getUserConfig(userId),
     ])
-    const maxReprsAllowed = resolveMaxReprsAllowed(config)
-    return jsonResponse(200, { reprs, maxReprsAllowed })
+    return jsonResponse(200, { reprs })
   } catch (error: unknown) {
     return handleError(error, {
       defaultStatus: 500,

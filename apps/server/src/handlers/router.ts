@@ -6,6 +6,7 @@ import {
   migrateReprsHandler,
   putReprHandler,
 } from './reprs'
+import { getUserConfigHandler } from './userConfig'
 
 type Event = any
 type Result = any
@@ -20,11 +21,24 @@ const serverBuildInfo = {
 console.info('[server-build]', serverBuildInfo)
 
 export const handler = async (event: Event): Promise<Result> => {
-  if (event.requestContext.http.method === 'GET' && event.rawPath === '/reprs') {
+  if (
+    event.requestContext.http.method === 'GET' &&
+    event.rawPath === '/user/config'
+  ) {
+    return getUserConfigHandler(event)
+  }
+
+  if (
+    event.requestContext.http.method === 'GET' &&
+    event.rawPath === '/reprs'
+  ) {
     return getReprsHandler(event)
   }
 
-  if (event.requestContext.http.method === 'PUT' && event.rawPath.startsWith('/reprs/')) {
+  if (
+    event.requestContext.http.method === 'PUT' &&
+    event.rawPath.startsWith('/reprs/')
+  ) {
     return putReprHandler(event)
   }
 
@@ -43,7 +57,10 @@ export const handler = async (event: Event): Promise<Result> => {
     return deleteReprHandler(event)
   }
 
-  if (event.requestContext.http.method === 'POST' && event.rawPath === '/reprs/migrate') {
+  if (
+    event.requestContext.http.method === 'POST' &&
+    event.rawPath === '/reprs/migrate'
+  ) {
     return migrateReprsHandler(event)
   }
 

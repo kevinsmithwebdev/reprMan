@@ -108,6 +108,14 @@ export class ReprServerStack extends cdk.Stack {
     )
 
     httpApi.addRoutes({
+      path: '/user/config',
+      methods: [apigwv2.HttpMethod.GET],
+      integration,
+      authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+    })
+
+    httpApi.addRoutes({
       path: '/reprs',
       methods: [apigwv2.HttpMethod.GET],
       integration,

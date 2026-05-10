@@ -1,4 +1,8 @@
 import {
+  ConditionalCheckFailedException,
+  DynamoDBClient,
+} from '@aws-sdk/client-dynamodb'
+import {
   BatchWriteCommand,
   DeleteCommand,
   DynamoDBDocumentClient,
@@ -6,7 +10,6 @@ import {
   PutCommand,
   QueryCommand,
 } from '@aws-sdk/lib-dynamodb'
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { Repr } from '../types/repr'
 import { keyForUserConfig, type UserConfigItem } from './userConfig'
 
@@ -48,16 +51,48 @@ export const listReprs = async (userId: string): Promise<Repr[]> => {
   return reprs
 }
 
+/**
+ * Loads user config, creating a minimal CONFIG row (pk + sk only) when missing
+ * so existing users and new signups have a durable row in DynamoDB.
+ */
 export const getUserConfig = async (
   userId: string
-): Promise<UserConfigItem | null> => {
+): Promise<UserConfigItem> => {
+  const key = keyForUserConfig(userId)
   const result = await client.send(
     new GetCommand({
       TableName: TABLE_NAME,
-      Key: keyForUserConfig(userId),
+      Key: key,
     })
   )
-  return (result.Item as UserConfigItem | undefined) ?? null
+  if (result.Item) {
+    return result.Item as UserConfigItem
+  }
+
+  const newItem: UserConfigItem = { ...key }
+  try {
+    await client.send(
+      new PutCommand({
+        TableName: TABLE_NAME,
+        Item: newItem,
+        ConditionExpression: 'attribute_not_exists(pk)',
+      })
+    )
+    return newItem
+  } catch (error: unknown) {
+    if (error instanceof ConditionalCheckFailedException) {
+      const again = await client.send(
+        new GetCommand({
+          TableName: TABLE_NAME,
+          Key: key,
+        })
+      )
+      if (again.Item) {
+        return again.Item as UserConfigItem
+      }
+    }
+    throw error
+  }
 }
 
 export const countReprsForUser = async (userId: string): Promise<number> => {

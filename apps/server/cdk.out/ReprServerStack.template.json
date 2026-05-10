@@ -183,7 +183,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-823737573954-eu-west-3",
-     "S3Key": "7abdd6e097a12b2e8a62fb2cfeaa4351e99c580bb243f5f2291949987c412895.zip"
+     "S3Key": "21eab426f6a50e8ab92dbeaa172b7b24aa9a6ec448cff140373c3616ff851768.zip"
     },
     "Environment": {
      "Variables": {
@@ -193,10 +193,11 @@
       "DAILY_USAGE_TABLE_NAME": {
        "Ref": "DailyUsageTableA3BB95C3"
       },
+      "DEFAULT_MAX_REPRS_ALLOWED": "25",
       "APP_VERSION": "0.2.0",
       "APP_BUILD_NUMBER": "local",
-      "APP_BUILD_TIME_UTC": "2026-05-08T15:21:44.007Z",
-      "APP_GIT_SHA": "cffb88b"
+      "APP_BUILD_TIME_UTC": "2026-05-10T12:44:43.781Z",
+      "APP_GIT_SHA": "927db2d"
      }
     },
     "Handler": "handlers/router.handler",
@@ -214,7 +215,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/ReprHandler/Resource",
-    "aws:asset:path": "asset.7abdd6e097a12b2e8a62fb2cfeaa4351e99c580bb243f5f2291949987c412895",
+    "aws:asset:path": "asset.21eab426f6a50e8ab92dbeaa172b7b24aa9a6ec448cff140373c3616ff851768",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -260,7 +261,7 @@
     "aws:cdk:path": "ReprServerStack/ReprApi/DefaultStage/Resource"
    }
   },
-  "ReprApiGETreprsReprIntegrationDCBBEC88": {
+  "ReprApiGETuserconfigReprIntegrationA750BD6D": {
    "Type": "AWS::ApiGatewayV2::Integration",
    "Properties": {
     "ApiId": {
@@ -276,7 +277,88 @@
     "PayloadFormatVersion": "2.0"
    },
    "Metadata": {
-    "aws:cdk:path": "ReprServerStack/ReprApi/GET--reprs/ReprIntegration/Resource"
+    "aws:cdk:path": "ReprServerStack/ReprApi/GET--user--config/ReprIntegration/Resource"
+   }
+  },
+  "ReprApiGETuserconfigReprIntegrationPermission56F9FC95": {
+   "Type": "AWS::Lambda::Permission",
+   "Properties": {
+    "Action": "lambda:InvokeFunction",
+    "FunctionName": {
+     "Fn::GetAtt": [
+      "ReprHandlerC1F9CC9A",
+      "Arn"
+     ]
+    },
+    "Principal": "apigateway.amazonaws.com",
+    "SourceArn": {
+     "Fn::Join": [
+      "",
+      [
+       "arn:",
+       {
+        "Ref": "AWS::Partition"
+       },
+       ":execute-api:eu-west-3:823737573954:",
+       {
+        "Ref": "ReprApi1FA5DA98"
+       },
+       "/*/*/user/config"
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ReprServerStack/ReprApi/GET--user--config/ReprIntegration-Permission"
+   }
+  },
+  "ReprApiGETuserconfigAFEB1818": {
+   "Type": "AWS::ApiGatewayV2::Route",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ReprApi1FA5DA98"
+    },
+    "AuthorizationType": "JWT",
+    "AuthorizerId": {
+     "Ref": "ReprApiCognitoAuthorizerE0C26006"
+    },
+    "RouteKey": "GET /user/config",
+    "Target": {
+     "Fn::Join": [
+      "",
+      [
+       "integrations/",
+       {
+        "Ref": "ReprApiGETuserconfigReprIntegrationA750BD6D"
+       }
+      ]
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "ReprServerStack/ReprApi/GET--user--config/Resource"
+   }
+  },
+  "ReprApiCognitoAuthorizerE0C26006": {
+   "Type": "AWS::ApiGatewayV2::Authorizer",
+   "Properties": {
+    "ApiId": {
+     "Ref": "ReprApi1FA5DA98"
+    },
+    "AuthorizerType": "JWT",
+    "IdentitySource": [
+     "$request.header.Authorization"
+    ],
+    "JwtConfiguration": {
+     "Audience": [
+      "2180l92p4s3hh5ocrao95mfsvh"
+     ],
+     "Issuer": "https://cognito-idp.eu-west-3.amazonaws.com/eu-west-3_4y3GqShSK"
+    },
+    "Name": "CognitoAuthorizer"
+   },
+   "Metadata": {
+    "aws:cdk:path": "ReprServerStack/ReprApi/CognitoAuthorizer/Resource"
    }
   },
   "ReprApiGETreprsReprIntegrationPermission9ED7725D": {
@@ -328,7 +410,7 @@
       [
        "integrations/",
        {
-        "Ref": "ReprApiGETreprsReprIntegrationDCBBEC88"
+        "Ref": "ReprApiGETuserconfigReprIntegrationA750BD6D"
        }
       ]
      ]
@@ -336,28 +418,6 @@
    },
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/ReprApi/GET--reprs/Resource"
-   }
-  },
-  "ReprApiCognitoAuthorizerE0C26006": {
-   "Type": "AWS::ApiGatewayV2::Authorizer",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ReprApi1FA5DA98"
-    },
-    "AuthorizerType": "JWT",
-    "IdentitySource": [
-     "$request.header.Authorization"
-    ],
-    "JwtConfiguration": {
-     "Audience": [
-      "2180l92p4s3hh5ocrao95mfsvh"
-     ],
-     "Issuer": "https://cognito-idp.eu-west-3.amazonaws.com/eu-west-3_4y3GqShSK"
-    },
-    "Name": "CognitoAuthorizer"
-   },
-   "Metadata": {
-    "aws:cdk:path": "ReprServerStack/ReprApi/CognitoAuthorizer/Resource"
    }
   },
   "ReprApiPUTreprsidReprIntegrationPermissionD9CFCE76": {
@@ -409,7 +469,7 @@
       [
        "integrations/",
        {
-        "Ref": "ReprApiGETreprsReprIntegrationDCBBEC88"
+        "Ref": "ReprApiGETuserconfigReprIntegrationA750BD6D"
        }
       ]
      ]
@@ -468,7 +528,7 @@
       [
        "integrations/",
        {
-        "Ref": "ReprApiGETreprsReprIntegrationDCBBEC88"
+        "Ref": "ReprApiGETuserconfigReprIntegrationA750BD6D"
        }
       ]
      ]
@@ -527,7 +587,7 @@
       [
        "integrations/",
        {
-        "Ref": "ReprApiGETreprsReprIntegrationDCBBEC88"
+        "Ref": "ReprApiGETuserconfigReprIntegrationA750BD6D"
        }
       ]
      ]
@@ -586,7 +646,7 @@
       [
        "integrations/",
        {
-        "Ref": "ReprApiGETreprsReprIntegrationDCBBEC88"
+        "Ref": "ReprApiGETuserconfigReprIntegrationA750BD6D"
        }
       ]
      ]
