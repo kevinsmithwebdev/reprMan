@@ -183,7 +183,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-823737573954-eu-west-3",
-     "S3Key": "0b1d18ca1fde0b1d67b027b15b45628b987af93e5ad296177966cb659428a9b7.zip"
+     "S3Key": "1c9ff5e05f560f60ce4f99cf283dd69b283efc28cec50ef1ea6a6391c1ca0001.zip"
     },
     "Environment": {
      "Variables": {
@@ -194,10 +194,10 @@
        "Ref": "DailyUsageTableA3BB95C3"
       },
       "DEFAULT_MAX_REPRS_ALLOWED": "25",
-      "APP_VERSION": "0.3.0",
+      "APP_VERSION": "0.5.0",
       "APP_BUILD_NUMBER": "local",
-      "APP_BUILD_TIME_UTC": "2026-05-10T14:26:56.705Z",
-      "APP_GIT_SHA": "cb1c643"
+      "APP_BUILD_TIME_UTC": "2026-05-10T17:04:23.864Z",
+      "APP_GIT_SHA": "0f4785c"
      }
     },
     "Handler": "handlers/router.handler",
@@ -215,7 +215,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/ReprHandler/Resource",
-    "aws:asset:path": "asset.0b1d18ca1fde0b1d67b027b15b45628b987af93e5ad296177966cb659428a9b7",
+    "aws:asset:path": "asset.1c9ff5e05f560f60ce4f99cf283dd69b283efc28cec50ef1ea6a6391c1ca0001",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
