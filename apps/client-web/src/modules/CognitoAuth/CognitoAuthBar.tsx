@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { AuthError, signOut } from 'aws-amplify/auth'
-import { Button, Dropdown, Spinner } from 'react-bootstrap'
+import { AuthError, deleteUser, signOut } from 'aws-amplify/auth'
+import { Button, Dropdown, Modal, Spinner } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useL10n } from 'modules/Localization'
@@ -23,6 +23,8 @@ const CognitoAuthBar = () => {
   const { user } = useUser()
   const { sessionChecked, signedIn } = useCognitoAuth()
   const [busySignOut, setBusySignOut] = useState(false)
+  const [busyDeleteAccount, setBusyDeleteAccount] = useState(false)
+  const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false)
 
   const notifyAuthError = (err: unknown) => {
     const message =
@@ -51,6 +53,40 @@ const CognitoAuthBar = () => {
     }
   }
 
+  const handleDeleteAccount = async () => {
+    setBusyDeleteAccount(true)
+    try {
+      await deleteUser()
+      dispatch(clearUser())
+      dispatch(resetReprs())
+      dispatch(clearAllCategoryData())
+      dispatch(resetSettingsAC())
+      dispatch(
+        makeToastSAC({
+          body: t('auth.deleteAccountSuccess'),
+          level: ToastLevel.SUCCESS,
+          delay: 6000,
+        })
+      )
+      setShowDeleteAccountModal(false)
+      navigate('/')
+    } catch (err) {
+      const message =
+        err instanceof AuthError
+          ? err.message
+          : t('auth.deleteAccountUnexpectedError')
+      dispatch(
+        makeToastSAC({
+          body: message,
+          level: ToastLevel.FAIL,
+          delay: 6000,
+        })
+      )
+    } finally {
+      setBusyDeleteAccount(false)
+    }
+  }
+
   if (!isCognitoConfigured) {
     return null
   }
@@ -69,7 +105,7 @@ const CognitoAuthBar = () => {
   const initials = signedIn ? getUserInitials(user) : ''
 
   return (
-    <div className="d-flex align-items-center gap-2 flex-wrap justify-content-end text-white px-2">
+    <div className="d-flex align-items-center gap-2 flex-wrap justify-content-end text-white px-2 ms-auto">
       {signedIn ? (
         <Dropdown align="end">
           <Dropdown.Toggle
@@ -86,7 +122,10 @@ const CognitoAuthBar = () => {
               {initials}
             </span>
           </Dropdown.Toggle>
-          <Dropdown.Menu className="cognito-user-dropdown-menu">
+          <Dropdown.Menu
+            className="cognito-user-dropdown-menu"
+            popperConfig={{ strategy: 'fixed' }}
+          >
             <Dropdown.ItemText className="text-wrap text-break">
               <div className="small text-muted text-uppercase mb-1">
                 {t('auth.userMenuCurrentUser')}
@@ -123,6 +162,17 @@ const CognitoAuthBar = () => {
               ) : null}
               {t('auth.signOut')}
             </Dropdown.Item>
+            <Dropdown.Divider />
+            <Dropdown.Item
+              as="button"
+              type="button"
+              className="text-danger fw-semibold"
+              disabled={busyDeleteAccount}
+              onClick={() => setShowDeleteAccountModal(true)}
+              id="cognito-delete-account"
+            >
+              {t('auth.deleteAccount')}
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       ) : (
@@ -136,6 +186,44 @@ const CognitoAuthBar = () => {
           {t('auth.signInButton')}
         </Button>
       )}
+      <Modal
+        show={showDeleteAccountModal}
+        onHide={() => setShowDeleteAccountModal(false)}
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>{t('auth.deleteAccount')}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <strong>Warning</strong>: {t('auth.deleteAccountWarningLead')}{' '}
+          <strong>lost</strong> {t('auth.deleteAccountWarningMiddle')}{' '}
+          <strong>deleted</strong>. {t('auth.deleteAccountWarningTail')}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            disabled={busyDeleteAccount}
+            onClick={() => setShowDeleteAccountModal(false)}
+          >
+            {t('auth.cancel')}
+          </Button>
+          <Button
+            variant="danger"
+            disabled={busyDeleteAccount}
+            onClick={handleDeleteAccount}
+          >
+            {busyDeleteAccount ? (
+              <Spinner
+                animation="border"
+                size="sm"
+                className="me-2"
+                role="status"
+              />
+            ) : null}
+            {t('auth.deleteAccount')}
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 {
   "auth": {
     "cancel": "Cancel",
-    "changePasswordMenu": "Change password",
+    "changePasswordMenu": "Change Password",
     "changePasswordCurrent": "Current password",
     "changePasswordNew": "New password",
     "changePasswordSubmit": "Update password",
@@ -18,7 +18,13 @@
     "signInButton": "Sign In",
     "signInTitle": "Sign in",
     "signInUnavailable": "Sign in is not available because Cognito is not configured for this app.",
-    "signOut": "Sign out",
+    "signOut": "Sign Out",
+    "deleteAccount": "Delete Account",
+    "deleteAccountWarningLead": "This is permanent, all reprs will be",
+    "deleteAccountWarningMiddle": "and your account will be",
+    "deleteAccountWarningTail": "You can still create a new account later, but you will not be able to recover your data.",
+    "deleteAccountSuccess": "Your account and data were deleted.",
+    "deleteAccountUnexpectedError": "Account deletion failed.",
     "userAvatarMenuLabel": "Open user menu",
     "userMenuCurrentUser": "Signed in as",
     "signInChallengeNotSupported": "This account requires an extra sign-in step (for example MFA or a new password). Complete that flow in a future update or in the Cognito hosted UI.",

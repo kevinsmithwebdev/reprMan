@@ -19,4 +19,12 @@
 
 .cognito-user-dropdown-menu {
   min-width: 20rem;
+  max-width: min(22rem, calc(100vw - 1rem));
+  overflow-wrap: anywhere;
+}
+
+.cognito-user-dropdown-menu[data-bs-popper] {
+  right: 0;
+  left: auto;
+  margin-top: 0.5rem;
 }
