@@ -4,7 +4,6 @@
     "target": "ES2021",
     "module": "commonjs",
     "moduleResolution": "node",
-    "baseUrl": "src",
     "outDir": "dist",
     "rootDir": "src",
     "noEmit": false,

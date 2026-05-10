@@ -1,0 +1,18 @@
+{
+  "name": "types",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/types/src",
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0",
+        "cwd": "libs/types"
+      }
+    }
+  },
+  "tags": [
+    "scope:client"
+  ]
+}

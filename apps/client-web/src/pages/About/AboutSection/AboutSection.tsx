@@ -1,4 +1,4 @@
-import { useL10n } from 'modules/Localization'
+import { useL10n } from '@reprman/localization'
 import React, { FC } from 'react'
 import { Card } from 'react-bootstrap'
 

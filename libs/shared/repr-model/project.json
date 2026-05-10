@@ -1,0 +1,23 @@
+{
+  "name": "shared-repr-model",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/shared/repr-model/src",
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsc -p tsconfig.json",
+        "cwd": "libs/shared/repr-model"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint \"src/**/*.ts\" --max-warnings=0",
+        "cwd": "libs/shared/repr-model"
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:model"]
+}

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import InfoButton from 'components/InfoButton'
+import InfoButton from '@reprman/components/InfoButton'
 import { Button, Card } from 'react-bootstrap'
 
 interface ButtonProps {

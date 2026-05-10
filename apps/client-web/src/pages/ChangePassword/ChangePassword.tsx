@@ -1,11 +1,17 @@
 import React from 'react'
-import PasswordFormControl from 'components/PasswordFormControl'
 import { Button, Card, Form, Spinner } from 'react-bootstrap'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
-import { isCognitoConfigured } from 'config/configureAmplify'
-import { useCognitoAuth } from 'modules/CognitoAuth/CognitoAuthContext'
-import { useCognitoChangePassword } from 'modules/CognitoAuth/useCognitoChangePassword'
-import { useL10n } from 'modules/Localization'
+import {
+  AuthUnavailableCard,
+  CenteredSpinner,
+  PasswordFormControl,
+} from '@reprman/components'
+import {
+  isCognitoConfigured,
+  useCognitoAuth,
+  useCognitoChangePassword,
+} from '@reprman/cognito-auth'
+import { useL10n } from '@reprman/localization'
 
 const ChangePassword = () => {
   const navigate = useNavigate()
@@ -25,23 +31,16 @@ const ChangePassword = () => {
 
   if (!isCognitoConfigured) {
     return (
-      <Card.Body style={{ padding: '10px' }} id="ChangePassword-page">
-        <Card.Title>{t('pages.changePassword.title')}</Card.Title>
-        <Card.Text>{t('auth.signInUnavailable')}</Card.Text>
-        <Link to="/">{t('auth.signUpBackHome')}</Link>
-      </Card.Body>
+      <AuthUnavailableCard
+        pageId="ChangePassword-page"
+        titleKey="pages.changePassword.title"
+        messageKey="auth.signInUnavailable"
+      />
     )
   }
 
   if (!sessionChecked) {
-    return (
-      <div
-        className="d-flex justify-content-center py-5"
-        id="ChangePassword-page"
-      >
-        <Spinner animation="border" role="status" />
-      </div>
-    )
+    return <CenteredSpinner id="ChangePassword-page" />
   }
 
   if (!signedIn) {

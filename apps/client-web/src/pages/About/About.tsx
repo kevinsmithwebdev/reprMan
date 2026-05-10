@@ -1,8 +1,8 @@
 /* eslint-disable react/no-unescaped-entities */
-import { MY_EMAIL } from 'constants/index'
+import { MY_EMAIL } from '@reprman/constants'
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { useL10n } from 'modules/Localization'
+import { useL10n } from '@reprman/localization'
 import AboutSection from './AboutSection'
 
 const About = () => {

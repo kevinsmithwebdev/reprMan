@@ -9,11 +9,12 @@ import {
   PutCommand,
   QueryCommand,
 } from '@aws-sdk/lib-dynamodb'
-import { Repr } from '../types/repr'
-import { keyForUserConfig, type UserConfigItem } from './userConfig'
+import type { Repr } from '@reprman/shared/repr-model'
+import type { UserConfigItem } from '@reprman/shared/quota'
+import { withPracticeApplied } from '@reprman/shared/repr-rules'
+import { keyForUserConfig } from './userConfig'
 
 const TABLE_NAME = process.env.REPRS_TABLE_NAME ?? ''
-const MAX_PRACTICED_DATES = 100
 
 if (!TABLE_NAME) {
   throw new Error('REPRS_TABLE_NAME is required')
@@ -158,13 +159,7 @@ export const markPracticed = async (
     return null
   }
 
-  const next: Repr = {
-    ...repr,
-    datesPracticed: [Date.now(), ...repr.datesPracticed].slice(
-      0,
-      MAX_PRACTICED_DATES
-    ),
-  }
+  const next = withPracticeApplied(repr)
 
   await upsertRepr(userId, next)
   return next

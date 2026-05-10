@@ -4,12 +4,24 @@
   "projectType": "application",
   "sourceRoot": "apps/server/src",
   "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsc -p tsconfig.typecheck.json",
+        "cwd": "apps/server"
+      }
+    },
     "build": {
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/dist"],
       "options": {
-        "command": "rm -rf dist && npx tsc -p tsconfig.app.json",
-        "cwd": "apps/server"
+        "commands": [
+          "rm -rf dist",
+          "npx tsc -p tsconfig.typecheck.json",
+          "node esbuild.config.mjs"
+        ],
+        "cwd": "apps/server",
+        "parallel": false
       }
     },
     "lint": {

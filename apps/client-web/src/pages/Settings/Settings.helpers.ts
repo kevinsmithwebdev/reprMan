@@ -1,7 +1,7 @@
-import LocalizationModule from 'modules/Localization/Localization.module'
-import { clearAllReprsSAC } from 'state/sagas/reprs/reprs.actions'
-import { resetSettingsSAC } from 'state/sagas/settings/settings.actions'
-import store from 'state/store'
+import LocalizationModule from '@reprman/localization/Localization.module'
+import { clearAllReprsSAC } from '@reprman/state/sagas/reprs/reprs.actions'
+import { resetSettingsAC } from '@reprman/state/settings/settings.actions'
+import store from '@reprman/state/store'
 
 const { t } = LocalizationModule.getInstance()
 
@@ -14,7 +14,7 @@ export const getSupplementalSettingsCardData = () => {
         {
           text: t('pages.settings.resetSettings.button'),
           variant: 'warning',
-          onClick: () => store.dispatch(resetSettingsSAC()),
+          onClick: () => store.dispatch(resetSettingsAC()),
         },
       ],
     },

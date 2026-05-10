@@ -1,4 +1,4 @@
-import { getDateDiffText } from 'utilities'
+import { getDateDiffText } from '@reprman/utilities'
 
 export const getPracticedStr = (datesPracticed: number[]) => {
   const firstPracticed = datesPracticed.at(-1)

@@ -1,0 +1,30 @@
+{
+  "name": "shared-repr-validation",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/shared/repr-validation/src",
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsc -p tsconfig.json",
+        "cwd": "libs/shared/repr-validation"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx jest --config jest.config.js",
+        "cwd": "libs/shared/repr-validation"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint \"src/**/*.ts\" --max-warnings=0",
+        "cwd": "libs/shared/repr-validation"
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:validation"]
+}

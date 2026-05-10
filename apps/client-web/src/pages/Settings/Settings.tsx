@@ -1,20 +1,20 @@
 import React, { useEffect, useState } from 'react'
+import { Button, Card } from 'react-bootstrap'
+import { Navigate } from 'react-router-dom'
+import { CenteredSpinner } from '@reprman/components'
 import {
-  DEFAULT_DAYS_WARNING_MIN,
-  DEFAULT_DAYS_WARNING_MAX,
   COPYRIGHT_YEAR,
-} from 'constants/index'
+  DEFAULT_DAYS_WARNING_MAX,
+  DEFAULT_DAYS_WARNING_MIN,
+} from '@reprman/constants'
 import {
   homeAuthGateActive,
   isCognitoConfigured,
-} from 'config/configureAmplify'
-import { useCognitoAuth } from 'modules/CognitoAuth/CognitoAuthContext'
-import { useL10n } from 'modules/Localization'
-import { Button, Card, Spinner } from 'react-bootstrap'
-import { Navigate } from 'react-router-dom'
-import store from 'state/store'
-import { setSettingsSAC } from 'state/sagas/settings/settings.actions'
-import { useSettings } from 'state/settings'
+  useCognitoAuth,
+} from '@reprman/cognito-auth'
+import { useL10n } from '@reprman/localization'
+import { setSettingsAC, store, useSettings } from '@reprman/state'
+
 import packageJson from '../../../package.json'
 import SettingsCardNumber from './SettingsCardNumber'
 import SupplementalSettingsCard from './SupplementalSettingsCard'
@@ -62,11 +62,7 @@ const Settings = () => {
   const { t } = useL10n()
 
   if (homeAuthGateActive && isCognitoConfigured && !sessionChecked) {
-    return (
-      <div className="d-flex justify-content-center py-5" id="Settings-page">
-        <Spinner animation="border" role="status" />
-      </div>
-    )
+    return <CenteredSpinner id="Settings-page" />
   }
 
   if (homeAuthGateActive && !signedIn) {
@@ -97,7 +93,7 @@ const Settings = () => {
           variant="success"
           onClick={() =>
             store.dispatch(
-              setSettingsSAC({
+              setSettingsAC({
                 practiceDelay: +practiceDelayValue,
                 warningRatio: +warningRatioValue,
               })

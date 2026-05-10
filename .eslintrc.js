@@ -55,8 +55,13 @@ module.exports = {
   settings: {
     'import/resolver': {
       typescript: {
-        // Root tsconfig is references-only; client-web uses baseUrl "src" for imports.
-        project: path.resolve(__dirname, 'apps/client-web/tsconfig.json'),
+        // Root tsconfig is references-only; lint against both the client-web
+        // tsconfig (for `baseUrl: src` resolution) and the workspace base
+        // (for `@reprman/*` shared lib paths).
+        project: [
+          path.resolve(__dirname, 'apps/client-web/tsconfig.json'),
+          path.resolve(__dirname, 'tsconfig.base.json'),
+        ],
       },
     },
   },

@@ -8,7 +8,7 @@
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/build"],
       "options": {
-        "command": "node ../../scripts/with-build-metadata.mjs REACT_APP \"rm -rf build && npx dotenv-cli -e .env -- npx react-scripts build\"",
+        "command": "node ../../scripts/with-build-metadata.mjs VITE \"npx vite build\"",
         "cwd": "apps/client-web"
       },
       "configurations": {
@@ -18,7 +18,7 @@
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx dotenv-cli -e .env -- npx react-scripts start",
+        "command": "npx vite",
         "cwd": "apps/client-web"
       },
       "configurations": {
@@ -28,7 +28,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx dotenv-cli -e .env -- npx react-scripts test --watchAll=false --coverage",
+        "command": "npx vitest run --coverage",
         "cwd": "apps/client-web",
         "forwardAllArgs": true
       }
@@ -36,7 +36,7 @@
     "test:watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx dotenv-cli -e .env -- npx react-scripts test",
+        "command": "npx vitest",
         "cwd": "apps/client-web"
       }
     },

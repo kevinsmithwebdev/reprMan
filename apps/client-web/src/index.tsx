@@ -3,14 +3,11 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css'
-
-import { configureAmplify } from 'config/configureAmplify'
-import { CognitoAuthProvider } from 'modules/CognitoAuth/CognitoAuthContext'
+import { CognitoAuthProvider, configureAmplify } from '@reprman/cognito-auth'
+import store from '@reprman/state/store'
 
 import App from './App'
 import './index.css'
-import reportWebVitals from './reportWebVitals'
-import store from './state/store'
 
 configureAmplify()
 
@@ -27,5 +24,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 )
-
-reportWebVitals()

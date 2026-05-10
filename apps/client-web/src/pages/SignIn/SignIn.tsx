@@ -1,14 +1,15 @@
 import React from 'react'
 import { Button, Card, Form, Spinner } from 'react-bootstrap'
 import { Link, Navigate, useNavigate } from 'react-router-dom'
+import { AuthUnavailableCard, CenteredSpinner } from '@reprman/components'
 import {
+  CognitoSignInFields,
   homeAuthGateActive,
   isCognitoConfigured,
-} from 'config/configureAmplify'
-import { useCognitoAuth } from 'modules/CognitoAuth/CognitoAuthContext'
-import CognitoSignInFields from 'modules/CognitoAuth/CognitoSignInFields'
-import { useCognitoSignIn } from 'modules/CognitoAuth/useCognitoSignIn'
-import { useL10n } from 'modules/Localization'
+  useCognitoAuth,
+  useCognitoSignIn,
+} from '@reprman/cognito-auth'
+import { useL10n } from '@reprman/localization'
 
 const SignIn = () => {
   const navigate = useNavigate()
@@ -24,29 +25,21 @@ const SignIn = () => {
     t: tForm,
   } = useCognitoSignIn(refreshSession, () => navigate('/', { replace: true }))
 
-  if (!homeAuthGateActive) {
-    return <Navigate to="/" replace />
-  }
-
-  if (signedIn) {
+  if (!homeAuthGateActive || signedIn) {
     return <Navigate to="/" replace />
   }
 
   if (isCognitoConfigured && !sessionChecked) {
-    return (
-      <div className="d-flex justify-content-center py-5" id="SignIn-page">
-        <Spinner animation="border" role="status" />
-      </div>
-    )
+    return <CenteredSpinner id="SignIn-page" />
   }
 
   if (!isCognitoConfigured) {
     return (
-      <Card.Body style={{ padding: '10px' }} id="SignIn-page">
-        <Card.Title>{t('pages.signin.title')}</Card.Title>
-        <Card.Text>{t('auth.signInUnavailable')}</Card.Text>
-        <Link to="/">{t('auth.signUpBackHome')}</Link>
-      </Card.Body>
+      <AuthUnavailableCard
+        pageId="SignIn-page"
+        titleKey="pages.signin.title"
+        messageKey="auth.signInUnavailable"
+      />
     )
   }
 

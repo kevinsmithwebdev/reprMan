@@ -2,6 +2,7 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-empty-function */
 import { fetchAuthSession } from 'aws-amplify/auth'
+import { parseMaxReprsAllowed } from '@reprman/shared/quota'
 import { Repr, Reprs } from 'types'
 
 type Json = Record<string, unknown>
@@ -11,12 +12,12 @@ export type UserConfigResponse = {
 }
 
 const trimEnv = (v: string | undefined) => (v ?? '').trim()
-const apiBaseUrl = trimEnv(process.env.REACT_APP_REPRS_API_BASE_URL)
+const apiBaseUrl = trimEnv(import.meta.env.VITE_REPRS_API_BASE_URL)
 export const isReprsApiConfigured = Boolean(apiBaseUrl)
 
 const assertConfigured = (): string => {
   if (!apiBaseUrl) {
-    throw new Error('REACT_APP_REPRS_API_BASE_URL is not configured')
+    throw new Error('VITE_REPRS_API_BASE_URL is not configured')
   }
   return apiBaseUrl
 }
@@ -52,16 +53,6 @@ const request = async (
   }
 
   return response.json()
-}
-
-const parseMaxReprsAllowed = (raw: unknown): number | null | undefined => {
-  if (raw === null) {
-    return null
-  }
-  if (typeof raw === 'number') {
-    return raw
-  }
-  return undefined
 }
 
 class ReprsApiModule {
