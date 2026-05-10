@@ -11,6 +11,23 @@ import './index.css'
 
 configureAmplify()
 
+function LogBuildInfoOnMount() {
+  const didLog = React.useRef(false)
+  React.useEffect(() => {
+    if (didLog.current) {
+      return
+    }
+    didLog.current = true
+    console.info('[reprman] build', {
+      version: import.meta.env.VITE_VERSION,
+      buildNumber: import.meta.env.VITE_BUILD_NUMBER,
+      buildTimeUtc: import.meta.env.VITE_BUILD_TIME_UTC,
+      gitSha: import.meta.env.VITE_GIT_SHA,
+    })
+  }, [])
+  return null
+}
+
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 
 root.render(
@@ -18,6 +35,7 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <CognitoAuthProvider>
+          <LogBuildInfoOnMount />
           <App />
         </CognitoAuthProvider>
       </BrowserRouter>
