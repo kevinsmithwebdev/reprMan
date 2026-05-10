@@ -1,4 +1,4 @@
-import { FILE_LINE_DELIMITER } from 'constants'
+import { FILE_LINE_DELIMITER } from 'constants/index'
 
 export interface ReprForm {
   title: string

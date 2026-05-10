@@ -183,7 +183,7 @@
    "Properties": {
     "Code": {
      "S3Bucket": "cdk-hnb659fds-assets-823737573954-eu-west-3",
-     "S3Key": "21eab426f6a50e8ab92dbeaa172b7b24aa9a6ec448cff140373c3616ff851768.zip"
+     "S3Key": "0b1d18ca1fde0b1d67b027b15b45628b987af93e5ad296177966cb659428a9b7.zip"
     },
     "Environment": {
      "Variables": {
@@ -196,8 +196,8 @@
       "DEFAULT_MAX_REPRS_ALLOWED": "25",
       "APP_VERSION": "0.2.0",
       "APP_BUILD_NUMBER": "local",
-      "APP_BUILD_TIME_UTC": "2026-05-10T13:08:55.339Z",
-      "APP_GIT_SHA": "84340e7"
+      "APP_BUILD_TIME_UTC": "2026-05-10T13:15:29.458Z",
+      "APP_GIT_SHA": "f7f4068"
      }
     },
     "Handler": "handlers/router.handler",
@@ -215,7 +215,7 @@
    ],
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/ReprHandler/Resource",
-    "aws:asset:path": "asset.21eab426f6a50e8ab92dbeaa172b7b24aa9a6ec448cff140373c3616ff851768",
+    "aws:asset:path": "asset.0b1d18ca1fde0b1d67b027b15b45628b987af93e5ad296177966cb659428a9b7",
     "aws:asset:is-bundled": false,
     "aws:asset:property": "Code"
    }
@@ -595,65 +595,6 @@
    },
    "Metadata": {
     "aws:cdk:path": "ReprServerStack/ReprApi/POST--reprs--{id}--practice/Resource"
-   }
-  },
-  "ReprApiPOSTreprsmigrateReprIntegrationPermissionD61D53BE": {
-   "Type": "AWS::Lambda::Permission",
-   "Properties": {
-    "Action": "lambda:InvokeFunction",
-    "FunctionName": {
-     "Fn::GetAtt": [
-      "ReprHandlerC1F9CC9A",
-      "Arn"
-     ]
-    },
-    "Principal": "apigateway.amazonaws.com",
-    "SourceArn": {
-     "Fn::Join": [
-      "",
-      [
-       "arn:",
-       {
-        "Ref": "AWS::Partition"
-       },
-       ":execute-api:eu-west-3:823737573954:",
-       {
-        "Ref": "ReprApi1FA5DA98"
-       },
-       "/*/*/reprs/migrate"
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "ReprServerStack/ReprApi/POST--reprs--migrate/ReprIntegration-Permission"
-   }
-  },
-  "ReprApiPOSTreprsmigrate939C2AFA": {
-   "Type": "AWS::ApiGatewayV2::Route",
-   "Properties": {
-    "ApiId": {
-     "Ref": "ReprApi1FA5DA98"
-    },
-    "AuthorizationType": "JWT",
-    "AuthorizerId": {
-     "Ref": "ReprApiCognitoAuthorizerE0C26006"
-    },
-    "RouteKey": "POST /reprs/migrate",
-    "Target": {
-     "Fn::Join": [
-      "",
-      [
-       "integrations/",
-       {
-        "Ref": "ReprApiGETuserconfigReprIntegrationA750BD6D"
-       }
-      ]
-     ]
-    }
-   },
-   "Metadata": {
-    "aws:cdk:path": "ReprServerStack/ReprApi/POST--reprs--migrate/Resource"
    }
   },
   "NoActionsInDayAlarm6B9F5243": {

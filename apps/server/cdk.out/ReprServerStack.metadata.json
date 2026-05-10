@@ -16,7 +16,7 @@
     {
       "type": "aws:cdk:creationStack",
       "data": [
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:140:9)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:133:9)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -117,7 +117,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:151:9)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:144:9)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -132,7 +132,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Topic2 in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:164:27)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:157:27)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -147,7 +147,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...new Alarm2 in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:175:34)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:168:34)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
@@ -383,40 +383,6 @@
       ]
     }
   ],
-  "/ReprServerStack/ReprApi/POST--reprs--migrate/ReprIntegration-Permission": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ReprApiPOSTreprsmigrateReprIntegrationPermissionD61D53BE"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:132:17)",
-        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
-        "...node internals..."
-      ]
-    }
-  ],
-  "/ReprServerStack/ReprApi/POST--reprs--migrate/Resource": [
-    {
-      "type": "aws:cdk:logicalId",
-      "data": "ReprApiPOSTreprsmigrate939C2AFA"
-    },
-    {
-      "type": "aws:cdk:creationStack",
-      "data": [
-        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
-        "Array.map (:)",
-        "...WrappedClass.<anonymous> in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:132:17)",
-        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
-        "...node internals..."
-      ]
-    }
-  ],
   "/ReprServerStack/BillingAlertsTopic/kevinsmithwebdev@gmail.com/Resource": [
     {
       "type": "aws:cdk:logicalId",
@@ -426,7 +392,7 @@
       "type": "aws:cdk:creationStack",
       "data": [
         "...WrappedClass.addSubscription in aws-cdk-lib...",
-        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:167:19)",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\repr-server-stack.js:160:19)",
         "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:30:1)",
         "...node internals..."
       ]
