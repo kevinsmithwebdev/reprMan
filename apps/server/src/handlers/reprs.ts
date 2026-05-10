@@ -7,12 +7,11 @@ import {
   getUserConfig,
   listReprs,
   markPracticed,
-  replaceAllReprs,
   reprExists,
   upsertRepr,
 } from '../lib/reprStore'
 import { resolveMaxReprsAllowed } from '../lib/userConfig'
-import { parseRepr, parseReprs } from '../lib/reprValidation'
+import { parseRepr } from '../lib/reprValidation'
 
 const reprLimitExceededResponse = (maxReprsAllowed: number) =>
   jsonResponse(403, {
@@ -127,27 +126,6 @@ export const deleteReprHandler = async (event: Event): Promise<Result> => {
     await deleteRepr(userId, reprId)
     trackAction('delete')
     return jsonResponse(200, { ok: true })
-  } catch (error: unknown) {
-    return handleError(error, {
-      defaultStatus: 400,
-      defaultMessage: 'Bad request',
-    })
-  }
-}
-
-export const migrateReprsHandler = async (event: Event): Promise<Result> => {
-  try {
-    const userId = getUserId(event)
-    await trackDailyUniqueUser(userId)
-    const payload = JSON.parse(event.body ?? '[]')
-    const reprs = parseReprs(payload)
-    const config = await getUserConfig(userId)
-    const maxReprsAllowed = resolveMaxReprsAllowed(config)
-    if (maxReprsAllowed !== null && reprs.length > maxReprsAllowed) {
-      return reprLimitExceededResponse(maxReprsAllowed)
-    }
-    await replaceAllReprs(userId, reprs)
-    return jsonResponse(200, { imported: reprs.length })
   } catch (error: unknown) {
     return handleError(error, {
       defaultStatus: 400,

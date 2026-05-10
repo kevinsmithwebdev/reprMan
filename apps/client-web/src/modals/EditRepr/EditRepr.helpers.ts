@@ -1,4 +1,4 @@
-import { FILE_LINE_DELIMITER } from 'state/sagas/files/constants'
+import { FILE_LINE_DELIMITER } from 'constants'
 
 export interface ReprForm {
   title: string

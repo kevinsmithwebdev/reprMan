@@ -3,20 +3,14 @@ import { setReprs } from 'state/reprs'
 import { Repr, Reprs } from 'types'
 import { v4 as uuidv4 } from 'uuid'
 import moment from 'moment'
-import { ReprsApiModule } from 'modules'
-import { isReprsApiConfigured } from 'modules/ReprsApi'
 import { setCategories } from 'state/categories'
 import { STORE_REPRS } from '../reprs.actions'
 import { getAllCategories } from '../../reprs.helpers'
 
 function* storeReprsWorker({ payload: rawReprs }: any) {
-  const reprsApi = ReprsApiModule.getInstance()
   const cleanReprs = _getCleanReprs(rawReprs)
 
   yield put(setReprs(cleanReprs))
-  if (isReprsApiConfigured) {
-    yield reprsApi.migrateReprs(cleanReprs as Reprs)
-  }
 
   const categories = getAllCategories(cleanReprs)
   yield put(setCategories(categories))

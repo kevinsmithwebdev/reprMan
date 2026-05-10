@@ -139,14 +139,6 @@ export class ReprServerStack extends cdk.Stack {
       authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
-    httpApi.addRoutes({
-      path: '/reprs/migrate',
-      methods: [apigwv2.HttpMethod.POST],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
-
     // eslint-disable-next-line no-new
     new cdk.CfnOutput(this, 'ApiBaseUrl', {
       value: httpApi.apiEndpoint,

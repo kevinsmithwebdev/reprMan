@@ -1,5 +1,4 @@
 export enum LocalStorageKey {
-  REPRS = 'REPRS',
   SETTINGS = 'SETTINGS',
 }
 

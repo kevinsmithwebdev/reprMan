@@ -33,7 +33,7 @@ const getAccessToken = async (): Promise<string> => {
 const request = async (
   path: string,
   method: string,
-  body?: Json | Reprs
+  body?: Json
 ): Promise<Json> => {
   const baseUrl = assertConfigured()
   const token = await getAccessToken()
@@ -102,10 +102,6 @@ class ReprsApiModule {
 
   async removeRepr(id: string): Promise<void> {
     await request(`/reprs/${id}`, 'DELETE')
-  }
-
-  async migrateReprs(reprs: Reprs): Promise<void> {
-    await request('/reprs/migrate', 'POST', reprs)
   }
 }
 

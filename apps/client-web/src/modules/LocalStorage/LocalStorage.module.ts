@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 /* eslint-disable no-useless-constructor */
-import { Reprs, Settings } from 'types'
+import { Settings } from 'types'
 import { LocalStorageKey, LS_KEY_PREFIX } from './LocalStorage.types'
 
 class LocalStorageModule {
@@ -29,23 +29,6 @@ class LocalStorageModule {
   ): Promise<void> {
     localStorage.setItem(_buildKey(key), JSON.stringify(value))
   }
-
-  // *************
-
-  async getReprs(): Promise<Reprs> {
-    const value = JSON.parse(await this.getLocalStorage(LocalStorageKey.REPRS))
-
-    if (!value) {
-      return [] as Reprs
-    }
-    return value
-  }
-
-  async setReprs(value: Reprs): Promise<void> {
-    await this.setLocalStorage(LocalStorageKey.REPRS, value)
-  }
-
-  // *************
 
   async getSettings(): Promise<Settings> {
     const value = JSON.parse(

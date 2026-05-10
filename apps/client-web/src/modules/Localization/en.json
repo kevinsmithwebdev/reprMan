@@ -213,49 +213,6 @@
         "subtitle": "You want to permanently delete all reprs and categories.",
         "button": "Delete All Reprs"
       },
-      "textFile": {
-        "title": "Save/Load Text File",
-        "info": {
-          "title": "Repr Text Format",
-          "body": [
-            "Reprs can be saved to or loaded from standard text files on your computer/device.",
-            "Each repr record is made up of six lines.",
-            "Line 1 - Title:",
-            "Every repr must have a title. Remember that titles cannot contain an asterisk (*).",
-            "Line 2 - Categories:",
-            "Categories are listed here, with asterisks as separators. They must all be on one line. This line can be left blank or have a single asterisk as a placeholder.",
-            "Line 3 - Comment:",
-            "The comment goes here. The line line can be left blank or have a single asterisk as a placeholder.",
-            "Line 4 - Date Created:",
-            "The date created should be a date in ISO format (2022-01-31T22:11:33Z). This line can be left blank or have a single asterisk as a placeholder.",
-            "Line 5 - Date Last Practiced:",
-            "The date created should be a date in ISO format. The app stores several dates for \"last practiced\", but the text file only stores/imports the last one. This line can be left blank or have a single asterisk as a placeholder.",
-            "Line 6 - ID:",
-            "Each repr has a unique ID. If you do not provide one, one will be created for you. This line can be left blank or have a single asterisk as a placeholder.",
-            "Separator:",
-            "If there is more than one repr in the file, you must insert a separator line of three asterisks (***) in between them."
-          ]
-        },
-        "subtitle": "You can save your repr data to a text file on your computer or load one from your computer.",
-        "saveButton": "Save to Text File",
-        "loadButton": "Load from Text File"
-      },
-      "excelFile": {
-        "title": "Save/Load Spreadsheet File",
-        "info": {
-          "title": "Repr xlsx Format",
-          "body": [
-            "The top row is the header - it is ignored.",
-            "The categories are separated by asterisks.",
-            "No other values can contain an asterisk.",
-            "Dates are ISO dates, but can be left blank.",
-            "The ID must be unique, but can be left blank."
-          ]
-        },
-        "subtitle": "You can save your repr data to a spreadsheet file (in xlsx format) on your computer or load one from your computer.",
-        "saveButton": "Save to Spreadsheet",
-        "loadButton": "Load from Spreadsheet"
-      },
       "saveSettingsChanges": "Save Settings Changes",
       "clearSettingsChanges": "Clear Settings Changes"
     },

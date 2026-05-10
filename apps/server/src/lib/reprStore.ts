@@ -3,7 +3,6 @@ import {
   DynamoDBClient,
 } from '@aws-sdk/client-dynamodb'
 import {
-  BatchWriteCommand,
   DeleteCommand,
   DynamoDBDocumentClient,
   GetCommand,
@@ -180,35 +179,5 @@ export const deleteRepr = async (
       TableName: TABLE_NAME,
       Key: keyFor(userId, reprId),
     })
-  )
-}
-
-export const replaceAllReprs = async (
-  userId: string,
-  reprs: Repr[]
-): Promise<void> => {
-  const chunks: Repr[][] = []
-  for (let i = 0; i < reprs.length; i += 25) {
-    chunks.push(reprs.slice(i, i + 25))
-  }
-
-  if (chunks.length === 0) {
-    return
-  }
-
-  await Promise.all(
-    chunks.map((chunk) =>
-      client.send(
-        new BatchWriteCommand({
-          RequestItems: {
-            [TABLE_NAME]: chunk.map((repr) => ({
-              PutRequest: {
-                Item: toDbItem(userId, repr),
-              },
-            })),
-          },
-        })
-      )
-    )
   )
 }

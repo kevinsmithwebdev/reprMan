@@ -3,7 +3,6 @@ import {
   deleteReprHandler,
   getReprsHandler,
   markReprPracticedHandler,
-  migrateReprsHandler,
   putReprHandler,
 } from './reprs'
 import { getUserConfigHandler } from './userConfig'
@@ -55,13 +54,6 @@ export const handler = async (event: Event): Promise<Result> => {
     event.rawPath.startsWith('/reprs/')
   ) {
     return deleteReprHandler(event)
-  }
-
-  if (
-    event.requestContext.http.method === 'POST' &&
-    event.rawPath === '/reprs/migrate'
-  ) {
-    return migrateReprsHandler(event)
   }
 
   return jsonResponse(404, { message: 'Not found' })
