@@ -16,11 +16,23 @@
  */
 
 import { spawnSync } from 'child_process'
-import { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
+import { dirname, join, resolve } from 'path'
+import { fileURLToPath, pathToFileURL } from 'url'
 
-const __dirname = dirname(fileURLToPath(import.meta.url__))
-const ROOT = join(__dirname, '..')
+function scriptDir() {
+  const metaUrl = import.meta?.url
+  if (typeof metaUrl === 'string' && metaUrl.length > 0) {
+    return dirname(fileURLToPath(metaUrl))
+  }
+  const entry = process.argv[1]
+  if (!entry) {
+    console.error('Cannot resolve script directory (process.argv[1] is empty).')
+    process.exit(1)
+  }
+  return dirname(fileURLToPath(pathToFileURL(resolve(entry)).href))
+}
+
+const ROOT = join(scriptDir(), '..')
 
 const MAIN = process.env.REPRMAN_MAIN_BRANCH || 'main'
 const PRODUCTION = process.env.REPRMAN_PRODUCTION_BRANCH || 'production'
