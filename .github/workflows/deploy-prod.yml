@@ -1,5 +1,8 @@
 name: Deploy Production
 on:
+  push:
+    branches:
+      - production
   workflow_dispatch:
 
 jobs:
@@ -16,6 +19,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: production
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4

@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -44,6 +44,7 @@
     "build:server": "nx run server:build",
     "deploy:server": "nx run server:cdk:deploy",
     "deploy:server:prod": "nx run server:cdk:deploy:prod",
+    "deploy:prod": "node scripts/promote-production.mjs",
     "clean": "rm -rf node_modules && yarn install",
     "clean:lock": "rm -rf node_modules && rm -f yarn.lock && yarn install",
     "test": "nx run client-web:test",

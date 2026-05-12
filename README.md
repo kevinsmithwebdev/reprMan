@@ -41,10 +41,39 @@ Each stack creates its own Cognito **User Pool** and app client (no `--context u
 
 **Deploy from your machine** (after `yarn build:server`, from repo root):
 
-- Dev: `yarn deploy:server` or `nx run server:cdk:deploy:dev`
-- Prod: `nx run server:cdk:deploy:prod`
+- Dev API only: `yarn deploy:server` or `nx run server:cdk:deploy:dev`
+- Prod API only (no frontend, no git promotion): `nx run server:cdk:deploy:prod`
 
-Optional environment variables for `cdk synth` / `cdk deploy` (same shell as the CDK process):
+### Branches: `main` (Dev) and `production` (Prod)
+
+| Branch           | Role                                                                                                                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **`main`**       | Day-to-day integration. Pushing here deploys the **Dev API** only (see Actions). Run the app locally against Dev using `.env` / `.env.local` from **`ReprServerStack-Dev`** outputs. |
+| **`production`** | What ships to customers. Pushing here runs **validate → build → CDK Prod → S3 → CloudFront** (see [`.github/workflows/deploy-prod.yml`](.github/workflows/deploy-prod.yml)).         |
+
+**Promote `main` → `production` (recommended release command):**
+
+```bash
+yarn deploy:prod
+```
+
+This runs [`scripts/promote-production.mjs`](scripts/promote-production.mjs): fast-forward `main` from `origin`, merge `origin/main` into `production` with a merge commit, and **`git push origin production`**. That push triggers the **Deploy Production** workflow — no AWS steps run on your laptop.
+
+- First run: if `origin/production` does not exist yet, the script creates **`production`** from the current **`main`** tip and pushes it (then CI deploys).
+- Optional env: `REPRMAN_MAIN_BRANCH` (default `main`), `REPRMAN_PRODUCTION_BRANCH` (default `production`).
+
+**If `production` is already up to date with `main`**, the merge is a no-op and the push may not create a new commit — GitHub Actions might not run again. To **redeploy the same commit**, use Actions → **Deploy Production** → **Run workflow** (`workflow_dispatch`).
+
+**Protecting `production` from casual pushes**
+
+GitHub → **Settings** → **Branches** → **Add branch protection rule** for `production`:
+
+- Turn on **Restrict who can push to matching branches** and allow only you (or a release role), **or** require pull request reviews and disallow direct pushes for everyone.
+- If **no one** may push directly (strict PR-only), `yarn deploy:prod` from your laptop will be **rejected** unless you use a bypass or a **personal access token** with admin rights. In that case, promote by opening a **PR from `main` → `production`** and merging on GitHub instead; the same **Deploy Production** workflow still runs on merge.
+
+Keep the repository **default branch** as **`main`** for normal development and PRs.
+
+Optional environment variables for `cdk synth` / `cdk deploy` (same shell as the CDK process on CI or locally):
 
 | Variable                  | Effect                                                                                          |
 | ------------------------- | ----------------------------------------------------------------------------------------------- |
@@ -61,7 +90,8 @@ Optional monitoring context (unchanged):
 ### GitHub Actions
 
 - **Push to `main`**: [`.github/workflows/deploy-dev-api.yml`](.github/workflows/deploy-dev-api.yml) runs checks and deploys **`ReprServerStack-Dev`** only (no frontend upload).
-- **Deploy Production** (manual): Actions → **Deploy Production** → Run workflow. Deploys **`ReprServerStack-Prod`**, builds the SPA from stack outputs, uploads to S3, and optionally invalidates CloudFront.
+- **Push to `production`**: [`.github/workflows/deploy-prod.yml`](.github/workflows/deploy-prod.yml) runs the same checks, then deploys **`ReprServerStack-Prod`**, builds the SPA from stack outputs, uploads to S3, and optionally invalidates CloudFront.
+- **Deploy Production** (manual): Actions → **Deploy Production** → **Run workflow** — same job as above, but without a new commit on `production` (useful to redeploy the current `production` tip).
 
 **Repository secrets / variables** (non-exhaustive):
 
