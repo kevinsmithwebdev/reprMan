@@ -1,0 +1,115 @@
+name: Deploy Production
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    env:
+      VITE_REQUIRE_HOME_SIGN_IN: ${{ secrets.VITE_REQUIRE_HOME_SIGN_IN || vars.VITE_REQUIRE_HOME_SIGN_IN || secrets.REACT_APP_REQUIRE_HOME_SIGN_IN || vars.REACT_APP_REQUIRE_HOME_SIGN_IN }}
+      VITE_ALLOW_ANONYMOUS_HOME: ${{ secrets.VITE_ALLOW_ANONYMOUS_HOME || vars.VITE_ALLOW_ANONYMOUS_HOME || secrets.REACT_APP_ALLOW_ANONYMOUS_HOME || vars.REACT_APP_ALLOW_ANONYMOUS_HOME }}
+      VITE_COGNITO_IDENTITY_POOL_ID: ${{ secrets.VITE_COGNITO_IDENTITY_POOL_ID || vars.VITE_COGNITO_IDENTITY_POOL_ID || secrets.REACT_APP_COGNITO_IDENTITY_POOL_ID || vars.REACT_APP_COGNITO_IDENTITY_POOL_ID }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
+
+      - name: Install
+        run: yarn install
+
+      - name: Inspect (prettier, lint, tests)
+        run: yarn inspect
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Show AWS account
+        run: aws sts get-caller-identity
+
+      - name: Build server (Lambda + CDK bundle)
+        run: yarn build:server
+
+      - name: Deploy ReprServerStack-Prod
+        working-directory: apps/server
+        env:
+          CDK_PROD_CORS_ORIGINS: ${{ vars.CDK_PROD_CORS_ORIGINS }}
+          CDK_BILLING_ALERT_EMAIL: ${{ secrets.CDK_BILLING_ALERT_EMAIL }}
+        run: |
+          node ../../scripts/with-build-metadata.mjs APP "npx cdk deploy ReprServerStack-Prod -a \"node dist/cdk/app.js\" --require-approval never --outputs-file cdk-outputs.json"
+
+      - name: Load Vite env from CDK outputs
+        working-directory: apps/server
+        run: |
+          set -e
+          test -f cdk-outputs.json
+          POOL=$(jq -r '.["ReprServerStack-Prod"].UserPoolId' cdk-outputs.json)
+          CLIENT=$(jq -r '.["ReprServerStack-Prod"].UserPoolClientId' cdk-outputs.json)
+          API=$(jq -r '.["ReprServerStack-Prod"].ApiBaseUrl' cdk-outputs.json)
+          if [ -z "$POOL" ] || [ "$POOL" = "null" ]; then echo "::error::Missing UserPoolId in cdk-outputs.json"; exit 1; fi
+          if [ -z "$CLIENT" ] || [ "$CLIENT" = "null" ]; then echo "::error::Missing UserPoolClientId in cdk-outputs.json"; exit 1; fi
+          if [ -z "$API" ] || [ "$API" = "null" ]; then echo "::error::Missing ApiBaseUrl in cdk-outputs.json"; exit 1; fi
+          {
+            echo "VITE_COGNITO_USER_POOL_ID=$POOL"
+            echo "VITE_COGNITO_USER_POOL_CLIENT_ID=$CLIENT"
+            echo "VITE_REPRS_API_BASE_URL=$API"
+          } >> "$GITHUB_ENV"
+
+      - name: Build client (production bundle)
+        run: yarn build
+
+      - name: Resolve production bucket
+        id: bucket
+        run: |
+          B="${{ secrets.AWS_PROD_BUCKET_NAME }}"
+          if [ -z "$B" ]; then B="${{ secrets.AWS_TEST_BUCKET_NAME }}"; fi
+          if [ -z "$B" ]; then
+            echo "::error::Set secret AWS_PROD_BUCKET_NAME (or legacy AWS_TEST_BUCKET_NAME) for the production S3 bucket."
+            exit 1
+          fi
+          echo "name=$B" >> "$GITHUB_OUTPUT"
+
+      - name: Verify S3 bucket exists
+        env:
+          BUCKET: ${{ steps.bucket.outputs.name }}
+          REGION: ${{ secrets.AWS_REGION }}
+        run: aws s3 ls "s3://$BUCKET/" --region "$REGION"
+
+      - name: Deploy site to S3
+        env:
+          BUCKET: ${{ steps.bucket.outputs.name }}
+          REGION: ${{ secrets.AWS_REGION }}
+        run: |
+          aws s3 sync apps/client-web/build "s3://$BUCKET/" \
+            --region "$REGION" \
+            --delete \
+            --exclude "index.html" \
+            --cache-control "public,max-age=31536000,immutable"
+          aws s3 cp apps/client-web/build/index.html "s3://$BUCKET/index.html" \
+            --region "$REGION" \
+            --cache-control "no-cache,no-store,must-revalidate" \
+            --content-type "text/html; charset=utf-8"
+
+      - name: Invalidate CloudFront cache
+        env:
+          DIST: ${{ secrets.AWS_PROD_CLOUDFRONT_DISTRIBUTION_ID }}
+          LEGACY: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          D="${DIST:-$LEGACY}"
+          if [ -z "$D" ]; then
+            echo "No AWS_PROD_CLOUDFRONT_DISTRIBUTION_ID or AWS_CLOUDFRONT_DISTRIBUTION_ID; skipping invalidation."
+            exit 0
+          fi
+          aws cloudfront create-invalidation --distribution-id "$D" --paths "/*"

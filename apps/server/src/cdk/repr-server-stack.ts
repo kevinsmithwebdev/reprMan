@@ -11,22 +11,48 @@ import * as sns from 'aws-cdk-lib/aws-sns'
 import * as snsSubs from 'aws-cdk-lib/aws-sns-subscriptions'
 import { Construct } from 'constructs'
 
+function firstNonEmpty(
+  ...candidates: (string | undefined)[]
+): string | undefined {
+  const found = candidates.find((c) => {
+    if (c === undefined || c === null) return false
+    return Boolean(String(c).trim())
+  })
+  return found !== undefined ? String(found).trim() : undefined
+}
+
+export type ReprStage = 'dev' | 'prod'
+
+export interface ReprServerStackProps extends cdk.StackProps {
+  stage: ReprStage
+  /** Browser origins allowed for CORS (e.g. local Vite + prod site). */
+  corsAllowOrigins: string[]
+}
+
 export class ReprServerStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  public readonly userPool: cognito.UserPool
+
+  public readonly userPoolClient: cognito.UserPoolClient
+
+  public readonly httpApi: apigwv2.HttpApi
+
+  constructor(scope: Construct, id: string, props: ReprServerStackProps) {
     super(scope, id, props)
 
-    const userPoolId = this.node.tryGetContext('userPoolId') as string
-    const userPoolClientId = this.node.tryGetContext(
-      'userPoolClientId'
-    ) as string
+    const { stage, corsAllowOrigins } = props
+
+    if (!corsAllowOrigins.length) {
+      throw new Error(
+        'ReprServerStack: corsAllowOrigins must include at least one origin'
+      )
+    }
+
+    cdk.Tags.of(this).add('Stage', stage)
+
     const apiScopes = String(this.node.tryGetContext('apiScopes') ?? '')
       .split(',')
       .map((scope) => scope.trim())
       .filter(Boolean)
-
-    if (!userPoolId || !userPoolClientId) {
-      throw new Error('Pass userPoolId and userPoolClientId via CDK context')
-    }
 
     const table = new dynamodb.Table(this, 'ReprsTable', {
       partitionKey: { name: 'pk', type: dynamodb.AttributeType.STRING },
@@ -64,25 +90,44 @@ export class ReprServerStack extends cdk.Stack {
     table.grantReadWriteData(reprHandler)
     dailyUsageTable.grantWriteData(reprHandler)
 
-    const userPool = cognito.UserPool.fromUserPoolId(
-      this,
-      'UserPool',
-      userPoolId
-    )
-    const userPoolClient = cognito.UserPoolClient.fromUserPoolClientId(
-      this,
-      'UserPoolClient',
-      userPoolClientId
-    )
+    const poolRemovalPolicy =
+      stage === 'prod' ? cdk.RemovalPolicy.RETAIN : cdk.RemovalPolicy.DESTROY
 
-    const httpApi = new apigwv2.HttpApi(this, 'ReprApi', {
-      apiName: 'repr-api',
+    this.userPool = new cognito.UserPool(this, 'UserPool', {
+      userPoolName: `reprman-user-pool-${stage}`,
+      selfSignUpEnabled: true,
+      signInAliases: { email: true },
+      autoVerify: { email: true },
+      standardAttributes: {
+        email: { required: true, mutable: true },
+      },
+      passwordPolicy: {
+        minLength: 8,
+        requireLowercase: true,
+        requireUppercase: true,
+        requireDigits: true,
+        requireSymbols: false,
+      },
+      removalPolicy: poolRemovalPolicy,
+    })
+
+    this.userPoolClient = this.userPool.addClient('WebClient', {
+      userPoolClientName: `reprman-web-${stage}`,
+      generateSecret: false,
+      disableOAuth: true,
+      supportedIdentityProviders: [
+        cognito.UserPoolClientIdentityProvider.COGNITO,
+      ],
+      authFlows: {
+        userSrp: true,
+        userPassword: true,
+      },
+    })
+
+    this.httpApi = new apigwv2.HttpApi(this, 'ReprApi', {
+      apiName: `repr-api-${stage}`,
       corsPreflight: {
-        allowOrigins: [
-          'http://localhost:3000',
-          'https://www.reprman.com',
-          'https://reprman.com',
-        ],
+        allowOrigins: corsAllowOrigins,
         allowMethods: [
           apigwv2.CorsHttpMethod.GET,
           apigwv2.CorsHttpMethod.POST,
@@ -96,9 +141,9 @@ export class ReprServerStack extends cdk.Stack {
 
     const authorizer = new apigwv2Auth.HttpUserPoolAuthorizer(
       'CognitoAuthorizer',
-      userPool,
+      this.userPool,
       {
-        userPoolClients: [userPoolClient],
+        userPoolClients: [this.userPoolClient],
       }
     )
 
@@ -107,7 +152,7 @@ export class ReprServerStack extends cdk.Stack {
       reprHandler
     )
 
-    httpApi.addRoutes({
+    this.httpApi.addRoutes({
       path: '/user/config',
       methods: [apigwv2.HttpMethod.GET],
       integration,
@@ -115,7 +160,7 @@ export class ReprServerStack extends cdk.Stack {
       authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
-    httpApi.addRoutes({
+    this.httpApi.addRoutes({
       path: '/reprs',
       methods: [apigwv2.HttpMethod.GET],
       integration,
@@ -123,7 +168,7 @@ export class ReprServerStack extends cdk.Stack {
       authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
-    httpApi.addRoutes({
+    this.httpApi.addRoutes({
       path: '/reprs/{id}',
       methods: [apigwv2.HttpMethod.PUT, apigwv2.HttpMethod.DELETE],
       integration,
@@ -131,7 +176,7 @@ export class ReprServerStack extends cdk.Stack {
       authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
-    httpApi.addRoutes({
+    this.httpApi.addRoutes({
       path: '/reprs/{id}/practice',
       methods: [apigwv2.HttpMethod.POST],
       integration,
@@ -141,7 +186,18 @@ export class ReprServerStack extends cdk.Stack {
 
     // eslint-disable-next-line no-new
     new cdk.CfnOutput(this, 'ApiBaseUrl', {
-      value: httpApi.apiEndpoint,
+      value: this.httpApi.apiEndpoint,
+      description: 'HTTP API base URL (no trailing slash)',
+    })
+
+    // eslint-disable-next-line no-new
+    new cdk.CfnOutput(this, 'UserPoolId', {
+      value: this.userPool.userPoolId,
+    })
+
+    // eslint-disable-next-line no-new
+    new cdk.CfnOutput(this, 'UserPoolClientId', {
+      value: this.userPoolClient.userPoolClientId,
     })
 
     const actionCountMetric = new cloudwatch.Metric({
@@ -149,31 +205,34 @@ export class ReprServerStack extends cdk.Stack {
       metricName: 'ActionCount',
       statistic: 'Sum',
       period: cdk.Duration.days(1),
-      dimensionsMap: { Environment: 'prod' },
+      dimensionsMap: { Environment: stage },
     })
 
-    // eslint-disable-next-line no-new
-    new cloudwatch.Alarm(this, 'NoActionsInDayAlarm', {
-      metric: actionCountMetric,
-      threshold: 1,
-      evaluationPeriods: 1,
-      datapointsToAlarm: 1,
-      comparisonOperator: cloudwatch.ComparisonOperator.LESS_THAN_THRESHOLD,
-      treatMissingData: cloudwatch.TreatMissingData.BREACHING,
-      alarmDescription: 'No user actions were tracked in the last 24 hours.',
-    })
+    if (stage === 'prod') {
+      // eslint-disable-next-line no-new
+      new cloudwatch.Alarm(this, 'NoActionsInDayAlarm', {
+        metric: actionCountMetric,
+        threshold: 1,
+        evaluationPeriods: 1,
+        datapointsToAlarm: 1,
+        comparisonOperator: cloudwatch.ComparisonOperator.LESS_THAN_THRESHOLD,
+        treatMissingData: cloudwatch.TreatMissingData.BREACHING,
+        alarmDescription: 'No user actions were tracked in the last 24 hours.',
+      })
+    }
 
-    const billingAlertEmail = this.node.tryGetContext('billingAlertEmail') as
-      | string
-      | undefined
+    const billingAlertEmail = firstNonEmpty(
+      process.env.CDK_BILLING_ALERT_EMAIL,
+      this.node.tryGetContext('billingAlertEmail') as string | undefined
+    )
     const monthlyBudgetUsdRaw = this.node.tryGetContext('monthlyBudgetUsd') as
       | string
       | undefined
     const monthlyBudgetUsd = Number(monthlyBudgetUsdRaw ?? '25')
 
-    if (billingAlertEmail) {
+    if (billingAlertEmail && stage === 'prod') {
       const topic = new sns.Topic(this, 'BillingAlertsTopic', {
-        displayName: 'ReprMan Billing Alerts',
+        displayName: `ReprMan Billing Alerts (${stage})`,
       })
       topic.addSubscription(new snsSubs.EmailSubscription(billingAlertEmail))
 

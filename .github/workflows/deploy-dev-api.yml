@@ -1,0 +1,47 @@
+name: Deploy Dev API
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: yarn
+
+      - name: Install
+        run: yarn install
+
+      - name: Inspect (prettier, lint, tests)
+        run: yarn inspect
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Show AWS account
+        run: aws sts get-caller-identity
+
+      - name: Build server (Lambda + CDK bundle)
+        run: yarn build:server
+
+      - name: Deploy ReprServerStack-Dev
+        working-directory: apps/server
+        env:
+          CDK_DEV_CORS_ORIGINS: ${{ vars.CDK_DEV_CORS_ORIGINS }}
+        run: |
+          node ../../scripts/with-build-metadata.mjs APP "npx cdk deploy ReprServerStack-Dev -a \"node dist/cdk/app.js\" --require-approval never"

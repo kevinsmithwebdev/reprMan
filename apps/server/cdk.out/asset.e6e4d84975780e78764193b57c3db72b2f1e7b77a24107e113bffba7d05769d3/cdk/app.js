@@ -37,13 +37,6 @@ var dynamodb = __toESM(require("aws-cdk-lib/aws-dynamodb"));
 var lambda = __toESM(require("aws-cdk-lib/aws-lambda"));
 var sns = __toESM(require("aws-cdk-lib/aws-sns"));
 var snsSubs = __toESM(require("aws-cdk-lib/aws-sns-subscriptions"));
-function firstNonEmpty(...candidates) {
-  const found = candidates.find((c) => {
-    if (c === void 0 || c === null) return false;
-    return Boolean(String(c).trim());
-  });
-  return found !== void 0 ? String(found).trim() : void 0;
-}
 var ReprServerStack = class extends cdk.Stack {
   constructor(scope, id, props) {
     super(scope, id, props);
@@ -108,10 +101,6 @@ var ReprServerStack = class extends cdk.Stack {
     this.userPoolClient = this.userPool.addClient("WebClient", {
       userPoolClientName: `reprman-web-${stage}`,
       generateSecret: false,
-      disableOAuth: true,
-      supportedIdentityProviders: [
-        cognito.UserPoolClientIdentityProvider.COGNITO
-      ],
       authFlows: {
         userSrp: true,
         userPassword: true
@@ -198,10 +187,7 @@ var ReprServerStack = class extends cdk.Stack {
         alarmDescription: "No user actions were tracked in the last 24 hours."
       });
     }
-    const billingAlertEmail = firstNonEmpty(
-      process.env.CDK_BILLING_ALERT_EMAIL,
-      this.node.tryGetContext("billingAlertEmail")
-    );
+    const billingAlertEmail = this.node.tryGetContext("billingAlertEmail");
     const monthlyBudgetUsdRaw = this.node.tryGetContext("monthlyBudgetUsd");
     const monthlyBudgetUsd = Number(monthlyBudgetUsdRaw ?? "25");
     if (billingAlertEmail && stage === "prod") {
@@ -240,38 +226,20 @@ var env = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
   region: process.env.CDK_DEFAULT_REGION
 };
-function parseCorsOriginsString(raw, fallbacks) {
-  if (raw === void 0 || raw === null || !String(raw).trim()) {
+function parseCorsOrigins(contextKey, fallbacks) {
+  const raw = app.node.tryGetContext(contextKey);
+  if (raw === void 0 || raw === null) {
     return [...fallbacks];
   }
   const list = String(raw).split(",").map((s) => s.trim()).filter(Boolean);
   return list.length > 0 ? list : [...fallbacks];
 }
-function firstNonEmpty2(...candidates) {
-  const found = candidates.find((c) => {
-    if (c === void 0 || c === null) return false;
-    return Boolean(String(c).trim());
-  });
-  return found !== void 0 ? String(found).trim() : void 0;
-}
-var devCors = parseCorsOriginsString(
-  firstNonEmpty2(
-    process.env.CDK_DEV_CORS_ORIGINS,
-    app.node.tryGetContext("devCorsOrigins")
-  ),
-  ["http://localhost:3000"]
-);
-var prodCors = parseCorsOriginsString(
-  firstNonEmpty2(
-    process.env.CDK_PROD_CORS_ORIGINS,
-    app.node.tryGetContext("prodCorsOrigins")
-  ),
-  [
-    "http://localhost:3000",
-    "https://www.reprman.com",
-    "https://reprman.com"
-  ]
-);
+var devCors = parseCorsOrigins("devCorsOrigins", ["http://localhost:3000"]);
+var prodCors = parseCorsOrigins("prodCorsOrigins", [
+  "http://localhost:3000",
+  "https://www.reprman.com",
+  "https://reprman.com"
+]);
 new ReprServerStack(app, "ReprServerStack-Dev", {
   env,
   stage: "dev",

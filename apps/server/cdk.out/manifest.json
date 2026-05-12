@@ -1,28 +1,31 @@
 {
   "version": "53.0.0",
   "artifacts": {
-    "ReprServerStack.assets": {
+    "ReprServerStack-Dev.assets": {
       "type": "cdk:asset-manifest",
       "properties": {
-        "file": "ReprServerStack.assets.json",
+        "file": "ReprServerStack-Dev.assets.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
       }
     },
-    "ReprServerStack": {
+    "ReprServerStack-Dev": {
       "type": "aws:cloudformation:stack",
       "environment": "aws://823737573954/eu-west-3",
       "properties": {
-        "templateFile": "ReprServerStack.template.json",
+        "templateFile": "ReprServerStack-Dev.template.json",
         "terminationProtection": false,
+        "tags": {
+          "Stage": "dev"
+        },
         "validateOnSynth": false,
         "assumeRoleArn": "arn:${AWS::Partition}:iam::823737573954:role/cdk-hnb659fds-deploy-role-823737573954-eu-west-3",
         "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::823737573954:role/cdk-hnb659fds-cfn-exec-role-823737573954-eu-west-3",
-        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-823737573954-eu-west-3/d5b6e8ee3f5fccfb8b13cf5b007ed911f382434061c8633505a5523997c886ec.json",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-823737573954-eu-west-3/e517f4dcb249ba8090b87f21fc247f2e7f7fa7ece408588135d0514b7625538f.json",
         "requiresBootstrapStackVersion": 6,
         "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
         "additionalDependencies": [
-          "ReprServerStack.assets"
+          "ReprServerStack-Dev.assets"
         ],
         "lookupRole": {
           "arn": "arn:${AWS::Partition}:iam::823737573954:role/cdk-hnb659fds-lookup-role-823737573954-eu-west-3",
@@ -31,10 +34,48 @@
         }
       },
       "dependencies": [
-        "ReprServerStack.assets"
+        "ReprServerStack-Dev.assets"
       ],
-      "additionalMetadataFile": "ReprServerStack.metadata.json",
-      "displayName": "ReprServerStack"
+      "additionalMetadataFile": "ReprServerStack-Dev.metadata.json",
+      "displayName": "ReprServerStack-Dev"
+    },
+    "ReprServerStack-Prod.assets": {
+      "type": "cdk:asset-manifest",
+      "properties": {
+        "file": "ReprServerStack-Prod.assets.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+      }
+    },
+    "ReprServerStack-Prod": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://823737573954/eu-west-3",
+      "properties": {
+        "templateFile": "ReprServerStack-Prod.template.json",
+        "terminationProtection": false,
+        "tags": {
+          "Stage": "prod"
+        },
+        "validateOnSynth": false,
+        "assumeRoleArn": "arn:${AWS::Partition}:iam::823737573954:role/cdk-hnb659fds-deploy-role-823737573954-eu-west-3",
+        "cloudFormationExecutionRoleArn": "arn:${AWS::Partition}:iam::823737573954:role/cdk-hnb659fds-cfn-exec-role-823737573954-eu-west-3",
+        "stackTemplateAssetObjectUrl": "s3://cdk-hnb659fds-assets-823737573954-eu-west-3/f9e8c70d3be694863a461867308c320ee72faaa10f4220f2b075f6f050928ade.json",
+        "requiresBootstrapStackVersion": 6,
+        "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version",
+        "additionalDependencies": [
+          "ReprServerStack-Prod.assets"
+        ],
+        "lookupRole": {
+          "arn": "arn:${AWS::Partition}:iam::823737573954:role/cdk-hnb659fds-lookup-role-823737573954-eu-west-3",
+          "requiresBootstrapStackVersion": 8,
+          "bootstrapStackVersionSsmParameter": "/cdk-bootstrap/hnb659fds/version"
+        }
+      },
+      "dependencies": [
+        "ReprServerStack-Prod.assets"
+      ],
+      "additionalMetadataFile": "ReprServerStack-Prod.metadata.json",
+      "displayName": "ReprServerStack-Prod"
     },
     "Tree": {
       "type": "cdk:tree",

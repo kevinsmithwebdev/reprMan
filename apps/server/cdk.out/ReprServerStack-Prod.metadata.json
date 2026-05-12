@@ -1,0 +1,455 @@
+{
+  "/ReprServerStack-Prod": [
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    },
+    {
+      "type": "aws:cdk:stack-tags",
+      "data": [
+        {
+          "key": "Stage",
+          "value": "prod"
+        }
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ApiBaseUrl": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ApiBaseUrl"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:173:5)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/UserPoolId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:177:5)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/UserPoolClientId": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolClientId"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:180:5)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/BootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "BootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/CheckBootstrapVersion": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CheckBootstrapVersion"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprsTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprsTable82FF80A0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Table2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:58:19)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/DailyUsageTable/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "DailyUsageTableA3BB95C3"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Table2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:65:29)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprHandler/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprHandlerC1F9CC9A"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:72:25)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/UserPool/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPool6BA7E5F2"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new UserPool2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:91:21)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApi1FA5DA98"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new HttpApi2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:120:20)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/NoActionsInDayAlarm/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "NoActionsInDayAlarm6B9F5243"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Alarm2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:191:7)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/CDKMetadata/Default": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "CDKMetadata"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...aws-cdk-lib, node internals...",
+        "(no user code in 9007199254740991 frames, use --stack-trace-limit to capture more)"
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprHandler/ServiceRole/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprHandlerServiceRoleB2759D1D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new Function2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:72:25)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/UserPool/WebClient/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "UserPoolWebClient4C9370B0"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.addClient in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:108:41)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/DefaultStage/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiDefaultStage68FF0F44"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...new HttpApi2 in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:120:20)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/GET--user--config/ReprIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiGETuserconfigReprIntegrationPermission56F9FC95"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:145:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/GET--user--config/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiGETuserconfigAFEB1818"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:145:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/CognitoAuthorizer/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiCognitoAuthorizerE0C26006"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:145:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/GET--reprs/ReprIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiGETreprsReprIntegrationPermission9ED7725D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:152:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/GET--reprs/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiGETreprs77357AFF"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:152:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/PUT--reprs--{id}/ReprIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiPUTreprsidReprIntegrationPermissionD9CFCE76"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:159:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/PUT--reprs--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiPUTreprsidCDD3C4FA"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:159:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/DELETE--reprs--{id}/ReprIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiDELETEreprsidReprIntegrationPermission14447502"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:159:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/DELETE--reprs--{id}/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiDELETEreprsidE265E778"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:159:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/POST--reprs--{id}--practice/ReprIntegration-Permission": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiPOSTreprsidpracticeReprIntegrationPermissionC4C0BA53"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:166:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/POST--reprs--{id}--practice/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiPOSTreprsidpractice6424A067"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:166:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprHandler/ServiceRole/DefaultPolicy/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprHandlerServiceRoleDefaultPolicyA0378A52"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...WrappedClass.grantReadWriteData in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:88:11)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ],
+  "/ReprServerStack-Prod/ReprApi/GET--user--config/ReprIntegration/Resource": [
+    {
+      "type": "aws:cdk:logicalId",
+      "data": "ReprApiGETuserconfigReprIntegrationA750BD6D"
+    },
+    {
+      "type": "aws:cdk:creationStack",
+      "data": [
+        "...D:\\dev\\reprMan\\node_modules\\aws-cdk-lib\\aws-apigatewayv2\\lib\\http\\api.js:1:96 in aws-cdk-lib...",
+        "Array.map (:)",
+        "...WrappedClass.<anonymous> in aws-cdk-lib...",
+        "new ReprServerStack (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:145:18)",
+        "<anonymous> (D:\\dev\\reprMan\\apps\\server\\dist\\cdk\\app.js:280:1)",
+        "...node internals..."
+      ]
+    }
+  ]
+}

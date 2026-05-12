@@ -31,5 +31,11 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# CDK deploy outputs (e.g. GitHub Actions prod workflow)
+apps/server/cdk-outputs.json
+
 # stuff I don't want pushed
 /personal
+
+# Accidental `nul` file breaks `git add` on Windows (reserved device name)
+nul
