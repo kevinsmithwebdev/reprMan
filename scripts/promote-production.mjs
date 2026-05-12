@@ -72,10 +72,7 @@ requireCleanWorkingTree()
 git(['fetch', 'origin'], 'git fetch origin')
 
 git(['checkout', MAIN], `git checkout ${MAIN}`)
-git(
-  ['pull', '--ff-only', `origin/${MAIN}`],
-  `git pull --ff-only origin/${MAIN}`
-)
+git(['pull', '--ff-only', 'origin', MAIN], `git pull --ff-only origin ${MAIN}`)
 
 const remoteProd = gitOut(['ls-remote', '--heads', 'origin', PRODUCTION])
 const productionExists = remoteProd.stdout.trim().length > 0
@@ -90,7 +87,6 @@ if (!productionExists) {
   })
   git(['checkout', '-b', PRODUCTION], `git checkout -b ${PRODUCTION}`)
   git(['push', '-u', 'origin', PRODUCTION], `git push -u origin ${PRODUCTION}`)
-  git(['push', '-u', 'origin', PRODUCTION], `git push -u origin ${PRODUCTION}`)
   console.error(
     `\nDone. Branch "${PRODUCTION}" was created and pushed. GitHub Actions should deploy production.`
   )
@@ -99,8 +95,8 @@ if (!productionExists) {
 
 git(['checkout', PRODUCTION], `git checkout ${PRODUCTION}`)
 git(
-  ['pull', '--ff-only', `origin/${PRODUCTION}`],
-  `git pull --ff-only origin/${PRODUCTION}`
+  ['pull', '--ff-only', 'origin', PRODUCTION],
+  `git pull --ff-only origin ${PRODUCTION}`
 )
 
 const mergeMsg = `chore: promote ${MAIN} to ${PRODUCTION}`
