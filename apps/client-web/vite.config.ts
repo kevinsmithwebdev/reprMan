@@ -1,7 +1,8 @@
-/// <reference types="vitest" />
+/// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import * as path from 'path'
+import { coverageConfigDefaults } from 'vitest/config'
 
 const root = path.resolve(__dirname, '../..')
 
@@ -71,9 +72,17 @@ export default defineConfig({
     setupFiles: ['./src/setupTests.ts'],
     css: true,
     coverage: {
+      ...coverageConfigDefaults,
       provider: 'v8',
       reporter: ['text', 'lcov'],
       reportsDirectory: './coverage',
+      // Only workspace sources — never instrument or report `node_modules`
+      // (including nested hoists like `.pnpm/.../node_modules/...`).
+      include: [
+        'src/**/*.{ts,tsx}',
+        '../../libs/*/src/**/*.{ts,tsx}',
+        '../../libs/shared/*/src/**/*.{ts,tsx}',
+      ],
     },
   },
 })

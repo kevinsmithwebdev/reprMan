@@ -7,6 +7,7 @@ import { useCategories } from '@reprman/state/categories'
 import { useReprs } from '@reprman/state/reprs'
 import { CategoryFilter, Reprs } from '@reprman/types'
 import { getDoesContainsAll } from '@reprman/utilities'
+import CategoryFilterTextInput from './CategoryFilterTextInput'
 import FilterForm from './FilterForm'
 
 interface ControlsProps {
@@ -48,35 +49,48 @@ const Controls: FC<ControlsProps> = ({ shouldShow }) => {
           count: filteredReprs.length,
         })}
       </span>
-      <Dropdown id="filter-button">
-        <Dropdown.Toggle style={{ display: 'flex', alignItems: 'center' }}>
-          <FilterCircle size={20} style={{ marginRight: '10px' }} />
-          {!!numFiltersText && (
-            <Badge
-              pill
-              bg="warning"
-              text="dark"
-              style={{
-                display: 'flex',
-                position: 'absolute',
-                justifyContent: 'center',
-                alignItems: 'center',
-                top: '2px',
-                left: '25px',
-                width: '20px',
-                height: '20px',
-                letterSpacing: numFilters > 9 ? '-0.1em' : 'normal',
-              }}
-            >
-              {numFiltersText}
-            </Badge>
-          )}
-          Filter
-        </Dropdown.Toggle>
-        <Dropdown.Menu style={{ padding: '5px' }}>
-          <FilterForm />
-        </Dropdown.Menu>
-      </Dropdown>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+        }}
+      >
+        <CategoryFilterTextInput
+          style={{ maxWidth: 220, minWidth: 140 }}
+        />
+        <Dropdown id="filter-button">
+          <Dropdown.Toggle
+            aria-label={t('components.categoryFilter.openMenuAriaLabel')}
+            style={{ display: 'flex', alignItems: 'center', position: 'relative' }}
+          >
+            <FilterCircle size={20} aria-hidden />
+            {!!numFiltersText && (
+              <Badge
+                pill
+                bg="warning"
+                text="dark"
+                style={{
+                  display: 'flex',
+                  position: 'absolute',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  top: '2px',
+                  left: '22px',
+                  width: '20px',
+                  height: '20px',
+                  letterSpacing: numFilters > 9 ? '-0.1em' : 'normal',
+                }}
+              >
+                {numFiltersText}
+              </Badge>
+            )}
+          </Dropdown.Toggle>
+          <Dropdown.Menu style={{ padding: '5px' }}>
+            <FilterForm />
+          </Dropdown.Menu>
+        </Dropdown>
+      </div>
     </div>
   )
 }
@@ -85,9 +99,11 @@ export default Controls
 
 const getFilteredReprs = (reprs: Reprs, filter: CategoryFilter) =>
   reprs.filter((r) => {
-    const shouldPassForText = r.title
-      .toLowerCase()
-      .includes(filter.text.toLowerCase())
+    const query = filter.text.toLowerCase()
+    const shouldPassForText =
+      !filter.text ||
+      r.title.toLowerCase().includes(query) ||
+      r.comment.toLowerCase().includes(query)
 
     const shouldCheckCategories = !!filter.categories.length
     const shouldPassForCategories =

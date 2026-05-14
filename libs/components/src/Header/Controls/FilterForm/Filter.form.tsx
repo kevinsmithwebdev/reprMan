@@ -1,8 +1,7 @@
 import React from 'react'
-import { Dropdown, Form } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import {
   setCategoryFilterCategories,
-  setCategoryFilterText,
   useCategories,
 } from '@reprman/state/categories'
 import store from '@reprman/state/store'
@@ -39,16 +38,6 @@ const FilterForm = () => {
 
   return (
     <div id="filter-form">
-      <Form.Control
-        type="title"
-        placeholder="filter for title"
-        value={filter.text}
-        onChange={({ target: { value } }) =>
-          store.dispatch(setCategoryFilterText(value))
-        }
-      />
-
-      <Dropdown.Divider />
       <Form.Group>{categories.map(renderCategoryCheckBox)}</Form.Group>
     </div>
   )

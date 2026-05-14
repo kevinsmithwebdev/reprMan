@@ -1,5 +1,6 @@
 export { default as AddReprButton } from './AddReprButton'
 export { default as AuthUnavailableCard } from './AuthUnavailableCard'
+export { default as CategoryFilterTextInput } from './Header/Controls/CategoryFilterTextInput'
 export { default as CategoryPills } from './CategoryPills'
 export { default as CenteredSpinner } from './CenteredSpinner'
 export { default as Footer } from './Footer'

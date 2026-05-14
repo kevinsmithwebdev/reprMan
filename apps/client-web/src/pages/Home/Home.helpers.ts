@@ -7,7 +7,11 @@ import { getDoesContainsAll } from '@reprman/utilities'
  */
 export const getFilteredReprs = (reprs: Reprs, filter: CategoryFilter): Reprs =>
   reprs.filter((r) => {
-    const passesText = r.title.toLowerCase().includes(filter.text.toLowerCase())
+    const query = filter.text.toLowerCase()
+    const passesText =
+      !filter.text ||
+      r.title.toLowerCase().includes(query) ||
+      r.comment.toLowerCase().includes(query)
 
     const checkCategories = filter.categories.length > 0
     const passesCategories =

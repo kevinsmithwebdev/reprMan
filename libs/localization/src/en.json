@@ -88,6 +88,11 @@
     "yes": "Yes"
   },
   "components": {
+    "categoryFilter": {
+      "openMenuAriaLabel": "Open category filter",
+      "titleTextAria": "Filter reprs by title or comment",
+      "titleTextPlaceholder": "Filter by title or comment"
+    },
     "reprsList": {
       "emptyList": "No reprs were found. Please add some with the \"Add Repr\" button in the upper left.",
       "reprsCountShort_one": "{{count}} repr",
