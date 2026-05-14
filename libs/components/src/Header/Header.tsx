@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { homeAuthGateActive } from '@reprman/cognito-auth/configureAmplify'
 import { CognitoAuthBar } from '@reprman/cognito-auth'
 import { useCognitoAuth } from '@reprman/cognito-auth/CognitoAuthContext'
@@ -6,7 +6,6 @@ import { useL10n } from '@reprman/localization'
 import { Nav, Navbar } from 'react-bootstrap'
 import { NavLink, useLocation } from 'react-router-dom'
 
-import Controls from './Controls'
 import './Header.css'
 
 interface RouteData {
@@ -14,11 +13,77 @@ interface RouteData {
   path: string
 }
 
+/** L10n key for the page segment appended to the navbar brand (not on Home). */
+function pageTitleKeyForPath(pathname: string): string | null {
+  if (pathname === '/' || pathname === '') {
+    return null
+  }
+  if (pathname.startsWith('/reports')) {
+    return 'pages.reports.title'
+  }
+  if (pathname.startsWith('/about')) {
+    return 'pages.about.title'
+  }
+  if (pathname.startsWith('/settings')) {
+    return 'pages.settings.title'
+  }
+  if (pathname.startsWith('/view')) {
+    return 'pages.viewRepr.title'
+  }
+  if (pathname.startsWith('/signin')) {
+    return 'pages.signin.title'
+  }
+  if (pathname.startsWith('/signup')) {
+    return 'pages.signup.title'
+  }
+  if (pathname.startsWith('/forgot-password')) {
+    return 'pages.forgotPassword.title'
+  }
+  if (pathname.startsWith('/change-password')) {
+    return 'pages.changePassword.title'
+  }
+  return null
+}
+
+/** Below 1000px viewport width, omit "Repertoire Management" from the navbar brand. */
+const HEADER_BRAND_NARROW_MQ = '(max-width: 999px)'
+
 const Header = () => {
   const location = useLocation()
   const rootPath = `/${location.pathname.split('/')[1]}`
   const { t } = useL10n()
   const { sessionChecked, signedIn } = useCognitoAuth()
+
+  const [narrowBrand, setNarrowBrand] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      window.matchMedia(HEADER_BRAND_NARROW_MQ).matches
+  )
+
+  useEffect(() => {
+    const mq = window.matchMedia(HEADER_BRAND_NARROW_MQ)
+    const sync = () => setNarrowBrand(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  const brandBase = useMemo(() => {
+    const name = t('brand.reprMan')
+    if (narrowBrand) {
+      return name
+    }
+    return `${name} - ${t('brand.repertoireManagement')}`
+  }, [narrowBrand, t])
+
+  const navbarBrandLabel = useMemo(() => {
+    const pageKey = pageTitleKeyForPath(location.pathname)
+    return pageKey ? `${brandBase} - ${t(pageKey)}` : brandBase
+  }, [brandBase, location.pathname, t])
+
+  useEffect(() => {
+    document.title = navbarBrandLabel
+  }, [navbarBrandLabel])
 
   const routes = [
     { name: t('pages.home.title'), path: '/' },
@@ -27,8 +92,6 @@ const Header = () => {
   ] as RouteData[]
 
   const settingsNavDisabled = homeAuthGateActive && sessionChecked && !signedIn
-  const shouldShowControls =
-    rootPath === '/' && (!homeAuthGateActive || signedIn)
 
   return (
     <div
@@ -44,11 +107,11 @@ const Header = () => {
         id="Header"
         bg="dark"
         expand={false}
-        className="mb-3"
+        className="mb-0"
         variant="dark"
       >
         <Navbar.Brand style={{ padding: '0 20px' }} href="/" id="header-brand">
-          {`${t('brand.reprMan')} - ${t('brand.repertoireManagement')}`}
+          {navbarBrandLabel}
         </Navbar.Brand>
 
         <div
@@ -65,8 +128,6 @@ const Header = () => {
           <CognitoAuthBar />
         </div>
       </Navbar>
-
-      <Controls shouldShow={shouldShowControls} />
     </div>
   )
 }

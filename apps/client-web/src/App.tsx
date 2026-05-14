@@ -15,6 +15,7 @@ import SignIn from './pages/SignIn'
 import Signup from './pages/Signup'
 import ForgotPassword from './pages/ForgotPassword'
 import ChangePassword from './pages/ChangePassword'
+import Reports from './pages/Reports/Reports'
 import ViewRepr from './pages/ViewRepr'
 
 const App = () => {
@@ -25,36 +26,33 @@ const App = () => {
   return (
     <main
       style={{
+        flex: 1,
+        minHeight: 0,
         display: 'flex',
         flexDirection: 'column',
-        minHeight: '100vh',
+        width: '100%',
       }}
       id="home-page"
     >
       <Header />
 
-      <div
-        className="app-content-container"
-        style={{
-          flex: 1,
-          width: '100%',
-          maxWidth: '1200px',
-          margin: '0 auto',
-        }}
-      >
-        <Routes>
-          <Route path="/view/:id" element={<ViewRepr />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/change-password" element={<ChangePassword />} />
+      <div className="app-content-container">
+        <div className="app-content-routes">
+          <Routes>
+            <Route path="/view/:id" element={<ViewRepr />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/signin" element={<SignIn />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/change-password" element={<ChangePassword />} />
 
-          <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/reports" element={<Reports />} />
 
-          <Route path="*" element={<Navigate to="/" />} />
-        </Routes>
+            <Route path="*" element={<Navigate to="/" />} />
+          </Routes>
+        </div>
 
         <ModalContainer />
       </div>

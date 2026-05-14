@@ -45,7 +45,11 @@ const Signup = () => {
     })
 
   return (
-    <Card.Body style={{ padding: '10px', maxWidth: 480 }} id="Signup-page">
+    <Card.Body
+      className="app-page-padded"
+      style={{ maxWidth: 480, margin: '0 auto' }}
+      id="Signup-page"
+    >
       <Card.Title>{t('pages.signup.title')}</Card.Title>
 
       {flow.step === 'register' ? (

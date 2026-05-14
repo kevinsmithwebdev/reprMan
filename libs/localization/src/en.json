@@ -88,6 +88,10 @@
     "yes": "Yes"
   },
   "components": {
+    "controls": {
+      "reportsPageAriaLabel": "Open reports list",
+      "reportsPageTitle": "Reports"
+    },
     "categoryFilter": {
       "openMenuAriaLabel": "Open category filter",
       "titleTextAria": "Filter reprs by title or comment",
@@ -190,6 +194,18 @@
     },
     "home": {
       "title": "Home"
+    },
+    "reports": {
+      "title": "Reports",
+      "filterByLabel": "Filter By Label",
+      "contentHeading": "Content",
+      "contentComments": "Comments",
+      "contentLabels": "Labels",
+      "exportHeading": "Export",
+      "copyToClipboard": "Copy list to clipboard",
+      "copySuccess": "List copied to clipboard.",
+      "copyFail": "Could not copy to clipboard.",
+      "emptyFiltered": "No reprs match the selected labels."
     },
     "signin": {
       "title": "Sign in"

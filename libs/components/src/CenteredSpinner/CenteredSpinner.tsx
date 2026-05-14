@@ -14,10 +14,14 @@ const CenteredSpinner = ({
 }: CenteredSpinnerProps) => {
   const className =
     layout === 'fill'
-      ? 'd-flex justify-content-center align-items-center h-100'
+      ? 'd-flex justify-content-center align-items-center flex-grow-1 w-100'
       : 'd-flex justify-content-center py-5'
   return (
-    <div className={className} id={id}>
+    <div
+      className={className}
+      id={id}
+      style={layout === 'fill' ? { minHeight: 0 } : undefined}
+    >
       <Spinner animation="border" role="status" />
     </div>
   )

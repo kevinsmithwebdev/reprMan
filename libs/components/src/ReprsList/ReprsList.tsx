@@ -78,6 +78,8 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
     })
   }, [reprs, prefersReducedMotion])
 
+  console.log('reprs', reprs)
+
   return (
     <div
       id="reprs-list-component"

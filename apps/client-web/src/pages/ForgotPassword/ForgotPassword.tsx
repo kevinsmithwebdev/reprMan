@@ -62,7 +62,8 @@ const ForgotPassword = () => {
 
   return (
     <Card.Body
-      style={{ padding: '10px', maxWidth: 480 }}
+      className="app-page-padded"
+      style={{ maxWidth: 480, margin: '0 auto' }}
       id="ForgotPassword-page"
     >
       <Card.Title>{t('pages.forgotPassword.title')}</Card.Title>

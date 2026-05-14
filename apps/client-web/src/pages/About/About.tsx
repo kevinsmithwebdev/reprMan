@@ -8,7 +8,7 @@ import AboutSection from './AboutSection'
 const About = () => {
   const { t } = useL10n()
   return (
-    <Card.Body style={{ padding: '10px' }} id="About-page">
+    <Card.Body className="app-page-padded" id="About-page">
       <Card.Title>{`${t('pages.about.title')} - ${t('brand.reprMan')} - ${t(
         'brand.repertoireManagement'
       )}`}</Card.Title>

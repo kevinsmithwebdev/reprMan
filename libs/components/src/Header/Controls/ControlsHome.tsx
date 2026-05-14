@@ -1,27 +1,21 @@
 import AddReprButton from '@reprman/components/AddReprButton'
 import React, { FC } from 'react'
 import { Badge, Dropdown } from 'react-bootstrap'
-import { FilterCircle } from 'react-bootstrap-icons'
+import { FileEarmarkBarGraph, FilterCircle } from 'react-bootstrap-icons'
+import { Link } from 'react-router-dom'
 import { useL10n } from '@reprman/localization'
 import { useCategories } from '@reprman/state/categories'
 import { useReprs } from '@reprman/state/reprs'
 import { CategoryFilter, Reprs } from '@reprman/types'
 import { getDoesContainsAll } from '@reprman/utilities'
 import CategoryFilterTextInput from './CategoryFilterTextInput'
+import ControlsBarShell from './ControlsBarShell'
 import FilterForm from './FilterForm'
 
-interface ControlsProps {
-  shouldShow: boolean
-}
-
-const Controls: FC<ControlsProps> = ({ shouldShow }) => {
+const ControlsHome: FC = () => {
   const { t } = useL10n()
   const { reprs } = useReprs()
   const { filter } = useCategories()
-
-  if (!shouldShow) {
-    return null
-  }
 
   const numFilters = +!!filter.text + filter.categories.length
   const numText = numFilters > 9 ? '9+' : numFilters
@@ -29,20 +23,7 @@ const Controls: FC<ControlsProps> = ({ shouldShow }) => {
   const filteredReprs = getFilteredReprs(reprs, filter)
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        padding: '5px 20px',
-        backgroundColor: '#444',
-        width: '100%',
-        marginTop: '-20px',
-        boxShadow: '0 3px 3px rgba(64,64, 64, 0.5)',
-      }}
-      id="controls-component"
-    >
+    <ControlsBarShell id="controls-home-component" variant="homeRow">
       <AddReprButton />
       <span style={{ color: '#d0d0d0', fontWeight: 600 }}>
         {t('components.reprsList.reprsCountShort', {
@@ -90,12 +71,32 @@ const Controls: FC<ControlsProps> = ({ shouldShow }) => {
             <FilterForm />
           </Dropdown.Menu>
         </Dropdown>
+        <Link
+          to="/reports"
+          title={t('components.controls.reportsPageTitle')}
+          aria-label={t('components.controls.reportsPageAriaLabel')}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 34,
+            height: 34,
+            borderRadius: 8,
+            backgroundColor: '#ea580c',
+            color: '#fff',
+            lineHeight: 1,
+            textDecoration: 'none',
+            flexShrink: 0,
+          }}
+        >
+          <FileEarmarkBarGraph size={20} aria-hidden />
+        </Link>
       </div>
-    </div>
+    </ControlsBarShell>
   )
 }
 
-export default Controls
+export default ControlsHome
 
 const getFilteredReprs = (reprs: Reprs, filter: CategoryFilter) =>
   reprs.filter((r) => {
