@@ -1,25 +1,34 @@
 import moment from 'moment'
 import {
+  dangerReturn,
   getReprColors,
   successReturn,
   warningReturn,
-  dangerReturn,
-} from '../ReprLine.helpers'
+} from './ReprLine.helpers'
 
 const BASE_DATE = '2020-12-31'
-jest.useFakeTimers().setSystemTime(new Date(BASE_DATE))
 
 const SECONDS_IN_A_DAY = 86400
 
-const getDaysAgoTS = (days) =>
+const getDaysAgoTS = (days: number) =>
   moment()
     .utc()
     .subtract(days * SECONDS_IN_A_DAY, 'seconds')
     .valueOf()
 
 describe('ReprLine.helpers', () => {
+  beforeAll(() => {
+    jest.useFakeTimers()
+    jest.setSystemTime(new Date(BASE_DATE))
+  })
+
+  afterAll(() => {
+    jest.useRealTimers()
+  })
+
   describe('getReprColors', () => {
     const mockSettings = { practiceDelay: 40, warningRatio: 0.75 }
+
     describe('for 0 days ago', () => {
       const daysPassed = 0
       const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)

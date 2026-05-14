@@ -1,14 +1,14 @@
 import {
-  getUniqueArray,
   getComplement,
-  getIntersection,
   getDoesContainsAll,
-} from '..'
+  getIntersection,
+  getUniqueArray,
+} from './lists'
 import {
-  getUniqueArrayTestData,
   getComplementTestData,
-  getIntersectionTestData,
   getDoesContainsAllTestData,
+  getIntersectionTestData,
+  getUniqueArrayTestData,
 } from './lists.testData'
 
 describe('lists', () => {

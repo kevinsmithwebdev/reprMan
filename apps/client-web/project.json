@@ -28,7 +28,7 @@
     "test": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx vitest run --coverage",
+        "command": "node ../../node_modules/vitest/vitest.mjs run --coverage",
         "cwd": "apps/client-web",
         "forwardAllArgs": true
       }
@@ -36,7 +36,7 @@
     "test:watch": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx vitest",
+        "command": "node ../../node_modules/vitest/vitest.mjs",
         "cwd": "apps/client-web"
       }
     },

@@ -1,5 +1,5 @@
 // Seconds-before-midnight-UTC entries for getDateAndFrom tests (expected string computed in test for timezone-agnostic assertion)
-export const getDateAndFromTestData = [
+export const getDateAndFromTestData: [number][] = [
   [4],
   [42],
   [298],
@@ -18,7 +18,7 @@ export const getDateAndFromTestData = [
   [86188972],
 ]
 
-export const getDateDiffTextTestData = [
+export const getDateDiffTextTestData: [number, string][] = [
   [8172, 'a few seconds'],
   [31233, 'a few seconds'],
   [49018, 'a minute'],

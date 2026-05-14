@@ -1,4 +1,4 @@
-export const getUniqueArrayTestData = [
+export const getUniqueArrayTestData: [number[], number[]][] = [
   [[], []],
   [[1], [1]],
   [[1, 1], [1]],
@@ -12,7 +12,7 @@ export const getUniqueArrayTestData = [
   ],
 ]
 
-export const getComplementTestData = [
+export const getComplementTestData: [number[], number[], number[]][] = [
   [[], [], []],
   [[1], [], [1]],
   [[], [1], []],
@@ -24,7 +24,7 @@ export const getComplementTestData = [
   ],
 ]
 
-export const getIntersectionTestData = [
+export const getIntersectionTestData: [number[], number[], number[]][] = [
   [[], [], []],
   [[1], [], []],
   [[], [1], []],
@@ -48,7 +48,7 @@ export const getIntersectionTestData = [
   ],
 ]
 
-export const getDoesContainsAllTestData = [
+export const getDoesContainsAllTestData: [number[], number[], boolean][] = [
   [[], [], true],
   [[1], [], true],
   [[], [1], false],
