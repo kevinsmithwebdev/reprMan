@@ -1,5 +1,6 @@
 import moment from 'moment'
-import { Settings } from '@reprman/types'
+import { getLastPracticedAt } from '@reprman/shared/repr-rules'
+import { Repr, Settings } from '@reprman/types'
 
 const SECONDS_IN_A_DAY = 86400
 
@@ -11,12 +12,14 @@ export const dangerReturn = { className: 'danger-bg', border: 'danger' }
 export const learningReturn = { className: 'learning-bg', border: 'secondary' }
 
 export enum ReprStatus {
+  LEARNING = 'LEARNING',
   OVERDUE = 'OVERDUE',
   WARNING = 'WARNING',
   UP_TO_DATE = 'UP_TO_DATE',
 }
 
 const statusToColors: Record<ReprStatus, ReprColor> = {
+  [ReprStatus.LEARNING]: learningReturn,
   [ReprStatus.UP_TO_DATE]: successReturn,
   [ReprStatus.WARNING]: warningReturn,
   [ReprStatus.OVERDUE]: dangerReturn,
@@ -39,11 +42,17 @@ export const getReprStatus = (
   return ReprStatus.UP_TO_DATE
 }
 
+export const getReprStatusForRepr = (repr: Repr, settings: Settings): ReprStatus => {
+  if (repr.learning) {
+    return ReprStatus.LEARNING
+  }
+  return getReprStatus(getLastPracticedAt(repr.datesPracticed), settings)
+}
+
+export const getReprColorsForRepr = (repr: Repr, settings: Settings): ReprColor =>
+  statusToColors[getReprStatusForRepr(repr, settings)]
+
 export const getReprColors = (
   lastPracticed: number,
-  settings: Settings,
-  learning = false
-): ReprColor =>
-  learning
-    ? learningReturn
-    : statusToColors[getReprStatus(lastPracticed, settings)]
+  settings: Settings
+): ReprColor => statusToColors[getReprStatus(lastPracticed, settings)]

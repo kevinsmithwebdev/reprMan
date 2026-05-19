@@ -5,8 +5,8 @@ import { Repr, Settings } from '@reprman/types'
 import { ReprStatus } from '@reprman/components/ReprLine/ReprLine.helpers'
 
 import {
-  groupReprsForList,
-  sortReprsByLastPracticed,
+  groupReprsByStatus,
+  sortReprsByLastPracticedDesc,
 } from './ReprsList.helpers'
 
 const settings: Settings = { practiceDelay: 7, warningRatio: 0.5 }
@@ -22,16 +22,16 @@ const repr = (overrides: Partial<Repr> = {}): Repr => ({
   ...overrides,
 })
 
-describe('sortReprsByLastPracticed', () => {
-  it('sorts by most recent practice ascending (least recent first)', () => {
+describe('sortReprsByLastPracticedDesc', () => {
+  it('sorts by most recent practice descending (most recent first)', () => {
     const older = repr({ id: 'a', datesPracticed: [100] })
     const newer = repr({ id: 'b', datesPracticed: [200] })
-    expect(sortReprsByLastPracticed([newer, older])).toEqual([older, newer])
+    expect(sortReprsByLastPracticedDesc([older, newer])).toEqual([newer, older])
   })
 })
 
-describe('groupReprsForList', () => {
-  it('puts learning reprs in learningReprs only, not status sections', () => {
+describe('groupReprsByStatus', () => {
+  it('puts learning reprs in LEARNING section only', () => {
     const learning = repr({
       id: 'learn',
       learning: true,
@@ -42,18 +42,17 @@ describe('groupReprsForList', () => {
       datesPracticed: [moment().subtract(30, 'days').valueOf()],
     })
 
-    const { learningReprs, statusSections } = groupReprsForList(
-      [learning, regular],
-      settings
-    )
+    const sections = groupReprsByStatus([learning, regular], settings)
 
-    expect(learningReprs.map((r) => r.id)).toEqual(['learn'])
-    const statusIds = statusSections.flatMap((s) => s.reprs.map((r) => r.id))
+    expect(sections[0].status).toBe(ReprStatus.LEARNING)
+    expect(sections[0].reprs.map((r) => r.id)).toEqual(['learn'])
+    const statusIds = sections
+      .filter((s) => s.status !== ReprStatus.LEARNING)
+      .flatMap((s) => s.reprs.map((r) => r.id))
     expect(statusIds).toEqual(['reg'])
-    expect(statusIds).not.toContain('learn')
   })
 
-  it('sorts learning reprs by last practiced', () => {
+  it('sorts learning reprs by last practiced descending', () => {
     const a = repr({
       id: 'a',
       learning: true,
@@ -65,8 +64,8 @@ describe('groupReprsForList', () => {
       datesPracticed: [200],
     })
 
-    const { learningReprs } = groupReprsForList([b, a], settings)
-    expect(learningReprs.map((r) => r.id)).toEqual(['a', 'b'])
+    const sections = groupReprsByStatus([a, b], settings)
+    expect(sections[0].reprs.map((r) => r.id)).toEqual(['b', 'a'])
   })
 
   it('groups non-learning reprs by practice status', () => {
@@ -75,13 +74,10 @@ describe('groupReprsForList', () => {
       datesPracticed: [moment().subtract(30, 'days').valueOf()],
     })
 
-    const { learningReprs, statusSections } = groupReprsForList(
-      [overdue],
-      settings
-    )
+    const sections = groupReprsByStatus([overdue], settings)
 
-    expect(learningReprs).toHaveLength(0)
-    expect(statusSections[0].status).toBe(ReprStatus.OVERDUE)
-    expect(statusSections[0].reprs.map((r) => r.id)).toEqual(['o'])
+    expect(sections.some((s) => s.status === ReprStatus.LEARNING)).toBe(false)
+    expect(sections[0].status).toBe(ReprStatus.OVERDUE)
+    expect(sections[0].reprs.map((r) => r.id)).toEqual(['o'])
   })
 })

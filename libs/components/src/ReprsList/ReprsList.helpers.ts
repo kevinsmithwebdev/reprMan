@@ -1,10 +1,12 @@
 import {
   ReprStatus,
-  getReprStatus,
+  getReprStatusForRepr,
 } from '@reprman/components/ReprLine/ReprLine.helpers'
+import { getLastPracticedAt } from '@reprman/shared/repr-rules'
 import { Repr, Settings } from '@reprman/types'
 
 export const REPR_STATUS_SECTION_ORDER: ReprStatus[] = [
+  ReprStatus.LEARNING,
   ReprStatus.OVERDUE,
   ReprStatus.WARNING,
   ReprStatus.UP_TO_DATE,
@@ -15,28 +17,12 @@ export interface ReprStatusSection {
   reprs: Repr[]
 }
 
-export const sortReprsByLastPracticed = (reprs: Repr[]): Repr[] =>
+export const sortReprsByLastPracticedDesc = (reprs: Repr[]): Repr[] =>
   [...reprs].sort(
-    (a, b) => (a.datesPracticed[0] || 0) - (b.datesPracticed[0] || 0)
+    (a, b) =>
+      getLastPracticedAt(b.datesPracticed) -
+      getLastPracticedAt(a.datesPracticed)
   )
-
-export interface ReprsListGrouping {
-  learningReprs: Repr[]
-  statusSections: ReprStatusSection[]
-}
-
-export const groupReprsForList = (
-  reprs: Repr[],
-  settings: Settings
-): ReprsListGrouping => {
-  const learningReprs = sortReprsByLastPracticed(
-    reprs.filter((repr) => repr.learning)
-  )
-  const statusReprs = reprs.filter((repr) => !repr.learning)
-  const statusSections = groupReprsByStatus(statusReprs, settings)
-
-  return { learningReprs, statusSections }
-}
 
 export const groupReprsByStatus = (
   reprs: Repr[],
@@ -47,13 +33,18 @@ export const groupReprsByStatus = (
   )
 
   reprs.forEach((repr) => {
-    const lastPracticed = repr.datesPracticed[0] || 0
-    const status = getReprStatus(lastPracticed, settings)
+    const status = getReprStatusForRepr(repr, settings)
     byStatus.get(status)!.push(repr)
   })
 
-  return REPR_STATUS_SECTION_ORDER.map((status) => ({
-    status,
-    reprs: byStatus.get(status)!,
-  })).filter((section) => section.reprs.length > 0)
+  return REPR_STATUS_SECTION_ORDER.map((status) => {
+    const sectionReprs = byStatus.get(status)!
+    return {
+      status,
+      reprs:
+        status === ReprStatus.LEARNING
+          ? sortReprsByLastPracticedDesc(sectionReprs)
+          : sectionReprs,
+    }
+  }).filter((section) => section.reprs.length > 0)
 }
