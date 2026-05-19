@@ -24,7 +24,8 @@ const ViewRepr = () => {
     return null
   }
 
-  const { title, categories, dateCreated, datesPracticed, comment } = repr
+  const { title, categories, dateCreated, datesPracticed, comment, learning } =
+    repr
 
   const practicedStr = getPracticedStr(datesPracticed)
 
@@ -64,6 +65,13 @@ const ViewRepr = () => {
         {renderCardBody(
           t('pages.viewRepr.data.dateCreated'),
           getDateAndFrom(dateCreated)
+        )}
+
+        {renderCardBody(
+          t('pages.viewRepr.data.learning'),
+          learning
+            ? t('pages.viewRepr.data.learningYes')
+            : t('pages.viewRepr.data.learningNo')
         )}
 
         {renderCardBody(

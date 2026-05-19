@@ -15,6 +15,29 @@ export interface ReprStatusSection {
   reprs: Repr[]
 }
 
+export const sortReprsByLastPracticed = (reprs: Repr[]): Repr[] =>
+  [...reprs].sort(
+    (a, b) => (a.datesPracticed[0] || 0) - (b.datesPracticed[0] || 0)
+  )
+
+export interface ReprsListGrouping {
+  learningReprs: Repr[]
+  statusSections: ReprStatusSection[]
+}
+
+export const groupReprsForList = (
+  reprs: Repr[],
+  settings: Settings
+): ReprsListGrouping => {
+  const learningReprs = sortReprsByLastPracticed(
+    reprs.filter((repr) => repr.learning)
+  )
+  const statusReprs = reprs.filter((repr) => !repr.learning)
+  const statusSections = groupReprsByStatus(statusReprs, settings)
+
+  return { learningReprs, statusSections }
+}
+
 export const groupReprsByStatus = (
   reprs: Repr[],
   settings: Settings

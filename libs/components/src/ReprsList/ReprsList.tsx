@@ -3,7 +3,7 @@ import Repr from '@reprman/components/ReprLine'
 import { ReprStatus } from '@reprman/components/ReprLine/ReprLine.helpers'
 import { useL10n } from '@reprman/localization'
 import { useSettings } from '@reprman/state/settings'
-import { groupReprsByStatus } from './ReprsList.helpers'
+import { groupReprsForList } from './ReprsList.helpers'
 import { ReprsListProps } from './ReprsList.types'
 
 const SECTION_TITLE_KEYS: Record<ReprStatus, string> = {
@@ -18,8 +18,8 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
   const { t } = useL10n()
   const { settings } = useSettings()
   const hasReprs = reprs.length > 0
-  const sections = useMemo(
-    () => groupReprsByStatus(reprs, settings),
+  const { learningReprs, statusSections } = useMemo(
+    () => groupReprsForList(reprs, settings),
     [reprs, settings]
   )
   const prefersReducedMotion = window.matchMedia(
@@ -112,8 +112,31 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
           {t('components.reprsList.emptyList')}
         </p>
       ) : null}
+      {hasReprs && learningReprs.length > 0 ? (
+        <section
+          aria-labelledby="reprs-section-learning"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+          }}
+        >
+          <h2
+            id="reprs-section-learning"
+            className="h6 text-muted fw-bold mb-0 text-center mx-auto px-1 w-100"
+            style={{ maxWidth: 800 }}
+          >
+            {t('components.reprsList.sectionLearning')}
+          </h2>
+          {learningReprs.map((r) => (
+            <div key={r.id} data-row-id={r.id}>
+              <Repr repr={r} />
+            </div>
+          ))}
+        </section>
+      ) : null}
       {hasReprs &&
-        sections.map((section, sectionIndex) => (
+        statusSections.map((section, sectionIndex) => (
           <section
             key={section.status}
             aria-labelledby={`reprs-section-${section.status}`}
@@ -121,7 +144,8 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
               display: 'flex',
               flexDirection: 'column',
               gap: '10px',
-              marginTop: sectionIndex > 0 ? '16px' : undefined,
+              marginTop:
+                learningReprs.length > 0 || sectionIndex > 0 ? '16px' : undefined,
             }}
           >
             <h2

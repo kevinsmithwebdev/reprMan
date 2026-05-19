@@ -2,6 +2,7 @@ import moment from 'moment'
 import {
   dangerReturn,
   getReprColors,
+  learningReturn,
   successReturn,
   warningReturn,
 } from './ReprLine.helpers'
@@ -28,6 +29,12 @@ describe('ReprLine.helpers', () => {
 
   describe('getReprColors', () => {
     const mockSettings = { practiceDelay: 40, warningRatio: 0.75 }
+
+    it('returns learning gray when learning is true', () => {
+      expect(
+        getReprColors(getDaysAgoTS(100), mockSettings, true)
+      ).toStrictEqual(learningReturn)
+    })
 
     describe('for 0 days ago', () => {
       const daysPassed = 0

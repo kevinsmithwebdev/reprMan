@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -55,6 +55,7 @@
     "lint:server": "nx run server:lint",
     "lint": "nx run client-web:lint",
     "migrate:user-config": "node scripts/backfill-user-config.mjs",
+    "migrate:repr-learning": "node scripts/backfill-repr-learning.mjs",
     "postinstall": "simple-git-hooks",
     "prettier": "prettier --write apps/client-web/src",
     "start": "nx serve client-web",

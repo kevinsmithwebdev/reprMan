@@ -4,6 +4,7 @@ export interface ReprForm {
   title: string
   categoryInput: string
   comment: string
+  learning: boolean
 }
 
 export type ReprFormErrors = Partial<ReprForm>

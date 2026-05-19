@@ -41,6 +41,7 @@ export const parseRepr = (value: unknown): Repr => {
     dateCreated: assertNumber(input.dateCreated, 'dateCreated'),
     datesPracticed: assertNumberArray(input.datesPracticed, 'datesPracticed'),
     comment: assertString(input.comment, 'comment'),
+    learning: input.learning === true,
   }
 }
 

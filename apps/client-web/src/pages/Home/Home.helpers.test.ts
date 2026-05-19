@@ -9,6 +9,7 @@ const repr = (overrides: Partial<Repr> = {}): Repr => ({
   categories: ['cat-a'],
   dateCreated: 0,
   datesPracticed: [],
+  learning: false,
   ...overrides,
 })
 

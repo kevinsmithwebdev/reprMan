@@ -11,6 +11,7 @@ const repr = (r: Partial<Repr> & Pick<Repr, 'id' | 'title'>): Repr => ({
   dateCreated: 0,
   datesPracticed: [],
   comment: '',
+  learning: false,
   ...r,
 })
 

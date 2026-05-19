@@ -105,7 +105,8 @@
       "reprsCount_other": "{{count}} reprs found.",
       "sectionOverdue": "Overdue",
       "sectionWarning": "Warning",
-      "sectionUpToDate": "Up to Date"
+      "sectionUpToDate": "Up to Date",
+      "sectionLearning": "Learning"
     }
   },
   "file": {
@@ -133,6 +134,8 @@
         "title": "Repr limit unavailable"
       },
       "noCategoriesSelected": "No categories selected.",
+      "learningLabel": "Learning",
+      "learningHelp": "Learning reprs appear in their own section at the top of the list.",
       "title": "Edit Repr"
     }
   },
@@ -256,6 +259,9 @@
         "comment": "Comment",
         "noComment": "[no comment]",
         "dateCreated": "Date Created",
+        "learning": "Learning",
+        "learningYes": "Yes",
+        "learningNo": "No",
         "datesPracticed": "Dates Practiced",
         "noteMaxRepr": "Note that we only store the last {{max}} practices for a repr.",
         "practiceData": "Practice Data"

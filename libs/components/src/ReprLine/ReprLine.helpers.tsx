@@ -8,6 +8,7 @@ type ReprColor = { className: string; border: string }
 export const successReturn = { className: 'success-bg', border: 'success' }
 export const warningReturn = { className: 'warning-bg', border: 'warning' }
 export const dangerReturn = { className: 'danger-bg', border: 'danger' }
+export const learningReturn = { className: 'learning-bg', border: 'secondary' }
 
 export enum ReprStatus {
   OVERDUE = 'OVERDUE',
@@ -40,5 +41,9 @@ export const getReprStatus = (
 
 export const getReprColors = (
   lastPracticed: number,
-  settings: Settings
-): ReprColor => statusToColors[getReprStatus(lastPracticed, settings)]
+  settings: Settings,
+  learning = false
+): ReprColor =>
+  learning
+    ? learningReturn
+    : statusToColors[getReprStatus(lastPracticed, settings)]

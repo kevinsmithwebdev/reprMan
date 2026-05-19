@@ -36,12 +36,14 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const initialCategories = repr.categories || []
   const initialTitle = repr.title ?? ''
   const initialComment = repr.comment ?? ''
+  const initialLearning = repr.learning === true
   const [categories, setCategories] = useState<string[]>(initialCategories)
 
   const [form, setForm] = useState<ReprForm>({
     title: initialTitle,
     categoryInput: '',
     comment: initialComment,
+    learning: initialLearning,
   })
   const [errors, setErrors] = useState<ReprFormErrors>({})
 
@@ -52,6 +54,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const isDirty =
     form.title !== initialTitle ||
     form.comment !== initialComment ||
+    form.learning !== initialLearning ||
     categoriesDirty
   const disableSave = !isTitleValid || (!isCreateMode && !isDirty)
 
@@ -252,6 +255,23 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
               {errors.comment}
             </Form.Control.Feedback>
           </Form.Group>
+
+          <hr />
+
+          <Form.Group className="mb-3">
+            <Form.Check
+              id="edit-repr-learning-checkbox"
+              type="checkbox"
+              label={t('modals.editRepr.learningLabel')}
+              checked={form.learning}
+              onChange={({ target: { checked } }) =>
+                setForm({ ...form, learning: checked })
+              }
+            />
+            <Form.Text className="text-muted">
+              {t('modals.editRepr.learningHelp')}
+            </Form.Text>
+          </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer style={{ display: 'flex', justifyContent: 'space-around' }}>
@@ -284,6 +304,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                 dateCreated: repr.dateCreated || NaN,
                 datesPracticed: repr.datesPracticed || ([] as number[]),
                 comment: form.comment,
+                learning: form.learning,
               } as Repr
               store.dispatch(addReprSAC(thisRepr))
               closeModal()

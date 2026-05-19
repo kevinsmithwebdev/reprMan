@@ -18,9 +18,9 @@ export interface ReprLineProps {
 const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { t } = useL10n()
   const { settings } = useSettings()
-  const { title, id, datesPracticed, categories, comment } = repr
+  const { title, id, datesPracticed, categories, comment, learning } = repr
   const lastPracticed = datesPracticed[0] || 0
-  const reprColors = getReprColors(lastPracticed, settings)
+  const reprColors = getReprColors(lastPracticed, settings, learning)
   const navigate = useNavigate()
 
   return (
