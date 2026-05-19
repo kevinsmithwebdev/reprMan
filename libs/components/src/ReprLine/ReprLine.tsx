@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card'
 
 import { Repr } from '@reprman/types'
@@ -8,7 +8,12 @@ import ReprButton, { ReprButtonType } from '@reprman/components/ReprButton'
 import { useL10n } from '@reprman/localization'
 import CategoryPills from '@reprman/components/CategoryPills'
 import { useSettings } from '@reprman/state/settings'
-import { getReprColors } from './ReprLine.helpers'
+import {
+  getLastPracticedAt,
+  isWithinPracticeCooldown,
+  PRACTICE_COOLDOWN_MS,
+} from '@reprman/shared/repr-rules'
+import { getReprColorsForRepr } from './ReprLine.helpers'
 import './ReprLine.css'
 
 export interface ReprLineProps {
@@ -19,9 +24,21 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { t } = useL10n()
   const { settings } = useSettings()
   const { title, id, datesPracticed, categories, comment } = repr
-  const lastPracticed = datesPracticed[0] || 0
-  const reprColors = getReprColors(lastPracticed, settings)
+  const lastPracticed = getLastPracticedAt(datesPracticed)
+  const [, refreshCooldown] = useState(0)
+  const practiceOnCooldown = isWithinPracticeCooldown(datesPracticed)
+  const reprColors = getReprColorsForRepr(repr, settings)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (!practiceOnCooldown) return undefined
+    const remaining = PRACTICE_COOLDOWN_MS - (Date.now() - lastPracticed)
+    const timeoutId = window.setTimeout(
+      () => refreshCooldown((n) => n + 1),
+      remaining
+    )
+    return () => window.clearTimeout(timeoutId)
+  }, [lastPracticed, practiceOnCooldown])
 
   return (
     <Card
@@ -57,6 +74,7 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
         className="repr-line-button"
         type={ReprButtonType.PRACTICED}
         actionData={id}
+        actionDisabled={practiceOnCooldown}
       />
     </Card>
   )

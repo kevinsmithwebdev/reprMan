@@ -5,6 +5,7 @@ export interface Repr {
   dateCreated: number
   datesPracticed: number[]
   comment: string
+  learning: boolean
 }
 
 export type Reprs = Repr[]

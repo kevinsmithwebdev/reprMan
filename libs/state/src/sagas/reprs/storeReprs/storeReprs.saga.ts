@@ -28,6 +28,7 @@ const _getCleanReprs = (rawReprs: Reprs): Reprs =>
         datesPracticed,
         id: repr.id || uuidv4(),
         dateCreated: repr.dateCreated || moment().utc().valueOf(),
+        learning: repr.learning === true,
       }
     })
     .sort(

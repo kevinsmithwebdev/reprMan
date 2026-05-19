@@ -30,7 +30,9 @@ export const getPracticedStr = (datesPracticed: number[]) => {
   return durationStr
 }
 
-export const _getRateOfPracticedStr = (datesPracticed: number[]): string => {
+export const _getRateOfPracticedStr = (
+  datesPracticed?: number[] | null
+): string => {
   if (!datesPracticed || !datesPracticed.length) return ''
 
   const firstPracticed = datesPracticed.at(-1)

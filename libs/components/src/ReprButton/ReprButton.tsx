@@ -13,6 +13,8 @@ interface ReprButtonProps {
   type: ReprButtonType
   actionData: any
   className?: string
+  /** Blocks the action without changing button appearance. */
+  actionDisabled?: boolean
 }
 
 export enum ReprButtonType {
@@ -26,6 +28,7 @@ const ReprButton: FC<ReprButtonProps> = ({
   actionData,
   style,
   className,
+  actionDisabled = false,
 }) => {
   const { t } = useL10n()
 
@@ -55,6 +58,7 @@ const ReprButton: FC<ReprButtonProps> = ({
       variant={typeData.variant}
       onClick={(e) => {
         e.stopPropagation()
+        if (actionDisabled) return
         store.dispatch(typeData.actionCreator(actionData))
       }}
     >

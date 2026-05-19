@@ -20,7 +20,7 @@ const HomeAuthCard = ({ authReady }: HomeAuthCardProps) => {
   const { t } = useL10n()
 
   return (
-    <div id="Home-page" className="w-100 d-flex justify-content-center">
+    <div className="w-100 d-flex justify-content-center">
       <Card style={{ maxWidth: 480 }} className="w-100">
         <Card.Body>
           <Card.Title>{t('auth.homeSignedOutTitle')}</Card.Title>

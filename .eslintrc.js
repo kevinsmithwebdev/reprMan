@@ -21,7 +21,9 @@ module.exports = {
     semi: ['error', 'never'],
     'react/jsx-filename-extension': [
       'warn',
-      { extensions: ['.tsx', 'test.js'] },
+      {
+        extensions: ['.tsx', '.test.tsx', '.integration.test.tsx', 'test.js'],
+      },
     ],
     'react/function-component-definition': [
       'error',
@@ -75,6 +77,17 @@ module.exports = {
         'src/**/*.{js,jsx,ts,tsx}',
       ],
       rules: {
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
+    {
+      files: [
+        '**/integration-tests/**/*.{ts,tsx}',
+        '**/*.test.{ts,tsx}',
+        '**/*.helpers.test.{ts,tsx}',
+      ],
+      rules: {
+        'import/no-relative-packages': 'off',
         'import/no-extraneous-dependencies': 'off',
       },
     },

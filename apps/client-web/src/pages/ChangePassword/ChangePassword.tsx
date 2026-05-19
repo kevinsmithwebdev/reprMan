@@ -49,7 +49,8 @@ const ChangePassword = () => {
 
   return (
     <Card.Body
-      style={{ padding: '10px', maxWidth: 480 }}
+      className="app-page-padded"
+      style={{ maxWidth: 480, margin: '0 auto' }}
       id="ChangePassword-page"
     >
       <Card.Title>{t('pages.changePassword.title')}</Card.Title>

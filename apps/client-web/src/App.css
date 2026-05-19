@@ -3,14 +3,117 @@
 }
 
 .app-content-container {
-  padding: 12px 20px 20px;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.app-content-routes {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+/**
+ * Routed page fills the column between header and footer. The page root
+ * avoids overflow:hidden so full-bleed strips (toolbars, scroll host) are not clipped.
+ */
+.app-content-routes > * {
+  flex: 1 1 0%;
+  min-height: 0;
+  min-width: 0;
+}
+
+.app-route-page-fill {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.app-route-scroll-host {
+  flex: 1 1 0%;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.app-route-toolbar {
+  flex-shrink: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-route-scroll {
+  flex: 1 1 0%;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.app-route-scroll-inner {
+  box-sizing: border-box;
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-bottom: 12px;
 }
 
 @media (max-width: 550px) {
-  .app-content-container {
-    padding-right: 8px;
-    padding-bottom: 12px;
+  .app-route-scroll-inner {
     padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/** Break out of the centered app column to match header width (100vw). */
+.app-scroll-full-bleed {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  box-sizing: border-box;
+}
+
+/** Constrain body content under full-bleed scroll areas to the same max width as the app column. */
+.app-content-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+@media (max-width: 550px) {
+  .app-content-inner {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+/** Pages that are not full-bleed (Home / Reports handle their own padding). */
+.app-page-padded {
+  padding: 12px 20px 20px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 550px) {
+  .app-page-padded {
+    padding: 10px 8px 12px;
   }
 }
 

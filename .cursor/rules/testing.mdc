@@ -1,0 +1,45 @@
+---
+description: Vitest/RTL testing layout, harness, and monorepo coverage (client-web)
+globs:
+  - '**/*.{test,spec}.{ts,tsx}'
+  - '**/integration-tests/**/*.{ts,tsx}'
+  - 'apps/client-web/src/test-utils/**/*.{ts,tsx}'
+alwaysApply: false
+---
+
+# Testing conventions
+
+## Runner and stack
+
+- **Client UI and libs pulled into client-web Vitest**: `yarn test` → `nx run client-web:test` → Vitest (jsdom) from [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Use **Vitest** (`vi`, `describe`, …), not Jest, for these tests.
+- **RTL**: `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom` via [apps/client-web/src/setupTests.ts](apps/client-web/src/setupTests.ts). Legacy `jest.*` APIs are bridged to `vi` in that file.
+- **Shared packages** under `libs/shared/*` that expose an Nx **Jest** target (e.g. quota, repr-validation) stay on **Jest** unless the team explicitly migrates them.
+
+## Unit tests (pure logic)
+
+- **Colocate** as a sibling of the module under test: `foo.ts` → `foo.test.ts` (use `.tsx` only if the test file contains JSX).
+- **Do not** add new suites under `__TESTS__/` or legacy `*.test.js` for app/lib code in this workflow.
+
+## Integration tests (pages and `libs/components`)
+
+- **Pages** (`apps/client-web/src/pages/<Page>/`): put files under `integration-tests/**/*.test.tsx` (or `.ts` if no JSX).
+- **`libs/components`** modules: `libs/components/src/<Component>/integration-tests/**/*.test.tsx`.
+- **Harness**: render through [apps/client-web/src/test-utils/renderWithAppShell.tsx](apps/client-web/src/test-utils/renderWithAppShell.tsx) — Redux `Provider`, `MemoryRouter`, `CognitoAuthProvider`. Pass `preloadedState` and/or an existing `store` from [createTestStore.ts](apps/client-web/src/test-utils/createTestStore.ts) (no saga middleware).
+- **Imports from `libs/**`into app test-utils**: prefer a **repo-relative** path into`apps/client-web/src/test-utils`where ESLint`import/no-relative-packages`applies;`@client-web/test-utils` exists in Vite for resolution when appropriate.
+- **Components that import `store` from `@reprman/state/store`**: use `vi.mock('@reprman/state/store', async () => { … })` so the mock resolves before the component module; reuse the same store instance the `Provider` gets.
+
+## Mocks and timers
+
+- **Do not remove or bypass** the global `vi.mock('@reprman/cognito-auth/configureAmplify', …)` in [setupTests.ts](apps/client-web/src/setupTests.ts). Avoid a blanket `vi.mock('@reprman/cognito-auth', importOriginal)` that re-exports the real barrel unless you also force `isCognitoConfigured: false`, or you will hit Amplify + `act` noise in jsdom.
+- **`@testing-library/user-event` v13**: use `await userEvent.click(...)` (no `userEvent.setup()` unless the dependency is upgraded).
+- **Fake timers**: `jest.useFakeTimers()` in tests is mapped to `vi` in setupTests; prefer `beforeAll`/`afterAll` and compute time-dependent values **inside** `it` blocks so timers apply after installation.
+
+## Vitest discovery and coverage (monorepo)
+
+- Test **include** and **coverage** live in [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Lib tests are included via globs such as `../../libs/components/src/**` and `../../libs/utilities/src/**/*.test.ts`.
+- Coverage uses **`allowExternal: true`** and **POSIX-style absolute `coverage.include` paths** so `libs/**` appears on Windows; if you change coverage layout, keep those constraints in mind.
+
+## Commands
+
+- Full suite: `yarn test` (from repo root).
+- Watch: `yarn test:watch`.

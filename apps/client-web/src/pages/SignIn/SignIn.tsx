@@ -44,7 +44,11 @@ const SignIn = () => {
   }
 
   return (
-    <Card.Body style={{ padding: '10px', maxWidth: 480 }} id="SignIn-page">
+    <Card.Body
+      className="app-page-padded"
+      style={{ maxWidth: 480, margin: '0 auto' }}
+      id="SignIn-page"
+    >
       <Card.Title>{t('pages.signin.title')}</Card.Title>
       <Form onSubmit={handleSignIn}>
         <CognitoSignInFields

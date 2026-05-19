@@ -88,12 +88,25 @@
     "yes": "Yes"
   },
   "components": {
+    "controls": {
+      "reportsPageAriaLabel": "Open reports list",
+      "reportsPageTitle": "Reports"
+    },
+    "categoryFilter": {
+      "openMenuAriaLabel": "Open category filter",
+      "titleTextAria": "Filter reprs by title or comment",
+      "titleTextPlaceholder": "Filter by title or comment"
+    },
     "reprsList": {
       "emptyList": "No reprs were found. Please add some with the \"Add Repr\" button in the upper left.",
       "reprsCountShort_one": "{{count}} repr",
       "reprsCountShort_other": "{{count}} reprs",
       "reprsCount_one": "{{count}} repr found.",
-      "reprsCount_other": "{{count}} reprs found."
+      "reprsCount_other": "{{count}} reprs found.",
+      "sectionOverdue": "Overdue",
+      "sectionWarning": "Warning",
+      "sectionUpToDate": "Up to Date",
+      "sectionLearning": "Learning"
     }
   },
   "file": {
@@ -121,6 +134,8 @@
         "title": "Repr limit unavailable"
       },
       "noCategoriesSelected": "No categories selected.",
+      "learningLabel": "Learning",
+      "learningHelp": "Learning reprs appear in their own section at the top of the list.",
       "title": "Edit Repr"
     }
   },
@@ -186,6 +201,18 @@
     "home": {
       "title": "Home"
     },
+    "reports": {
+      "title": "Reports",
+      "filterByLabel": "Filter By Label",
+      "contentHeading": "Content",
+      "contentComments": "Comments",
+      "contentLabels": "Labels",
+      "exportHeading": "Export",
+      "copyToClipboard": "Copy list to clipboard",
+      "copySuccess": "List copied to clipboard.",
+      "copyFail": "Could not copy to clipboard.",
+      "emptyFiltered": "No reprs match the selected labels."
+    },
     "signin": {
       "title": "Sign in"
     },
@@ -232,6 +259,9 @@
         "comment": "Comment",
         "noComment": "[no comment]",
         "dateCreated": "Date Created",
+        "learning": "Learning",
+        "learningYes": "Yes",
+        "learningNo": "No",
         "datesPracticed": "Dates Practiced",
         "noteMaxRepr": "Note that we only store the last {{max}} practices for a repr.",
         "practiceData": "Practice Data"
