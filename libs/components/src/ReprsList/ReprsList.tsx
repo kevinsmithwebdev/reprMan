@@ -1,13 +1,27 @@
-import React, { FC, useLayoutEffect, useRef } from 'react'
+import React, { FC, useLayoutEffect, useMemo, useRef } from 'react'
 import Repr from '@reprman/components/ReprLine'
+import { ReprStatus } from '@reprman/components/ReprLine/ReprLine.helpers'
 import { useL10n } from '@reprman/localization'
+import { useSettings } from '@reprman/state/settings'
+import { groupReprsByStatus } from './ReprsList.helpers'
 import { ReprsListProps } from './ReprsList.types'
+
+const SECTION_TITLE_KEYS: Record<ReprStatus, string> = {
+  [ReprStatus.OVERDUE]: 'components.reprsList.sectionOverdue',
+  [ReprStatus.WARNING]: 'components.reprsList.sectionWarning',
+  [ReprStatus.UP_TO_DATE]: 'components.reprsList.sectionUpToDate',
+}
 
 const SECONDS_PER_SCREEN = 0.5
 
 const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
   const { t } = useL10n()
+  const { settings } = useSettings()
   const hasReprs = reprs.length > 0
+  const sections = useMemo(
+    () => groupReprsByStatus(reprs, settings),
+    [reprs, settings]
+  )
   const prefersReducedMotion = window.matchMedia(
     '(prefers-reduced-motion: reduce)'
   ).matches
@@ -78,8 +92,6 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
     })
   }, [reprs, prefersReducedMotion])
 
-  console.log('reprs', reprs)
-
   return (
     <div
       id="reprs-list-component"
@@ -101,10 +113,30 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
         </p>
       ) : null}
       {hasReprs &&
-        reprs.map((r) => (
-          <div key={r.id} data-row-id={r.id}>
-            <Repr repr={r} />
-          </div>
+        sections.map((section, sectionIndex) => (
+          <section
+            key={section.status}
+            aria-labelledby={`reprs-section-${section.status}`}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '10px',
+              marginTop: sectionIndex > 0 ? '16px' : undefined,
+            }}
+          >
+            <h2
+              id={`reprs-section-${section.status}`}
+              className="h6 text-muted fw-bold mb-0 text-center mx-auto px-1 w-100"
+              style={{ maxWidth: 800 }}
+            >
+              {t(SECTION_TITLE_KEYS[section.status])}
+            </h2>
+            {section.reprs.map((r) => (
+              <div key={r.id} data-row-id={r.id}>
+                <Repr repr={r} />
+              </div>
+            ))}
+          </section>
         ))}
     </div>
   )

@@ -102,7 +102,10 @@
       "reprsCountShort_one": "{{count}} repr",
       "reprsCountShort_other": "{{count}} reprs",
       "reprsCount_one": "{{count}} repr found.",
-      "reprsCount_other": "{{count}} reprs found."
+      "reprsCount_other": "{{count}} reprs found.",
+      "sectionOverdue": "Overdue",
+      "sectionWarning": "Warning",
+      "sectionUpToDate": "Up to Date"
     }
   },
   "file": {
