@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 import { Card } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { AuthUnavailableCard } from '@reprman/components'
+import { TERMS_VERSION } from '@reprman/constants'
 import { isCognitoConfigured, useCognitoSignUp } from '@reprman/cognito-auth'
 import { useL10n } from '@reprman/localization'
+import { isReprsApiConfigured, ReprsApiModule } from '@reprman/reprs-api'
 
 import SignupConfirmStep from './SignupConfirmStep'
 import SignupRegisterStep from './SignupRegisterStep'
@@ -11,7 +13,20 @@ import SignupRegisterStep from './SignupRegisterStep'
 const Signup = () => {
   const navigate = useNavigate()
   const { t } = useL10n()
-  const flow = useCognitoSignUp(() => navigate('/'))
+  const [acceptedTerms, setAcceptedTerms] = useState(false)
+
+  const recordTermsAcceptance = useCallback(async () => {
+    if (!isReprsApiConfigured) {
+      return
+    }
+    await ReprsApiModule.getInstance().acceptTerms(TERMS_VERSION)
+  }, [])
+
+  const flow = useCognitoSignUp(() => navigate('/'), {
+    recordTermsAcceptance: isReprsApiConfigured
+      ? recordTermsAcceptance
+      : undefined,
+  })
 
   if (!isCognitoConfigured) {
     return (
@@ -25,17 +40,21 @@ const Signup = () => {
 
   const handleRegister = (e: React.FormEvent) =>
     flow.handleRegister(e, {
+      acceptedTerms,
+      termsRequiredMessage: t('auth.signUpTermsRequired'),
       mismatchMessage: t('auth.signUpPasswordMismatch'),
       codeSentMessage: t('auth.signUpCodeSent'),
       unexpectedNextStepMessage: t('auth.signUpUnexpectedNextStep'),
       unexpectedErrorMessage: t('auth.signUpUnexpectedError'),
       signedInMessage: t('auth.signUpSuccessSignedIn'),
+      termsAcceptFailedMessage: t('auth.signUpTermsAcceptFailed'),
     })
 
   const handleConfirm = (e: React.FormEvent) =>
     flow.handleConfirm(e, {
       signedInMessage: t('auth.signUpSuccessSignedIn'),
       unexpectedErrorMessage: t('auth.signUpConfirmUnexpectedError'),
+      termsAcceptFailedMessage: t('auth.signUpTermsAcceptFailed'),
     })
 
   const handleResend = () =>
@@ -60,6 +79,8 @@ const Signup = () => {
           setPassword={flow.setPassword}
           confirmPassword={flow.confirmPassword}
           setConfirmPassword={flow.setConfirmPassword}
+          acceptedTerms={acceptedTerms}
+          setAcceptedTerms={setAcceptedTerms}
           busy={flow.busy}
           onSubmit={handleRegister}
         />

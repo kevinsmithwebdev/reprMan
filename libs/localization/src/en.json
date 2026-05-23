@@ -58,7 +58,16 @@
     "forgotPasswordUnexpectedError": "Could not start password reset.",
     "forgotPasswordConfirmUnexpectedError": "Could not reset password. Check the code and try again.",
     "forgotPasswordUnexpectedNextStep": "Password reset needs an extra step that this page does not handle yet.",
-    "forgotPasswordConfirmIntro": "Enter the code we sent to {{email}}, then choose a new password."
+    "forgotPasswordConfirmIntro": "Enter the code we sent to {{email}}, then choose a new password.",
+    "signUpTermsPrefix": "I agree to the",
+    "signUpTermsLink": "Terms of Use",
+    "signUpTermsRequired": "You must agree to the Terms of Use to create an account.",
+    "signUpTermsAcceptFailed": "Your account was created but we could not record your Terms acceptance. Please try again or contact support.",
+    "termsOfUseMenu": "Terms of Use",
+    "acceptTermsSubmit": "Accept",
+    "acceptTermsTitle": "Terms of Use",
+    "acceptTermsIntro": "Please read and accept the Terms of Use to continue using ReprMan.",
+    "acceptTermsFailed": "Could not record your acceptance. Check your connection and try again."
   },
   "brand": {
     "copyright": "copyright ©{{year}}",
@@ -197,6 +206,68 @@
         ]
       },
       "suggestions": "If you have any suggestions, please contact me at {{email}}."
+    },
+    "terms": {
+      "title": "Terms of Use",
+      "purposeSection": {
+        "subtitle": "Purpose",
+        "body": [
+          [
+            "ReprMan is provided solely for tracking your musical repertoire and practice history.",
+            "If you can find a use for it that fits well with its original intended purpose (workout routines, etc.), then that is acceptable use.",
+            "You may not use this app for any other purpose.",
+            "Any attempt to subvert the authentication or authorization system is strictly prohibited."
+          ]
+        ]
+      },
+      "conductSection": {
+        "subtitle": "Conduct",
+        "body": [
+          [
+            "You agree not to engage in abusive behavior or use abusive language in connection with the app.",
+            "We do not tolerate harassment, threats, hate speech, spam, or attempts to disrupt the service.",
+            "Use of this app for any illegal activity is strictly prohibited.",
+            "Violations may result in immediate suspension or termination of your account."
+          ]
+        ]
+      },
+      "inactivitySection": {
+        "subtitle": "Free accounts and inactivity",
+        "body": [
+          [
+            "Non-paid accounts that have no login for 90 consecutive days may be closed.",
+            "When an account is closed for inactivity, all associated data may be permanently deleted."
+          ]
+        ]
+      },
+      "emailUseSection": {
+        "subtitle": "Email use",
+        "body": [
+          [
+            "Your email address will only be used for communication related to this app.",
+            "We will not sell your email or use it for marketing unrelated to ReprMan."
+          ]
+        ]
+      },
+      "emailVolumeSection": {
+        "subtitle": "Email volume",
+        "body": [
+          [
+            "We send only a minimal number of emails about the status and use of your account and the app.",
+            "Emails about your repertoire (for example, reminders about reprs that need practice) are sent only if you enable them in Settings.",
+            "You can turn those notifications off or unsubscribe from them at any time."
+          ]
+        ]
+      },
+      "agreementSection": {
+        "subtitle": "Agreement",
+        "body": [
+          [
+            "By using this app, you agree to the terms of use.",
+            "By agreeing to the terms of use, you agree that any violation will result in termination of your account, removal of your data, and non-refundable loss of any paid subscriptions."
+          ]
+        ]
+      }
     },
     "home": {
       "title": "Home"

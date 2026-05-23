@@ -11,10 +11,15 @@ const parsedDefault = Number(rawDefault)
 export const DEFAULT_MAX_REPRS_ALLOWED =
   Number.isFinite(parsedDefault) && parsedDefault >= 0 ? parsedDefault : 25
 
+/** Current Terms of Use document version (kept in sync with @reprman/constants). */
+export const TERMS_VERSION = '1'
+
 export type UserConfigItem = {
   pk: string
   sk: string
   maxReprsAllowed?: number | null
+  termsAcceptedAt?: string
+  termsVersion?: string
 }
 
 /**

@@ -9,6 +9,15 @@ type Json = Record<string, unknown>
 
 export type UserConfigResponse = {
   maxReprsAllowed: number | null | undefined
+  termsAcceptedAt?: string | null
+  termsVersion?: string | null
+  currentTermsVersion?: string | null
+}
+
+export type TermsAcceptanceResponse = {
+  termsAcceptedAt: string
+  termsVersion: string
+  currentTermsVersion: string
 }
 
 const trimEnv = (v: string | undefined) => (v ?? '').trim()
@@ -74,7 +83,24 @@ class ReprsApiModule {
 
   async getUserConfig(): Promise<UserConfigResponse> {
     const data = await request('/user/config', 'GET')
-    return { maxReprsAllowed: parseMaxReprsAllowed(data.maxReprsAllowed) }
+    return {
+      maxReprsAllowed: parseMaxReprsAllowed(data.maxReprsAllowed),
+      termsAcceptedAt:
+        typeof data.termsAcceptedAt === 'string' ? data.termsAcceptedAt : null,
+      termsVersion:
+        typeof data.termsVersion === 'string' ? data.termsVersion : null,
+      currentTermsVersion:
+        typeof data.currentTermsVersion === 'string'
+          ? data.currentTermsVersion
+          : null,
+    }
+  }
+
+  async acceptTerms(termsVersion: string): Promise<TermsAcceptanceResponse> {
+    const data = await request('/user/terms-acceptance', 'POST', {
+      termsVersion,
+    })
+    return data as unknown as TermsAcceptanceResponse
   }
 
   async upsertRepr(repr: Repr): Promise<Repr> {
