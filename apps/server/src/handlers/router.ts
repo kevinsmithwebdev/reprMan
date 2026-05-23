@@ -6,6 +6,7 @@ import {
   putReprHandler,
 } from './reprs'
 import { getUserConfigHandler } from './userConfig'
+import { patchUserSettingsHandler } from './patchUserSettings'
 import { postTermsAcceptanceHandler } from './termsAcceptance'
 
 type Event = any
@@ -26,6 +27,13 @@ export const handler = async (event: Event): Promise<Result> => {
     event.rawPath === '/user/config'
   ) {
     return getUserConfigHandler(event)
+  }
+
+  if (
+    event.requestContext.http.method === 'PATCH' &&
+    event.rawPath === '/user/settings'
+  ) {
+    return patchUserSettingsHandler(event)
   }
 
   if (

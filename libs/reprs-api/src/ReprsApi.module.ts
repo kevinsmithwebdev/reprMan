@@ -2,8 +2,12 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-empty-function */
 import { fetchAuthSession } from 'aws-amplify/auth'
-import { parseMaxReprsAllowed } from '@reprman/shared/quota'
-import { Repr, Reprs } from '@reprman/types'
+import {
+  DEFAULT_PRACTICE_DELAY,
+  DEFAULT_WARNING_RATIO,
+  parseMaxReprsAllowed,
+} from '@reprman/shared/quota'
+import { Repr, Reprs, Settings } from '@reprman/types'
 
 type Json = Record<string, unknown>
 
@@ -12,6 +16,8 @@ export type UserConfigResponse = {
   termsAcceptedAt?: string | null
   termsVersion?: string | null
   currentTermsVersion?: string | null
+  practiceDelay: number
+  warningRatio: number
 }
 
 export type TermsAcceptanceResponse = {
@@ -93,6 +99,31 @@ class ReprsApiModule {
         typeof data.currentTermsVersion === 'string'
           ? data.currentTermsVersion
           : null,
+      practiceDelay:
+        typeof data.practiceDelay === 'number'
+          ? data.practiceDelay
+          : DEFAULT_PRACTICE_DELAY,
+      warningRatio:
+        typeof data.warningRatio === 'number'
+          ? data.warningRatio
+          : DEFAULT_WARNING_RATIO,
+    }
+  }
+
+  async updateUserSettings(settings: Settings): Promise<Settings> {
+    const data = await request('/user/settings', 'PATCH', {
+      practiceDelay: settings.practiceDelay,
+      warningRatio: settings.warningRatio,
+    })
+    return {
+      practiceDelay:
+        typeof data.practiceDelay === 'number'
+          ? data.practiceDelay
+          : settings.practiceDelay,
+      warningRatio:
+        typeof data.warningRatio === 'number'
+          ? data.warningRatio
+          : settings.warningRatio,
     }
   }
 

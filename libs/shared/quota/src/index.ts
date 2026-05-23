@@ -14,12 +14,28 @@ export const DEFAULT_MAX_REPRS_ALLOWED =
 /** Current Terms of Use document version (kept in sync with @reprman/constants). */
 export const TERMS_VERSION = '1'
 
+/** Default days before a repr is considered overdue (client settings). */
+export const DEFAULT_PRACTICE_DELAY = 30
+
+export const PRACTICE_DELAY_MIN = 0
+export const PRACTICE_DELAY_MAX = 365
+
+/** Portion of practice delay after which a repr shows a warning color. */
+export const DEFAULT_WARNING_RATIO = 0.5
+
 export type UserConfigItem = {
   pk: string
   sk: string
   maxReprsAllowed?: number | null
   termsAcceptedAt?: string
   termsVersion?: string
+  practiceDelay?: number
+  warningRatio?: number
+}
+
+export type PracticeSettings = {
+  practiceDelay: number
+  warningRatio: number
 }
 
 /**
@@ -57,4 +73,72 @@ export const parseMaxReprsAllowed = (
     return raw
   }
   return undefined
+}
+
+const clamp = (value: number, min: number, max: number): number =>
+  Math.min(max, Math.max(min, value))
+
+export const resolvePracticeDelay = (
+  item: UserConfigItem | null | undefined
+): number => {
+  const raw = item?.practiceDelay
+  if (typeof raw !== 'number' || !Number.isFinite(raw)) {
+    return DEFAULT_PRACTICE_DELAY
+  }
+  return clamp(Math.round(raw), PRACTICE_DELAY_MIN, PRACTICE_DELAY_MAX)
+}
+
+export const resolveWarningRatio = (
+  item: UserConfigItem | null | undefined
+): number => {
+  const raw = item?.warningRatio
+  if (typeof raw !== 'number' || !Number.isFinite(raw)) {
+    return DEFAULT_WARNING_RATIO
+  }
+  return clamp(Math.round(raw * 10) / 10, 0, 1)
+}
+
+export const resolvePracticeSettings = (
+  item: UserConfigItem | null | undefined
+): PracticeSettings => ({
+  practiceDelay: resolvePracticeDelay(item),
+  warningRatio: resolveWarningRatio(item),
+})
+
+export type PracticeSettingsValidation =
+  | { ok: true; value: PracticeSettings }
+  | { ok: false; message: string }
+
+export const validatePracticeSettingsPayload = (
+  raw: unknown
+): PracticeSettingsValidation => {
+  if (!raw || typeof raw !== 'object') {
+    return { ok: false, message: 'Request body must be a JSON object' }
+  }
+  const body = raw as Record<string, unknown>
+  const { practiceDelay, warningRatio } = body
+  if (typeof practiceDelay !== 'number' || !Number.isFinite(practiceDelay)) {
+    return { ok: false, message: 'practiceDelay must be a finite number' }
+  }
+  if (typeof warningRatio !== 'number' || !Number.isFinite(warningRatio)) {
+    return { ok: false, message: 'warningRatio must be a finite number' }
+  }
+  const roundedDelay = Math.round(practiceDelay)
+  if (roundedDelay < PRACTICE_DELAY_MIN || roundedDelay > PRACTICE_DELAY_MAX) {
+    return {
+      ok: false,
+      message: `practiceDelay must be between ${PRACTICE_DELAY_MIN} and ${PRACTICE_DELAY_MAX}`,
+    }
+  }
+  const roundedRatio = Math.round(warningRatio * 10) / 10
+  if (roundedRatio < 0 || roundedRatio > 1) {
+    return { ok: false, message: 'warningRatio must be between 0 and 1' }
+  }
+  return {
+    ok: true,
+    value: {
+      practiceDelay: roundedDelay,
+      warningRatio: roundedRatio,
+    },
+  }
 }

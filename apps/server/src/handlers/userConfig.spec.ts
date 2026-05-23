@@ -32,6 +32,8 @@ describe('getUserConfigHandler', () => {
       termsAcceptedAt: null,
       termsVersion: null,
       currentTermsVersion: '1',
+      practiceDelay: 30,
+      warningRatio: 0.5,
     })
     expect(getUserConfigSpy).toHaveBeenCalledWith('user-1')
   })

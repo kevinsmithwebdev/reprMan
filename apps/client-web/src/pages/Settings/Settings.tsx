@@ -13,7 +13,9 @@ import {
   useCognitoAuth,
 } from '@reprman/cognito-auth'
 import { useL10n } from '@reprman/localization'
-import { setSettingsAC, store, useSettings } from '@reprman/state'
+import { useSettings } from '@reprman/state'
+import { saveUserSettingsSAC } from '@reprman/state/sagas/settings'
+import { useDispatch } from 'react-redux'
 
 import packageJson from '../../../package.json'
 import SettingsCardNumber from './SettingsCardNumber'
@@ -21,6 +23,7 @@ import SupplementalSettingsCard from './SupplementalSettingsCard'
 import { getSupplementalSettingsCardData } from './Settings.helpers'
 
 const Settings = () => {
+  const dispatch = useDispatch()
   const { sessionChecked, signedIn } = useCognitoAuth()
   const { settings: previousSettings } = useSettings()
   const [practiceDelayValue, setPracticeDelayValue] = useState(
@@ -92,8 +95,8 @@ const Settings = () => {
           style={{ margin: '5px' }}
           variant="success"
           onClick={() =>
-            store.dispatch(
-              setSettingsAC({
+            dispatch(
+              saveUserSettingsSAC({
                 practiceDelay: +practiceDelayValue,
                 warningRatio: +warningRatioValue,
               })

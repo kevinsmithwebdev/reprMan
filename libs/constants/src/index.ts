@@ -1,8 +1,9 @@
-export const DEFAULT_DAYS_WARNING = 30
-export const DEFAULT_DAYS_WARNING_MIN = 0
-export const DEFAULT_DAYS_WARNING_MAX = 365
-
-export const DEFAULT_WARNING_RATIO = 0.5
+export {
+  DEFAULT_PRACTICE_DELAY as DEFAULT_DAYS_WARNING,
+  PRACTICE_DELAY_MIN as DEFAULT_DAYS_WARNING_MIN,
+  PRACTICE_DELAY_MAX as DEFAULT_DAYS_WARNING_MAX,
+  DEFAULT_WARNING_RATIO,
+} from '@reprman/shared/quota'
 
 export { MAX_PRACTICED_DATES } from '@reprman/shared/repr-rules'
 

@@ -11,7 +11,7 @@ import {
   UpdateCommand,
 } from '@aws-sdk/lib-dynamodb'
 import type { Repr } from '@reprman/shared/repr-model'
-import type { UserConfigItem } from '@reprman/shared/quota'
+import type { PracticeSettings, UserConfigItem } from '@reprman/shared/quota'
 import { withPracticeApplied } from '@reprman/shared/repr-rules'
 import { keyForUserConfig } from './userConfig'
 
@@ -112,6 +112,33 @@ export const recordTermsAcceptance = async (
       ExpressionAttributeValues: {
         ':acceptedAt': acceptedAt,
         ':termsVersion': termsVersion,
+      },
+    })
+  )
+  const result = await client.send(
+    new GetCommand({
+      TableName: TABLE_NAME,
+      Key: key,
+    })
+  )
+  return result.Item as UserConfigItem
+}
+
+export const updateUserPracticeSettings = async (
+  userId: string,
+  settings: PracticeSettings
+): Promise<UserConfigItem> => {
+  await getUserConfig(userId)
+  const key = keyForUserConfig(userId)
+  await client.send(
+    new UpdateCommand({
+      TableName: TABLE_NAME,
+      Key: key,
+      UpdateExpression:
+        'SET practiceDelay = :practiceDelay, warningRatio = :warningRatio',
+      ExpressionAttributeValues: {
+        ':practiceDelay': settings.practiceDelay,
+        ':warningRatio': settings.warningRatio,
       },
     })
   )

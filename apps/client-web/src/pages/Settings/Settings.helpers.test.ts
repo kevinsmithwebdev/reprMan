@@ -1,5 +1,6 @@
+import { DEFAULT_DAYS_WARNING, DEFAULT_WARNING_RATIO } from '@reprman/constants'
 import { clearAllReprsSAC } from '@reprman/state/sagas/reprs/reprs.actions'
-import { resetSettingsAC } from '@reprman/state/settings/settings.actions'
+import { saveUserSettingsSAC } from '@reprman/state/sagas/settings'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
 const hoisted = vi.hoisted(() => ({
@@ -38,11 +39,16 @@ describe('getSupplementalSettingsCardData', () => {
     expect(cards[1].title).toBe('t:pages.settings.deleteAllReprs.title')
   })
 
-  it('first card reset button dispatches resetSettingsAC', () => {
+  it('first card reset button dispatches saveUserSettingsSAC with defaults', () => {
     const cards = getSupplementalSettingsCardData()
     cards[0].buttons[0].onClick()
     expect(hoisted.dispatch).toHaveBeenCalledTimes(1)
-    expect(hoisted.dispatch).toHaveBeenCalledWith(resetSettingsAC())
+    expect(hoisted.dispatch).toHaveBeenCalledWith(
+      saveUserSettingsSAC({
+        practiceDelay: DEFAULT_DAYS_WARNING,
+        warningRatio: DEFAULT_WARNING_RATIO,
+      })
+    )
   })
 
   it('second card delete button dispatches clearAllReprsSAC', () => {

@@ -8,7 +8,9 @@ export {
   DEFAULT_MAX_REPRS_ALLOWED,
   parseMaxReprsAllowed,
   resolveMaxReprsAllowed,
+  resolvePracticeSettings,
   type UserConfigItem,
+  type PracticeSettings,
 } from '@reprman/shared/quota'
 
 export const USER_CONFIG_SORT_KEY = 'CONFIG'

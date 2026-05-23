@@ -1,7 +1,11 @@
 import {
   DEFAULT_MAX_REPRS_ALLOWED,
+  DEFAULT_PRACTICE_DELAY,
+  DEFAULT_WARNING_RATIO,
   parseMaxReprsAllowed,
   resolveMaxReprsAllowed,
+  resolvePracticeSettings,
+  validatePracticeSettingsPayload,
   type UserConfigItem,
 } from './index'
 
@@ -48,5 +52,48 @@ describe('parseMaxReprsAllowed', () => {
     expect(parseMaxReprsAllowed(undefined)).toBeUndefined()
     expect(parseMaxReprsAllowed('100')).toBeUndefined()
     expect(parseMaxReprsAllowed({})).toBeUndefined()
+  })
+})
+
+describe('resolvePracticeSettings', () => {
+  it('uses defaults when config is missing', () => {
+    expect(resolvePracticeSettings(null)).toEqual({
+      practiceDelay: DEFAULT_PRACTICE_DELAY,
+      warningRatio: DEFAULT_WARNING_RATIO,
+    })
+  })
+
+  it('returns stored values when present', () => {
+    const item: UserConfigItem = {
+      pk: 'USER#x',
+      sk: 'CONFIG',
+      practiceDelay: 14,
+      warningRatio: 0.7,
+    }
+    expect(resolvePracticeSettings(item)).toEqual({
+      practiceDelay: 14,
+      warningRatio: 0.7,
+    })
+  })
+})
+
+describe('validatePracticeSettingsPayload', () => {
+  it('accepts valid settings', () => {
+    const result = validatePracticeSettingsPayload({
+      practiceDelay: 21,
+      warningRatio: 0.55,
+    })
+    expect(result).toEqual({
+      ok: true,
+      value: { practiceDelay: 21, warningRatio: 0.6 },
+    })
+  })
+
+  it('rejects out-of-range practiceDelay', () => {
+    const result = validatePracticeSettingsPayload({
+      practiceDelay: 400,
+      warningRatio: 0.5,
+    })
+    expect(result.ok).toBe(false)
   })
 })

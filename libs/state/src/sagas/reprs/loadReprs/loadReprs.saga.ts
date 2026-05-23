@@ -5,6 +5,7 @@ import {
   setMaxReprsQuota,
   setTermsConfig,
 } from '@reprman/state/reprsQuota'
+import { setSettingsAC } from '@reprman/state/settings/settings.actions'
 import { Reprs } from '@reprman/types'
 import { LOAD_REPRS, storeReprsSAC } from '../reprs.actions'
 
@@ -25,7 +26,10 @@ function* loadReprsWorker() {
       termsAcceptedAt,
       termsVersion,
       currentTermsVersion,
+      practiceDelay,
+      warningRatio,
     } = userConfig
+    yield put(setSettingsAC({ practiceDelay, warningRatio }))
     yield put(setMaxReprsQuota(maxReprsAllowed))
     yield put(
       setTermsConfig({
