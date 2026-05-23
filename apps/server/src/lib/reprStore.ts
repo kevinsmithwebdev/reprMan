@@ -8,6 +8,7 @@ import {
   GetCommand,
   PutCommand,
   QueryCommand,
+  UpdateCommand,
 } from '@aws-sdk/lib-dynamodb'
 import type { Repr } from '@reprman/shared/repr-model'
 import type { UserConfigItem } from '@reprman/shared/quota'
@@ -93,6 +94,34 @@ export const getUserConfig = async (
     }
     throw error
   }
+}
+
+export const recordTermsAcceptance = async (
+  userId: string,
+  termsVersion: string
+): Promise<UserConfigItem> => {
+  await getUserConfig(userId)
+  const key = keyForUserConfig(userId)
+  const acceptedAt = new Date().toISOString()
+  await client.send(
+    new UpdateCommand({
+      TableName: TABLE_NAME,
+      Key: key,
+      UpdateExpression:
+        'SET termsAcceptedAt = :acceptedAt, termsVersion = :termsVersion',
+      ExpressionAttributeValues: {
+        ':acceptedAt': acceptedAt,
+        ':termsVersion': termsVersion,
+      },
+    })
+  )
+  const result = await client.send(
+    new GetCommand({
+      TableName: TABLE_NAME,
+      Key: key,
+    })
+  )
+  return result.Item as UserConfigItem
 }
 
 export const countReprsForUser = async (userId: string): Promise<number> => {

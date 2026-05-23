@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
+import AcceptTermsGate from '@reprman/components/AcceptTermsGate'
 import Header from '@reprman/components/Header'
 import Footer from '@reprman/components/Footer'
 import ToastWrapper from '@reprman/components/ToastWrapper'
@@ -10,6 +11,7 @@ import { runGenesisSaga } from '@reprman/state/sagas/genesis/genesis.actions'
 import './App.css'
 import Home from './pages/Home'
 import About from './pages/About'
+import Terms from './pages/Terms'
 import Settings from './pages/Settings'
 import SignIn from './pages/SignIn'
 import Signup from './pages/Signup'
@@ -41,6 +43,7 @@ const App = () => {
           <Routes>
             <Route path="/view/:id" element={<ViewRepr />} />
             <Route path="/about" element={<About />} />
+            <Route path="/terms" element={<Terms />} />
             <Route path="/settings" element={<Settings />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<Signup />} />
@@ -55,6 +58,7 @@ const App = () => {
         </div>
 
         <ModalContainer />
+        <AcceptTermsGate />
       </div>
 
       <ToastWrapper />

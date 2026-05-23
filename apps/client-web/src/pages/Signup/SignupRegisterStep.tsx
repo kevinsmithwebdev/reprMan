@@ -11,6 +11,8 @@ interface SignupRegisterStepProps {
   setPassword: (v: string) => void
   confirmPassword: string
   setConfirmPassword: (v: string) => void
+  acceptedTerms: boolean
+  setAcceptedTerms: (v: boolean) => void
   busy: boolean
   onSubmit: (e: React.FormEvent) => void
 }
@@ -22,6 +24,8 @@ const SignupRegisterStep = ({
   setPassword,
   confirmPassword,
   setConfirmPassword,
+  acceptedTerms,
+  setAcceptedTerms,
   busy,
   onSubmit,
 }: SignupRegisterStepProps) => {
@@ -64,8 +68,27 @@ const SignupRegisterStep = ({
           minLength={8}
         />
       </Form.Group>
+      <Form.Group className="mb-3" controlId="signup-terms">
+        <Form.Check
+          type="checkbox"
+          checked={acceptedTerms}
+          onChange={(ev) => setAcceptedTerms(ev.target.checked)}
+          disabled={busy}
+          required
+          label={
+            <span>
+              {t('auth.signUpTermsPrefix')}{' '}
+              <Link to="/terms">{t('auth.signUpTermsLink')}</Link>
+            </span>
+          }
+        />
+      </Form.Group>
       <div className="d-flex flex-wrap gap-2 align-items-center">
-        <Button variant="primary" type="submit" disabled={busy}>
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={busy || !acceptedTerms}
+        >
           {busy ? (
             <Spinner animation="border" size="sm" className="me-1" />
           ) : null}

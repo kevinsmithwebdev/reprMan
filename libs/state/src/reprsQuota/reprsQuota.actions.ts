@@ -6,4 +6,10 @@ export const setMaxReprsQuota = createAction<number | null | undefined>(
   `${NAMESPACE}/SET_MAX_REPRS`
 )
 
+export const setTermsConfig = createAction<{
+  termsAcceptedAt: string | null
+  termsVersion: string | null
+  currentTermsVersion: string | null
+}>(`${NAMESPACE}/SET_TERMS`)
+
 export const resetMaxReprsQuota = createAction(`${NAMESPACE}/RESET`)

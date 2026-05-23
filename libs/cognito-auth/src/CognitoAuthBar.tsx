@@ -139,6 +139,14 @@ const CognitoAuthBar = () => {
             <Dropdown.Item
               as="button"
               type="button"
+              onClick={() => navigate('/terms')}
+              id="cognito-terms-of-use"
+            >
+              {t('auth.termsOfUseMenu')}
+            </Dropdown.Item>
+            <Dropdown.Item
+              as="button"
+              type="button"
               onClick={() => navigate('/change-password')}
               id="cognito-change-password"
             >

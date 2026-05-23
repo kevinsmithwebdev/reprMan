@@ -12,3 +12,6 @@ export const FILE_LINE_DELIMITER = '*'
 export const MY_EMAIL = 'kevinsmithwebdev@gmail.com'
 
 export const COPYRIGHT_YEAR = '2022'
+
+/** Current Terms of Use document version (signup acceptance and API). */
+export const TERMS_VERSION = '1'

@@ -6,6 +6,7 @@ import {
   putReprHandler,
 } from './reprs'
 import { getUserConfigHandler } from './userConfig'
+import { postTermsAcceptanceHandler } from './termsAcceptance'
 
 type Event = any
 type Result = any
@@ -25,6 +26,13 @@ export const handler = async (event: Event): Promise<Result> => {
     event.rawPath === '/user/config'
   ) {
     return getUserConfigHandler(event)
+  }
+
+  if (
+    event.requestContext.http.method === 'POST' &&
+    event.rawPath === '/user/terms-acceptance'
+  ) {
+    return postTermsAcceptanceHandler(event)
   }
 
   if (

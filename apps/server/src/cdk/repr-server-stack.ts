@@ -167,6 +167,14 @@ export class ReprServerStack extends cdk.Stack {
     })
 
     this.httpApi.addRoutes({
+      path: '/user/terms-acceptance',
+      methods: [apigwv2.HttpMethod.POST],
+      integration,
+      authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+    })
+
+    this.httpApi.addRoutes({
       path: '/reprs',
       methods: [apigwv2.HttpMethod.GET],
       integration,

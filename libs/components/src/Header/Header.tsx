@@ -24,6 +24,9 @@ function pageTitleKeyForPath(pathname: string): string | null {
   if (pathname.startsWith('/about')) {
     return 'pages.about.title'
   }
+  if (pathname.startsWith('/terms')) {
+    return 'pages.terms.title'
+  }
   if (pathname.startsWith('/settings')) {
     return 'pages.settings.title'
   }

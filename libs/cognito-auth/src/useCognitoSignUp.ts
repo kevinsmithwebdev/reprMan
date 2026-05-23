@@ -20,7 +20,14 @@ export type SignUpStep = 'register' | 'confirm'
  * so the page component can stay focused on rendering. `onSignedIn` is called
  * after a successful auto sign-in (typically navigates the user to home).
  */
-export const useCognitoSignUp = (onSignedIn: () => void) => {
+export type UseCognitoSignUpOptions = {
+  recordTermsAcceptance?: () => Promise<void>
+}
+
+export const useCognitoSignUp = (
+  onSignedIn: () => void,
+  options: UseCognitoSignUpOptions = {}
+) => {
   const dispatch = useDispatch()
   const [step, setStep] = useState<SignUpStep>('register')
   const [email, setEmail] = useState('')
@@ -36,7 +43,24 @@ export const useCognitoSignUp = (onSignedIn: () => void) => {
     )
   }
 
-  const finishSignedIn = async (signedInToastBody: string) => {
+  const finishSignedIn = async (
+    signedInToastBody: string,
+    termsAcceptFailedMessage: string
+  ) => {
+    if (options.recordTermsAcceptance) {
+      try {
+        await options.recordTermsAcceptance()
+      } catch {
+        dispatch(
+          makeToastSAC({
+            body: termsAcceptFailedMessage,
+            level: ToastLevel.FAIL,
+            delay: 8000,
+          })
+        )
+        return
+      }
+    }
     const nextUser = await userFromCognitoSession()
     if (nextUser) dispatch(setUser(nextUser))
     dispatch(runGenesisSaga({ afterSignIn: true }))
@@ -50,7 +74,10 @@ export const useCognitoSignUp = (onSignedIn: () => void) => {
     onSignedIn()
   }
 
-  const signInAfterPassword = async (signedInToastBody: string) => {
+  const signInAfterPassword = async (
+    signedInToastBody: string,
+    termsAcceptFailedMessage: string
+  ) => {
     const result = await signIn({ username: email.trim(), password })
     if (!result.isSignedIn) {
       dispatch(
@@ -63,20 +90,33 @@ export const useCognitoSignUp = (onSignedIn: () => void) => {
       onSignedIn()
       return
     }
-    await finishSignedIn(signedInToastBody)
+    await finishSignedIn(signedInToastBody, termsAcceptFailedMessage)
   }
 
   const handleRegister = async (
     e: React.FormEvent,
     options: {
+      acceptedTerms: boolean
+      termsRequiredMessage: string
       mismatchMessage: string
       codeSentMessage: string
       unexpectedNextStepMessage: string
       unexpectedErrorMessage: string
       signedInMessage: string
+      termsAcceptFailedMessage: string
     }
   ) => {
     e.preventDefault()
+    if (!options.acceptedTerms) {
+      dispatch(
+        makeToastSAC({
+          body: options.termsRequiredMessage,
+          level: ToastLevel.WARNING,
+          delay: 6000,
+        })
+      )
+      return
+    }
     if (password !== confirmPassword) {
       dispatch(
         makeToastSAC({
@@ -97,7 +137,10 @@ export const useCognitoSignUp = (onSignedIn: () => void) => {
       })
 
       if (result.isSignUpComplete && result.nextStep.signUpStep === 'DONE') {
-        await signInAfterPassword(options.signedInMessage)
+        await signInAfterPassword(
+          options.signedInMessage,
+          options.termsAcceptFailedMessage
+        )
         return
       }
 
@@ -129,7 +172,11 @@ export const useCognitoSignUp = (onSignedIn: () => void) => {
 
   const handleConfirm = async (
     e: React.FormEvent,
-    options: { signedInMessage: string; unexpectedErrorMessage: string }
+    options: {
+      signedInMessage: string
+      unexpectedErrorMessage: string
+      termsAcceptFailedMessage: string
+    }
   ) => {
     e.preventDefault()
     setBusy(true)
@@ -138,7 +185,10 @@ export const useCognitoSignUp = (onSignedIn: () => void) => {
         username: email.trim(),
         confirmationCode: code.trim(),
       })
-      await signInAfterPassword(options.signedInMessage)
+      await signInAfterPassword(
+        options.signedInMessage,
+        options.termsAcceptFailedMessage
+      )
     } catch (err) {
       notifyError(err, options.unexpectedErrorMessage)
     } finally {

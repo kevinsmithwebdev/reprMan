@@ -1,3 +1,4 @@
+import { TERMS_VERSION } from '@reprman/shared/quota'
 import { getUserId, UnauthorizedError } from '../lib/auth'
 import { jsonResponse } from '../lib/http'
 import { getUserConfig } from '../lib/reprStore'
@@ -11,7 +12,12 @@ export const getUserConfigHandler = async (event: Event): Promise<Result> => {
     const userId = getUserId(event)
     const config = await getUserConfig(userId)
     const maxReprsAllowed = resolveMaxReprsAllowed(config)
-    return jsonResponse(200, { maxReprsAllowed })
+    return jsonResponse(200, {
+      maxReprsAllowed,
+      termsAcceptedAt: config.termsAcceptedAt ?? null,
+      termsVersion: config.termsVersion ?? null,
+      currentTermsVersion: TERMS_VERSION,
+    })
   } catch (error: unknown) {
     if (error instanceof UnauthorizedError) {
       return jsonResponse(401, { message: 'Unauthorized' })

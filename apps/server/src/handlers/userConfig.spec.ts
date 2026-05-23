@@ -27,7 +27,12 @@ describe('getUserConfigHandler', () => {
   it('returns resolved maxReprsAllowed', async () => {
     const res = await getUserConfigHandler(authEvent)
     expect(res.statusCode).toBe(200)
-    expect(JSON.parse(res.body)).toEqual({ maxReprsAllowed: 7 })
+    expect(JSON.parse(res.body)).toEqual({
+      maxReprsAllowed: 7,
+      termsAcceptedAt: null,
+      termsVersion: null,
+      currentTermsVersion: '1',
+    })
     expect(getUserConfigSpy).toHaveBeenCalledWith('user-1')
   })
 

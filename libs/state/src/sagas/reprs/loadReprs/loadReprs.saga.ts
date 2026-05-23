@@ -1,6 +1,10 @@
 import { all, put, takeLatest } from 'redux-saga/effects'
 import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
-import { resetMaxReprsQuota, setMaxReprsQuota } from '@reprman/state/reprsQuota'
+import {
+  resetMaxReprsQuota,
+  setMaxReprsQuota,
+  setTermsConfig,
+} from '@reprman/state/reprsQuota'
 import { Reprs } from '@reprman/types'
 import { LOAD_REPRS, storeReprsSAC } from '../reprs.actions'
 
@@ -12,11 +16,24 @@ function* loadReprsWorker() {
   }
   try {
     const reprsApi = ReprsApiModule.getInstance()
-    const [cloudReprs, { maxReprsAllowed }] = yield all([
+    const [cloudReprs, userConfig] = yield all([
       reprsApi.listReprs(),
       reprsApi.getUserConfig(),
     ])
+    const {
+      maxReprsAllowed,
+      termsAcceptedAt,
+      termsVersion,
+      currentTermsVersion,
+    } = userConfig
     yield put(setMaxReprsQuota(maxReprsAllowed))
+    yield put(
+      setTermsConfig({
+        termsAcceptedAt: termsAcceptedAt ?? null,
+        termsVersion: termsVersion ?? null,
+        currentTermsVersion: currentTermsVersion ?? null,
+      })
+    )
     yield put(storeReprsSAC(cloudReprs as Reprs))
   } catch {
     yield put(resetMaxReprsQuota())

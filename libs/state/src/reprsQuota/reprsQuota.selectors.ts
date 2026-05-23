@@ -25,3 +25,18 @@ export const selectReprCreationCapWhenLoaded = createSelector(
     return maxReprsAllowed
   }
 )
+
+export const selectTermsConfigLoaded = createSelector(
+  selectReprQuotaState,
+  ({ currentTermsVersion }) => currentTermsVersion !== undefined
+)
+
+export const selectNeedsTermsAcceptance = createSelector(
+  selectReprQuotaState,
+  ({ termsVersion, currentTermsVersion }) => {
+    if (currentTermsVersion === undefined || currentTermsVersion === null) {
+      return false
+    }
+    return termsVersion !== currentTermsVersion
+  }
+)
