@@ -108,6 +108,12 @@ export class ReprServerStack extends cdk.Stack {
         requireDigits: true,
         requireSymbols: false,
       },
+      userVerification: {
+        emailSubject: 'Confirm your ReprMan account - reprman.com',
+        emailBody:
+          'Thanks for signing up. Your confirmation code is {####}. It expires in 24 hours.',
+        emailStyle: cognito.VerificationEmailStyle.CODE,
+      },
       removalPolicy: poolRemovalPolicy,
     })
 
