@@ -5,7 +5,7 @@ function compareCategoryNames(left: string, right: string): number {
 }
 
 function sortCategoryNames(names: Iterable<string>): Categories {
-  return Array.from(names).sort(compareCategoryNames) as Categories
+  return Array.from(names).sort(compareCategoryNames)
 }
 
 export const getAllCategories = (reprs: Reprs): Categories => {

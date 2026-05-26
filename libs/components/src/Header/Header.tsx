@@ -57,11 +57,12 @@ const Header = () => {
   const { t } = useL10n()
   const { sessionChecked, signedIn } = useCognitoAuth()
 
-  const [narrowBrand, setNarrowBrand] = useState(
-    () =>
-      typeof globalThis.window !== 'undefined' &&
-      globalThis.window.matchMedia(HEADER_BRAND_NARROW_MQ).matches
-  )
+  const [narrowBrand, setNarrowBrand] = useState(() => {
+    if (globalThis.window === undefined) {
+      return false
+    }
+    return globalThis.window.matchMedia(HEADER_BRAND_NARROW_MQ).matches
+  })
 
   useEffect(() => {
     const mq = globalThis.window.matchMedia(HEADER_BRAND_NARROW_MQ)

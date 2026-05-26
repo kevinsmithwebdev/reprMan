@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useReducer } from 'react'
 import Card from 'react-bootstrap/Card'
 
 import { Repr } from '@reprman/types'
@@ -25,7 +25,10 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { settings } = useSettings()
   const { title, id, datesPracticed, categories, comment } = repr
   const lastPracticed = getLastPracticedAt(datesPracticed)
-  const [_cooldownTick, setCooldownTick] = useState(0)
+  const [cooldownVersion, bumpCooldownRender] = useReducer(
+    (version: number) => version + 1,
+    0
+  )
   const practiceOnCooldown = isWithinPracticeCooldown(datesPracticed)
   const reprColors = getReprColorsForRepr(repr, settings)
   const navigate = useNavigate()
@@ -33,10 +36,7 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   useEffect(() => {
     if (!practiceOnCooldown) return undefined
     const remaining = PRACTICE_COOLDOWN_MS - (Date.now() - lastPracticed)
-    const timeoutId = globalThis.window.setTimeout(
-      () => setCooldownTick((n) => n + 1),
-      remaining
-    )
+    const timeoutId = globalThis.window.setTimeout(bumpCooldownRender, remaining)
     return () => globalThis.window.clearTimeout(timeoutId)
   }, [lastPracticed, practiceOnCooldown])
 
