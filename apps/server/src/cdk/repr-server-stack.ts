@@ -14,11 +14,8 @@ import { Construct } from 'constructs'
 function firstNonEmpty(
   ...candidates: (string | undefined)[]
 ): string | undefined {
-  const found = candidates.find((c) => {
-    if (c === undefined || c === null) return false
-    return Boolean(String(c).trim())
-  })
-  return found !== undefined ? String(found).trim() : undefined
+  const found = candidates.find((c) => Boolean(c?.trim()))
+  return found?.trim()
 }
 
 export type ReprStage = 'dev' | 'prod'
@@ -35,6 +32,14 @@ export class ReprServerStack extends cdk.Stack {
   public readonly userPoolClient: cognito.UserPoolClient
 
   public readonly httpApi: apigwv2.HttpApi
+
+  public readonly apiBaseUrlOutput: cdk.CfnOutput
+
+  public readonly userPoolIdOutput: cdk.CfnOutput
+
+  public readonly userPoolClientIdOutput: cdk.CfnOutput
+
+  public readonly noActionsAlarm?: cloudwatch.Alarm
 
   constructor(scope: Construct, id: string, props: ReprServerStackProps) {
     super(scope, id, props)
@@ -206,19 +211,16 @@ export class ReprServerStack extends cdk.Stack {
       authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
-    // eslint-disable-next-line no-new
-    new cdk.CfnOutput(this, 'ApiBaseUrl', {
+    this.apiBaseUrlOutput = new cdk.CfnOutput(this, 'ApiBaseUrl', {
       value: this.httpApi.apiEndpoint,
       description: 'HTTP API base URL (no trailing slash)',
     })
 
-    // eslint-disable-next-line no-new
-    new cdk.CfnOutput(this, 'UserPoolId', {
+    this.userPoolIdOutput = new cdk.CfnOutput(this, 'UserPoolId', {
       value: this.userPool.userPoolId,
     })
 
-    // eslint-disable-next-line no-new
-    new cdk.CfnOutput(this, 'UserPoolClientId', {
+    this.userPoolClientIdOutput = new cdk.CfnOutput(this, 'UserPoolClientId', {
       value: this.userPoolClient.userPoolClientId,
     })
 
@@ -231,8 +233,7 @@ export class ReprServerStack extends cdk.Stack {
     })
 
     if (stage === 'prod') {
-      // eslint-disable-next-line no-new
-      new cloudwatch.Alarm(this, 'NoActionsInDayAlarm', {
+      this.noActionsAlarm = new cloudwatch.Alarm(this, 'NoActionsInDayAlarm', {
         metric: actionCountMetric,
         threshold: 1,
         evaluationPeriods: 1,

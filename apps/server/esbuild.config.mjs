@@ -7,8 +7,8 @@
  *   for local CDK execution).
  */
 import * as esbuild from 'esbuild'
-import { dirname, resolve } from 'path'
-import { fileURLToPath } from 'url'
+import { dirname, resolve } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const tsconfig = resolve(__dirname, 'tsconfig.app.json')

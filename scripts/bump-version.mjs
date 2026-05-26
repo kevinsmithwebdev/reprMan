@@ -3,9 +3,9 @@
  * Bump semver in package.json and apps/client-web/package.json (kept in sync).
  * Usage: node scripts/bump-version.mjs <minor|major>
  */
-import { readFileSync, writeFileSync } from 'fs'
-import { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
+import { readFileSync, writeFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
@@ -36,7 +36,10 @@ const versions = PACKAGE_PATHS.map(
 )
 const current = versions[0]
 if (versions.some((v) => v !== current)) {
-  console.error('Version mismatch between package.json files:', versions.join(', '))
+  console.error(
+    'Version mismatch between package.json files:',
+    versions.join(', ')
+  )
   process.exit(1)
 }
 

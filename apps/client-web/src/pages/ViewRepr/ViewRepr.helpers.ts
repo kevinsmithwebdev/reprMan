@@ -33,7 +33,7 @@ export const getPracticedStr = (datesPracticed: number[]) => {
 export const _getRateOfPracticedStr = (
   datesPracticed?: number[] | null
 ): string => {
-  if (!datesPracticed || !datesPracticed.length) return ''
+  if (!datesPracticed?.length) return ''
 
   const firstPracticed = datesPracticed.at(-1)
   const lastPracticed = datesPracticed.at(0)

@@ -8,7 +8,7 @@ class LocalizationModule {
 
   private constructor() {
     i18next.init({
-      lng: 'en', // FIXME: detect language?
+      lng: 'en',
       debug: false,
       resources: { en: { translation: enL10ns } },
     })

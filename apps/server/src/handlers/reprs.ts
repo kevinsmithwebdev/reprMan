@@ -20,13 +20,10 @@ const reprLimitExceededResponse = (maxReprsAllowed: number) =>
     maxReprsAllowed,
   })
 
-type Event = any
-type Result = any
-
 const handleError = (
   error: unknown,
   options: { defaultStatus: number; defaultMessage: string }
-): Result => {
+): any => {
   if (error instanceof UnauthorizedError) {
     return jsonResponse(401, { message: 'Unauthorized' })
   }
@@ -36,7 +33,7 @@ const handleError = (
   })
 }
 
-export const getReprsHandler = async (event: Event): Promise<Result> => {
+export const getReprsHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
@@ -53,7 +50,7 @@ export const getReprsHandler = async (event: Event): Promise<Result> => {
   }
 }
 
-export const putReprHandler = async (event: Event): Promise<Result> => {
+export const putReprHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
@@ -88,9 +85,7 @@ export const putReprHandler = async (event: Event): Promise<Result> => {
   }
 }
 
-export const markReprPracticedHandler = async (
-  event: Event
-): Promise<Result> => {
+export const markReprPracticedHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
@@ -114,7 +109,7 @@ export const markReprPracticedHandler = async (
   }
 }
 
-export const deleteReprHandler = async (event: Event): Promise<Result> => {
+export const deleteReprHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)

@@ -7,10 +7,7 @@ import {
   resolvePracticeSettings,
 } from '../lib/userConfig'
 
-type Event = any
-type Result = any
-
-export const getUserConfigHandler = async (event: Event): Promise<Result> => {
+export const getUserConfigHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     const config = await getUserConfig(userId)

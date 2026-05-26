@@ -33,10 +33,10 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const { quotaLoaded, reprCreationCap } = useReprCreationCap()
   const repr = getRepr(id)
   const isCreateMode = !id
-  const initialCategories = repr.categories || []
-  const initialTitle = repr.title ?? ''
-  const initialComment = repr.comment ?? ''
-  const initialLearning = repr.learning === true
+  const initialCategories = repr?.categories ?? []
+  const initialTitle = repr?.title ?? ''
+  const initialComment = repr?.comment ?? ''
+  const initialLearning = repr?.learning === true
   const [categories, setCategories] = useState<string[]>(initialCategories)
 
   const [form, setForm] = useState<ReprForm>({
@@ -298,11 +298,11 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
               setErrors(foundErrors)
             } else {
               const thisRepr = {
-                id: repr.id || '',
+                id: repr?.id ?? '',
                 title: form.title,
                 categories,
-                dateCreated: repr.dateCreated || NaN,
-                datesPracticed: repr.datesPracticed || ([] as number[]),
+                dateCreated: repr?.dateCreated ?? Number.NaN,
+                datesPracticed: repr?.datesPracticed ?? [],
                 comment: form.comment,
                 learning: form.learning,
               } as Repr

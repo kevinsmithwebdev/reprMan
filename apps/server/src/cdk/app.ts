@@ -12,7 +12,7 @@ function parseCorsOriginsString(
   raw: string | undefined,
   fallbacks: string[]
 ): string[] {
-  if (raw === undefined || raw === null || !String(raw).trim()) {
+  if (!raw?.trim()) {
     return [...fallbacks]
   }
   const list = String(raw)
@@ -25,11 +25,8 @@ function parseCorsOriginsString(
 function firstNonEmpty(
   ...candidates: (string | undefined)[]
 ): string | undefined {
-  const found = candidates.find((c) => {
-    if (c === undefined || c === null) return false
-    return Boolean(String(c).trim())
-  })
-  return found !== undefined ? String(found).trim() : undefined
+  const found = candidates.find((c) => Boolean(c?.trim()))
+  return found?.trim()
 }
 
 const devCors = parseCorsOriginsString(
@@ -48,16 +45,22 @@ const prodCors = parseCorsOriginsString(
   ['http://localhost:3000', 'https://www.reprman.com', 'https://reprman.com']
 )
 
-// eslint-disable-next-line no-new
-new ReprServerStack(app, 'ReprServerStack-Dev', {
-  env,
-  stage: 'dev',
-  corsAllowOrigins: devCors,
-})
+export const reprServerDevStack = new ReprServerStack(
+  app,
+  'ReprServerStack-Dev',
+  {
+    env,
+    stage: 'dev',
+    corsAllowOrigins: devCors,
+  }
+)
 
-// eslint-disable-next-line no-new
-new ReprServerStack(app, 'ReprServerStack-Prod', {
-  env,
-  stage: 'prod',
-  corsAllowOrigins: prodCors,
-})
+export const reprServerProdStack = new ReprServerStack(
+  app,
+  'ReprServerStack-Prod',
+  {
+    env,
+    stage: 'prod',
+    corsAllowOrigins: prodCors,
+  }
+)

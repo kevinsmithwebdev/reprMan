@@ -8,7 +8,9 @@ export const useReprs = () => {
   return {
     reprs,
     reprsLoaded,
-    // FIXME: use own selector
-    getRepr: (id: string) => (reprs.find((el) => el.id === id) || {}) as Repr,
+    getRepr: (id?: string): Repr | undefined => {
+      if (!id) return undefined
+      return reprs.find((el) => el.id === id)
+    },
   }
 }

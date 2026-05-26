@@ -5,7 +5,7 @@ import ReprButton, { ReprButtonType } from '@reprman/components/ReprButton'
 import { MAX_PRACTICED_DATES } from '@reprman/constants'
 import { ModalSelection } from '@reprman/modals/ModalContainer/ModalContainer.types'
 import { Button, Card } from 'react-bootstrap'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { useReprs } from '@reprman/state/reprs'
 import { getDateAndFrom } from '@reprman/utilities'
 import { useL10n } from '@reprman/localization'
@@ -15,21 +15,18 @@ const ViewRepr = () => {
   const { id = '' } = useParams()
   const { getRepr } = useReprs()
   const navigate = useNavigate()
+  const { t } = useL10n()
 
   const repr = getRepr(id)
 
-  // FIXME: better way?
   if (!repr) {
-    navigate('/', { replace: true })
-    return null
+    return <Navigate to="/" replace />
   }
 
   const { title, categories, dateCreated, datesPracticed, comment, learning } =
     repr
 
   const practicedStr = getPracticedStr(datesPracticed)
-
-  const { t } = useL10n()
 
   return (
     <div className="app-page-padded">

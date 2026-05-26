@@ -41,9 +41,9 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
       ref={containerRef}
     >
       {!hasReprs ? (
-        <p className="text-muted mb-0 px-3" role="status">
+        <output className="text-muted mb-0 px-3 d-block">
           {t('components.reprsList.emptyList')}
-        </p>
+        </output>
       ) : null}
       {hasReprs &&
         sections.map((section, sectionIndex) => (

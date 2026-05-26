@@ -9,9 +9,6 @@ import { getUserConfigHandler } from './userConfig'
 import { patchUserSettingsHandler } from './patchUserSettings'
 import { postTermsAcceptanceHandler } from './termsAcceptance'
 
-type Event = any
-type Result = any
-
 const serverBuildInfo = {
   version: process.env.APP_VERSION ?? 'unknown',
   buildNumber: process.env.APP_BUILD_NUMBER ?? 'local',
@@ -21,7 +18,7 @@ const serverBuildInfo = {
 
 console.info('[server-build]', serverBuildInfo)
 
-export const handler = async (event: Event): Promise<Result> => {
+export const handler = async (event: any): Promise<any> => {
   if (
     event.requestContext.http.method === 'GET' &&
     event.rawPath === '/user/config'

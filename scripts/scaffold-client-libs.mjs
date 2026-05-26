@@ -4,8 +4,8 @@
  * client nx lib. Vite consumes lib source directly via path aliases, so libs
  * have no `build` target — only `lint`. Tests are run from the consuming app.
  */
-import { writeFileSync, existsSync, mkdirSync } from 'fs'
-import { dirname, join } from 'path'
+import { writeFileSync, existsSync, mkdirSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 
 const LIBS = [
   { name: 'components', dir: 'libs/components' },

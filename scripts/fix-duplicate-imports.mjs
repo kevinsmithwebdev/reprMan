@@ -4,8 +4,8 @@
  * original `from 'modules'` + `from 'modules/ReprsApi'` split during
  * Phase 2 rewrites.
  */
-import { readFileSync, writeFileSync, statSync, readdirSync } from 'fs'
-import { extname, join } from 'path'
+import { readFileSync, writeFileSync, statSync, readdirSync } from 'node:fs'
+import { extname, join } from 'node:path'
 
 const ROOTS = ['apps/client-web/src', 'libs']
 const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs'])
