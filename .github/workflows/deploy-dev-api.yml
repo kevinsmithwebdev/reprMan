@@ -11,8 +11,12 @@ jobs:
       matrix:
         node-version: [24.x]
 
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v5
@@ -25,6 +29,13 @@ jobs:
 
       - name: Inspect (prettier, lint, tests)
         run: yarn inspect
+
+      - name: SonarQube scan
+        uses: ./.github/actions/sonar-scan
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-organization: ${{ vars.SONAR_ORGANIZATION }}
+          sonar-host-url: ${{ vars.SONAR_HOST_URL }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6

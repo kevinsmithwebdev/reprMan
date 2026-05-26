@@ -17,10 +17,13 @@ jobs:
       VITE_ALLOW_ANONYMOUS_HOME: ${{ secrets.VITE_ALLOW_ANONYMOUS_HOME || vars.VITE_ALLOW_ANONYMOUS_HOME || secrets.REACT_APP_ALLOW_ANONYMOUS_HOME || vars.REACT_APP_ALLOW_ANONYMOUS_HOME }}
       VITE_COGNITO_IDENTITY_POOL_ID: ${{ secrets.VITE_COGNITO_IDENTITY_POOL_ID || vars.VITE_COGNITO_IDENTITY_POOL_ID || secrets.REACT_APP_COGNITO_IDENTITY_POOL_ID || vars.REACT_APP_COGNITO_IDENTITY_POOL_ID }}
 
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v5
         with:
           ref: production
+          fetch-depth: 0
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v5
@@ -33,6 +36,13 @@ jobs:
 
       - name: Inspect (prettier, lint, tests)
         run: yarn inspect
+
+      - name: SonarQube scan
+        uses: ./.github/actions/sonar-scan
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-organization: ${{ vars.SONAR_ORGANIZATION }}
+          sonar-host-url: ${{ vars.SONAR_HOST_URL }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6

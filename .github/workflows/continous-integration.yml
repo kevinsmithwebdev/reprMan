@@ -6,16 +6,31 @@ jobs:
   buildAndTest:
     name: Build and Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
       - name: Use Node.js
         uses: actions/setup-node@v5
         with:
           node-version: '24.x'
           cache: yarn
+
       - name: Install Dependencies
         run: yarn install
+
       - name: Build
         run: yarn build
+
       - name: Test
         run: yarn inspect
+
+      - name: SonarQube scan
+        uses: ./.github/actions/sonar-scan
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-organization: ${{ vars.SONAR_ORGANIZATION }}
+          sonar-host-url: ${{ vars.SONAR_HOST_URL }}
