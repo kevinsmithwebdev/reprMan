@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.33.0",
+  "version": "0.34.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -58,6 +58,7 @@
     "migrate:repr-learning": "node scripts/backfill-repr-learning.mjs",
     "postinstall": "simple-git-hooks",
     "prettier": "prettier --write apps/client-web/src",
+    "sonar:scan": "sonar-scanner -Dsonar.organization=\"$SONAR_ORGANIZATION\"",
     "start": "nx serve client-web",
     "test:one": "sh ./scripts/testOne.sh",
     "test:server": "nx run server:test",
