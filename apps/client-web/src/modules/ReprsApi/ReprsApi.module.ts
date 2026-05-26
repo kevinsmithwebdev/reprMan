@@ -3,6 +3,7 @@
 /* eslint-disable no-empty-function */
 import { fetchAuthSession } from 'aws-amplify/auth'
 import { parseMaxReprsAllowed } from '@reprman/shared/quota'
+import { parseRepr, parseReprs } from '@reprman/shared/repr-validation'
 import { Repr, Reprs } from 'types'
 
 type Json = Record<string, unknown>
@@ -69,7 +70,7 @@ class ReprsApiModule {
 
   async listReprs(): Promise<Reprs> {
     const data = await request('/reprs', 'GET')
-    return (data.reprs ?? []) as Reprs
+    return parseReprs(data.reprs ?? [])
   }
 
   async getUserConfig(): Promise<UserConfigResponse> {
@@ -78,17 +79,13 @@ class ReprsApiModule {
   }
 
   async upsertRepr(repr: Repr): Promise<Repr> {
-    const data = await request(
-      `/reprs/${repr.id}`,
-      'PUT',
-      repr as unknown as Json
-    )
-    return data.repr as Repr
+    const data = await request(`/reprs/${repr.id}`, 'PUT', { ...repr })
+    return parseRepr(data.repr)
   }
 
   async markReprPracticed(id: string): Promise<Repr> {
     const data = await request(`/reprs/${id}/practice`, 'POST')
-    return data.repr as Repr
+    return parseRepr(data.repr)
   }
 
   async removeRepr(id: string): Promise<void> {

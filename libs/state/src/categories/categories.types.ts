@@ -1,3 +1,1 @@
-import { Categories } from '@reprman/types'
-
-export type { Categories }
+export type { Categories } from '@reprman/types'

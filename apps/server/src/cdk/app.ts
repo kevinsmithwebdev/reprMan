@@ -12,14 +12,14 @@ function parseCorsOriginsString(
   raw: string | undefined,
   fallbacks: string[]
 ): string[] {
-  if (!raw?.trim()) {
-    return [...fallbacks]
+  if (raw?.trim()) {
+    const list = String(raw)
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
+    return list.length === 0 ? [...fallbacks] : list
   }
-  const list = String(raw)
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-  return list.length > 0 ? list : [...fallbacks]
+  return [...fallbacks]
 }
 
 function firstNonEmpty(

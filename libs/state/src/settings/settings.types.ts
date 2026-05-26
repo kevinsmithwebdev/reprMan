@@ -1,3 +1,1 @@
-import { Settings } from '@reprman/types'
-
-export type { Settings }
+export type { Settings } from '@reprman/types'

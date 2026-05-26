@@ -40,12 +40,7 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
       }
       ref={containerRef}
     >
-      {!hasReprs ? (
-        <output className="text-muted mb-0 px-3 d-block">
-          {t('components.reprsList.emptyList')}
-        </output>
-      ) : null}
-      {hasReprs &&
+      {hasReprs ? (
         sections.map((section, sectionIndex) => (
           <ReprsListSection
             key={section.status}
@@ -54,7 +49,12 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
             reprs={section.reprs}
             marginTop={sectionIndex > 0}
           />
-        ))}
+        ))
+      ) : (
+        <output className="text-muted mb-0 px-3 d-block">
+          {t('components.reprsList.emptyList')}
+        </output>
+      )}
     </div>
   )
 }

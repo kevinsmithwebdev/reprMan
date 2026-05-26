@@ -46,7 +46,7 @@ export type PracticeSettings = {
 export function resolveMaxReprsAllowed(
   item: UserConfigItem | null | undefined
 ): number | null {
-  if (!item || !Object.prototype.hasOwnProperty.call(item, 'maxReprsAllowed')) {
+  if (!item || !Object.hasOwn(item, 'maxReprsAllowed')) {
     return DEFAULT_MAX_REPRS_ALLOWED
   }
   if (item.maxReprsAllowed === null) {

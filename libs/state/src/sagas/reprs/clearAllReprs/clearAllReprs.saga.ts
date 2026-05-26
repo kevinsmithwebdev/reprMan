@@ -40,8 +40,8 @@ function* clearThemAll() {
   const currentReprs = (yield select(selectReprs)) as Reprs
   try {
     if (isReprsApiConfigured) {
-      for (let i = 0; i < currentReprs.length; i += 1) {
-        yield reprsApi.removeRepr(currentReprs[i].id)
+      for (const repr of currentReprs) {
+        yield reprsApi.removeRepr(repr.id)
       }
     }
     yield put(clearAllReprs())

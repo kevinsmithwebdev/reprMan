@@ -297,7 +297,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             if (Object.keys(foundErrors).length > 0) {
               setErrors(foundErrors)
             } else {
-              const thisRepr = {
+              const thisRepr: Repr = {
                 id: repr?.id ?? '',
                 title: form.title,
                 categories,
@@ -305,7 +305,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                 datesPracticed: repr?.datesPracticed ?? [],
                 comment: form.comment,
                 learning: form.learning,
-              } as Repr
+              }
               store.dispatch(addReprSAC(thisRepr))
               closeModal()
             }
