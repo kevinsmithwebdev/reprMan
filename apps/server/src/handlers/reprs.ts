@@ -1,5 +1,7 @@
-import { getUserId, UnauthorizedError } from '../lib/auth'
+import { parseRepr } from '@reprman/shared/repr-validation'
+import { getUserId } from '../lib/auth'
 import { trackAction, trackDailyUniqueUser } from '../lib/analytics'
+import { mapHandlerError } from '../lib/handlerErrors'
 import { jsonResponse } from '../lib/http'
 import {
   countReprsForUser,
@@ -11,7 +13,6 @@ import {
   upsertRepr,
 } from '../lib/reprStore'
 import { resolveMaxReprsAllowed } from '../lib/userConfig'
-import { parseRepr } from '../lib/reprValidation'
 
 const reprLimitExceededResponse = (maxReprsAllowed: number) =>
   jsonResponse(403, {
@@ -19,19 +20,6 @@ const reprLimitExceededResponse = (maxReprsAllowed: number) =>
     message: `You cannot create more than ${maxReprsAllowed} reprs.`,
     maxReprsAllowed,
   })
-
-const handleError = (
-  error: unknown,
-  options: { defaultStatus: number; defaultMessage: string }
-): any => {
-  if (error instanceof UnauthorizedError) {
-    return jsonResponse(401, { message: 'Unauthorized' })
-  }
-
-  return jsonResponse(options.defaultStatus, {
-    message: options.defaultMessage,
-  })
-}
 
 export const getReprsHandler = async (event: any): Promise<any> => {
   try {
@@ -43,10 +31,7 @@ export const getReprsHandler = async (event: any): Promise<any> => {
     ])
     return jsonResponse(200, { reprs })
   } catch (error: unknown) {
-    return handleError(error, {
-      defaultStatus: 500,
-      defaultMessage: 'Internal server error',
-    })
+    return mapHandlerError(error)
   }
 }
 
@@ -78,7 +63,7 @@ export const putReprHandler = async (event: any): Promise<any> => {
     trackAction(result === 'created' ? 'create' : 'edit')
     return jsonResponse(200, { repr })
   } catch (error: unknown) {
-    return handleError(error, {
+    return mapHandlerError(error, {
       defaultStatus: 400,
       defaultMessage: 'Bad request',
     })
@@ -102,7 +87,7 @@ export const markReprPracticedHandler = async (event: any): Promise<any> => {
     trackAction('practice')
     return jsonResponse(200, { repr })
   } catch (error: unknown) {
-    return handleError(error, {
+    return mapHandlerError(error, {
       defaultStatus: 400,
       defaultMessage: 'Bad request',
     })
@@ -122,7 +107,7 @@ export const deleteReprHandler = async (event: any): Promise<any> => {
     trackAction('delete')
     return jsonResponse(200, { ok: true })
   } catch (error: unknown) {
-    return handleError(error, {
+    return mapHandlerError(error, {
       defaultStatus: 400,
       defaultMessage: 'Bad request',
     })

@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { Modal } from 'react-bootstrap'
+import ModalBodyParagraphs from '../common/ModalBodyParagraphs'
 
 export interface InfoProps {
   title: string
@@ -13,20 +14,7 @@ const Info: FC<InfoProps> = ({ title, body }) => {
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {body.map((b: string, idx: number) => {
-          const isHeader = b.at(-1) === ':'
-          const style = {
-            margin: isHeader ? '10px 0' : 0,
-            fontWeight: isHeader ? 'bold' : 'normal',
-            fontStyle: isHeader ? 'italic' : 'normal',
-          }
-          return (
-            // eslint-disable-next-line react/no-array-index-key
-            <p key={`${idx}`} style={style}>
-              {b}
-            </p>
-          )
-        })}
+        <ModalBodyParagraphs lines={body} />
       </Modal.Body>
     </>
   )

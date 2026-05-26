@@ -1,5 +1,6 @@
 import { validatePracticeSettingsPayload } from '@reprman/shared/quota'
-import { getUserId, UnauthorizedError } from '../lib/auth'
+import { getUserId } from '../lib/auth'
+import { mapHandlerError } from '../lib/handlerErrors'
 import { jsonResponse } from '../lib/http'
 import { getUserConfig, updateUserPracticeSettings } from '../lib/reprStore'
 import { resolvePracticeSettings } from '../lib/userConfig'
@@ -28,12 +29,6 @@ export const patchUserSettingsHandler = async (
     const practiceSettings = resolvePracticeSettings(config)
     return jsonResponse(200, practiceSettings)
   } catch (error: unknown) {
-    if (error instanceof UnauthorizedError) {
-      return jsonResponse(401, { message: 'Unauthorized' })
-    }
-    if (error instanceof SyntaxError) {
-      return jsonResponse(400, { message: 'Invalid JSON body' })
-    }
-    return jsonResponse(500, { message: 'Internal server error' })
+    return mapHandlerError(error)
   }
 }
