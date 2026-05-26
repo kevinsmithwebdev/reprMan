@@ -34,11 +34,11 @@ export const groupReprsByStatus = (
 
   reprs.forEach((repr) => {
     const status = getReprStatusForRepr(repr, settings)
-    byStatus.get(status)!.push(repr)
+    byStatus.get(status)?.push(repr)
   })
 
   return REPR_STATUS_SECTION_ORDER.map((status) => {
-    const sectionReprs = byStatus.get(status)!
+    const sectionReprs = byStatus.get(status) ?? []
     return {
       status,
       reprs:

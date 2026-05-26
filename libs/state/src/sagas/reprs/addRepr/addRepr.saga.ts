@@ -53,8 +53,10 @@ function* addReprWorker({ payload: repr }: any) {
   }
 
   const currentCategories = (yield select(selectCategories)) as Categories
-  // TODO: more efficient way to merge?
-  const mergedCategories = mergeCategories(currentCategories, repr.categories)
+  const mergedCategories =
+    repr.categories.length === 0
+      ? currentCategories
+      : mergeCategories(currentCategories, repr.categories)
   yield put(setCategories(mergedCategories))
 }
 

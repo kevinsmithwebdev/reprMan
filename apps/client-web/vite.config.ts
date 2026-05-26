@@ -5,7 +5,7 @@ import * as path from 'node:path'
 import { coverageConfigDefaults } from 'vitest/config'
 
 const root = path.resolve(__dirname, '../..')
-const posixPath = (p) => p.replace(/\\/g, '/')
+const posixPath = (p) => p.replaceAll('\\', '/')
 
 const lib = (name) => path.resolve(root, 'libs', name, 'src/index.ts')
 const libRoot = (name) => path.resolve(root, 'libs', name, 'src')

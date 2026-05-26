@@ -198,7 +198,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                   onChange={({ target: { value } }) =>
                     setEnteredCategory(value)
                   }
-                  onKeyPress={({ key }) => {
+                  onKeyDown={({ key }) => {
                     if (key === 'Enter') {
                       addCategory({
                         form,

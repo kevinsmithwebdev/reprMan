@@ -59,12 +59,12 @@ const Header = () => {
 
   const [narrowBrand, setNarrowBrand] = useState(
     () =>
-      typeof window !== 'undefined' &&
-      window.matchMedia(HEADER_BRAND_NARROW_MQ).matches
+      typeof globalThis.window !== 'undefined' &&
+      globalThis.window.matchMedia(HEADER_BRAND_NARROW_MQ).matches
   )
 
   useEffect(() => {
-    const mq = window.matchMedia(HEADER_BRAND_NARROW_MQ)
+    const mq = globalThis.window.matchMedia(HEADER_BRAND_NARROW_MQ)
     const sync = () => setNarrowBrand(mq.matches)
     sync()
     mq.addEventListener('change', sync)

@@ -25,7 +25,7 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { settings } = useSettings()
   const { title, id, datesPracticed, categories, comment } = repr
   const lastPracticed = getLastPracticedAt(datesPracticed)
-  const [, refreshCooldown] = useState(0)
+  const [_cooldownTick, setCooldownTick] = useState(0)
   const practiceOnCooldown = isWithinPracticeCooldown(datesPracticed)
   const reprColors = getReprColorsForRepr(repr, settings)
   const navigate = useNavigate()
@@ -33,11 +33,11 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   useEffect(() => {
     if (!practiceOnCooldown) return undefined
     const remaining = PRACTICE_COOLDOWN_MS - (Date.now() - lastPracticed)
-    const timeoutId = window.setTimeout(
-      () => refreshCooldown((n) => n + 1),
+    const timeoutId = globalThis.window.setTimeout(
+      () => setCooldownTick((n) => n + 1),
       remaining
     )
-    return () => window.clearTimeout(timeoutId)
+    return () => globalThis.window.clearTimeout(timeoutId)
   }, [lastPracticed, practiceOnCooldown])
 
   return (

@@ -20,7 +20,7 @@ const globalRef = globalThis as unknown as { jest: typeof vi }
 globalRef.jest = vi
 
 // jsdom does not implement matchMedia (used by ReprsList and others).
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(globalThis, 'matchMedia', {
   writable: true,
   configurable: true,
   value: vi.fn().mockImplementation((query: string) => ({
