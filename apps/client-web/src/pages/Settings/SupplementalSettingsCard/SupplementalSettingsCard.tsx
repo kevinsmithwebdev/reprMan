@@ -21,10 +21,7 @@ const SupplementalSettingsCard: FC<SupplementalSettingsCardProps> = ({
   subtitle,
   buttons,
 }) => (
-  <div
-    style={{ padding: '10px 0', borderBottom: '1px solid #ccc' }}
-    key={title}
-  >
+  <div style={{ padding: '10px 0', borderBottom: '1px solid #ccc' }}>
     <Card
       bg="light"
       style={{
@@ -46,7 +43,14 @@ const SupplementalSettingsCard: FC<SupplementalSettingsCardProps> = ({
           justifyContent: 'space-around',
         }}
       >
-        {buttons.map(SettingsButton)}
+        {buttons.map((button) => (
+          <SettingsButton
+            key={button.text}
+            text={button.text}
+            variant={button.variant}
+            onClick={button.onClick}
+          />
+        ))}
       </Card.Body>
     </Card>
   </div>

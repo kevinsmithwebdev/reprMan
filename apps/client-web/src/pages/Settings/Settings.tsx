@@ -120,8 +120,15 @@ const Settings = () => {
 
       <hr style={{ borderWidth: '3px' }} />
 
-      {/* @ts-ignore */}
-      {supplementalSettingsCardData.map(SupplementalSettingsCard)}
+      {supplementalSettingsCardData.map((cardData) => (
+        <SupplementalSettingsCard
+          key={cardData.title}
+          title={cardData.title}
+          subtitle={cardData.subtitle}
+          buttons={cardData.buttons}
+          info={cardData.info}
+        />
+      ))}
 
       <Card.Body style={{ textAlign: 'center', paddingTop: '20px' }}>
         {`${t('brand.copyright', {

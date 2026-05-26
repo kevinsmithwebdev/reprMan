@@ -33,6 +33,8 @@ yarn-error.log*
 
 # CDK deploy outputs (e.g. GitHub Actions prod workflow)
 apps/server/cdk-outputs.json
+apps/server/cdk.out
+apps/server/dist
 
 # stuff I don't want pushed
 /personal
