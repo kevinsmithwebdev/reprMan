@@ -5,6 +5,8 @@
  *
  * Vitest runs from apps/client-web, so SF entries are relative to that cwd
  * (e.g. src/App.tsx, ../../libs/state/src/store.ts).
+ *
+ * Idempotent: safe to run after tests and again before Sonar (CI does both).
  */
 import { readFileSync, writeFileSync } from 'node:fs'
 import { relative, resolve } from 'node:path'
@@ -13,13 +15,19 @@ const root = resolve(import.meta.dirname, '..')
 const vitestRoot = resolve(root, 'apps/client-web')
 const lcovPath = resolve(vitestRoot, 'coverage/lcov.info')
 
+const toPosix = (p) => p.replaceAll('\\', '/')
+
+const toRepoRelativePath = (rawPath) => {
+  const posix = toPosix(rawPath.replace(/^\.\/+/, ''))
+  if (posix.startsWith('libs/') || posix.startsWith('apps/')) {
+    return posix
+  }
+  return toPosix(relative(root, resolve(vitestRoot, rawPath)))
+}
+
 const lcov = readFileSync(lcovPath, 'utf8')
 const normalized = lcov.replace(/^SF:(.+)$/gm, (_, rawPath) => {
-  const repoRelative = relative(root, resolve(vitestRoot, rawPath)).replaceAll(
-    '\\',
-    '/'
-  )
-  return `SF:${repoRelative}`
+  return `SF:${toRepoRelativePath(rawPath)}`
 })
 
 writeFileSync(lcovPath, normalized)
