@@ -52,7 +52,7 @@ export function resolveMaxReprsAllowed(
   if (item.maxReprsAllowed === null) {
     return null
   }
-  return item.maxReprsAllowed as number
+  return item.maxReprsAllowed ?? null
 }
 
 /**

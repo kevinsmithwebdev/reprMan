@@ -38,6 +38,28 @@ describe('getUserConfigHandler', () => {
     expect(getUserConfigSpy).toHaveBeenCalledWith('user-1')
   })
 
+  it('returns stored terms metadata when present', async () => {
+    getUserConfigSpy.mockResolvedValue({
+      pk: 'USER#user-1',
+      sk: 'CONFIG',
+      maxReprsAllowed: null,
+      termsAcceptedAt: '2026-01-01T00:00:00.000Z',
+      termsVersion: '1',
+      practiceDelay: 10,
+      warningRatio: 0.8,
+    })
+
+    const res = await getUserConfigHandler(authEvent)
+    expect(JSON.parse(res.body)).toEqual({
+      maxReprsAllowed: null,
+      termsAcceptedAt: '2026-01-01T00:00:00.000Z',
+      termsVersion: '1',
+      currentTermsVersion: '1',
+      practiceDelay: 10,
+      warningRatio: 0.8,
+    })
+  })
+
   it('returns 401 when user is not authenticated', async () => {
     const res = await getUserConfigHandler({ requestContext: {} } as any)
     expect(res.statusCode).toBe(401)

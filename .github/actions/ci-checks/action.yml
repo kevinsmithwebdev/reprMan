@@ -19,4 +19,4 @@ runs:
 
     - name: Tests with coverage
       shell: bash
-      run: yarn test --silent
+      run: node scripts/run-all-coverage.mjs --silent

@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.43.0",
+  "version": "0.44.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -66,6 +66,7 @@
     "start": "nx serve client-web",
     "test:one": "sh ./scripts/testOne.sh",
     "test:server": "nx run server:test",
+    "test:coverage": "node scripts/run-all-coverage.mjs",
     "test:watch": "nx run client-web:test:watch",
     "test": "nx run client-web:test",
     "validate": "yarn prettier && yarn lint && prettier --check apps/client-web/src && yarn test --silent"

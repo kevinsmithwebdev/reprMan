@@ -68,4 +68,16 @@ describe('patchUserSettingsHandler', () => {
     expect(res.statusCode).toBe(401)
     expect(updateSpy).not.toHaveBeenCalled()
   })
+
+  it('returns 400 for invalid JSON', async () => {
+    const res = await patchUserSettingsHandler(authEvent('{'))
+    expect(res.statusCode).toBe(400)
+    expect(updateSpy).not.toHaveBeenCalled()
+  })
+
+  it('accepts an empty body as an empty object', async () => {
+    const res = await patchUserSettingsHandler(authEvent())
+    expect(res.statusCode).toBe(400)
+    expect(updateSpy).not.toHaveBeenCalled()
+  })
 })

@@ -1,6 +1,10 @@
-import { getUserId } from './auth'
+import { getUserId, UnauthorizedError } from './auth'
 
 describe('auth', () => {
+  it('names UnauthorizedError correctly', () => {
+    expect(new UnauthorizedError('nope').name).toBe('UnauthorizedError')
+  })
+
   it('returns user id from jwt claims', () => {
     const userId = getUserId({
       requestContext: {
@@ -22,6 +26,20 @@ describe('auth', () => {
           authorizer: {
             jwt: {
               claims: {},
+            },
+          },
+        },
+      } as any)
+    ).toThrow('Unauthorized')
+  })
+
+  it('throws when user claim is not a string', () => {
+    expect(() =>
+      getUserId({
+        requestContext: {
+          authorizer: {
+            jwt: {
+              claims: { sub: 123 },
             },
           },
         },

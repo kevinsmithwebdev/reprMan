@@ -116,6 +116,48 @@ describe('reprValidation', () => {
     expect(() => parseReprs({})).toThrow(/array/)
   })
 
+  it('throws when dateCreated is NaN', () => {
+    expect(() =>
+      parseRepr({
+        id: 'r1',
+        title: 't',
+        categories: [],
+        dateCreated: Number.NaN,
+        datesPracticed: [],
+        comment: '',
+      })
+    ).toThrow(/Invalid dateCreated/)
+  })
+
+  it('treats non-boolean learning values as false', () => {
+    const parsed = parseRepr({
+      id: 'r1',
+      title: 'Title',
+      categories: [],
+      dateCreated: 123,
+      datesPracticed: [],
+      comment: '',
+      learning: 'yes',
+    })
+    expect(parsed.learning).toBe(false)
+  })
+
+  it('throws when parseReprs contains an invalid repr', () => {
+    expect(() =>
+      parseReprs([
+        {
+          id: 'r1',
+          title: 'Title',
+          categories: ['a'],
+          dateCreated: 123,
+          datesPracticed: [456],
+          comment: 'ok',
+        },
+        { id: 'bad' },
+      ])
+    ).toThrow()
+  })
+
   it('parses repr arrays', () => {
     const reprs = parseReprs([
       {

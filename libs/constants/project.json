@@ -4,6 +4,13 @@
   "projectType": "library",
   "sourceRoot": "libs/constants/src",
   "targets": {
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx jest --config jest.config.js",
+        "cwd": "libs/constants"
+      }
+    },
     "lint": {
       "executor": "nx:run-commands",
       "options": {

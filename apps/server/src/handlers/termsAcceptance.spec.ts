@@ -48,12 +48,29 @@ describe('postTermsAcceptanceHandler', () => {
     expect(recordSpy).not.toHaveBeenCalled()
   })
 
+  it('rejects missing termsVersion in body', async () => {
+    const res = await postTermsAcceptanceHandler(authEvent({}))
+    expect(res.statusCode).toBe(400)
+    expect(recordSpy).not.toHaveBeenCalled()
+  })
+
   it('returns 401 when user is not authenticated', async () => {
     const res = await postTermsAcceptanceHandler({
       body: JSON.stringify({ termsVersion: '1' }),
       requestContext: {},
     } as any)
     expect(res.statusCode).toBe(401)
+    expect(recordSpy).not.toHaveBeenCalled()
+  })
+
+  it('returns 400 for invalid JSON', async () => {
+    const res = await postTermsAcceptanceHandler({
+      body: '{',
+      requestContext: {
+        authorizer: { jwt: { claims: { sub: 'user-1' } } },
+      },
+    } as any)
+    expect(res.statusCode).toBe(400)
     expect(recordSpy).not.toHaveBeenCalled()
   })
 })

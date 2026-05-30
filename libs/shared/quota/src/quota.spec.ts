@@ -39,6 +39,52 @@ describe('resolveMaxReprsAllowed', () => {
     }
     expect(resolveMaxReprsAllowed(item)).toBe(100)
   })
+
+  it('returns null when maxReprsAllowed is explicitly undefined', () => {
+    const item: UserConfigItem = {
+      pk: 'USER#x',
+      sk: 'CONFIG',
+      maxReprsAllowed: undefined,
+    }
+    expect(resolveMaxReprsAllowed(item)).toBeNull()
+  })
+})
+
+describe('DEFAULT_MAX_REPRS_ALLOWED', () => {
+  const originalEnv = process.env.DEFAULT_MAX_REPRS_ALLOWED
+
+  afterEach(() => {
+    if (originalEnv === undefined) {
+      delete process.env.DEFAULT_MAX_REPRS_ALLOWED
+    } else {
+      process.env.DEFAULT_MAX_REPRS_ALLOWED = originalEnv
+    }
+    jest.resetModules()
+  })
+
+  it('falls back to 25 when env var is not a finite number', () => {
+    process.env.DEFAULT_MAX_REPRS_ALLOWED = 'not-a-number'
+    jest.resetModules()
+    const { DEFAULT_MAX_REPRS_ALLOWED } =
+      require('./index') as typeof import('./index')
+    expect(DEFAULT_MAX_REPRS_ALLOWED).toBe(25)
+  })
+
+  it('falls back to 25 when env var is negative', () => {
+    process.env.DEFAULT_MAX_REPRS_ALLOWED = '-5'
+    jest.resetModules()
+    const { DEFAULT_MAX_REPRS_ALLOWED } =
+      require('./index') as typeof import('./index')
+    expect(DEFAULT_MAX_REPRS_ALLOWED).toBe(25)
+  })
+
+  it('uses a valid non-negative env var', () => {
+    process.env.DEFAULT_MAX_REPRS_ALLOWED = '50'
+    jest.resetModules()
+    const { DEFAULT_MAX_REPRS_ALLOWED } =
+      require('./index') as typeof import('./index')
+    expect(DEFAULT_MAX_REPRS_ALLOWED).toBe(50)
+  })
 })
 
 describe('parseMaxReprsAllowed', () => {
