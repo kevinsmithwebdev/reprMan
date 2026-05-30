@@ -1,5 +1,4 @@
-import { screen, waitFor } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -56,6 +55,10 @@ vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
     isCognitoConfigured: () => true,
   }
 })
+
+vi.mock('../cognitoSession', () => ({
+  userFromCognitoSession: vi.fn().mockResolvedValue(null),
+}))
 
 vi.mock('../CognitoAuthContext', async (importOriginal) => {
   const actual =
@@ -114,10 +117,11 @@ describe('CognitoAuthBar (integration)', () => {
     })
 
     expect(screen.getByText('JD')).toBeTruthy()
-    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
-    await userEvent.click(document.getElementById('cognito-sign-out')!)
+    fireEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    fireEvent.click(document.getElementById('cognito-sign-out')!)
+    await Promise.resolve()
 
-    await waitFor(() => expect(signOutMock).toHaveBeenCalled())
+    expect(signOutMock).toHaveBeenCalled()
     expect(store.getState().user).toEqual({ email: '' })
   })
 
@@ -138,16 +142,17 @@ describe('CognitoAuthBar (integration)', () => {
       },
     })
 
-    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
-    await userEvent.click(document.getElementById('cognito-delete-account')!)
+    fireEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    fireEvent.click(document.getElementById('cognito-delete-account')!)
     expect(screen.getByRole('dialog')).toBeTruthy()
 
     const deleteButtons = screen.getAllByRole('button', {
       name: 'auth.deleteAccount',
     })
-    await userEvent.click(deleteButtons.at(-1)!)
+    fireEvent.click(deleteButtons.at(-1)!)
+    await Promise.resolve()
 
-    await waitFor(() => expect(deleteUserMock).toHaveBeenCalled())
+    expect(deleteUserMock).toHaveBeenCalled()
     expect(store.getState().user).toEqual({ email: '' })
     expect(navigateMock).toHaveBeenCalledWith('/')
   })
@@ -169,13 +174,13 @@ describe('CognitoAuthBar (integration)', () => {
       },
     })
 
-    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    fireEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
     expect(screen.getByText('Jane Doe')).toBeTruthy()
-    await userEvent.click(document.getElementById('cognito-terms-of-use')!)
+    fireEvent.click(document.getElementById('cognito-terms-of-use')!)
     expect(navigateMock).toHaveBeenCalledWith('/terms')
 
     navigateMock.mockClear()
-    await userEvent.click(document.getElementById('cognito-change-password')!)
+    fireEvent.click(document.getElementById('cognito-change-password')!)
     expect(navigateMock).toHaveBeenCalledWith('/change-password')
   })
 
@@ -193,10 +198,11 @@ describe('CognitoAuthBar (integration)', () => {
       },
     })
 
-    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
-    await userEvent.click(document.getElementById('cognito-sign-out')!)
+    fireEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    fireEvent.click(document.getElementById('cognito-sign-out')!)
+    await Promise.resolve()
 
-    await waitFor(() => expect(signOutMock).toHaveBeenCalled())
+    expect(signOutMock).toHaveBeenCalled()
     expect(navigateMock).not.toHaveBeenCalled()
   })
 
@@ -214,14 +220,15 @@ describe('CognitoAuthBar (integration)', () => {
       },
     })
 
-    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
-    await userEvent.click(document.getElementById('cognito-delete-account')!)
+    fireEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    fireEvent.click(document.getElementById('cognito-delete-account')!)
     const deleteButtons = screen.getAllByRole('button', {
       name: 'auth.deleteAccount',
     })
-    await userEvent.click(deleteButtons.at(-1)!)
+    fireEvent.click(deleteButtons.at(-1)!)
+    await Promise.resolve()
 
-    await waitFor(() => expect(deleteUserMock).toHaveBeenCalled())
+    expect(deleteUserMock).toHaveBeenCalled()
     expect(navigateMock).not.toHaveBeenCalled()
   })
 
@@ -238,9 +245,9 @@ describe('CognitoAuthBar (integration)', () => {
       },
     })
 
-    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
-    await userEvent.click(document.getElementById('cognito-delete-account')!)
-    await userEvent.click(screen.getByRole('button', { name: 'auth.cancel' }))
+    fireEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    fireEvent.click(document.getElementById('cognito-delete-account')!)
+    fireEvent.click(screen.getByRole('button', { name: 'auth.cancel' }))
     expect(screen.queryByRole('dialog')).toBeNull()
   })
 })

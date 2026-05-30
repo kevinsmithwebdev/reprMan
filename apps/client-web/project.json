@@ -28,6 +28,7 @@
     "test": {
       "executor": "nx:run-commands",
       "outputs": ["{projectRoot}/coverage"],
+      "cache": false,
       "options": {
         "command": "node scripts/run-vitest-coverage.mjs",
         "cwd": "apps/client-web",

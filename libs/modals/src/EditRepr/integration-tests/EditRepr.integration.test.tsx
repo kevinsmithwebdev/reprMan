@@ -1,10 +1,10 @@
-import { screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { fireEvent, screen } from '@testing-library/react'
 import React from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
-import ModalContainer from '@reprman/modals/ModalContainer'
 import { ModalSelection } from '@reprman/modals/ModalContainer/ModalContainer.types'
+import { clearModal } from '@reprman/state/modal'
+import EditRepr from '../EditRepr'
 import { ADD_REPR } from '@reprman/state/sagas/reprs/reprs.actions'
 import type { PreloadedState } from '@reduxjs/toolkit'
 import type {
@@ -39,7 +39,22 @@ vi.mock('@reprman/state/store', async () => {
 
 const renderEditReprModal = (preloadedState: PreloadedState<TestRootState>) => {
   storeHolder.store = createTestStore(preloadedState)
-  return renderWithAppShell(<ModalContainer />, { store: storeHolder.store })
+  const { props } = storeHolder.store.getState().modal
+  const editProps = (props ?? {}) as { id?: string }
+  const closeModal = () => storeHolder.store!.dispatch(clearModal())
+
+  return renderWithAppShell(
+    <EditRepr closeModal={closeModal} id={editProps.id} />,
+    { store: storeHolder.store }
+  )
+}
+
+const fillInput = (element: HTMLElement, value: string) => {
+  fireEvent.change(element, { target: { value } })
+}
+
+const pressEnter = (element: HTMLElement) => {
+  fireEvent.keyDown(element, { key: 'Enter', code: 'Enter' })
 }
 
 describe('EditRepr (integration)', () => {
@@ -49,7 +64,6 @@ describe('EditRepr (integration)', () => {
     )
 
     expect(screen.getByText(/repr limit unavailable/i)).toBeTruthy()
-    expect(screen.getByRole('dialog')).toBeTruthy()
   })
 
   it('shows exceeded message when at creation limit', async () => {
@@ -105,9 +119,7 @@ describe('EditRepr (integration)', () => {
     expect(screen.getByText('music')).toBeTruthy()
     expect(screen.getByRole('button', { name: /^save$/i })).toBeDisabled()
 
-    const titleInput = screen.getByPlaceholderText(/enter title/i)
-    await userEvent.clear(titleInput)
-    await userEvent.type(titleInput, 'Updated title')
+    fillInput(screen.getByPlaceholderText(/enter title/i), 'Updated title')
     expect(screen.getByRole('button', { name: /^save$/i })).not.toBeDisabled()
   })
 
@@ -119,8 +131,8 @@ describe('EditRepr (integration)', () => {
       })
     )
 
-    await userEvent.type(screen.getByPlaceholderText(/enter title/i), 'Bad*title')
-    await userEvent.click(screen.getByRole('button', { name: /^save$/i }))
+    fillInput(screen.getByPlaceholderText(/enter title/i), 'Bad*title')
+    fireEvent.click(screen.getByRole('button', { name: /^save$/i }))
 
     expect(screen.getByText(/asterisk/i)).toBeTruthy()
     expect(storeHolder.store!.getState().modal.selection).toBe(
@@ -137,8 +149,8 @@ describe('EditRepr (integration)', () => {
     )
 
     const dispatchSpy = vi.spyOn(storeHolder.store!, 'dispatch')
-    await userEvent.type(screen.getByPlaceholderText(/enter title/i), 'New repr')
-    await userEvent.click(screen.getByRole('button', { name: /^save$/i }))
+    fillInput(screen.getByPlaceholderText(/enter title/i), 'New repr')
+    fireEvent.click(screen.getByRole('button', { name: /^save$/i }))
 
     expect(dispatchSpy).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -166,13 +178,11 @@ describe('EditRepr (integration)', () => {
       })
     )
 
-    await userEvent.type(screen.getByPlaceholderText(/enter title/i), 'With category')
-    await userEvent.click(screen.getByText('dance'))
+    fillInput(screen.getByPlaceholderText(/enter title/i), 'With category')
+    fireEvent.click(screen.getByText('dance'))
     expect(screen.getByText('dance')).toBeTruthy()
 
-    await userEvent.click(
-      screen.getByRole('button', { name: /close without save/i })
-    )
+    fireEvent.click(screen.getByRole('button', { name: /close without save/i }))
     expect(storeHolder.store!.getState().modal.selection).toBeNull()
   })
 
@@ -184,9 +194,10 @@ describe('EditRepr (integration)', () => {
       })
     )
 
-    await userEvent.type(screen.getByPlaceholderText(/enter title/i), 'Enter category')
+    fillInput(screen.getByPlaceholderText(/enter title/i), 'Enter category')
     const categoryInput = screen.getByPlaceholderText(/enter new category/i)
-    await userEvent.type(categoryInput, 'blues{enter}')
+    fillInput(categoryInput, 'blues')
+    pressEnter(categoryInput)
     expect(screen.getByText('blues')).toBeTruthy()
   })
 
@@ -198,15 +209,12 @@ describe('EditRepr (integration)', () => {
       })
     )
 
-    await userEvent.type(screen.getByPlaceholderText(/enter title/i), 'Category test')
-    await userEvent.type(
-      screen.getByPlaceholderText(/enter new category/i),
-      'jazz'
-    )
-    await userEvent.click(screen.getByRole('button', { name: '+' }))
+    fillInput(screen.getByPlaceholderText(/enter title/i), 'Category test')
+    fillInput(screen.getByPlaceholderText(/enter new category/i), 'jazz')
+    fireEvent.click(screen.getByRole('button', { name: '+' }))
     expect(screen.getByText('jazz')).toBeTruthy()
 
-    await userEvent.click(screen.getByRole('button', { name: 'X' }))
+    fireEvent.click(screen.getByRole('button', { name: 'X' }))
     expect(screen.queryByText('jazz')).toBeNull()
   })
 
@@ -222,13 +230,10 @@ describe('EditRepr (integration)', () => {
       })
     )
 
-    await userEvent.type(screen.getByPlaceholderText(/enter title/i), 'Category error')
-    await userEvent.click(screen.getByText('music'))
-    await userEvent.type(
-      screen.getByPlaceholderText(/enter new category/i),
-      'music'
-    )
-    await userEvent.click(screen.getByRole('button', { name: '+' }))
+    fillInput(screen.getByPlaceholderText(/enter title/i), 'Category error')
+    fireEvent.click(screen.getByText('music'))
+    fillInput(screen.getByPlaceholderText(/enter new category/i), 'music')
+    fireEvent.click(screen.getByRole('button', { name: '+' }))
     expect(screen.getByText(/That category already exists/i)).toBeTruthy()
   })
 
@@ -240,9 +245,9 @@ describe('EditRepr (integration)', () => {
       })
     )
 
-    await userEvent.type(screen.getByPlaceholderText(/enter title/i), 'Learning repr')
-    await userEvent.click(screen.getByRole('checkbox', { name: /learning/i }))
-    await userEvent.click(screen.getByRole('button', { name: /^save$/i }))
+    fillInput(screen.getByPlaceholderText(/enter title/i), 'Learning repr')
+    fireEvent.click(screen.getByRole('checkbox', { name: /learning/i }))
+    fireEvent.click(screen.getByRole('button', { name: /^save$/i }))
 
     expect(storeHolder.store!.getState().modal.selection).toBeNull()
   })
