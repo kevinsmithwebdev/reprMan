@@ -30,6 +30,17 @@ runs:
           exit 1
         fi
         if [ -n "$SONAR_ORGANIZATION" ]; then
+          org_status="$(curl -sS -o /tmp/sonar-org-check.json -w "%{http_code}" \
+            -u "${SONAR_TOKEN}:" \
+            "https://sonarcloud.io/api/organizations/search?organizations=${SONAR_ORGANIZATION}")"
+          if [ "$org_status" != "200" ]; then
+            echo "::error::SonarCloud organization '${SONAR_ORGANIZATION}' was not found (HTTP ${org_status})."
+            echo "SONAR_ORGANIZATION must be your SonarCloud organization key, not the project key."
+            echo "Project key (sonar-project.properties): kevinsmithwebdev_reprMan"
+            echo "Organization key is usually your GitHub username or org name, e.g. kevinsmithwebdev."
+            echo "Find it at https://sonarcloud.io/account/organizations → Organization → Administration → Key"
+            exit 1
+          fi
           echo "sonar_mode=cloud" >> "$GITHUB_ENV"
           echo "Using SonarCloud (organization: $SONAR_ORGANIZATION)."
         elif [ -n "$SONAR_HOST_URL" ]; then
