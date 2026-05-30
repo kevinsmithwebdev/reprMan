@@ -87,7 +87,7 @@ const CognitoAuthBar = () => {
     }
   }
 
-  if (!isCognitoConfigured) {
+  if (!isCognitoConfigured()) {
     return null
   }
 

@@ -7,7 +7,7 @@ import { setCategories } from '@reprman/state/categories'
 import { STORE_REPRS } from '../reprs.actions'
 import { getAllCategories } from '../../reprs.helpers'
 
-function* storeReprsWorker({ payload: rawReprs }: any) {
+export function* storeReprsWorker({ payload: rawReprs }: any) {
   const cleanReprs = _getCleanReprs(rawReprs)
 
   yield put(setReprs(cleanReprs))

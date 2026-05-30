@@ -1,3 +1,4 @@
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import moment from 'moment'
 import {
   isWithinPracticeCooldown,
@@ -45,12 +46,12 @@ describe('isWithinPracticeCooldown', () => {
 
 describe('ReprLine.helpers', () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date(BASE_DATE))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(BASE_DATE))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('getReprColors', () => {

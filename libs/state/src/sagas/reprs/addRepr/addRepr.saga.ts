@@ -3,13 +3,13 @@ import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
 import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
 import { selectReprs, setReprs } from '@reprman/state/reprs'
-import { Categories, Reprs, ToastLevel } from '@reprman/types'
+import { Categories, Repr, Reprs, ToastLevel } from '@reprman/types'
 import { selectCategories, setCategories } from '@reprman/state/categories'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { ADD_REPR } from '../reprs.actions'
 import { mergeCategories } from '../../reprs.helpers'
 
-function* addReprWorker({ payload: repr }: any) {
+export function* addReprWorker({ payload: repr }: any) {
   const reprsApi = ReprsApiModule.getInstance()
 
   const currentReprs = (yield select(selectReprs)) as Reprs

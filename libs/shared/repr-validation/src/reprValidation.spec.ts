@@ -45,6 +45,75 @@ describe('reprValidation', () => {
 
   it('throws on invalid repr', () => {
     expect(() => parseRepr({ id: 'r1' })).toThrow()
+    expect(() => parseRepr(null)).toThrow()
+    expect(() => parseRepr('x')).toThrow()
+  })
+
+  it('throws when repr fields have wrong types', () => {
+    expect(() =>
+      parseRepr({
+        id: 1,
+        title: 't',
+        categories: [],
+        dateCreated: 0,
+        datesPracticed: [],
+        comment: '',
+      })
+    ).toThrow(/Invalid id/)
+    expect(() =>
+      parseRepr({
+        id: 'r1',
+        title: 't',
+        categories: [1],
+        dateCreated: 0,
+        datesPracticed: [],
+        comment: '',
+      })
+    ).toThrow(/Invalid categories/)
+    expect(() =>
+      parseRepr({
+        id: 'r1',
+        title: 't',
+        categories: [],
+        dateCreated: 'x',
+        datesPracticed: [],
+        comment: '',
+      })
+    ).toThrow(/Invalid dateCreated/)
+    expect(() =>
+      parseRepr({
+        id: 'r1',
+        title: 't',
+        categories: [],
+        dateCreated: 0,
+        datesPracticed: ['x'],
+        comment: '',
+      })
+    ).toThrow(/Invalid datesPracticed/)
+    expect(() =>
+      parseRepr({
+        id: 'r1',
+        title: 1,
+        categories: [],
+        dateCreated: 0,
+        datesPracticed: [],
+        comment: '',
+      })
+    ).toThrow(/Invalid title/)
+    expect(() =>
+      parseRepr({
+        id: 'r1',
+        title: 't',
+        categories: [],
+        dateCreated: 0,
+        datesPracticed: [],
+        comment: 1,
+      })
+    ).toThrow(/Invalid comment/)
+  })
+
+  it('throws when parseReprs input is not an array', () => {
+    expect(() => parseReprs({})).toThrow(/array/)
   })
 
   it('parses repr arrays', () => {

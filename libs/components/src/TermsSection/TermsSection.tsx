@@ -8,7 +8,7 @@ interface TermsSectionProps {
 
 const TermsSection: FC<TermsSectionProps> = ({ slug }) => {
   const { t } = useL10n()
-  const section = t(slug, { returnObjects: true }) as {
+  const section = t(slug, { returnObjects: true }) as unknown as {
     subtitle: string
     body: string[][]
   }

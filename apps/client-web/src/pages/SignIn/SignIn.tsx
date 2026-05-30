@@ -25,15 +25,15 @@ const SignIn = () => {
     t: tForm,
   } = useCognitoSignIn(refreshSession, () => navigate('/', { replace: true }))
 
-  if (!homeAuthGateActive || signedIn) {
+  if (!homeAuthGateActive() || signedIn) {
     return <Navigate to="/" replace />
   }
 
-  if (isCognitoConfigured && !sessionChecked) {
+  if (isCognitoConfigured() && !sessionChecked) {
     return <CenteredSpinner id="SignIn-page" />
   }
 
-  if (!isCognitoConfigured) {
+  if (!isCognitoConfigured()) {
     return (
       <AuthUnavailableCard
         pageId="SignIn-page"

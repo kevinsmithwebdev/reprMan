@@ -9,8 +9,8 @@ vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
   >()
   return {
     ...actual,
-    isCognitoConfigured: false,
-    homeAuthGateActive: false,
+    isCognitoConfigured: () => false,
+    homeAuthGateActive: () => false,
   }
 })
 

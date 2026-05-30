@@ -38,6 +38,7 @@ alwaysApply: false
 
 - Test **include** and **coverage** live in [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Lib tests are included via globs such as `../../libs/components/src/**` and `../../libs/utilities/src/**/*.test.ts`.
 - Coverage uses **`allowExternal: true`** and **POSIX-style absolute `coverage.include` paths** so `libs/**` appears on Windows; if you change coverage layout, keep those constraints in mind.
+- **Per-file thresholds** (with `--coverage`): pure `*.{ts,js}` (not `.tsx`) → **100%**; `*.{tsx,jsx}` → **≥80%** in every column; `*.{helpers,helper}.*`, `libs/utilities`, and `libs/shared` → **100%**. Type-only files and barrels (`*.types.ts`, `index.ts`) are excluded from coverage.
 
 ## Commands
 

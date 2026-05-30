@@ -51,18 +51,16 @@ function pageTitleKeyForPath(pathname: string): string | null {
 /** Below 1000px viewport width, omit "Repertoire Management" from the navbar brand. */
 const HEADER_BRAND_NARROW_MQ = '(max-width: 999px)'
 
+export const initialNarrowBrand = (): boolean =>
+  globalThis.window?.matchMedia(HEADER_BRAND_NARROW_MQ).matches ?? false
+
 const Header = () => {
   const location = useLocation()
   const rootPath = `/${location.pathname.split('/')[1]}`
   const { t } = useL10n()
   const { sessionChecked, signedIn } = useCognitoAuth()
 
-  const [narrowBrand, setNarrowBrand] = useState(() => {
-    if (globalThis.window === undefined) {
-      return false
-    }
-    return globalThis.window.matchMedia(HEADER_BRAND_NARROW_MQ).matches
-  })
+  const [narrowBrand, setNarrowBrand] = useState(initialNarrowBrand)
 
   useEffect(() => {
     const mq = globalThis.window.matchMedia(HEADER_BRAND_NARROW_MQ)
@@ -95,7 +93,7 @@ const Header = () => {
     { name: t('pages.settings.title'), path: '/settings' },
   ] as RouteData[]
 
-  const settingsNavDisabled = homeAuthGateActive && sessionChecked && !signedIn
+  const settingsNavDisabled = homeAuthGateActive() && sessionChecked && !signedIn
 
   return (
     <div

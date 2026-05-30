@@ -5,7 +5,7 @@ import { makeToastSAC } from '../toast/toast.actions'
 import { ToastLevel } from '@reprman/types'
 import { SAVE_USER_SETTINGS, saveUserSettingsSAC } from './settings.actions'
 
-function* saveUserSettingsWorker({
+export function* saveUserSettingsWorker({
   payload,
 }: ReturnType<typeof saveUserSettingsSAC>) {
   if (!isReprsApiConfigured) {

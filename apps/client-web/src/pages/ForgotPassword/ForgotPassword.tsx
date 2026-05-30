@@ -21,15 +21,15 @@ const ForgotPassword = () => {
     navigate('/signin', { replace: true })
   )
 
-  if (!homeAuthGateActive || signedIn) {
+  if (!homeAuthGateActive() || signedIn) {
     return <Navigate to="/" replace />
   }
 
-  if (isCognitoConfigured && !sessionChecked) {
+  if (isCognitoConfigured() && !sessionChecked) {
     return <CenteredSpinner id="ForgotPassword-page" />
   }
 
-  if (!isCognitoConfigured) {
+  if (!isCognitoConfigured()) {
     return (
       <AuthUnavailableCard
         pageId="ForgotPassword-page"

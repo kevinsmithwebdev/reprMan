@@ -1,7 +1,35 @@
 import moment from 'moment'
-import { _getRateOfPracticedStr } from './ViewRepr.helpers'
+import { describe, expect, it } from 'vitest'
+
+import { _getRateOfPracticedStr, getPracticedStr } from './ViewRepr.helpers'
 
 const getUTCValue = (dateString: string) => moment.utc(dateString).valueOf()
+
+describe('getPracticedStr', () => {
+  it('reports when never practiced', () => {
+    expect(getPracticedStr([])).toBe('You have not practiced this repr.')
+  })
+
+  it('reports single practice', () => {
+    expect(getPracticedStr([1])).toBe('You have only practiced this repr once.')
+  })
+
+  it('reports identical first and last practice times', () => {
+    expect(getPracticedStr([100, 100])).toBe(
+      'There is no difference in your practice times.'
+    )
+  })
+
+  it('reports span and rate for multiple distinct practices', () => {
+    const dates = [
+      getUTCValue('2022-12-01T12:00:00Z'),
+      getUTCValue('2022-11-30T15:00:00Z'),
+    ]
+    const result = getPracticedStr(dates)
+    expect(result).toContain('You have practiced this repr 2 times')
+    expect(result).toContain('times per')
+  })
+})
 
 describe('_getRateOfPracticedStr', () => {
   describe('with bad data', () => {

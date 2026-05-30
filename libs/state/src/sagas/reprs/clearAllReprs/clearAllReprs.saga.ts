@@ -8,8 +8,7 @@ import { callConfirmation } from '@reprman/modals/Confirmation'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { CLEAR_ALL_REPRS } from '../reprs.actions'
 
-// @ts-ignore
-function* clearAllReprsWorker() {
+export function* clearAllReprsWorker() {
   // @ts-ignore
   const isFirstResponseAffirmative = yield call(callConfirmation, {
     title: 'Clear All Reprs Confirmation',
@@ -35,7 +34,7 @@ function* clearAllReprsWorker() {
 
 export default [takeLatest(CLEAR_ALL_REPRS, clearAllReprsWorker)]
 
-function* clearThemAll() {
+export function* clearThemAll() {
   const reprsApi = ReprsApiModule.getInstance()
   const currentReprs = (yield select(selectReprs)) as Reprs
   try {

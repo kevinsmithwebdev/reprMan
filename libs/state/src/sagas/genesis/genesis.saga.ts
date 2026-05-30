@@ -5,7 +5,7 @@ import { resetMaxReprsQuota } from '@reprman/state/reprsQuota'
 import { loadReprsSAC } from '../reprs/reprs.actions'
 import { RUN_GENESIS, type RunGenesisPayload } from './genesis.actions'
 
-function* runGenesisWorker(action: {
+export function* runGenesisWorker(action: {
   type: string
   payload?: RunGenesisPayload
 }) {

@@ -1,7 +1,7 @@
 import { delay, takeLatest } from 'redux-saga/effects'
 import { SHOW_PING } from '../ping.actions'
 
-function* showPingWorker({ payload }: any) {
+export function* showPingWorker({ payload }: any) {
   yield delay(500)
 
   console.info('SAGA worker PONG!!!')

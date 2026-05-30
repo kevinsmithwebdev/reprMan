@@ -64,11 +64,11 @@ const Settings = () => {
 
   const { t } = useL10n()
 
-  if (homeAuthGateActive && isCognitoConfigured && !sessionChecked) {
+  if (homeAuthGateActive() && isCognitoConfigured() && !sessionChecked) {
     return <CenteredSpinner id="Settings-page" />
   }
 
-  if (homeAuthGateActive && !signedIn) {
+  if (homeAuthGateActive() && !signedIn) {
     return <Navigate to="/" replace />
   }
 
@@ -126,7 +126,6 @@ const Settings = () => {
           title={cardData.title}
           subtitle={cardData.subtitle}
           buttons={cardData.buttons}
-          info={cardData.info}
         />
       ))}
 

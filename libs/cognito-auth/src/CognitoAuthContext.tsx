@@ -27,10 +27,10 @@ export const CognitoAuthProvider = ({
 }) => {
   const dispatch = useDispatch()
   const { user } = useUser()
-  const [sessionChecked, setSessionChecked] = useState(!isCognitoConfigured)
+  const [sessionChecked, setSessionChecked] = useState(!isCognitoConfigured())
 
   const refreshSession = useCallback(async () => {
-    if (!isCognitoConfigured) {
+    if (!isCognitoConfigured()) {
       return
     }
     try {
@@ -48,7 +48,7 @@ export const CognitoAuthProvider = ({
   }, [dispatch])
 
   useEffect(() => {
-    if (!isCognitoConfigured) {
+    if (!isCognitoConfigured()) {
       return
     }
     refreshSession()

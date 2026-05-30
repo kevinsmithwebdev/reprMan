@@ -16,9 +16,6 @@ const Signup = () => {
   const [acceptedTerms, setAcceptedTerms] = useState(false)
 
   const recordTermsAcceptance = useCallback(async () => {
-    if (!isReprsApiConfigured) {
-      return
-    }
     await ReprsApiModule.getInstance().acceptTerms(TERMS_VERSION)
   }, [])
 
@@ -28,7 +25,7 @@ const Signup = () => {
       : undefined,
   })
 
-  if (!isCognitoConfigured) {
+  if (!isCognitoConfigured()) {
     return (
       <AuthUnavailableCard
         pageId="Signup-page"

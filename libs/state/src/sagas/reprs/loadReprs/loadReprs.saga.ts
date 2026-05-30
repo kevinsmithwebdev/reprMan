@@ -9,7 +9,7 @@ import { setSettingsAC } from '@reprman/state/settings/settings.actions'
 import { Reprs } from '@reprman/types'
 import { LOAD_REPRS, storeReprsSAC } from '../reprs.actions'
 
-function* loadReprsWorker() {
+export function* loadReprsWorker() {
   if (!isReprsApiConfigured) {
     yield put(resetMaxReprsQuota())
     yield put(storeReprsSAC([] as Reprs))

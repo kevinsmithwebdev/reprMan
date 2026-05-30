@@ -27,8 +27,9 @@
     },
     "test": {
       "executor": "nx:run-commands",
+      "outputs": ["{projectRoot}/coverage"],
       "options": {
-        "command": "node ../../node_modules/vitest/vitest.mjs run --coverage",
+        "command": "node scripts/run-vitest-coverage.mjs",
         "cwd": "apps/client-web",
         "forwardAllArgs": true
       }
@@ -43,7 +44,7 @@
     "lint": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx eslint \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0",
+        "command": "npx eslint \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0 --cache --cache-location .eslintcache",
         "cwd": "apps/client-web"
       }
     }

@@ -1,7 +1,6 @@
 import React from 'react'
 import Toast from 'react-bootstrap/Toast'
 import ToastContainer from 'react-bootstrap/ToastContainer'
-import toast from '@reprman/state/sagas/toast'
 import store from '@reprman/state/store'
 import { removeToastAC, useToasts } from '@reprman/state/toasts'
 import { ToastData, ToastLevel } from '@reprman/types'
@@ -9,7 +8,7 @@ import { ToastData, ToastLevel } from '@reprman/types'
 const ToastWrapper = () => {
   const { toasts } = useToasts()
 
-  if (toast.length === 0) return null
+  if (toasts.length === 0) return null
 
   return (
     <ToastContainer

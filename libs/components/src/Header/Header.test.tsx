@@ -1,0 +1,39 @@
+import { screen } from '@testing-library/react'
+import React from 'react'
+import { describe, expect, it, vi } from 'vitest'
+
+import { renderWithAppShell } from '../../../../apps/client-web/src/test-utils'
+import Header, { initialNarrowBrand } from './Header'
+
+describe('initialNarrowBrand', () => {
+  it('is false when window is unavailable', () => {
+    const savedWindow = globalThis.window
+    Reflect.deleteProperty(globalThis, 'window')
+
+    try {
+      expect(initialNarrowBrand()).toBe(false)
+    } finally {
+      globalThis.window = savedWindow
+    }
+  })
+})
+
+describe('Header', () => {
+  it('syncs narrow brand when matchMedia reports a narrow viewport', () => {
+    globalThis.matchMedia = vi.fn().mockImplementation((query: string) => ({
+      matches: query.includes('max-width'),
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    }))
+
+    renderWithAppShell(<Header />, { initialEntries: ['/about'] })
+    expect(screen.getByText(/HOME/i)).toBeTruthy()
+    const brand = document.getElementById('header-brand')
+    expect(brand?.textContent).not.toMatch(/Repertoire Management/i)
+  })
+})

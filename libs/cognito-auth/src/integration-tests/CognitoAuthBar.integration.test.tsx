@@ -1,0 +1,246 @@
+import { screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import React from 'react'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
+
+import { renderWithAppShell } from '../../../../apps/client-web/src/test-utils'
+import CognitoAuthBar from '../CognitoAuthBar'
+
+const {
+  signOutMock,
+  deleteUserMock,
+  navigateMock,
+  MockAuthError,
+  useCognitoAuthMock,
+} = vi.hoisted(() => {
+  class MockAuthError extends Error {
+    override name = 'AuthError'
+  }
+  return {
+    signOutMock: vi.fn(),
+    deleteUserMock: vi.fn(),
+    navigateMock: vi.fn(),
+    MockAuthError,
+    useCognitoAuthMock: vi.fn(() => ({
+      sessionChecked: true,
+      signedIn: false,
+      refreshSession: vi.fn(),
+    })),
+  }
+})
+
+vi.mock('aws-amplify/auth', () => ({
+  AuthError: MockAuthError,
+  signOut: signOutMock,
+  deleteUser: deleteUserMock,
+}))
+
+vi.mock('@reprman/localization', () => ({
+  useL10n: () => ({ t: (key: string) => key }),
+}))
+
+vi.mock('react-router-dom', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('react-router-dom')>()
+  return {
+    ...actual,
+    useNavigate: () => navigateMock,
+  }
+})
+
+vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
+  const actual = await importOriginal<
+    typeof import('@reprman/cognito-auth/configureAmplify')
+  >()
+  return {
+    ...actual,
+    isCognitoConfigured: () => true,
+  }
+})
+
+vi.mock('../CognitoAuthContext', async (importOriginal) => {
+  const actual =
+    await importOriginal<typeof import('../CognitoAuthContext')>()
+  return {
+    ...actual,
+    useCognitoAuth: useCognitoAuthMock,
+  }
+})
+
+describe('CognitoAuthBar (integration)', () => {
+  beforeEach(() => {
+    signOutMock.mockReset()
+    deleteUserMock.mockReset()
+    navigateMock.mockReset()
+    signOutMock.mockResolvedValue(undefined)
+    deleteUserMock.mockResolvedValue(undefined)
+    useCognitoAuthMock.mockReturnValue({
+      sessionChecked: true,
+      signedIn: false,
+      refreshSession: vi.fn(),
+    })
+  })
+
+  it('shows spinner while session is unchecked', () => {
+    useCognitoAuthMock.mockReturnValue({
+      sessionChecked: false,
+      signedIn: false,
+      refreshSession: vi.fn(),
+    })
+
+    renderWithAppShell(<CognitoAuthBar />)
+    expect(screen.getByRole('status')).toBeTruthy()
+  })
+
+  it('shows sign-in button when signed out', () => {
+    renderWithAppShell(<CognitoAuthBar />)
+    expect(document.getElementById('cognito-sign-in-open')).toBeTruthy()
+  })
+
+  it('shows avatar menu for signed-in user and signs out', async () => {
+    useCognitoAuthMock.mockReturnValue({
+      sessionChecked: true,
+      signedIn: true,
+      refreshSession: vi.fn(),
+    })
+
+    const { store } = renderWithAppShell(<CognitoAuthBar />, {
+      preloadedState: {
+        user: {
+          email: 'user@example.com',
+          userId: 'sub-1',
+          name: 'Jane Doe',
+        },
+      },
+    })
+
+    expect(screen.getByText('JD')).toBeTruthy()
+    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    await userEvent.click(document.getElementById('cognito-sign-out')!)
+
+    await waitFor(() => expect(signOutMock).toHaveBeenCalled())
+    expect(store.getState().user).toEqual({ email: '' })
+  })
+
+  it('deletes account from confirmation modal', async () => {
+    useCognitoAuthMock.mockReturnValue({
+      sessionChecked: true,
+      signedIn: true,
+      refreshSession: vi.fn(),
+    })
+
+    const { store } = renderWithAppShell(<CognitoAuthBar />, {
+      preloadedState: {
+        user: {
+          email: 'user@example.com',
+          userId: 'sub-1',
+          name: 'Jane Doe',
+        },
+      },
+    })
+
+    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    await userEvent.click(document.getElementById('cognito-delete-account')!)
+    expect(screen.getByRole('dialog')).toBeTruthy()
+
+    const deleteButtons = screen.getAllByRole('button', {
+      name: 'auth.deleteAccount',
+    })
+    await userEvent.click(deleteButtons.at(-1)!)
+
+    await waitFor(() => expect(deleteUserMock).toHaveBeenCalled())
+    expect(store.getState().user).toEqual({ email: '' })
+    expect(navigateMock).toHaveBeenCalledWith('/')
+  })
+
+  it('navigates to terms and change-password from menu', async () => {
+    useCognitoAuthMock.mockReturnValue({
+      sessionChecked: true,
+      signedIn: true,
+      refreshSession: vi.fn(),
+    })
+
+    renderWithAppShell(<CognitoAuthBar />, {
+      preloadedState: {
+        user: {
+          email: 'user@example.com',
+          userId: 'sub-1',
+          name: 'Jane Doe',
+        },
+      },
+    })
+
+    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    expect(screen.getByText('Jane Doe')).toBeTruthy()
+    await userEvent.click(document.getElementById('cognito-terms-of-use')!)
+    expect(navigateMock).toHaveBeenCalledWith('/terms')
+
+    navigateMock.mockClear()
+    await userEvent.click(document.getElementById('cognito-change-password')!)
+    expect(navigateMock).toHaveBeenCalledWith('/change-password')
+  })
+
+  it('shows auth error toast when sign-out fails', async () => {
+    useCognitoAuthMock.mockReturnValue({
+      sessionChecked: true,
+      signedIn: true,
+      refreshSession: vi.fn(),
+    })
+    signOutMock.mockRejectedValue(new MockAuthError('Sign out failed'))
+
+    renderWithAppShell(<CognitoAuthBar />, {
+      preloadedState: {
+        user: { email: 'user@example.com', userId: 'sub-1' },
+      },
+    })
+
+    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    await userEvent.click(document.getElementById('cognito-sign-out')!)
+
+    await waitFor(() => expect(signOutMock).toHaveBeenCalled())
+    expect(navigateMock).not.toHaveBeenCalled()
+  })
+
+  it('shows auth error toast when delete account fails', async () => {
+    useCognitoAuthMock.mockReturnValue({
+      sessionChecked: true,
+      signedIn: true,
+      refreshSession: vi.fn(),
+    })
+    deleteUserMock.mockRejectedValue(new MockAuthError('Delete failed'))
+
+    renderWithAppShell(<CognitoAuthBar />, {
+      preloadedState: {
+        user: { email: 'user@example.com', userId: 'sub-1' },
+      },
+    })
+
+    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    await userEvent.click(document.getElementById('cognito-delete-account')!)
+    const deleteButtons = screen.getAllByRole('button', {
+      name: 'auth.deleteAccount',
+    })
+    await userEvent.click(deleteButtons.at(-1)!)
+
+    await waitFor(() => expect(deleteUserMock).toHaveBeenCalled())
+    expect(navigateMock).not.toHaveBeenCalled()
+  })
+
+  it('closes delete-account modal from cancel', async () => {
+    useCognitoAuthMock.mockReturnValue({
+      sessionChecked: true,
+      signedIn: true,
+      refreshSession: vi.fn(),
+    })
+
+    renderWithAppShell(<CognitoAuthBar />, {
+      preloadedState: {
+        user: { email: 'user@example.com', userId: 'sub-1' },
+      },
+    })
+
+    await userEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
+    await userEvent.click(document.getElementById('cognito-delete-account')!)
+    await userEvent.click(screen.getByRole('button', { name: 'auth.cancel' }))
+    expect(screen.queryByRole('dialog')).toBeNull()
+  })
+})

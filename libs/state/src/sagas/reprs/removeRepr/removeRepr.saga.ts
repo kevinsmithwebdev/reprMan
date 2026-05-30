@@ -6,8 +6,7 @@ import { callConfirmation } from '@reprman/modals/Confirmation'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { REMOVE_REPR } from '../reprs.actions'
 
-// @ts-ignore
-function* removeReprWorker({ payload: id }: any) {
+export function* removeReprWorker({ payload: id }: any) {
   const currentReprs = (yield select(selectReprs)) as Reprs
   const index = currentReprs.findIndex((r) => r.id === id)
 

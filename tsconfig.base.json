@@ -52,8 +52,12 @@
       "@reprman/types/*": ["libs/types/src/*"],
 
       "@reprman/theme": ["libs/theme/src/index.ts"],
-      "@reprman/theme/*": ["libs/theme/src/*"]
+      "@reprman/theme/*": ["libs/theme/src/*"],
+
+      "@client-web/test-utils": ["apps/client-web/src/test-utils/index.ts"],
+      "@client-web/test-utils/*": ["apps/client-web/src/test-utils/*"]
     }
   },
+  "files": ["vitest-jest-dom.d.ts"],
   "exclude": ["node_modules", "**/node_modules"]
 }

@@ -31,11 +31,16 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: yarn
 
-      - name: Install
-        run: yarn install
+      - name: Restore CI caches
+        uses: ./.github/actions/restore-ci-cache
 
-      - name: Inspect (prettier, lint, tests)
-        run: yarn inspect
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: CI checks
+        uses: ./.github/actions/ci-checks
+        with:
+          nx-base: HEAD~1
 
       - name: SonarQube scan
         uses: ./.github/actions/sonar-scan

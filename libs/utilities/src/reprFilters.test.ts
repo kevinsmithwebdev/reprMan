@@ -1,25 +1,29 @@
 import { describe, expect, it } from 'vitest'
 
-import type { CategoryFilter } from '@reprman/types'
+import type { CategoryFilter, Repr } from '@reprman/types'
 
 import { getFilteredReprs } from './reprFilters'
 
-const reprs = [
+const reprs: Repr[] = [
   {
     id: '1',
     title: 'Alpha',
     comment: 'one',
     categories: ['cat1'],
-    practicedDates: [],
+    datesPracticed: [],
+    dateCreated: 0,
+    learning: false,
   },
   {
     id: '2',
     title: 'Beta',
     comment: 'two',
     categories: ['cat2'],
-    practicedDates: [],
+    datesPracticed: [],
+    dateCreated: 0,
+    learning: false,
   },
-] as const
+]
 
 const emptyFilter: CategoryFilter = { text: '', categories: [] }
 

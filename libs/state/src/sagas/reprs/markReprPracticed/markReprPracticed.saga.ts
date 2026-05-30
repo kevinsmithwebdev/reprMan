@@ -7,7 +7,7 @@ import { withPracticeApplied } from '@reprman/shared/repr-rules'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { MARK_REPR_PRACTICED } from '../reprs.actions'
 
-function* markReprPracticedWorker({ payload: id }: any) {
+export function* markReprPracticedWorker({ payload: id }: any) {
   const reprsApi = ReprsApiModule.getInstance()
 
   const currentReprs = (yield select(selectReprs)) as Reprs
