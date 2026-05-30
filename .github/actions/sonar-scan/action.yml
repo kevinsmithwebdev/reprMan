@@ -64,6 +64,7 @@ runs:
           echo "::error::Missing apps/client-web/coverage/lcov.info. Run tests with coverage before the Sonar scan."
           exit 1
         }
+        node scripts/normalize-lcov-paths.mjs
 
     - name: SonarQube Scan (SonarCloud)
       if: env.sonar_mode == 'cloud'

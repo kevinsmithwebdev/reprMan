@@ -104,6 +104,7 @@ export default defineConfig({
       '../../libs/cognito-auth/src/**/*.test.{ts,tsx}',
       '../../libs/cognito-auth/src/**/integration-tests/**/*.{test,spec}.{ts,tsx}',
       '../../libs/reprs-api/src/**/*.test.{ts,tsx}',
+      '../../libs/theme/src/**/*.test.{ts,tsx}',
       '../../libs/shared/*/src/**/*.spec.{ts,tsx}',
       '../../libs/shared/repr-rules/src/**/*.test.{ts,tsx}',
     ],

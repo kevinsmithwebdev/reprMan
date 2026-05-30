@@ -27,7 +27,7 @@ export function createHookTestStore(
         })
       )
     }
-    return baseDispatch(action as never)
+    return baseDispatch(action)
   }) as typeof store.dispatch
 
   return store

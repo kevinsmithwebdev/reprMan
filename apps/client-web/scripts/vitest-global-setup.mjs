@@ -6,12 +6,16 @@ import { spawnSync } from 'node:child_process'
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const repoRoot = resolve(root, '../..')
 
-mkdirSync(resolve(root, 'coverage', '.tmp'), { recursive: true })
+export default function setup() {
+  mkdirSync(resolve(root, 'coverage', '.tmp'), { recursive: true })
 
-spawnSync(process.execPath, [resolve(repoRoot, 'scripts/patch-vitest-coverage.mjs')], {
-  cwd: root,
-  stdio: 'inherit',
-  env: process.env,
-})
-
-export default function setup() {}
+  spawnSync(
+    process.execPath,
+    [resolve(repoRoot, 'scripts/patch-vitest-coverage.mjs')],
+    {
+      cwd: root,
+      stdio: 'inherit',
+      env: process.env,
+    }
+  )
+}

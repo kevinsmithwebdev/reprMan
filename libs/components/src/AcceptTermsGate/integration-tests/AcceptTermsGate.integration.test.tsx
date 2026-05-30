@@ -4,6 +4,8 @@ import React from 'react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 
 import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
+import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
+import { ToastLevel } from '@reprman/types'
 import AcceptTermsGate from '..'
 
 const acceptTerms = vi.fn().mockResolvedValue({
@@ -66,5 +68,57 @@ describe('AcceptTermsGate (integration)', () => {
     await userEvent.click(submit)
 
     expect(acceptTerms).toHaveBeenCalledWith('1')
+  })
+
+  it('shows a toast when accept terms fails', async () => {
+    acceptTerms.mockRejectedValueOnce(new Error('network'))
+
+    const { store } = renderWithAppShell(<AcceptTermsGate />, {
+      preloadedState: {
+        reprsQuota: {
+          maxReprsAllowed: 25,
+          termsVersion: null,
+          currentTermsVersion: '1',
+        },
+        user: {
+          email: 'user@example.com',
+          userId: 'user-1',
+        },
+      },
+      initialEntries: ['/'],
+    })
+    const dispatchSpy = vi.spyOn(store, 'dispatch')
+
+    await userEvent.click(screen.getByRole('checkbox'))
+    await userEvent.click(screen.getByRole('button', { name: /accept/i }))
+
+    expect(dispatchSpy).toHaveBeenCalledWith(
+      makeToastSAC({
+        body: 'Could not record your acceptance. Check your connection and try again.',
+        level: ToastLevel.FAIL,
+        delay: 8000,
+      })
+    )
+    dispatchSpy.mockRestore()
+  })
+
+  it('does not show the modal on the terms route', () => {
+    renderWithAppShell(<AcceptTermsGate />, {
+      preloadedState: {
+        reprsQuota: {
+          maxReprsAllowed: 25,
+          termsVersion: null,
+          currentTermsVersion: '1',
+        },
+        user: {
+          email: 'user@example.com',
+          userId: 'user-1',
+        },
+      },
+      initialEntries: ['/terms'],
+    })
+
+    expect(screen.queryByRole('dialog')).toBeNull()
+    expect(acceptTerms).not.toHaveBeenCalled()
   })
 })

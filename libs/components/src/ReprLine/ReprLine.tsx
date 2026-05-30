@@ -25,7 +25,7 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { settings } = useSettings()
   const { title, id, datesPracticed, categories, comment } = repr
   const lastPracticed = getLastPracticedAt(datesPracticed)
-  const [cooldownVersion, bumpCooldownRender] = useReducer(
+  const [, bumpCooldownRender] = useReducer(
     (version: number) => version + 1,
     0
   )
