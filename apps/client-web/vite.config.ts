@@ -86,12 +86,10 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.ts'],
     globalSetup: ['./scripts/vitest-global-setup.mjs'],
-    css: true,
-    fileParallelism: false,
-    maxWorkers: 1,
-    sequence: {
-      concurrent: false,
-    },
+    // `forks` gives each worker its own process (safe with per-file `vi.mock` and jsdom).
+    // `threads` + parallel files share one jsdom per worker → empty `<body />` flakes.
+    pool: 'forks',
+    css: false,
     include: [
       'src/**/*.test.{ts,tsx}',
       'src/**/integration-tests/**/*.test.{ts,tsx}',
