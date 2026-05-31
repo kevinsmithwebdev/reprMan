@@ -13,4 +13,17 @@ describe('TermsLink (integration)', () => {
     expect(screen.getByRole('dialog')).toBeTruthy()
     expect(screen.getByText('Purpose')).toBeTruthy()
   })
+
+  it('closes terms modal when back is clicked', async () => {
+    renderWithAppShell(<TermsLink>View terms</TermsLink>)
+    await userEvent.click(screen.getByRole('button', { name: /view terms/i }))
+    expect(screen.getByRole('dialog')).toBeTruthy()
+    await userEvent.click(screen.getByRole('button', { name: /back/i }))
+    expect(screen.queryByRole('dialog')).toBeNull()
+  })
+
+  it('uses default label when children are omitted', () => {
+    renderWithAppShell(<TermsLink />)
+    expect(screen.getByRole('button', { name: /terms of use/i })).toBeTruthy()
+  })
 })

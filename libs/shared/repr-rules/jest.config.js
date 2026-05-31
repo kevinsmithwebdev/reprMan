@@ -11,6 +11,6 @@ module.exports = {
     prefix: '<rootDir>/../../../',
   }),
   coverageDirectory: 'coverage',
-  coverageReporters: ['text', 'lcov'],
+  coverageReporters: [['text', { maxCols: 200 }], 'lcov'],
   coverageProvider: 'v8',
 }

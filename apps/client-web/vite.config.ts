@@ -108,6 +108,7 @@ export default defineConfig({
       '../../libs/shared/repr-validation/src/**/*.test.{ts,tsx}',
       '../../libs/shared/repr-model/src/**/*.test.{js,ts}',
       '../../libs/shared/repr-rules/src/**/*.test.{ts,tsx}',
+      '../../libs/shared/quota/src/**/*.test.{ts,tsx}',
     ],
     coverage: {
       ...coverageConfigDefaults,
@@ -115,7 +116,7 @@ export default defineConfig({
       // With default `allowExternal: false`, those files are omitted from coverage.
       allowExternal: true,
       provider: 'v8',
-      reporter: ['text', 'lcov'],
+      reporter: [['text', { maxCols: 200 }], 'lcov'],
       reportsDirectory: './coverage',
       reportOnFailure: true,
       exclude: [

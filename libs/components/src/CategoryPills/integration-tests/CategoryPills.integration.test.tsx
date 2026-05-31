@@ -24,4 +24,10 @@ describe('CategoryPills (integration)', () => {
     await userEvent.click(screen.getByText('m'))
     expect(onClick).toHaveBeenCalledWith('m')
   })
+
+  it('uses default onClick when prop is omitted', async () => {
+    renderWithAppShell(<CategoryPills categories={['a']} />)
+
+    await userEvent.click(screen.getByText('a'))
+  })
 })

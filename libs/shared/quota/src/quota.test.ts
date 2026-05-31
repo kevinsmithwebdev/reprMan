@@ -3,196 +3,272 @@ import {
   DEFAULT_PRACTICE_DELAY,
   DEFAULT_WARNING_RATIO,
   parseMaxReprsAllowed,
+  PRACTICE_DELAY_MAX,
+  PRACTICE_DELAY_MIN,
   resolveMaxReprsAllowed,
   resolvePracticeDelay,
   resolvePracticeSettings,
   resolveWarningRatio,
   validatePracticeSettingsPayload,
-  type UserConfigItem,
 } from './index'
 
-describe('resolveMaxReprsAllowed', () => {
-  it('uses DEFAULT_MAX_REPRS_ALLOWED when config is missing', () => {
-    expect(resolveMaxReprsAllowed(null)).toBe(DEFAULT_MAX_REPRS_ALLOWED)
-    expect(resolveMaxReprsAllowed(undefined)).toBe(DEFAULT_MAX_REPRS_ALLOWED)
-  })
+describe('quota', () => {
+  describe('DEFAULT_MAX_REPRS_ALLOWED', () => {
+    const envKey = 'DEFAULT_MAX_REPRS_ALLOWED'
 
-  it('uses default when item has no maxReprsAllowed attribute', () => {
-    const item = { pk: 'USER#x', sk: 'CONFIG' } as UserConfigItem
-    expect(resolveMaxReprsAllowed(item)).toBe(DEFAULT_MAX_REPRS_ALLOWED)
-  })
+    afterEach(() => {
+      delete process.env[envKey]
+      jest.resetModules()
+    })
 
-  it('returns null for explicit unlimited', () => {
-    const item: UserConfigItem = {
-      pk: 'USER#x',
-      sk: 'CONFIG',
-      maxReprsAllowed: null,
+    async function loadQuotaModule() {
+      jest.resetModules()
+      return import('./index')
     }
-    expect(resolveMaxReprsAllowed(item)).toBeNull()
-  })
 
-  it('returns stored numeric cap', () => {
-    const item: UserConfigItem = {
-      pk: 'USER#x',
-      sk: 'CONFIG',
-      maxReprsAllowed: 100,
-    }
-    expect(resolveMaxReprsAllowed(item)).toBe(100)
-  })
+    it('falls back to 25 when env is invalid or negative', async () => {
+      process.env[envKey] = 'not-a-number'
+      await expect(loadQuotaModule()).resolves.toMatchObject({
+        DEFAULT_MAX_REPRS_ALLOWED: 25,
+      })
 
-  it('returns null when maxReprsAllowed is explicitly undefined', () => {
-    const item: UserConfigItem = {
-      pk: 'USER#x',
-      sk: 'CONFIG',
-      maxReprsAllowed: undefined,
-    }
-    expect(resolveMaxReprsAllowed(item)).toBeNull()
-  })
-})
+      process.env[envKey] = '-1'
+      await expect(loadQuotaModule()).resolves.toMatchObject({
+        DEFAULT_MAX_REPRS_ALLOWED: 25,
+      })
+    })
 
-describe('DEFAULT_MAX_REPRS_ALLOWED', () => {
-  const originalEnv = process.env.DEFAULT_MAX_REPRS_ALLOWED
+    it('uses a valid non-negative env value', async () => {
+      process.env[envKey] = '50'
+      await expect(loadQuotaModule()).resolves.toMatchObject({
+        DEFAULT_MAX_REPRS_ALLOWED: 50,
+      })
+    })
 
-  afterEach(() => {
-    if (originalEnv === undefined) {
-      delete process.env.DEFAULT_MAX_REPRS_ALLOWED
-    } else {
-      process.env.DEFAULT_MAX_REPRS_ALLOWED = originalEnv
-    }
-    jest.resetModules()
-  })
-
-  it('falls back to 25 when env var is not a finite number', () => {
-    process.env.DEFAULT_MAX_REPRS_ALLOWED = 'not-a-number'
-    jest.resetModules()
-    const { DEFAULT_MAX_REPRS_ALLOWED } =
-      require('./index') as typeof import('./index')
-    expect(DEFAULT_MAX_REPRS_ALLOWED).toBe(25)
-  })
-
-  it('falls back to 25 when env var is negative', () => {
-    process.env.DEFAULT_MAX_REPRS_ALLOWED = '-5'
-    jest.resetModules()
-    const { DEFAULT_MAX_REPRS_ALLOWED } =
-      require('./index') as typeof import('./index')
-    expect(DEFAULT_MAX_REPRS_ALLOWED).toBe(25)
-  })
-
-  it('uses a valid non-negative env var', () => {
-    process.env.DEFAULT_MAX_REPRS_ALLOWED = '50'
-    jest.resetModules()
-    const { DEFAULT_MAX_REPRS_ALLOWED } =
-      require('./index') as typeof import('./index')
-    expect(DEFAULT_MAX_REPRS_ALLOWED).toBe(50)
-  })
-})
-
-describe('parseMaxReprsAllowed', () => {
-  it('returns null for explicit null', () => {
-    expect(parseMaxReprsAllowed(null)).toBeNull()
-  })
-
-  it('returns the number for numeric input', () => {
-    expect(parseMaxReprsAllowed(42)).toBe(42)
-  })
-
-  it('returns undefined for everything else', () => {
-    expect(parseMaxReprsAllowed(undefined)).toBeUndefined()
-    expect(parseMaxReprsAllowed('100')).toBeUndefined()
-    expect(parseMaxReprsAllowed({})).toBeUndefined()
-  })
-})
-
-describe('resolvePracticeSettings', () => {
-  it('uses defaults when config is missing', () => {
-    expect(resolvePracticeSettings(null)).toEqual({
-      practiceDelay: DEFAULT_PRACTICE_DELAY,
-      warningRatio: DEFAULT_WARNING_RATIO,
+    it('exports the module default when env is unset', () => {
+      expect(DEFAULT_MAX_REPRS_ALLOWED).toBe(25)
     })
   })
 
-  it('returns stored values when present', () => {
-    const item: UserConfigItem = {
-      pk: 'USER#x',
-      sk: 'CONFIG',
-      practiceDelay: 14,
-      warningRatio: 0.7,
-    }
-    expect(resolvePracticeSettings(item)).toEqual({
-      practiceDelay: 14,
-      warningRatio: 0.7,
+  describe('resolveMaxReprsAllowed', () => {
+    it('returns default when item is missing', () => {
+      expect(resolveMaxReprsAllowed(null)).toBe(DEFAULT_MAX_REPRS_ALLOWED)
+      expect(resolveMaxReprsAllowed(undefined)).toBe(DEFAULT_MAX_REPRS_ALLOWED)
+    })
+
+    it('returns default when maxReprsAllowed key is absent', () => {
+      expect(resolveMaxReprsAllowed({ pk: 'u', sk: 'config' })).toBe(
+        DEFAULT_MAX_REPRS_ALLOWED
+      )
+    })
+
+    it('returns null for explicit unlimited', () => {
+      expect(
+        resolveMaxReprsAllowed({ pk: 'u', sk: 'config', maxReprsAllowed: null })
+      ).toBeNull()
+    })
+
+    it('returns the configured cap', () => {
+      expect(
+        resolveMaxReprsAllowed({ pk: 'u', sk: 'config', maxReprsAllowed: 10 })
+      ).toBe(10)
+    })
+
+    it('returns null when key is present but value is undefined', () => {
+      expect(
+        resolveMaxReprsAllowed({
+          pk: 'u',
+          sk: 'config',
+          maxReprsAllowed: undefined,
+        })
+      ).toBeNull()
     })
   })
-})
 
-describe('validatePracticeSettingsPayload', () => {
-  it('accepts valid settings', () => {
-    const result = validatePracticeSettingsPayload({
-      practiceDelay: 21,
-      warningRatio: 0.55,
+  describe('parseMaxReprsAllowed', () => {
+    it('maps null to unlimited', () => {
+      expect(parseMaxReprsAllowed(null)).toBeNull()
     })
-    expect(result).toEqual({
-      ok: true,
-      value: { practiceDelay: 21, warningRatio: 0.6 },
+
+    it('passes through numbers', () => {
+      expect(parseMaxReprsAllowed(42)).toBe(42)
+    })
+
+    it('returns undefined for other values', () => {
+      expect(parseMaxReprsAllowed(undefined)).toBeUndefined()
+      expect(parseMaxReprsAllowed('25')).toBeUndefined()
     })
   })
 
-  it('rejects out-of-range practiceDelay', () => {
-    const result = validatePracticeSettingsPayload({
-      practiceDelay: 400,
-      warningRatio: 0.5,
+  describe('resolvePracticeDelay', () => {
+    it('returns default when missing or invalid', () => {
+      expect(resolvePracticeDelay(null)).toBe(DEFAULT_PRACTICE_DELAY)
+      expect(resolvePracticeDelay({ pk: 'u', sk: 'config' })).toBe(
+        DEFAULT_PRACTICE_DELAY
+      )
+      expect(
+        resolvePracticeDelay({ pk: 'u', sk: 'config', practiceDelay: NaN })
+      ).toBe(DEFAULT_PRACTICE_DELAY)
+      expect(
+        resolvePracticeDelay({
+          pk: 'u',
+          sk: 'config',
+          practiceDelay: '30' as unknown as number,
+        })
+      ).toBe(DEFAULT_PRACTICE_DELAY)
     })
-    expect(result.ok).toBe(false)
+
+    it('rounds and clamps to allowed range', () => {
+      expect(
+        resolvePracticeDelay({ pk: 'u', sk: 'config', practiceDelay: 45.6 })
+      ).toBe(46)
+      expect(
+        resolvePracticeDelay({ pk: 'u', sk: 'config', practiceDelay: -5 })
+      ).toBe(PRACTICE_DELAY_MIN)
+      expect(
+        resolvePracticeDelay({
+          pk: 'u',
+          sk: 'config',
+          practiceDelay: PRACTICE_DELAY_MAX + 10,
+        })
+      ).toBe(PRACTICE_DELAY_MAX)
+    })
   })
 
-  it('rejects non-object body', () => {
-    expect(validatePracticeSettingsPayload(null).ok).toBe(false)
-    expect(validatePracticeSettingsPayload('x').ok).toBe(false)
+  describe('resolveWarningRatio', () => {
+    it('returns default when missing or invalid', () => {
+      expect(resolveWarningRatio(null)).toBe(DEFAULT_WARNING_RATIO)
+      expect(resolveWarningRatio({ pk: 'u', sk: 'config' })).toBe(
+        DEFAULT_WARNING_RATIO
+      )
+      expect(
+        resolveWarningRatio({ pk: 'u', sk: 'config', warningRatio: Infinity })
+      ).toBe(DEFAULT_WARNING_RATIO)
+    })
+
+    it('rounds to one decimal and clamps between 0 and 1', () => {
+      expect(
+        resolveWarningRatio({ pk: 'u', sk: 'config', warningRatio: 0.66 })
+      ).toBe(0.7)
+      expect(
+        resolveWarningRatio({ pk: 'u', sk: 'config', warningRatio: -0.2 })
+      ).toBe(0)
+      expect(
+        resolveWarningRatio({ pk: 'u', sk: 'config', warningRatio: 1.5 })
+      ).toBe(1)
+    })
   })
 
-  it('rejects invalid practiceDelay and warningRatio types', () => {
-    expect(
-      validatePracticeSettingsPayload({ practiceDelay: 'x', warningRatio: 0.5 })
-        .ok
-    ).toBe(false)
-    expect(
-      validatePracticeSettingsPayload({ practiceDelay: 10, warningRatio: 'x' })
-        .ok
-    ).toBe(false)
+  describe('resolvePracticeSettings', () => {
+    it('combines delay and warning ratio', () => {
+      expect(
+        resolvePracticeSettings({
+          pk: 'u',
+          sk: 'config',
+          practiceDelay: 14,
+          warningRatio: 0.3,
+        })
+      ).toEqual({ practiceDelay: 14, warningRatio: 0.3 })
+    })
   })
 
-  it('rejects out-of-range warningRatio', () => {
-    expect(
-      validatePracticeSettingsPayload({
-        practiceDelay: 10,
-        warningRatio: 2,
-      }).ok
-    ).toBe(false)
-  })
-})
+  describe('validatePracticeSettingsPayload', () => {
+    it('rejects non-object bodies', () => {
+      expect(validatePracticeSettingsPayload(null)).toEqual({
+        ok: false,
+        message: 'Request body must be a JSON object',
+      })
+      expect(validatePracticeSettingsPayload('bad')).toEqual({
+        ok: false,
+        message: 'Request body must be a JSON object',
+      })
+    })
 
-describe('resolvePracticeDelay', () => {
-  it('clamps and rounds invalid or out-of-range values', () => {
-    expect(
-      resolvePracticeDelay({ practiceDelay: 9999 } as UserConfigItem)
-    ).toBe(365)
-    expect(resolvePracticeDelay({ practiceDelay: -5 } as UserConfigItem)).toBe(
-      0
-    )
-    expect(
-      resolvePracticeDelay({ practiceDelay: 14.7 } as UserConfigItem)
-    ).toBe(15)
-    expect(resolvePracticeDelay(null)).toBe(DEFAULT_PRACTICE_DELAY)
-  })
-})
+    it('rejects invalid practiceDelay', () => {
+      expect(
+        validatePracticeSettingsPayload({
+          practiceDelay: '30',
+          warningRatio: 0.5,
+        })
+      ).toEqual({
+        ok: false,
+        message: 'practiceDelay must be a finite number',
+      })
+      expect(
+        validatePracticeSettingsPayload({
+          practiceDelay: NaN,
+          warningRatio: 0.5,
+        })
+      ).toEqual({
+        ok: false,
+        message: 'practiceDelay must be a finite number',
+      })
+    })
 
-describe('resolveWarningRatio', () => {
-  it('clamps ratio to 0–1', () => {
-    expect(resolveWarningRatio({ warningRatio: 2 } as UserConfigItem)).toBe(1)
-    expect(resolveWarningRatio({ warningRatio: -1 } as UserConfigItem)).toBe(0)
-    expect(resolveWarningRatio({ warningRatio: 0.44 } as UserConfigItem)).toBe(
-      0.4
-    )
-    expect(resolveWarningRatio(null)).toBe(DEFAULT_WARNING_RATIO)
+    it('rejects invalid warningRatio', () => {
+      expect(
+        validatePracticeSettingsPayload({
+          practiceDelay: 30,
+          warningRatio: null,
+        })
+      ).toEqual({
+        ok: false,
+        message: 'warningRatio must be a finite number',
+      })
+    })
+
+    it('rejects out-of-range practiceDelay', () => {
+      expect(
+        validatePracticeSettingsPayload({
+          practiceDelay: -1,
+          warningRatio: 0.5,
+        })
+      ).toEqual({
+        ok: false,
+        message: `practiceDelay must be between ${PRACTICE_DELAY_MIN} and ${PRACTICE_DELAY_MAX}`,
+      })
+      expect(
+        validatePracticeSettingsPayload({
+          practiceDelay: PRACTICE_DELAY_MAX + 1,
+          warningRatio: 0.5,
+        })
+      ).toEqual({
+        ok: false,
+        message: `practiceDelay must be between ${PRACTICE_DELAY_MIN} and ${PRACTICE_DELAY_MAX}`,
+      })
+    })
+
+    it('rejects out-of-range warningRatio', () => {
+      expect(
+        validatePracticeSettingsPayload({
+          practiceDelay: 30,
+          warningRatio: 1.1,
+        })
+      ).toEqual({
+        ok: false,
+        message: 'warningRatio must be between 0 and 1',
+      })
+      expect(
+        validatePracticeSettingsPayload({
+          practiceDelay: 30,
+          warningRatio: -0.1,
+        })
+      ).toEqual({
+        ok: false,
+        message: 'warningRatio must be between 0 and 1',
+      })
+    })
+
+    it('accepts valid payloads with rounded values', () => {
+      expect(
+        validatePracticeSettingsPayload({
+          practiceDelay: 30.4,
+          warningRatio: 0.66,
+        })
+      ).toEqual({
+        ok: true,
+        value: { practiceDelay: 30, warningRatio: 0.7 },
+      })
+    })
   })
 })
