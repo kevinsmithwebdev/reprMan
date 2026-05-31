@@ -1,11 +1,13 @@
 {
   "name": "repr-man-web",
-  "version": "0.51.0",
+  "version": "0.52.0",
   "private": true,
   "engines": {
     "node": ">=20"
   },
   "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.1042.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.1042.0",
     "@aws-sdk/client-dynamodb": "^3.1042.0",
     "@aws-sdk/lib-dynamodb": "^3.1042.0",
     "@reduxjs/toolkit": "^1.8.2",
@@ -59,6 +61,7 @@
     "lint": "nx run client-web:lint",
     "migrate:user-config": "node scripts/backfill-user-config.mjs",
     "migrate:repr-learning": "node scripts/backfill-repr-learning.mjs",
+    "users:list": "node scripts/list-users.mjs",
     "postinstall": "simple-git-hooks && node scripts/patch-vitest-coverage.mjs",
     "prettier": "prettier --write apps/client-web/src",
     "prettier:check": "prettier --check apps/client-web/src",
