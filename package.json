@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.47.0",
+  "version": "0.48.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -69,7 +69,7 @@
     "test:coverage": "node scripts/run-all-coverage.mjs",
     "test:watch": "nx run client-web:test:watch",
     "test": "nx run client-web:test",
-    "validate": "yarn prettier && yarn lint && prettier --check apps/client-web/src && yarn test --silent"
+    "validate": "yarn lint && prettier --check apps/client-web/src && yarn test --silent"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.9",
