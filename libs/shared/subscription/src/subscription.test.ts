@@ -125,6 +125,10 @@ describe('daysUntilExpiration', () => {
   it('returns null for missing expiration', () => {
     expect(daysUntilExpiration(null)).toBeNull()
   })
+
+  it('returns null for unparseable expiration', () => {
+    expect(daysUntilExpiration('not-a-date')).toBeNull()
+  })
 })
 
 describe('isAtReprLimit', () => {
@@ -176,6 +180,39 @@ describe('shouldShowPaidExpiryWarning', () => {
         now
       )
     ).toBe(false)
+  })
+
+  it('is false for non-paid subscriptions', () => {
+    expect(
+      shouldShowPaidExpiryWarning(
+        {
+          status: 'trial',
+          expiration: '2026-01-08T00:00:00.000Z',
+          maxReprs: 100,
+        },
+        now
+      )
+    ).toBe(false)
+  })
+})
+
+describe('readEnvInt defaults', () => {
+  const originalTrialDays = process.env.DEFAULT_TRIAL_DAYS
+
+  afterEach(() => {
+    if (originalTrialDays === undefined) {
+      delete process.env.DEFAULT_TRIAL_DAYS
+    } else {
+      process.env.DEFAULT_TRIAL_DAYS = originalTrialDays
+    }
+    jest.resetModules()
+  })
+
+  it('falls back when env value is not a finite number', async () => {
+    process.env.DEFAULT_TRIAL_DAYS = 'not-a-number'
+    jest.resetModules()
+    const { DEFAULT_TRIAL_DAYS } = await import('./index')
+    expect(DEFAULT_TRIAL_DAYS).toBe(90)
   })
 })
 

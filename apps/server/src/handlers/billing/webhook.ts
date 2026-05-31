@@ -68,6 +68,61 @@ const clearSubscriptionForUser = async (userId: string) => {
   })
 }
 
+const handleCheckoutSessionCompleted = async (
+  session: Stripe.Checkout.Session
+) => {
+  const userId = resolveUserIdFromSession(session)
+  if (!userId) {
+    return
+  }
+  if (typeof session.customer === 'string') {
+    await updateUserBillingConfig(userId, {
+      stripeCustomerId: session.customer,
+    })
+  }
+  if (typeof session.subscription !== 'string') {
+    return
+  }
+  const subscription = await getStripeClient().subscriptions.retrieve(
+    session.subscription
+  )
+  await applySubscriptionToUser(
+    userId,
+    subscription,
+    typeof session.customer === 'string' ? session.customer : undefined
+  )
+}
+
+const resolveUserIdForSubscription = async (
+  subscription: Stripe.Subscription
+): Promise<string | undefined> => {
+  const fromMeta = resolveUserIdFromSubscription(subscription)
+  if (fromMeta) {
+    return fromMeta
+  }
+  if (typeof subscription.customer !== 'string') {
+    return undefined
+  }
+  return (
+    (await findUserIdByStripeCustomerId(subscription.customer)) ?? undefined
+  )
+}
+
+const handleSubscriptionEvent = async (
+  eventType: string,
+  subscription: Stripe.Subscription
+) => {
+  const userId = await resolveUserIdForSubscription(subscription)
+  if (!userId) {
+    return
+  }
+  if (eventType === 'customer.subscription.deleted') {
+    await clearSubscriptionForUser(userId)
+    return
+  }
+  await applySubscriptionToUser(userId, subscription)
+}
+
 export const postStripeWebhookHandler = async (event: any): Promise<any> => {
   const webhookSecret = getStripeWebhookSecret()
   if (!webhookSecret) {
@@ -96,45 +151,13 @@ export const postStripeWebhookHandler = async (event: any): Promise<any> => {
 
   try {
     switch (stripeEvent.type) {
-      case 'checkout.session.completed': {
-        const session = stripeEvent.data.object as Stripe.Checkout.Session
-        const userId = resolveUserIdFromSession(session)
-        if (userId && typeof session.customer === 'string') {
-          await updateUserBillingConfig(userId, {
-            stripeCustomerId: session.customer,
-          })
-        }
-        if (userId && typeof session.subscription === 'string') {
-          const subscription = await getStripeClient().subscriptions.retrieve(
-            session.subscription
-          )
-          await applySubscriptionToUser(
-            userId,
-            subscription,
-            typeof session.customer === 'string' ? session.customer : undefined
-          )
-        }
+      case 'checkout.session.completed':
+        await handleCheckoutSessionCompleted(stripeEvent.data.object)
         break
-      }
       case 'customer.subscription.updated':
-      case 'customer.subscription.deleted': {
-        const subscription = stripeEvent.data.object as Stripe.Subscription
-        let userId = resolveUserIdFromSubscription(subscription)
-        if (!userId && typeof subscription.customer === 'string') {
-          userId =
-            (await findUserIdByStripeCustomerId(subscription.customer)) ??
-            undefined
-        }
-        if (!userId) {
-          break
-        }
-        if (stripeEvent.type === 'customer.subscription.deleted') {
-          await clearSubscriptionForUser(userId)
-        } else {
-          await applySubscriptionToUser(userId, subscription)
-        }
+      case 'customer.subscription.deleted':
+        await handleSubscriptionEvent(stripeEvent.type, stripeEvent.data.object)
         break
-      }
       default:
         break
     }

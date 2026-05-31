@@ -47,10 +47,7 @@ export const selectAtReprLimit = createSelector(
   selectReprs,
   ({ subscription, maxReprsAllowed }, reprs) => {
     const reprCount = reprs?.length ?? 0
-    const cap =
-      subscription?.maxReprs !== undefined
-        ? subscription.maxReprs
-        : maxReprsAllowed
+    const cap = subscription?.maxReprs ?? maxReprsAllowed
     if (cap === null || cap === undefined) {
       return false
     }

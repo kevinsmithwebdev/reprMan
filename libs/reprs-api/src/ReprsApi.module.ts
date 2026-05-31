@@ -36,10 +36,10 @@ export const parseSubscription = (raw: unknown): Subscription | undefined => {
     return undefined
   }
   let expiration: string | null = null
-  if (body.expiration === null) {
-    expiration = null
-  } else if (typeof body.expiration === 'string') {
+  if (typeof body.expiration === 'string') {
     expiration = body.expiration
+  } else if (body.expiration !== null && body.expiration !== undefined) {
+    return undefined
   }
   let maxReprs: number | null | undefined
   if (body.maxReprs === null) {

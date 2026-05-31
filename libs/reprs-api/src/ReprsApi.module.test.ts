@@ -194,6 +194,45 @@ describe('ReprsApi.module', () => {
       )
     })
 
+    it('rejects invalid subscription payload shapes', async () => {
+      const ReprsApiModule = await loadModule()
+      const cases = [
+        { subscription: null },
+        { subscription: { status: 'bogus', expiration: null, maxReprs: 1 } },
+        { subscription: { status: 'paid', expiration: null, maxReprs: '10' } },
+      ]
+      for (const body of cases) {
+        fetchMock.mockResolvedValueOnce({
+          ok: true,
+          json: async () => ({
+            ...body,
+            maxReprsAllowed: 10,
+          }),
+        })
+        await expect(
+          ReprsApiModule.getInstance().getUserConfig()
+        ).rejects.toThrow('Invalid subscription in user config response')
+      }
+    })
+
+    it('rejects invalid subscription expiration type', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          subscription: {
+            status: 'paid',
+            expiration: 123,
+            maxReprs: 10,
+          },
+          maxReprsAllowed: 10,
+        }),
+      })
+      const ReprsApiModule = await loadModule()
+      await expect(
+        ReprsApiModule.getInstance().getUserConfig()
+      ).rejects.toThrow('Invalid subscription in user config response')
+    })
+
     it('falls back to default settings for invalid numbers', async () => {
       fetchMock.mockResolvedValueOnce({
         ok: true,
@@ -336,6 +375,66 @@ describe('ReprsApi.module', () => {
         'https://api.example.com/reprs/repr-1',
         expect.objectContaining({ method: 'DELETE' })
       )
+    })
+  })
+
+  describe('createCheckoutSession', () => {
+    beforeEach(() => {
+      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    })
+
+    it('returns checkout url from POST /billing/checkout-session', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          url: 'https://checkout.stripe.com/c/pay/cs_test',
+        }),
+      })
+      const ReprsApiModule = await loadModule()
+      await expect(
+        ReprsApiModule.getInstance().createCheckoutSession()
+      ).resolves.toEqual({ url: 'https://checkout.stripe.com/c/pay/cs_test' })
+    })
+
+    it('throws when checkout response omits url', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({}),
+      })
+      const ReprsApiModule = await loadModule()
+      await expect(
+        ReprsApiModule.getInstance().createCheckoutSession()
+      ).rejects.toThrow('Checkout session did not return a URL')
+    })
+  })
+
+  describe('createPortalSession', () => {
+    beforeEach(() => {
+      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    })
+
+    it('returns portal url from POST /billing/portal-session', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          url: 'https://billing.stripe.com/p/session/test',
+        }),
+      })
+      const ReprsApiModule = await loadModule()
+      await expect(
+        ReprsApiModule.getInstance().createPortalSession()
+      ).resolves.toEqual({ url: 'https://billing.stripe.com/p/session/test' })
+    })
+
+    it('throws when portal response omits url', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({}),
+      })
+      const ReprsApiModule = await loadModule()
+      await expect(
+        ReprsApiModule.getInstance().createPortalSession()
+      ).rejects.toThrow('Portal session did not return a URL')
     })
   })
 

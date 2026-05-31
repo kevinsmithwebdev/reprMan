@@ -3,7 +3,7 @@ import type { UserConfigItem } from '@reprman/shared/quota'
 const MS_PER_DAY = 86_400_000
 
 const readEnvInt = (key: string, fallback: number): number => {
-  const raw = typeof process !== 'undefined' ? process.env?.[key] : undefined
+  const raw = typeof process === 'undefined' ? undefined : process.env?.[key]
   if (raw === undefined || raw === '') {
     return fallback
   }

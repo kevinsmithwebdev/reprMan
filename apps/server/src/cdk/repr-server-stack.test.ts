@@ -21,10 +21,18 @@ describe('ReprServerStack', () => {
     })
     const template = Template.fromStack(stack)
 
-    template.resourceCountIs('AWS::DynamoDB::Table', 2)
-    template.resourceCountIs('AWS::Lambda::Function', 1)
-    template.resourceCountIs('AWS::Cognito::UserPool', 1)
-    template.resourceCountIs('AWS::CloudWatch::Alarm', 0)
+    expect(
+      Object.keys(template.findResources('AWS::DynamoDB::Table'))
+    ).toHaveLength(2)
+    expect(
+      Object.keys(template.findResources('AWS::Lambda::Function'))
+    ).toHaveLength(1)
+    expect(
+      Object.keys(template.findResources('AWS::Cognito::UserPool'))
+    ).toHaveLength(1)
+    expect(
+      Object.keys(template.findResources('AWS::CloudWatch::Alarm'))
+    ).toHaveLength(0)
   })
 
   it('creates a prod inactivity alarm', () => {
@@ -35,7 +43,9 @@ describe('ReprServerStack', () => {
     })
     const template = Template.fromStack(stack)
 
-    template.resourceCountIs('AWS::CloudWatch::Alarm', 1)
+    expect(
+      Object.keys(template.findResources('AWS::CloudWatch::Alarm'))
+    ).toHaveLength(1)
   })
 
   it('creates billing alerts when configured for prod', () => {
@@ -49,12 +59,16 @@ describe('ReprServerStack', () => {
     })
     const template = Template.fromStack(stack)
 
-    template.resourceCountIs('AWS::KMS::Key', 1)
-    template.resourceCountIs('AWS::SNS::Topic', 1)
+    expect(Object.keys(template.findResources('AWS::KMS::Key'))).toHaveLength(1)
+    expect(Object.keys(template.findResources('AWS::SNS::Topic'))).toHaveLength(
+      1
+    )
     template.hasResourceProperties('AWS::SNS::Topic', {
       KmsMasterKeyId: Match.anyValue(),
     })
-    template.resourceCountIs('AWS::CloudWatch::Alarm', 2)
+    expect(
+      Object.keys(template.findResources('AWS::CloudWatch::Alarm'))
+    ).toHaveLength(2)
   })
 
   it('applies authorization scopes when apiScopes context is set', () => {
@@ -70,6 +84,9 @@ describe('ReprServerStack', () => {
     template.hasResourceProperties('AWS::ApiGatewayV2::Route', {
       AuthorizationScopes: ['reprman/read', 'reprman/write'],
     })
+    expect(
+      Object.keys(template.findResources('AWS::ApiGatewayV2::Route')).length
+    ).toBeGreaterThan(0)
   })
 
   it('throws when cors origins are empty', () => {

@@ -30,6 +30,7 @@ alwaysApply: false
 - **Harness**: render through [apps/client-web/src/test-utils/renderWithAppShell.tsx](apps/client-web/src/test-utils/renderWithAppShell.tsx) — Redux `Provider`, `MemoryRouter`, `CognitoAuthProvider`. Pass `preloadedState` and/or an existing `store` from [createTestStore.ts](apps/client-web/src/test-utils/createTestStore.ts) (no saga middleware).
 - **Imports from `libs/**`into app test-utils**: prefer a **repo-relative** path into`apps/client-web/src/test-utils`where ESLint`import/no-relative-packages`applies;`@client-web/test-utils` exists in Vite for resolution when appropriate.
 - **Components that import `store` from `@reprman/state/store`**: use `vi.mock('@reprman/state/store', async () => { … })` so the mock resolves before the component module; reuse the same store instance the `Provider` gets.
+- **Coverage target for integration-tested UI**: every `*.tsx` / `*.jsx` source file exercised by integration tests must stay at **≥80%** in **lines, branches, functions, and statements** (Vitest `perFile` thresholds). Add or extend integration tests when a component/page drops below 80% in any column.
 
 ## Mocks and timers
 
@@ -43,7 +44,10 @@ alwaysApply: false
 - **Sonar** test detection: [sonar-project.properties](sonar-project.properties) → `**/*.test.ts`, `**/*.test.tsx` only.
 - Full merged coverage (Vitest + Jest, for CI/Sonar): `yarn test:coverage` → [scripts/run-all-coverage.mjs](scripts/run-all-coverage.mjs).
 - Coverage uses **`allowExternal: true`** and **POSIX-style absolute `coverage.include` paths** so `libs/**` appears on Windows; if you change coverage layout, keep those constraints in mind.
-- **Per-file thresholds** (with `--coverage`): pure `*.{ts,js}` (not `.tsx`) → **100%**; `*.{tsx,jsx}` → **≥80%** in every column; `*.{helpers,helper}.*`, `libs/utilities`, and `libs/shared` → **100%**. Interface-only `*.types.ts` files listed in the Vite coverage exclude are not thresholded; do not add coverage for type-only modules.
+- **Unit tests** (colocated `*.test.ts` / `*.test.js`, saga tests, helpers, `libs/shared`, `libs/utilities`, pure logic under `libs/**/src/**/*.ts`, and `apps/client-web/src/**/*.ts`): **100%** per file in **lines, branches, functions, and statements** when running Vitest/Jest with `--coverage`.
+- **Integration tests** (under `integration-tests/`, typically `*.integration.test.tsx`): the **production UI** they exercise (`*.tsx` / `*.jsx` pages and components) must remain at **≥80%** per file in **every** coverage column. Integration test files themselves are excluded from coverage collection (see `coverage.exclude` in [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts)).
+- **Also 100%**: `*.{helpers,helper}.*`, all of `libs/utilities`, and all of `libs/shared`. Interface-only `*.types.ts` files listed in the Vite coverage exclude are not thresholded; do not add coverage for type-only modules.
+- Before merging, run `yarn test:coverage` and confirm thresholds pass; do not regress coverage below the prior commit on touched source files.
 
 ## Commands
 

@@ -19,9 +19,7 @@ export const getStripeClient = (): Stripe => {
   if (!key) {
     throw new Error('STRIPE_SECRET_KEY is not configured')
   }
-  if (!stripeClient) {
-    stripeClient = new Stripe(key)
-  }
+  stripeClient ??= new Stripe(key)
   return stripeClient
 }
 

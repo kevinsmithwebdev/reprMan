@@ -22,8 +22,7 @@ const ReprLimitBanner = () => {
     !isReprsApiConfigured ||
     (homeAuthGateActive() && (!sessionChecked || !signedIn)) ||
     !subscriptionLoaded ||
-    !subscription ||
-    subscription.maxReprs === null ||
+    subscription?.maxReprs == null ||
     !atLimit
   ) {
     return null

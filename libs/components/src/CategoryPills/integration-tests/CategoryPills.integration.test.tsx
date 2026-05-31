@@ -29,5 +29,6 @@ describe('CategoryPills (integration)', () => {
     renderWithAppShell(<CategoryPills categories={['a']} />)
 
     await userEvent.click(screen.getByText('a'))
+    expect(screen.getByText('a')).toBeVisible()
   })
 })

@@ -17,8 +17,24 @@ describe('cdk app', () => {
         // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
         require('./app') as typeof import('./app')
 
-      Template.fromStack(reprServerDevStack)
-      Template.fromStack(reprServerProdStack)
+      const devTemplate = Template.fromStack(reprServerDevStack)
+      const prodTemplate = Template.fromStack(reprServerProdStack)
+      devTemplate.hasResourceProperties('AWS::ApiGatewayV2::Api', {
+        CorsConfiguration: {
+          AllowOrigins: ['http://dev.example.com'],
+        },
+      })
+      prodTemplate.hasResourceProperties('AWS::ApiGatewayV2::Api', {
+        CorsConfiguration: {
+          AllowOrigins: ['https://prod.example.com'],
+        },
+      })
+      expect(
+        Object.keys(devTemplate.findResources('AWS::ApiGatewayV2::Api'))
+      ).toHaveLength(1)
+      expect(
+        Object.keys(prodTemplate.findResources('AWS::ApiGatewayV2::Api'))
+      ).toHaveLength(1)
     })
   })
 
@@ -36,6 +52,9 @@ describe('cdk app', () => {
           AllowOrigins: ['http://localhost:3000'],
         },
       })
+      expect(
+        Object.keys(template.findResources('AWS::ApiGatewayV2::Api'))
+      ).toHaveLength(1)
     })
   })
 
@@ -52,6 +71,9 @@ describe('cdk app', () => {
           AllowOrigins: ['http://a.com', 'http://b.com'],
         },
       })
+      expect(
+        Object.keys(template.findResources('AWS::ApiGatewayV2::Api'))
+      ).toHaveLength(1)
     })
   })
 
@@ -68,6 +90,9 @@ describe('cdk app', () => {
           AllowOrigins: ['http://localhost:3000'],
         },
       })
+      expect(
+        Object.keys(template.findResources('AWS::ApiGatewayV2::Api'))
+      ).toHaveLength(1)
     })
   })
 })
