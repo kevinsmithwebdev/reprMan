@@ -1,5 +1,5 @@
 import { App } from 'aws-cdk-lib'
-import { Template } from 'aws-cdk-lib/assertions'
+import { Match, Template } from 'aws-cdk-lib/assertions'
 import { ReprServerStack } from './repr-server-stack'
 
 describe('ReprServerStack', () => {
@@ -49,12 +49,18 @@ describe('ReprServerStack', () => {
     })
     const template = Template.fromStack(stack)
 
+    template.resourceCountIs('AWS::KMS::Key', 1)
     template.resourceCountIs('AWS::SNS::Topic', 1)
+    template.hasResourceProperties('AWS::SNS::Topic', {
+      KmsMasterKeyId: Match.anyValue(),
+    })
     template.resourceCountIs('AWS::CloudWatch::Alarm', 2)
   })
 
   it('applies authorization scopes when apiScopes context is set', () => {
-    const app = new App({ context: { apiScopes: 'reprman/read, reprman/write' } })
+    const app = new App({
+      context: { apiScopes: 'reprman/read, reprman/write' },
+    })
     const stack = new ReprServerStack(app, 'ScopedStack', {
       stage: 'dev',
       corsAllowOrigins: ['http://localhost:3000'],

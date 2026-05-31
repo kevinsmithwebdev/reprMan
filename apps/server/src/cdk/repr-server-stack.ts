@@ -6,6 +6,7 @@ import * as cognito from 'aws-cdk-lib/aws-cognito'
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch'
 import * as cloudwatchActions from 'aws-cdk-lib/aws-cloudwatch-actions'
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb'
+import * as kms from 'aws-cdk-lib/aws-kms'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as sns from 'aws-cdk-lib/aws-sns'
 import * as snsSubs from 'aws-cdk-lib/aws-sns-subscriptions'
@@ -64,7 +65,9 @@ export class ReprServerStack extends cdk.Stack {
       sortKey: { name: 'sk', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
-      pointInTimeRecovery: true,
+      pointInTimeRecoverySpecification: {
+        pointInTimeRecoveryEnabled: true,
+      },
     })
 
     const dailyUsageTable = new dynamodb.Table(this, 'DailyUsageTable', {
@@ -254,8 +257,14 @@ export class ReprServerStack extends cdk.Stack {
     const monthlyBudgetUsd = Number(monthlyBudgetUsdRaw ?? '25')
 
     if (billingAlertEmail && stage === 'prod') {
+      const billingAlertsKey = new kms.Key(this, 'BillingAlertsKey', {
+        enableKeyRotation: true,
+        description: `Encrypts ReprMan billing alert SNS messages (${stage})`,
+      })
+
       const topic = new sns.Topic(this, 'BillingAlertsTopic', {
         displayName: `ReprMan Billing Alerts (${stage})`,
+        masterKey: billingAlertsKey,
       })
       topic.addSubscription(new snsSubs.EmailSubscription(billingAlertEmail))
 
