@@ -83,8 +83,12 @@ const routes: RouteMatch[] = [
 ]
 
 export const handler = async (event: any): Promise<any> => {
-  const method = event.requestContext.http.method
-  const path = event.rawPath
+  const {
+    requestContext: {
+      http: { method },
+    },
+    rawPath: path,
+  } = event
   const route = routes.find(
     (entry) => entry.method === method && entry.matches(path)
   )

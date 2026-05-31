@@ -2,7 +2,7 @@ import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
 import { clearAllReprs } from '@reprman/state/reprs'
 import { selectReprs } from '@reprman/state/reprs/reprs.selectors'
 import { Reprs, ToastLevel } from '@reprman/types'
-import { call, delay, put, select, takeLatest } from 'redux-saga/effects'
+import { all, call, delay, put, select, takeLatest } from 'redux-saga/effects'
 import { clearCategories } from '@reprman/state/categories'
 import { callConfirmation } from '@reprman/modals/Confirmation'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
@@ -39,9 +39,11 @@ export function* clearThemAll() {
   const currentReprs = (yield select(selectReprs)) as Reprs
   try {
     if (isReprsApiConfigured) {
-      for (const repr of currentReprs) {
-        yield call([reprsApi, reprsApi.removeRepr], repr.id)
-      }
+      yield all(
+        currentReprs.map((repr) =>
+          call([reprsApi, reprsApi.removeRepr], repr.id)
+        )
+      )
     }
     yield put(clearAllReprs())
     yield put(clearCategories())

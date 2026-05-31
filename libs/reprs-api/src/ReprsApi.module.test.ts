@@ -194,25 +194,46 @@ describe('ReprsApi.module', () => {
       )
     })
 
-    it('rejects invalid subscription payload shapes', async () => {
+    it('rejects null subscription', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          subscription: null,
+          maxReprsAllowed: 10,
+        }),
+      })
       const ReprsApiModule = await loadModule()
-      const cases = [
-        { subscription: null },
-        { subscription: { status: 'bogus', expiration: null, maxReprs: 1 } },
-        { subscription: { status: 'paid', expiration: null, maxReprs: '10' } },
-      ]
-      for (const body of cases) {
-        fetchMock.mockResolvedValueOnce({
-          ok: true,
-          json: async () => ({
-            ...body,
-            maxReprsAllowed: 10,
-          }),
-        })
-        await expect(
-          ReprsApiModule.getInstance().getUserConfig()
-        ).rejects.toThrow('Invalid subscription in user config response')
-      }
+      await expect(ReprsApiModule.getInstance().getUserConfig()).rejects.toThrow(
+        'Invalid subscription in user config response'
+      )
+    })
+
+    it('rejects unknown subscription status', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          subscription: { status: 'bogus', expiration: null, maxReprs: 1 },
+          maxReprsAllowed: 10,
+        }),
+      })
+      const ReprsApiModule = await loadModule()
+      await expect(ReprsApiModule.getInstance().getUserConfig()).rejects.toThrow(
+        'Invalid subscription in user config response'
+      )
+    })
+
+    it('rejects non-numeric maxReprs', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          subscription: { status: 'paid', expiration: null, maxReprs: '10' },
+          maxReprsAllowed: 10,
+        }),
+      })
+      const ReprsApiModule = await loadModule()
+      await expect(ReprsApiModule.getInstance().getUserConfig()).rejects.toThrow(
+        'Invalid subscription in user config response'
+      )
     })
 
     it('rejects invalid subscription expiration type', async () => {

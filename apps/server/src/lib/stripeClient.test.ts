@@ -2,7 +2,6 @@ import {
   getStripeClient,
   getStripePriceId,
   getStripeSecretKey,
-  getStripeWebhookSecret,
   isStripeConfigured,
   subscriptionPeriodEndMs,
 } from './stripeClient'
@@ -36,6 +35,7 @@ describe('stripeClient', () => {
     process.env.STRIPE_PRICE_ID = 'price_1'
     process.env.STRIPE_WEBHOOK_SECRET = ' whsec_1 '
     jest.isolateModules(() => {
+      // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
       const mod = require('./stripeClient') as typeof import('./stripeClient')
       expect(mod.getStripeSecretKey()).toBe('sk_test_abc')
       expect(mod.getStripePriceId()).toBe('price_1')
@@ -55,6 +55,7 @@ describe('stripeClient', () => {
   it('reuses a single Stripe client instance', () => {
     process.env.STRIPE_SECRET_KEY = 'sk_test_singleton'
     jest.isolateModules(() => {
+      // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
       const mod = require('./stripeClient') as typeof import('./stripeClient')
       const first = mod.getStripeClient()
       const second = mod.getStripeClient()
