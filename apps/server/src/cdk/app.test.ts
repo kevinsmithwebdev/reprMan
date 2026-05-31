@@ -14,6 +14,7 @@ describe('cdk app', () => {
 
     jest.isolateModules(() => {
       const { reprServerDevStack, reprServerProdStack } =
+        // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
         require('./app') as typeof import('./app')
 
       Template.fromStack(reprServerDevStack)
@@ -26,7 +27,9 @@ describe('cdk app', () => {
     process.env.CDK_PROD_CORS_ORIGINS = ''
 
     jest.isolateModules(() => {
-      const { reprServerDevStack } = require('./app') as typeof import('./app')
+      const { reprServerDevStack } =
+        // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
+        require('./app') as typeof import('./app')
       const template = Template.fromStack(reprServerDevStack)
       template.hasResourceProperties('AWS::ApiGatewayV2::Api', {
         CorsConfiguration: {
@@ -40,7 +43,9 @@ describe('cdk app', () => {
     process.env.CDK_DEV_CORS_ORIGINS = 'http://a.com,, http://b.com '
 
     jest.isolateModules(() => {
-      const { reprServerDevStack } = require('./app') as typeof import('./app')
+      const { reprServerDevStack } =
+        // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
+        require('./app') as typeof import('./app')
       const template = Template.fromStack(reprServerDevStack)
       template.hasResourceProperties('AWS::ApiGatewayV2::Api', {
         CorsConfiguration: {
@@ -54,7 +59,9 @@ describe('cdk app', () => {
     process.env.CDK_DEV_CORS_ORIGINS = ' , '
 
     jest.isolateModules(() => {
-      const { reprServerDevStack } = require('./app') as typeof import('./app')
+      const { reprServerDevStack } =
+        // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
+        require('./app') as typeof import('./app')
       const template = Template.fromStack(reprServerDevStack)
       template.hasResourceProperties('AWS::ApiGatewayV2::Api', {
         CorsConfiguration: {

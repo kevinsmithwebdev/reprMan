@@ -4,9 +4,9 @@ import React from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { ToastLevel } from '@reprman/types'
+import store from '@reprman/state/store'
 import type { TestStore } from '../../../../../apps/client-web/src/test-utils/createTestStore'
 import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
-import store from '@reprman/state/store'
 import ToastWrapper from '..'
 
 vi.mock('@reprman/state/store', async () => {

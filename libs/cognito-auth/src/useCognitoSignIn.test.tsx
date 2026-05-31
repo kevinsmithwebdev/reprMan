@@ -2,7 +2,10 @@ import { act, renderHook, waitFor } from '@testing-library/react'
 import React, { type PropsWithChildren } from 'react'
 import { Provider } from 'react-redux'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { createHookTestStore, resetHookTestStoreToasts } from './test-utils/createHookTestStore'
+import {
+  createHookTestStore,
+  resetHookTestStoreToasts,
+} from './test-utils/createHookTestStore'
 
 const { signInMock, MockAuthError } = vi.hoisted(() => {
   class MockAuthError extends Error {
@@ -20,12 +23,14 @@ vi.mock('@reprman/localization', () => ({
   useL10n: () => ({ t: (key: string) => key }),
 }))
 
+// eslint-disable-next-line import/first -- vi.mock is hoisted; source must load after factory runs
 import { useCognitoSignIn } from './useCognitoSignIn'
 
-function createWrapper(store: ReturnType<typeof createHookTestStore>) {
-  return function Wrapper({ children }: PropsWithChildren) {
-    return <Provider store={store}>{children}</Provider>
-  }
+const createWrapper = (store: ReturnType<typeof createHookTestStore>) => {
+  const Wrapper = ({ children }: PropsWithChildren) => (
+    <Provider store={store}>{children}</Provider>
+  )
+  return Wrapper
 }
 
 describe('useCognitoSignIn', () => {
@@ -36,10 +41,9 @@ describe('useCognitoSignIn', () => {
 
   it('exposes form state and translation helper', () => {
     const store = createHookTestStore()
-    const { result } = renderHook(
-      () => useCognitoSignIn(vi.fn(), vi.fn()),
-      { wrapper: createWrapper(store) }
-    )
+    const { result } = renderHook(() => useCognitoSignIn(vi.fn(), vi.fn()), {
+      wrapper: createWrapper(store),
+    })
 
     expect(result.current.email).toBe('')
     expect(result.current.password).toBe('')
@@ -85,10 +89,9 @@ describe('useCognitoSignIn', () => {
     const store = createHookTestStore()
     signInMock.mockResolvedValue({ isSignedIn: false })
 
-    const { result } = renderHook(
-      () => useCognitoSignIn(vi.fn(), vi.fn()),
-      { wrapper: createWrapper(store) }
-    )
+    const { result } = renderHook(() => useCognitoSignIn(vi.fn(), vi.fn()), {
+      wrapper: createWrapper(store),
+    })
 
     await act(async () => {
       await result.current.handleSignIn({
@@ -106,10 +109,9 @@ describe('useCognitoSignIn', () => {
     const store = createHookTestStore()
     signInMock.mockRejectedValue(new MockAuthError('Invalid credentials'))
 
-    const { result } = renderHook(
-      () => useCognitoSignIn(vi.fn(), vi.fn()),
-      { wrapper: createWrapper(store) }
-    )
+    const { result } = renderHook(() => useCognitoSignIn(vi.fn(), vi.fn()), {
+      wrapper: createWrapper(store),
+    })
 
     await act(async () => {
       await result.current.handleSignIn({
@@ -125,10 +127,9 @@ describe('useCognitoSignIn', () => {
     const store = createHookTestStore()
     signInMock.mockRejectedValue(new Error('network down'))
 
-    const { result } = renderHook(
-      () => useCognitoSignIn(vi.fn(), vi.fn()),
-      { wrapper: createWrapper(store) }
-    )
+    const { result } = renderHook(() => useCognitoSignIn(vi.fn(), vi.fn()), {
+      wrapper: createWrapper(store),
+    })
 
     await act(async () => {
       await result.current.handleSignIn({

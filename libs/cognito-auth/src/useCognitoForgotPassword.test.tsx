@@ -25,6 +25,7 @@ vi.mock('aws-amplify/auth', () => ({
   confirmResetPassword: confirmResetPasswordMock,
 }))
 
+// eslint-disable-next-line import/first -- vi.mock is hoisted; source must load after factory runs
 import { useCognitoForgotPassword } from './useCognitoForgotPassword'
 
 const requestMessages = {
@@ -40,10 +41,11 @@ const confirmMessages = {
   unexpectedErrorMessage: 'confirm-error',
 }
 
-function createWrapper(store: ReturnType<typeof createHookTestStore>) {
-  return function Wrapper({ children }: PropsWithChildren) {
-    return <Provider store={store}>{children}</Provider>
-  }
+const createWrapper = (store: ReturnType<typeof createHookTestStore>) => {
+  const Wrapper = ({ children }: PropsWithChildren) => (
+    <Provider store={store}>{children}</Provider>
+  )
+  return Wrapper
 }
 
 describe('useCognitoForgotPassword', () => {

@@ -1,11 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { homeAuthGateActive } from '@reprman/cognito-auth/configureAmplify'
 import { CognitoAuthBar } from '@reprman/cognito-auth'
-import SubscriptionHeaderStatus from '../SubscriptionHeaderStatus/SubscriptionHeaderStatus'
 import { useCognitoAuth } from '@reprman/cognito-auth/CognitoAuthContext'
 import { useL10n } from '@reprman/localization'
 import { Nav, Navbar } from 'react-bootstrap'
 import { NavLink, useLocation } from 'react-router-dom'
+import SubscriptionHeaderStatus from '../SubscriptionHeaderStatus/SubscriptionHeaderStatus'
 
 import './Header.css'
 

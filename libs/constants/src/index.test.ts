@@ -1,4 +1,11 @@
 import {
+  DEFAULT_PRACTICE_DELAY,
+  DEFAULT_WARNING_RATIO as QUOTA_WARNING_RATIO,
+  PRACTICE_DELAY_MAX,
+  PRACTICE_DELAY_MIN,
+} from '@reprman/shared/quota'
+import { MAX_PRACTICED_DATES as RULES_MAX_PRACTICED_DATES } from '@reprman/shared/repr-rules'
+import {
   COPYRIGHT_YEAR,
   DEFAULT_DAYS_WARNING,
   DEFAULT_DAYS_WARNING_MAX,
@@ -9,13 +16,6 @@ import {
   MY_EMAIL,
   TERMS_VERSION,
 } from './index'
-import {
-  DEFAULT_PRACTICE_DELAY,
-  DEFAULT_WARNING_RATIO as QUOTA_WARNING_RATIO,
-  PRACTICE_DELAY_MAX,
-  PRACTICE_DELAY_MIN,
-} from '@reprman/shared/quota'
-import { MAX_PRACTICED_DATES as RULES_MAX_PRACTICED_DATES } from '@reprman/shared/repr-rules'
 
 describe('constants', () => {
   it('re-exports quota defaults under legacy names', () => {

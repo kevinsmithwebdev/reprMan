@@ -10,6 +10,7 @@ vi.mock('aws-amplify/auth', () => ({
   fetchUserAttributes,
 }))
 
+// eslint-disable-next-line import/first -- vi.mock is hoisted; source must load after factory runs
 import { userFromCognitoSession } from './cognitoSession'
 
 describe('userFromCognitoSession', () => {

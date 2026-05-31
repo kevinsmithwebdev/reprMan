@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import React from 'react'
 import { Provider } from 'react-redux'
 import { renderHook } from '@testing-library/react'
 import { ToastLevel } from '@reprman/types'
@@ -13,9 +14,7 @@ const wrapper =
 
 describe('useToasts', () => {
   it('reads toasts from the store', () => {
-    const toasts = [
-      { id: '1', title: 'T', body: 'B', level: ToastLevel.INFO },
-    ]
+    const toasts = [{ id: '1', title: 'T', body: 'B', level: ToastLevel.INFO }]
     const store = createTestStore({ toasts })
     const { result } = renderHook(() => useToasts(), {
       wrapper: wrapper(store),

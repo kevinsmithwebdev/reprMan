@@ -4,9 +4,9 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { ModalSelection } from '@reprman/modals/ModalContainer/ModalContainer.types'
 import { clearModal } from '@reprman/state/modal'
-import EditRepr from '../EditRepr'
 import { ADD_REPR } from '@reprman/state/sagas/reprs/reprs.actions'
 import type { PreloadedState } from '@reduxjs/toolkit'
+import EditRepr from '../EditRepr'
 import type {
   TestRootState,
   TestStore,

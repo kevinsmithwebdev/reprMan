@@ -1,8 +1,8 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
 import { setSettingsAC } from '@reprman/state/settings/settings.actions'
-import { makeToastSAC } from '../toast/toast.actions'
 import { ToastLevel } from '@reprman/types'
+import { makeToastSAC } from '../toast/toast.actions'
 import { SAVE_USER_SETTINGS, saveUserSettingsSAC } from './settings.actions'
 
 export function* saveUserSettingsWorker({

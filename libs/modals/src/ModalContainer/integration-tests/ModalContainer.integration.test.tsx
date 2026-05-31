@@ -12,7 +12,6 @@ import type { TestStore } from '../../../../../apps/client-web/src/test-utils/cr
 import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
 import {
   loadedAppState,
-  testRepr,
   withModal,
 } from '../../../../../apps/client-web/src/test-utils/fixtures'
 
@@ -64,10 +63,14 @@ describe('ModalContainer (integration)', () => {
       '../../../../../apps/client-web/src/test-utils/createTestStore'
     )
     const store = createTestStore(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: 10 },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: 10 },
+        }
+      )
     )
     renderWithAppShell(<ModalContainer />, { store })
 
@@ -102,7 +105,11 @@ describe('ModalContainer (integration)', () => {
         body: ['Pick an option'],
         choiceDataWithActionTypes: [
           { text: 'Option A', actionType: 'MODAL/OPTION_A' },
-          { text: 'Option B', actionType: 'MODAL/OPTION_B', variant: 'warning' },
+          {
+            text: 'Option B',
+            actionType: 'MODAL/OPTION_B',
+            variant: 'warning',
+          },
         ],
       })
     )

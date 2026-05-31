@@ -3,13 +3,12 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import { Route, Routes } from 'react-router-dom'
-import moment from 'moment'
 import type { Repr } from '@reprman/types'
 import { PRACTICE_COOLDOWN_MS } from '@reprman/shared/repr-rules'
 
+import store from '@reprman/state/store'
 import type { TestStore } from '../../../../apps/client-web/src/test-utils/createTestStore'
 import { renderWithAppShell } from '../../../../apps/client-web/src/test-utils'
-import store from '@reprman/state/store'
 import ReprLine from './ReprLine'
 
 vi.mock('@reprman/state/store', async () => {

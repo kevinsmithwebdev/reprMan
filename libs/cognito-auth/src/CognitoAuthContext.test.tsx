@@ -22,12 +22,10 @@ vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
   }
 })
 
-import {
-  CognitoAuthProvider,
-  useCognitoAuth,
-} from './CognitoAuthContext'
+// eslint-disable-next-line import/first -- vi.mock is hoisted; source must load after factory runs
+import { CognitoAuthProvider, useCognitoAuth } from './CognitoAuthContext'
 
-function AuthProbe() {
+const AuthProbe = () => {
   const auth = useCognitoAuth()
   return (
     <div

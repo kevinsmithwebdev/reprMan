@@ -1,8 +1,7 @@
 import { Amplify } from 'aws-amplify'
 
 const trimEnv = (v: string | undefined) => (v ?? '').trim()
-const env = (key: string) =>
-  trimEnv(import.meta.env[key as keyof ImportMetaEnv] as string | undefined)
+const env = (key: string) => trimEnv(import.meta.env[key] as string | undefined)
 
 /**
  * Vite injects env at compile time. `nx serve client-web` runs `vite` with
@@ -38,9 +37,7 @@ export function allowAnonymousHome(): boolean {
  */
 export function homeAuthGateActive(): boolean {
   return (
-    isCognitoConfigured() ||
-    requireHomeSignInWall() ||
-    !allowAnonymousHome()
+    isCognitoConfigured() || requireHomeSignInWall() || !allowAnonymousHome()
   )
 }
 

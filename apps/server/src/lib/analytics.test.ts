@@ -11,11 +11,14 @@ jest.mock('@aws-sdk/lib-dynamodb', () => ({
 
 process.env.DAILY_USAGE_TABLE_NAME = 'usage-table'
 
+// eslint-disable-next-line import/first -- jest.mock is hoisted; source must load after factory runs
 import { trackAction, trackDailyUniqueUser } from './analytics'
 
 describe('analytics', () => {
   const logSpy = jest.spyOn(console, 'log').mockImplementation(() => undefined)
-  const warnSpy = jest.spyOn(console, 'warn').mockImplementation(() => undefined)
+  const warnSpy = jest
+    .spyOn(console, 'warn')
+    .mockImplementation(() => undefined)
 
   beforeEach(() => {
     mockSend.mockReset()
@@ -62,6 +65,7 @@ describe('analytics', () => {
     await new Promise<void>((resolve, reject) => {
       jest.isolateModules(() => {
         const { trackDailyUniqueUser: trackWithoutTable } =
+          // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
           require('./analytics') as typeof import('./analytics')
         trackWithoutTable('user-1').then(resolve).catch(reject)
       })

@@ -5,7 +5,6 @@ import { describe, expect, it, vi } from 'vitest'
 import ModalContainer from '@reprman/modals/ModalContainer'
 import type { TestStore } from '../../../../../apps/client-web/src/test-utils/createTestStore'
 import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
-import { withModal } from '../../../../../apps/client-web/src/test-utils/fixtures'
 
 vi.mock('@reprman/state/store', async () => {
   const { createTestStore } = await import(

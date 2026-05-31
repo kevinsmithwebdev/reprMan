@@ -40,6 +40,7 @@ vi.mock('./cognitoSession', () => ({
   userFromCognitoSession: userFromCognitoSessionMock,
 }))
 
+// eslint-disable-next-line import/first -- vi.mock is hoisted; source must load after factory runs
 import { useCognitoSignUp } from './useCognitoSignUp'
 
 const registerMessages = {
@@ -59,10 +60,11 @@ const confirmMessages = {
   termsAcceptFailedMessage: 'terms-failed',
 }
 
-function createWrapper(store: ReturnType<typeof createHookTestStore>) {
-  return function Wrapper({ children }: PropsWithChildren) {
-    return <Provider store={store}>{children}</Provider>
-  }
+const createWrapper = (store: ReturnType<typeof createHookTestStore>) => {
+  const Wrapper = ({ children }: PropsWithChildren) => (
+    <Provider store={store}>{children}</Provider>
+  )
+  return Wrapper
 }
 
 describe('useCognitoSignUp', () => {

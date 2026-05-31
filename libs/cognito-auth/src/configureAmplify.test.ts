@@ -27,9 +27,9 @@ describe('configureAmplify', () => {
   async function loadModule(env: Record<string, string>) {
     vi.resetModules()
     vi.unstubAllEnvs()
-    for (const [key, value] of Object.entries(env)) {
+    Object.entries(env).forEach(([key, value]) => {
       vi.stubEnv(key, value)
-    }
+    })
     return import('./configureAmplify')
   }
 

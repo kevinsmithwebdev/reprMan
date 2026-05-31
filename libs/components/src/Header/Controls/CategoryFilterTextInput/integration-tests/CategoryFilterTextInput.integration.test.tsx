@@ -3,9 +3,9 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
+import store from '@reprman/state/store'
 import type { TestStore } from '../../../../../../../apps/client-web/src/test-utils/createTestStore'
 import { renderWithAppShell } from '../../../../../../../apps/client-web/src/test-utils'
-import store from '@reprman/state/store'
 import CategoryFilterTextInput from '..'
 
 vi.mock('@reprman/state/store', async () => {

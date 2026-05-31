@@ -3,10 +3,8 @@ import React from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
 import ModalContainer from '@reprman/modals/ModalContainer'
-import { ModalSelection } from '@reprman/modals/ModalContainer/ModalContainer.types'
 import type { TestStore } from '../../../../../apps/client-web/src/test-utils/createTestStore'
 import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
-import { withModal } from '../../../../../apps/client-web/src/test-utils/fixtures'
 
 vi.mock('@reprman/state/store', async () => {
   const { createTestStore } = await import(
@@ -23,9 +21,7 @@ vi.mock('@reprman/state/store', async () => {
       withModal(ModalSelection.QUERY, {
         title: 'Single choice',
         body: ['Only one option'],
-        choiceDataWithActionTypes: [
-          { text: 'Only', actionType: 'MODAL/ONLY' },
-        ],
+        choiceDataWithActionTypes: [{ text: 'Only', actionType: 'MODAL/ONLY' }],
       })
     ),
   }

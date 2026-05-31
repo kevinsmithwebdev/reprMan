@@ -28,25 +28,27 @@ export const parseSubscription = (raw: unknown): Subscription | undefined => {
     return undefined
   }
   const body = raw as Record<string, unknown>
-  const status = body.status
+  const { status } = body
   if (
     typeof status !== 'string' ||
     !SUBSCRIPTION_STATUSES.has(status as SubscriptionStatus)
   ) {
     return undefined
   }
-  const expiration =
-    body.expiration === null
-      ? null
-      : typeof body.expiration === 'string'
-      ? body.expiration
-      : null
-  const maxReprs =
-    body.maxReprs === null
-      ? null
-      : typeof body.maxReprs === 'number'
-      ? body.maxReprs
-      : undefined
+  let expiration: string | null = null
+  if (body.expiration === null) {
+    expiration = null
+  } else if (typeof body.expiration === 'string') {
+    expiration = body.expiration
+  }
+  let maxReprs: number | null | undefined
+  if (body.maxReprs === null) {
+    maxReprs = null
+  } else if (typeof body.maxReprs === 'number') {
+    maxReprs = body.maxReprs
+  } else {
+    maxReprs = undefined
+  }
   if (maxReprs === undefined) {
     return undefined
   }
@@ -74,8 +76,7 @@ export type TermsAcceptanceResponse = {
 }
 
 const trimEnv = (v: string | undefined) => (v ?? '').trim()
-const env = (key: string) =>
-  trimEnv(import.meta.env[key as keyof ImportMetaEnv] as string | undefined)
+const env = (key: string) => trimEnv(import.meta.env[key] as string | undefined)
 const apiBaseUrl = env('VITE_REPRS_API_BASE_URL')
 export const isReprsApiConfigured = Boolean(apiBaseUrl)
 

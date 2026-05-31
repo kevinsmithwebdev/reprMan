@@ -4,9 +4,9 @@ import { describe, expect, it, vi } from 'vitest'
 import moment from 'moment'
 
 import type { Repr } from '@reprman/types'
+import store from '@reprman/state/store'
 import type { TestStore } from '../../../../../apps/client-web/src/test-utils/createTestStore'
 import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
-import store from '@reprman/state/store'
 import ReprLine from '..'
 
 vi.mock('@reprman/state/store', async () => {

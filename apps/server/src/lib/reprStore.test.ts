@@ -14,6 +14,7 @@ jest.mock('@aws-sdk/lib-dynamodb', () => ({
   UpdateCommand: jest.fn((input) => ({ type: 'UpdateCommand', input })),
 }))
 
+// eslint-disable-next-line import/first -- jest.mock is hoisted; source must load after factory runs
 import {
   countReprsForUser,
   deleteRepr,

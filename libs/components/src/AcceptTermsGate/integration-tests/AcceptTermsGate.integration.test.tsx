@@ -3,9 +3,9 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 
-import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { ToastLevel } from '@reprman/types'
+import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
 import AcceptTermsGate from '..'
 
 const acceptTerms = vi.fn().mockResolvedValue({

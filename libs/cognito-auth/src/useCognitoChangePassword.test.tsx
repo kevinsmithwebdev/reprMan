@@ -23,12 +23,14 @@ vi.mock('@reprman/localization', () => ({
   useL10n: () => ({ t: (key: string) => key }),
 }))
 
+// eslint-disable-next-line import/first -- vi.mock is hoisted; source must load after factory runs
 import { useCognitoChangePassword } from './useCognitoChangePassword'
 
-function createWrapper(store: ReturnType<typeof createHookTestStore>) {
-  return function Wrapper({ children }: PropsWithChildren) {
-    return <Provider store={store}>{children}</Provider>
-  }
+const createWrapper = (store: ReturnType<typeof createHookTestStore>) => {
+  const Wrapper = ({ children }: PropsWithChildren) => (
+    <Provider store={store}>{children}</Provider>
+  )
+  return Wrapper
 }
 
 describe('useCognitoChangePassword', () => {

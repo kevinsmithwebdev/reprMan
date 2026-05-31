@@ -8,8 +8,8 @@ import store from '@reprman/state/store'
 import { addReprSAC } from '@reprman/state/sagas/reprs/reprs.actions'
 import { useCategories } from '@reprman/state/categories'
 import CategoryPills from '@reprman/components/CategoryPills'
-import { useReprCreationCap } from '@reprman/state/reprsQuota'
 import {
+  useReprCreationCap,
   selectAtReprLimit,
   selectSubscription,
 } from '@reprman/state/reprsQuota'
@@ -34,7 +34,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const { t } = useL10n()
   const { categories: availableCategories } = useCategories()
   const [enteredCategory, setEnteredCategory] = useState('')
-  const { getRepr, reprs } = useReprs()
+  const { getRepr } = useReprs()
   const { quotaLoaded, reprCreationCap } = useReprCreationCap()
   const atLimit = useSelector(selectAtReprLimit)
   const subscription = useSelector(selectSubscription)
