@@ -3,6 +3,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import * as path from 'node:path'
 import { coverageConfigDefaults } from 'vitest/config'
+import { vitestCoverageExclude } from '../../scripts/coverage-exclude-globs.mjs'
 
 const root = path.resolve(__dirname, '../..')
 const posixPath = (p) => p.replaceAll('\\', '/')
@@ -124,7 +125,7 @@ export default defineConfig({
       reportOnFailure: true,
       exclude: [
         ...coverageConfigDefaults.exclude,
-        '**/vite-env.d.ts',
+        ...vitestCoverageExclude,
         '**/settings/settings.types.ts',
         '**/categories/categories.types.ts',
         '**/reprs/reprs.types.ts',
@@ -132,10 +133,6 @@ export default defineConfig({
         '**/modal/modal.types.ts',
         '**/user/user.types.ts',
         '**/ReprsList/ReprsList.types.ts',
-        '**/*.test.{ts,tsx}',
-        '**/*.testData.ts',
-        '**/test-utils/**',
-        '**/integration-tests/**',
       ],
       thresholds: {
         perFile: true,

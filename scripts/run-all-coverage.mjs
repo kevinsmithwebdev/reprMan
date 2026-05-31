@@ -39,29 +39,17 @@ const jestProjects = [
   {
     label: 'shared-quota',
     cwd: 'libs/shared/quota',
-    args: [
-      '--coverage',
-      '--collectCoverageFrom=src/index.ts',
-      '--collectCoverageFrom=jest.config.js',
-    ],
+    args: ['--coverage', '--collectCoverageFrom=src/index.ts'],
   },
   {
     label: 'shared-subscription',
     cwd: 'libs/shared/subscription',
-    args: [
-      '--coverage',
-      '--collectCoverageFrom=src/index.ts',
-      '--collectCoverageFrom=jest.config.js',
-    ],
+    args: ['--coverage', '--collectCoverageFrom=src/index.ts'],
   },
   {
     label: 'shared-repr-validation',
     cwd: 'libs/shared/repr-validation',
-    args: [
-      '--coverage',
-      '--collectCoverageFrom=src/index.ts',
-      '--collectCoverageFrom=jest.config.js',
-    ],
+    args: ['--coverage', '--collectCoverageFrom=src/index.ts'],
   },
   {
     label: 'constants',

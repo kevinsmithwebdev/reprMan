@@ -1,5 +1,6 @@
 const { pathsToModuleNameMapper } = require('ts-jest')
 const { compilerOptions } = require('../../tsconfig.base.json')
+const { jestCoverageNegated } = require('../../scripts/coverage-exclude-globs.mjs')
 
 module.exports = {
   rootDir: __dirname,
@@ -14,10 +15,8 @@ module.exports = {
   transform: {},
   collectCoverageFrom: [
     'src/**/*.ts',
-    '!src/**/*.test.ts',
-    '!src/handlers/index.ts',
     'esbuild.bundle.js',
-    'esbuild.config.mjs',
+    ...jestCoverageNegated,
   ],
   coverageDirectory: 'coverage',
   coverageReporters: [['text', { maxCols: 200 }], 'lcov'],

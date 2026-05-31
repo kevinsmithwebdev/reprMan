@@ -18,11 +18,13 @@ jest.mock('@aws-sdk/lib-dynamodb', () => ({
 import {
   countReprsForUser,
   deleteRepr,
+  findUserIdByStripeCustomerId,
   getUserConfig,
   listReprs,
   markPracticed,
   recordTermsAcceptance,
   reprExists,
+  updateUserBillingConfig,
   updateUserPracticeSettings,
   upsertRepr,
 } from './reprStore'
@@ -191,6 +193,63 @@ describe('reprStore', () => {
     const result = await markPracticed('user-1', 'r1')
     expect(result?.datesPracticed).toHaveLength(2)
     expect(result?.datesPracticed[1]).toBe(200)
+  })
+
+  it('updateUserBillingConfig applies SET and REMOVE expressions', async () => {
+    mockSend
+      .mockResolvedValueOnce({
+        Item: { pk: 'USER#user-1', sk: 'CONFIG', stripeCustomerId: 'cus_old' },
+      })
+      .mockResolvedValueOnce({})
+      .mockResolvedValueOnce({
+        Item: {
+          pk: 'USER#user-1',
+          sk: 'CONFIG',
+          stripeCustomerId: 'cus_new',
+          stripeSubscriptionStatus: 'active',
+        },
+      })
+
+    await expect(
+      updateUserBillingConfig('user-1', {
+        stripeCustomerId: 'cus_new',
+        stripeSubscriptionStatus: 'active',
+        stripeCurrentPeriodEndMs: null,
+      })
+    ).resolves.toEqual({
+      pk: 'USER#user-1',
+      sk: 'CONFIG',
+      stripeCustomerId: 'cus_new',
+      stripeSubscriptionStatus: 'active',
+    })
+    expect(mockSend).toHaveBeenCalledWith(
+      expect.objectContaining({
+        input: expect.objectContaining({
+          UpdateExpression: expect.stringMatching(/SET.*REMOVE/s),
+        }),
+      })
+    )
+  })
+
+  it('updateUserBillingConfig returns config when update is empty', async () => {
+    const config = { pk: 'USER#user-1', sk: 'CONFIG' }
+    mockSend
+      .mockResolvedValueOnce({ Item: config })
+      .mockResolvedValueOnce({ Item: config })
+    await expect(updateUserBillingConfig('user-1', {})).resolves.toEqual(config)
+    expect(mockSend).toHaveBeenCalledTimes(2)
+  })
+
+  it('findUserIdByStripeCustomerId returns user id from scan', async () => {
+    mockSend.mockResolvedValueOnce({
+      Items: [{ pk: 'USER#user-42' }],
+    })
+    await expect(findUserIdByStripeCustomerId('cus_1')).resolves.toBe('user-42')
+  })
+
+  it('findUserIdByStripeCustomerId returns null when not found', async () => {
+    mockSend.mockResolvedValueOnce({ Items: [] })
+    await expect(findUserIdByStripeCustomerId('cus_missing')).resolves.toBeNull()
   })
 
   it('deleteRepr sends a delete command', async () => {

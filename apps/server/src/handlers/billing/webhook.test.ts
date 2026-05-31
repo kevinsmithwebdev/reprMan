@@ -173,6 +173,81 @@ describe('postStripeWebhookHandler', () => {
     expect(res.statusCode).toBe(500)
   })
 
+  it('decodes base64 webhook bodies', async () => {
+    constructEvent.mockReturnValue({
+      type: 'invoice.paid',
+      data: { object: {} },
+    })
+    const payload = JSON.stringify({ id: 'evt_1' })
+    const res = await postStripeWebhookHandler(
+      webhookEvent({
+        body: Buffer.from(payload, 'utf8').toString('base64'),
+        isBase64Encoded: true,
+      })
+    )
+    expect(constructEvent).toHaveBeenCalledWith(
+      payload,
+      'sig_test',
+      'whsec_test'
+    )
+    expect(res.statusCode).toBe(200)
+  })
+
+  it('resolves stripe-signature from mixed-case header keys', async () => {
+    constructEvent.mockReturnValue({
+      type: 'invoice.paid',
+      data: { object: {} },
+    })
+    const res = await postStripeWebhookHandler(
+      webhookEvent({
+        headers: { 'Stripe-Signature': 'sig_mixed' },
+      })
+    )
+    expect(constructEvent).toHaveBeenCalledWith('{}', 'sig_mixed', 'whsec_test')
+    expect(res.statusCode).toBe(200)
+  })
+
+  it('handles checkout.session.completed using metadata cognitoSub', async () => {
+    const updateSpy = jest
+      .spyOn(reprStore, 'updateUserBillingConfig')
+      .mockResolvedValue({
+        pk: 'USER#user-1',
+        sk: 'CONFIG',
+      } as Awaited<ReturnType<typeof reprStore.updateUserBillingConfig>>)
+    retrieveSubscription.mockResolvedValue({
+      id: 'sub_1',
+      customer: 'cus_1',
+      status: 'active',
+      current_period_end: 1_700_000_000,
+    })
+    constructEvent.mockReturnValue({
+      type: 'checkout.session.completed',
+      data: {
+        object: {
+          metadata: { cognitoSub: 'user-meta' },
+          customer: 'cus_1',
+          subscription: 'sub_1',
+        },
+      },
+    })
+    const res = await postStripeWebhookHandler(webhookEvent())
+    expect(res.statusCode).toBe(200)
+    expect(updateSpy).toHaveBeenCalled()
+    updateSpy.mockRestore()
+  })
+
+  it('skips checkout.session.completed when user id cannot be resolved', async () => {
+    const updateSpy = jest.spyOn(reprStore, 'updateUserBillingConfig')
+    constructEvent.mockReturnValue({
+      type: 'checkout.session.completed',
+      data: { object: { customer: 'cus_1' } },
+    })
+    const res = await postStripeWebhookHandler(webhookEvent())
+    expect(res.statusCode).toBe(200)
+    expect(updateSpy).not.toHaveBeenCalled()
+    updateSpy.mockRestore()
+  })
+
   it('ignores unknown event types', async () => {
     constructEvent.mockReturnValue({
       type: 'invoice.paid',
