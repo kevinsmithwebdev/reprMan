@@ -1,28 +1,31 @@
 ---
-description: Vitest/RTL testing layout, harness, and monorepo coverage (client-web)
+description: Vitest/RTL and Jest testing layout, naming, harness, and monorepo coverage
 globs:
-  - '**/*.{test,spec}.{ts,tsx}'
-  - '**/integration-tests/**/*.{ts,tsx}'
+  - '**/*.test.{ts,tsx,js}'
+  - '**/integration-tests/**/*.test.{ts,tsx}'
   - 'apps/client-web/src/test-utils/**/*.{ts,tsx}'
 alwaysApply: false
 ---
 
 # Testing conventions
 
+## File naming (required)
+
+- **Always** use the `*.test.*` suffix for test files. Examples: `foo.test.ts`, `Bar.integration.test.tsx`, `jest.config.test.js`.
+- **Never** add new `*.spec.*` files (`*.spec.ts`, `*.spec.tsx`, `*.spec.js`). The repo standardized on `*.test.*`; Vitest, Jest, and Sonar are configured for that pattern only.
+- **Colocate** unit tests as a sibling of the module under test: `foo.ts` → `foo.test.ts` (use `.tsx` only if the test file contains JSX).
+- **Do not** add new suites under `__TESTS__/`. Prefer TypeScript (`.test.ts` / `.test.tsx`) for new tests; existing `.test.js` is limited to legacy fixture/helpers (e.g. `libs/state/.../__FIXTURES__/`).
+
 ## Runner and stack
 
 - **Client UI and libs pulled into client-web Vitest**: `yarn test` → `nx run client-web:test` → Vitest (jsdom) from [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Use **Vitest** (`vi`, `describe`, …), not Jest, for these tests.
+- **Server (`apps/server`)**: **Jest** (Node) via `yarn test:server` → `nx run server:test`. Test files: `apps/server/src/**/*.test.ts` (see [apps/server/jest.config.js](apps/server/jest.config.js)).
+- **Shared packages with an Nx Jest target** (quota, repr-validation, repr-rules, constants): **Jest** via `nx run <project>:test`. Same `*.test.ts` naming; do not introduce `*.spec.ts`.
 - **RTL**: `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom` via [apps/client-web/src/setupTests.ts](apps/client-web/src/setupTests.ts). Legacy `jest.*` APIs are bridged to `vi` in that file.
-- **Shared packages** under `libs/shared/*` that expose an Nx **Jest** target (e.g. quota, repr-validation) stay on **Jest** unless the team explicitly migrates them.
-
-## Unit tests (pure logic)
-
-- **Colocate** as a sibling of the module under test: `foo.ts` → `foo.test.ts` (use `.tsx` only if the test file contains JSX).
-- **Do not** add new suites under `__TESTS__/` or legacy `*.test.js` for app/lib code in this workflow.
 
 ## Integration tests (pages and `libs/components`)
 
-- **Pages** (`apps/client-web/src/pages/<Page>/`): put files under `integration-tests/**/*.test.tsx` (or `.ts` if no JSX).
+- **Pages** (`apps/client-web/src/pages/<Page>/`): `integration-tests/**/*.test.tsx` (or `.test.ts` if no JSX).
 - **`libs/components`** modules: `libs/components/src/<Component>/integration-tests/**/*.test.tsx`.
 - **Harness**: render through [apps/client-web/src/test-utils/renderWithAppShell.tsx](apps/client-web/src/test-utils/renderWithAppShell.tsx) — Redux `Provider`, `MemoryRouter`, `CognitoAuthProvider`. Pass `preloadedState` and/or an existing `store` from [createTestStore.ts](apps/client-web/src/test-utils/createTestStore.ts) (no saga middleware).
 - **Imports from `libs/**`into app test-utils**: prefer a **repo-relative** path into`apps/client-web/src/test-utils`where ESLint`import/no-relative-packages`applies;`@client-web/test-utils` exists in Vite for resolution when appropriate.
@@ -36,11 +39,15 @@ alwaysApply: false
 
 ## Vitest discovery and coverage (monorepo)
 
-- Test **include** and **coverage** live in [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Lib tests are included via globs such as `../../libs/components/src/**` and `../../libs/utilities/src/**/*.test.ts`.
+- Test **include** and **coverage** live in [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Lib tests are discovered via `**/*.test.{ts,tsx,js}` globs under `../../libs/...` (no `*.spec.*` patterns).
+- **Sonar** test detection: [sonar-project.properties](sonar-project.properties) → `**/*.test.ts`, `**/*.test.tsx` only.
+- Full merged coverage (Vitest + Jest, for CI/Sonar): `yarn test:coverage` → [scripts/run-all-coverage.mjs](scripts/run-all-coverage.mjs).
 - Coverage uses **`allowExternal: true`** and **POSIX-style absolute `coverage.include` paths** so `libs/**` appears on Windows; if you change coverage layout, keep those constraints in mind.
-- **Per-file thresholds** (with `--coverage`): pure `*.{ts,js}` (not `.tsx`) → **100%**; `*.{tsx,jsx}` → **≥80%** in every column; `*.{helpers,helper}.*`, `libs/utilities`, and `libs/shared` → **100%**. Type-only files and barrels (`*.types.ts`, `index.ts`) are excluded from coverage.
+- **Per-file thresholds** (with `--coverage`): pure `*.{ts,js}` (not `.tsx`) → **100%**; `*.{tsx,jsx}` → **≥80%** in every column; `*.{helpers,helper}.*`, `libs/utilities`, and `libs/shared` → **100%**. Interface-only `*.types.ts` files listed in the Vite coverage exclude are not thresholded; do not add coverage for type-only modules.
 
 ## Commands
 
-- Full suite: `yarn test` (from repo root).
-- Watch: `yarn test:watch`.
+- Client-web Vitest (with coverage): `yarn test` (from repo root).
+- Watch (no coverage): `yarn test:watch`.
+- Server Jest: `yarn test:server`.
+- Full monorepo coverage (Vitest + Jest → merged `lcov.info`): `yarn test:coverage`.
