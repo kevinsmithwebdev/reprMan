@@ -75,7 +75,7 @@ const Settings = () => {
   const supplementalSettingsCardData = getSupplementalSettingsCardData()
 
   return (
-    <div className="app-page-padded" id="Settings-page">
+    <div className="app-page-padded settings-page" id="Settings-page">
       <h2>{t('pages.settings.title')}</h2>
       <SettingsCardNumber
         onChange={setPracticeDelay}

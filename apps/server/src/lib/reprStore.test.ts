@@ -10,6 +10,7 @@ jest.mock('@aws-sdk/lib-dynamodb', () => ({
   GetCommand: jest.fn((input) => ({ type: 'GetCommand', input })),
   PutCommand: jest.fn((input) => ({ type: 'PutCommand', input })),
   QueryCommand: jest.fn((input) => ({ type: 'QueryCommand', input })),
+  ScanCommand: jest.fn((input) => ({ type: 'ScanCommand', input })),
   UpdateCommand: jest.fn((input) => ({ type: 'UpdateCommand', input })),
 }))
 
@@ -60,15 +61,17 @@ describe('reprStore', () => {
     })
   })
 
-  it('getUserConfig creates a config row when missing', async () => {
-    mockSend
-      .mockResolvedValueOnce({})
-      .mockResolvedValueOnce({})
+  it('getUserConfig creates a config row with trial when missing', async () => {
+    const before = Date.now()
+    mockSend.mockResolvedValueOnce({}).mockResolvedValueOnce({})
 
-    await expect(getUserConfig('user-1')).resolves.toEqual({
-      pk: 'USER#user-1',
-      sk: 'CONFIG',
-    })
+    const config = await getUserConfig('user-1')
+    expect(config.pk).toBe('USER#user-1')
+    expect(config.sk).toBe('CONFIG')
+    expect(config.trialEndsAtMs).toBeGreaterThanOrEqual(
+      before + 89 * 86_400_000
+    )
+    expect(config.trialEndsAtMs).toBeLessThanOrEqual(before + 91 * 86_400_000)
   })
 
   it('getUserConfig loads config after a concurrent create', async () => {
@@ -167,7 +170,9 @@ describe('reprStore', () => {
     mockSend.mockResolvedValueOnce({}).mockResolvedValueOnce({})
     await expect(upsertRepr('user-1', repr)).resolves.toBe('created')
 
-    mockSend.mockResolvedValueOnce({ Item: { pk: 'USER#user-1' } }).mockResolvedValueOnce({})
+    mockSend
+      .mockResolvedValueOnce({ Item: { pk: 'USER#user-1' } })
+      .mockResolvedValueOnce({})
     await expect(upsertRepr('user-1', repr)).resolves.toBe('updated')
   })
 

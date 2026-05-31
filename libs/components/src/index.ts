@@ -1,4 +1,6 @@
 export { default as AcceptTermsGate } from './AcceptTermsGate'
+export { default as ReprLimitBanner } from './ReprLimitBanner/ReprLimitBanner'
+export { default as SubscriptionHeaderStatus } from './SubscriptionHeaderStatus/SubscriptionHeaderStatus'
 export { default as AddReprButton } from './AddReprButton'
 export { default as AuthUnavailableCard } from './AuthUnavailableCard'
 export { default as CategoryFilterTextInput } from './Header/Controls/CategoryFilterTextInput'

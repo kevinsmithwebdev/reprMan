@@ -159,7 +159,12 @@ describe('ReprsApi.module', () => {
       fetchMock.mockResolvedValueOnce({
         ok: true,
         json: async () => ({
-          maxReprsAllowed: 5,
+          subscription: {
+            status: 'paid',
+            expiration: '2027-01-01T00:00:00.000Z',
+            maxReprs: 1000,
+          },
+          maxReprsAllowed: 1000,
           termsAcceptedAt: '2024-01-01',
           termsVersion: 'v1',
           currentTermsVersion: 'v2',
@@ -171,7 +176,12 @@ describe('ReprsApi.module', () => {
       await expect(
         ReprsApiModule.getInstance().getUserConfig()
       ).resolves.toEqual({
-        maxReprsAllowed: 5,
+        subscription: {
+          status: 'paid',
+          expiration: '2027-01-01T00:00:00.000Z',
+          maxReprs: 1000,
+        },
+        maxReprsAllowed: 1000,
         termsAcceptedAt: '2024-01-01',
         termsVersion: 'v1',
         currentTermsVersion: 'v2',
@@ -188,6 +198,11 @@ describe('ReprsApi.module', () => {
       fetchMock.mockResolvedValueOnce({
         ok: true,
         json: async () => ({
+          subscription: {
+            status: 'unlimited',
+            expiration: null,
+            maxReprs: null,
+          },
           maxReprsAllowed: null,
           practiceDelay: 'bad',
           warningRatio: null,
@@ -197,6 +212,11 @@ describe('ReprsApi.module', () => {
       await expect(
         ReprsApiModule.getInstance().getUserConfig()
       ).resolves.toEqual({
+        subscription: {
+          status: 'unlimited',
+          expiration: null,
+          maxReprs: null,
+        },
         maxReprsAllowed: null,
         termsAcceptedAt: null,
         termsVersion: null,

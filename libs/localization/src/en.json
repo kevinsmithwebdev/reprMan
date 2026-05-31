@@ -69,6 +69,28 @@
     "acceptTermsIntro": "Please read and accept the Terms of Use to continue using ReprMan.",
     "acceptTermsFailed": "Could not record your acceptance. Check your connection and try again."
   },
+  "billing": {
+    "subscribe": "Subscribe",
+    "subscriptionLabel": "Subscription",
+    "subscriptionLoading": "Loading…",
+    "checkoutUnavailable": "Checkout is not available in this environment.",
+    "checkoutFailed": "Could not start checkout. Try again later.",
+    "reprLimitReached": "Repr limit of {{maxReprs}} reached.",
+    "reprLimitReachedShort": "Repr limit reached.",
+    "status": {
+      "trial": "Trial",
+      "unpaid": "Unpaid",
+      "paid": "Paid",
+      "unlimited": "Unlimited"
+    },
+    "header": {
+      "trialOne": "Trial account, {{count}} day remaining.",
+      "trialOther": "Trial account, {{count}} days remaining.",
+      "unpaid": "Unpaid account, limited function.",
+      "expiringOne": "Account expiring in {{count}} day.",
+      "expiringOther": "Account expiring in {{count}} days."
+    }
+  },
   "brand": {
     "copyright": "copyright ©{{year}}",
     "repertoireManagement": "Repertoire Management",
@@ -271,6 +293,11 @@
     },
     "home": {
       "title": "Home"
+    },
+    "subscribe": {
+      "title": "Subscribe",
+      "body": "Get full access to ReprMan with a yearly subscription. No credit card was required during your trial.",
+      "price": "€10 per year (auto-renews until you cancel)."
     },
     "reports": {
       "title": "Reports",

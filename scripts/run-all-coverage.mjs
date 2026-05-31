@@ -12,7 +12,11 @@ const clientWeb = resolve(root, 'apps/client-web')
 
 const run = (label, command, args, cwd) => {
   console.log(`\n[run-all-coverage] ${label}`)
-  const result = spawnSync(command, args, { cwd, stdio: 'inherit', env: process.env })
+  const result = spawnSync(command, args, {
+    cwd,
+    stdio: 'inherit',
+    env: process.env,
+  })
   if (result.status !== 0) {
     process.exit(result.status ?? 1)
   }
@@ -23,30 +27,42 @@ mkdirSync(resolve(clientWeb, 'coverage'), { recursive: true })
 run(
   'Vitest (client-web)',
   process.execPath,
-  [resolve(clientWeb, 'scripts/run-vitest-coverage.mjs'), ...process.argv.slice(2)],
+  [
+    resolve(clientWeb, 'scripts/run-vitest-coverage.mjs'),
+    ...process.argv.slice(2),
+  ],
   clientWeb
 )
 
 const jestProjects = [
   { label: 'server', cwd: 'apps/server', args: ['--coverage'] },
-    {
-      label: 'shared-quota',
-      cwd: 'libs/shared/quota',
-      args: [
-        '--coverage',
-        '--collectCoverageFrom=src/index.ts',
-        '--collectCoverageFrom=jest.config.js',
-      ],
-    },
-    {
-      label: 'shared-repr-validation',
-      cwd: 'libs/shared/repr-validation',
-      args: [
-        '--coverage',
-        '--collectCoverageFrom=src/index.ts',
-        '--collectCoverageFrom=jest.config.js',
-      ],
-    },
+  {
+    label: 'shared-quota',
+    cwd: 'libs/shared/quota',
+    args: [
+      '--coverage',
+      '--collectCoverageFrom=src/index.ts',
+      '--collectCoverageFrom=jest.config.js',
+    ],
+  },
+  {
+    label: 'shared-subscription',
+    cwd: 'libs/shared/subscription',
+    args: [
+      '--coverage',
+      '--collectCoverageFrom=src/index.ts',
+      '--collectCoverageFrom=jest.config.js',
+    ],
+  },
+  {
+    label: 'shared-repr-validation',
+    cwd: 'libs/shared/repr-validation',
+    args: [
+      '--coverage',
+      '--collectCoverageFrom=src/index.ts',
+      '--collectCoverageFrom=jest.config.js',
+    ],
+  },
   {
     label: 'constants',
     cwd: 'libs/constants',

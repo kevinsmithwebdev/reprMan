@@ -8,10 +8,12 @@ import {
   GetCommand,
   PutCommand,
   QueryCommand,
+  ScanCommand,
   UpdateCommand,
 } from '@aws-sdk/lib-dynamodb'
 import type { Repr } from '@reprman/shared/repr-model'
 import type { PracticeSettings, UserConfigItem } from '@reprman/shared/quota'
+import { computeTrialEndsAtMs } from '@reprman/shared/subscription'
 import { withPracticeApplied } from '@reprman/shared/repr-rules'
 import { keyForUserConfig } from './userConfig'
 
@@ -70,7 +72,10 @@ export const getUserConfig = async (
     return result.Item as UserConfigItem
   }
 
-  const newItem: UserConfigItem = { ...key }
+  const newItem: UserConfigItem = {
+    ...key,
+    trialEndsAtMs: computeTrialEndsAtMs(),
+  }
   try {
     await client.send(
       new PutCommand({
@@ -231,4 +236,89 @@ export const deleteRepr = async (
       Key: keyFor(userId, reprId),
     })
   )
+}
+
+export type BillingConfigUpdate = {
+  stripeCustomerId?: string
+  stripeSubscriptionId?: string
+  stripeSubscriptionStatus?: string
+  stripeCurrentPeriodEndMs?: number | null
+  subscriptionTier?: 'unlimited' | null
+  complimentaryPaidUntilMs?: number | null
+}
+
+export const updateUserBillingConfig = async (
+  userId: string,
+  update: BillingConfigUpdate
+): Promise<UserConfigItem> => {
+  await getUserConfig(userId)
+  const key = keyForUserConfig(userId)
+  const sets: string[] = []
+  const removes: string[] = []
+  const values: Record<string, unknown> = {}
+
+  const assign = (attr: string, value: unknown) => {
+    if (value === null) {
+      removes.push(attr)
+      return
+    }
+    if (value !== undefined) {
+      sets.push(`${attr} = :${attr}`)
+      values[`:${attr}`] = value
+    }
+  }
+
+  assign('stripeCustomerId', update.stripeCustomerId)
+  assign('stripeSubscriptionId', update.stripeSubscriptionId)
+  assign('stripeSubscriptionStatus', update.stripeSubscriptionStatus)
+  assign('stripeCurrentPeriodEndMs', update.stripeCurrentPeriodEndMs)
+  assign('subscriptionTier', update.subscriptionTier)
+  assign('complimentaryPaidUntilMs', update.complimentaryPaidUntilMs)
+
+  if (sets.length === 0 && removes.length === 0) {
+    return getUserConfig(userId)
+  }
+
+  let updateExpression = ''
+  if (sets.length > 0) {
+    updateExpression += `SET ${sets.join(', ')}`
+  }
+  if (removes.length > 0) {
+    updateExpression += `${sets.length > 0 ? ' ' : ''}REMOVE ${removes.join(
+      ', '
+    )}`
+  }
+
+  await client.send(
+    new UpdateCommand({
+      TableName: TABLE_NAME,
+      Key: key,
+      UpdateExpression: updateExpression,
+      ExpressionAttributeValues:
+        Object.keys(values).length > 0 ? values : undefined,
+    })
+  )
+
+  return getUserConfig(userId)
+}
+
+export const findUserIdByStripeCustomerId = async (
+  stripeCustomerId: string
+): Promise<string | null> => {
+  const result = await client.send(
+    new ScanCommand({
+      TableName: TABLE_NAME,
+      FilterExpression: 'sk = :configSk AND stripeCustomerId = :customerId',
+      ExpressionAttributeValues: {
+        ':configSk': 'CONFIG',
+        ':customerId': stripeCustomerId,
+      },
+      ProjectionExpression: 'pk',
+    })
+  )
+  const item = result.Items?.[0]
+  if (!item?.pk || typeof item.pk !== 'string') {
+    return null
+  }
+  return item.pk.replace(/^USER#/, '')
 }

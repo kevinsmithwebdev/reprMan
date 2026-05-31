@@ -1,0 +1,55 @@
+import React, { useState } from 'react'
+import { homeAuthGateActive } from '@reprman/cognito-auth/configureAmplify'
+import { useCognitoAuth } from '@reprman/cognito-auth/CognitoAuthContext'
+import { isReprsApiConfigured, ReprsApiModule } from '@reprman/reprs-api'
+import { useL10n } from '@reprman/localization'
+import { Card, Button, Spinner } from 'react-bootstrap'
+import { Navigate } from 'react-router-dom'
+
+const Subscribe = () => {
+  const { t } = useL10n()
+  const { sessionChecked, signedIn } = useCognitoAuth()
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  if (homeAuthGateActive() && sessionChecked && !signedIn) {
+    return <Navigate to="/signin" replace />
+  }
+
+  const handleSubscribe = async () => {
+    if (!isReprsApiConfigured) {
+      setError(t('billing.checkoutUnavailable'))
+      return
+    }
+    setBusy(true)
+    setError(null)
+    try {
+      const { url } = await ReprsApiModule.getInstance().createCheckoutSession()
+      globalThis.location.assign(url)
+    } catch {
+      setError(t('billing.checkoutFailed'))
+      setBusy(false)
+    }
+  }
+
+  return (
+    <Card.Body className="app-page-padded" id="Subscribe-page">
+      <Card.Title>{t('pages.subscribe.title')}</Card.Title>
+      <Card.Text>{t('pages.subscribe.body')}</Card.Text>
+      <p className="fw-semibold">{t('pages.subscribe.price')}</p>
+      {error ? <Card.Text className="text-danger">{error}</Card.Text> : null}
+      <Button
+        variant="primary"
+        disabled={busy}
+        onClick={() => handleSubscribe()}
+      >
+        {busy ? (
+          <Spinner animation="border" size="sm" className="me-1" />
+        ) : null}
+        {t('billing.subscribe')}
+      </Button>
+    </Card.Body>
+  )
+}
+
+export default Subscribe

@@ -31,6 +31,13 @@ export type UserConfigItem = {
   termsVersion?: string
   practiceDelay?: number
   warningRatio?: number
+  trialEndsAtMs?: number
+  subscriptionTier?: 'unlimited'
+  stripeCustomerId?: string
+  stripeSubscriptionId?: string
+  stripeSubscriptionStatus?: string
+  stripeCurrentPeriodEndMs?: number
+  complimentaryPaidUntilMs?: number
 }
 
 export type PracticeSettings = {

@@ -32,6 +32,10 @@ export default defineConfig({
         replacement: sharedLib('repr-rules'),
       },
       { find: /^@reprman\/shared\/quota$/, replacement: sharedLib('quota') },
+      {
+        find: /^@reprman\/shared\/subscription$/,
+        replacement: sharedLib('subscription'),
+      },
 
       // App-local test helpers (used from `libs/.../integration-tests` via Vitest include).
       {
@@ -107,6 +111,7 @@ export default defineConfig({
       '../../libs/shared/repr-model/src/**/*.test.{js,ts}',
       '../../libs/shared/repr-rules/src/**/*.test.{ts,tsx}',
       '../../libs/shared/quota/src/**/*.test.{ts,tsx}',
+      '../../libs/shared/subscription/src/**/*.test.{ts,tsx}',
     ],
     coverage: {
       ...coverageConfigDefaults,

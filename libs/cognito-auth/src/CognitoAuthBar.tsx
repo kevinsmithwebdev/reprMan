@@ -1,16 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AuthError, deleteUser, signOut } from 'aws-amplify/auth'
 import { Button, Dropdown, Modal, Spinner } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { useL10n } from '@reprman/localization'
 import { isCognitoConfigured } from '@reprman/cognito-auth/configureAmplify'
+import { isReprsApiConfigured } from '@reprman/reprs-api'
 import { clearAllCategoryData } from '@reprman/state/categories'
 import { resetReprs } from '@reprman/state/reprs'
+import {
+  selectSubscription,
+  selectSubscriptionLoaded,
+} from '@reprman/state/reprsQuota'
 import { resetSettingsAC } from '@reprman/state/settings/settings.actions'
 import { clearUser } from '@reprman/state/user/user.actions'
 import { useUser } from '@reprman/state/user/user.hooks'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
+import { loadReprsSAC } from '@reprman/state/sagas/reprs/reprs.actions'
 import { ToastLevel } from '@reprman/types'
 import { useCognitoAuth } from './CognitoAuthContext'
 import './CognitoAuthBar.css'
@@ -21,10 +27,23 @@ const CognitoAuthBar = () => {
   const navigate = useNavigate()
   const { t } = useL10n()
   const { user } = useUser()
+  const subscription = useSelector(selectSubscription)
+  const subscriptionLoaded = useSelector(selectSubscriptionLoaded)
   const { sessionChecked, signedIn } = useCognitoAuth()
   const [busySignOut, setBusySignOut] = useState(false)
   const [busyDeleteAccount, setBusyDeleteAccount] = useState(false)
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false)
+
+  useEffect(() => {
+    if (
+      sessionChecked &&
+      signedIn &&
+      isReprsApiConfigured &&
+      !subscriptionLoaded
+    ) {
+      dispatch(loadReprsSAC())
+    }
+  }, [dispatch, sessionChecked, signedIn, subscriptionLoaded])
 
   const notifyAuthError = (err: unknown) => {
     const message =
@@ -134,6 +153,19 @@ const CognitoAuthBar = () => {
               {user.name && user.name !== user.email ? (
                 <div className="small text-muted mt-1">{user.name}</div>
               ) : null}
+            </Dropdown.ItemText>
+            <Dropdown.ItemText
+              className="text-wrap text-break"
+              id="cognito-user-subscription"
+            >
+              <div className="small text-muted text-uppercase mb-1">
+                {t('billing.subscriptionLabel')}
+              </div>
+              <div className="fw-medium text-body">
+                {subscriptionLoaded && subscription
+                  ? t(`billing.status.${subscription.status}`)
+                  : t('billing.subscriptionLoading')}
+              </div>
             </Dropdown.ItemText>
             <Dropdown.Divider />
             <Dropdown.Item

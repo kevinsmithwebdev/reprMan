@@ -7,34 +7,34 @@ const authEvent = {
   },
 } as any
 
+const trialEnd = Date.parse('2026-08-01T00:00:00.000Z')
+
 describe('getUserConfigHandler', () => {
   let getUserConfigSpy: jest.SpiedFunction<typeof reprStore.getUserConfig>
 
   beforeEach(() => {
-    getUserConfigSpy = jest
-      .spyOn(reprStore, 'getUserConfig')
-      .mockResolvedValue({
-        pk: 'USER#user-1',
-        sk: 'CONFIG',
-        maxReprsAllowed: 7,
-      })
+    getUserConfigSpy = jest.spyOn(reprStore, 'getUserConfig')
   })
 
   afterEach(() => {
     getUserConfigSpy.mockRestore()
   })
 
-  it('returns resolved maxReprsAllowed', async () => {
+  it('returns subscription and mirrored maxReprsAllowed for trial user', async () => {
+    getUserConfigSpy.mockResolvedValue({
+      pk: 'USER#user-1',
+      sk: 'CONFIG',
+      trialEndsAtMs: trialEnd,
+    })
+
     const res = await getUserConfigHandler(authEvent)
     expect(res.statusCode).toBe(200)
-    expect(JSON.parse(res.body)).toEqual({
-      maxReprsAllowed: 7,
-      termsAcceptedAt: null,
-      termsVersion: null,
-      currentTermsVersion: '1',
-      practiceDelay: 30,
-      warningRatio: 0.5,
-    })
+    const body = JSON.parse(res.body)
+    expect(body.subscription.status).toBe('trial')
+    expect(body.subscription.maxReprs).toBe(100)
+    expect(body.maxReprsAllowed).toBe(100)
+    expect(body.termsAcceptedAt).toBeNull()
+    expect(body.practiceDelay).toBe(30)
     expect(getUserConfigSpy).toHaveBeenCalledWith('user-1')
   })
 
@@ -42,7 +42,8 @@ describe('getUserConfigHandler', () => {
     getUserConfigSpy.mockResolvedValue({
       pk: 'USER#user-1',
       sk: 'CONFIG',
-      maxReprsAllowed: null,
+      stripeSubscriptionStatus: 'active',
+      stripeCurrentPeriodEndMs: trialEnd,
       termsAcceptedAt: '2026-01-01T00:00:00.000Z',
       termsVersion: '1',
       practiceDelay: 10,
@@ -50,14 +51,10 @@ describe('getUserConfigHandler', () => {
     })
 
     const res = await getUserConfigHandler(authEvent)
-    expect(JSON.parse(res.body)).toEqual({
-      maxReprsAllowed: null,
-      termsAcceptedAt: '2026-01-01T00:00:00.000Z',
-      termsVersion: '1',
-      currentTermsVersion: '1',
-      practiceDelay: 10,
-      warningRatio: 0.8,
-    })
+    const body = JSON.parse(res.body)
+    expect(body.subscription.status).toBe('paid')
+    expect(body.termsAcceptedAt).toBe('2026-01-01T00:00:00.000Z')
+    expect(body.practiceDelay).toBe(10)
   })
 
   it('returns 401 when user is not authenticated', async () => {

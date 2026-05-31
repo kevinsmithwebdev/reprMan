@@ -7,12 +7,58 @@ import {
   DEFAULT_WARNING_RATIO,
   parseMaxReprsAllowed,
 } from '@reprman/shared/quota'
+import type {
+  Subscription,
+  SubscriptionStatus,
+} from '@reprman/shared/subscription'
 import { parseRepr, parseReprs } from '@reprman/shared/repr-validation'
 import { Repr, Reprs, Settings } from '@reprman/types'
 
 type Json = Record<string, unknown>
 
+const SUBSCRIPTION_STATUSES = new Set<SubscriptionStatus>([
+  'trial',
+  'unpaid',
+  'paid',
+  'unlimited',
+])
+
+export const parseSubscription = (raw: unknown): Subscription | undefined => {
+  if (!raw || typeof raw !== 'object') {
+    return undefined
+  }
+  const body = raw as Record<string, unknown>
+  const status = body.status
+  if (
+    typeof status !== 'string' ||
+    !SUBSCRIPTION_STATUSES.has(status as SubscriptionStatus)
+  ) {
+    return undefined
+  }
+  const expiration =
+    body.expiration === null
+      ? null
+      : typeof body.expiration === 'string'
+      ? body.expiration
+      : null
+  const maxReprs =
+    body.maxReprs === null
+      ? null
+      : typeof body.maxReprs === 'number'
+      ? body.maxReprs
+      : undefined
+  if (maxReprs === undefined) {
+    return undefined
+  }
+  return {
+    status: status as SubscriptionStatus,
+    expiration,
+    maxReprs,
+  }
+}
+
 export type UserConfigResponse = {
+  subscription: Subscription
   maxReprsAllowed: number | null | undefined
   termsAcceptedAt?: string | null
   termsVersion?: string | null
@@ -92,7 +138,12 @@ class ReprsApiModule {
 
   async getUserConfig(): Promise<UserConfigResponse> {
     const data = await request('/user/config', 'GET')
+    const subscription = parseSubscription(data.subscription)
+    if (!subscription) {
+      throw new Error('Invalid subscription in user config response')
+    }
     return {
+      subscription,
       maxReprsAllowed: parseMaxReprsAllowed(data.maxReprsAllowed),
       termsAcceptedAt:
         typeof data.termsAcceptedAt === 'string' ? data.termsAcceptedAt : null,
@@ -111,6 +162,22 @@ class ReprsApiModule {
           ? data.warningRatio
           : DEFAULT_WARNING_RATIO,
     }
+  }
+
+  async createCheckoutSession(): Promise<{ url: string }> {
+    const data = await request('/billing/checkout-session', 'POST')
+    if (typeof data.url !== 'string' || !data.url) {
+      throw new Error('Checkout session did not return a URL')
+    }
+    return { url: data.url }
+  }
+
+  async createPortalSession(): Promise<{ url: string }> {
+    const data = await request('/billing/portal-session', 'POST')
+    if (typeof data.url !== 'string' || !data.url) {
+      throw new Error('Portal session did not return a URL')
+    }
+    return { url: data.url }
   }
 
   async updateUserSettings(settings: Settings): Promise<Settings> {

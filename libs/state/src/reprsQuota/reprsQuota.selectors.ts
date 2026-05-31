@@ -1,5 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit'
 import type { RootState } from '../store'
+import { selectReprs } from '../reprs/reprs.selectors'
 import { NAMESPACE } from './reprsQuota.constants'
 
 const selectReprQuotaState = (state: RootState) => state[NAMESPACE]
@@ -29,6 +30,32 @@ export const selectReprCreationCapWhenLoaded = createSelector(
 export const selectTermsConfigLoaded = createSelector(
   selectReprQuotaState,
   ({ currentTermsVersion }) => currentTermsVersion !== undefined
+)
+
+export const selectSubscriptionLoaded = createSelector(
+  selectReprQuotaState,
+  ({ subscription }) => subscription !== undefined
+)
+
+export const selectSubscription = createSelector(
+  selectReprQuotaState,
+  ({ subscription }) => subscription
+)
+
+export const selectAtReprLimit = createSelector(
+  selectReprQuotaState,
+  selectReprs,
+  ({ subscription, maxReprsAllowed }, reprs) => {
+    const reprCount = reprs?.length ?? 0
+    const cap =
+      subscription?.maxReprs !== undefined
+        ? subscription.maxReprs
+        : maxReprsAllowed
+    if (cap === null || cap === undefined) {
+      return false
+    }
+    return reprCount >= cap
+  }
 )
 
 export const selectNeedsTermsAcceptance = createSelector(

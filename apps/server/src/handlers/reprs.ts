@@ -1,4 +1,8 @@
 import { parseRepr } from '@reprman/shared/repr-validation'
+import {
+  isAtReprLimit,
+  resolveSubscription,
+} from '@reprman/shared/subscription'
 import { getUserId } from '../lib/auth'
 import { trackAction, trackDailyUniqueUser } from '../lib/analytics'
 import { mapHandlerError } from '../lib/handlerErrors'
@@ -9,16 +13,14 @@ import {
   getUserConfig,
   listReprs,
   markPracticed,
-  reprExists,
   upsertRepr,
 } from '../lib/reprStore'
-import { resolveMaxReprsAllowed } from '../lib/userConfig'
 
-const reprLimitExceededResponse = (maxReprsAllowed: number) =>
+const reprLimitReachedResponse = (maxReprs: number) =>
   jsonResponse(403, {
-    code: 'REPR_LIMIT_EXCEEDED',
-    message: `You cannot create more than ${maxReprsAllowed} reprs.`,
-    maxReprsAllowed,
+    code: 'REPR_LIMIT_REACHED',
+    message: `Repr limit of ${maxReprs} reached.`,
+    maxReprs,
   })
 
 export const getReprsHandler = async (event: any): Promise<any> => {
@@ -46,17 +48,14 @@ export const putReprHandler = async (event: any): Promise<any> => {
       return jsonResponse(400, { message: 'Path id and repr id must match' })
     }
 
-    const [alreadyExists, config] = await Promise.all([
-      reprExists(userId, repr.id),
+    const [config, count] = await Promise.all([
       getUserConfig(userId),
+      countReprsForUser(userId),
     ])
-    const maxReprsAllowed = resolveMaxReprsAllowed(config)
+    const subscription = resolveSubscription(config)
 
-    if (!alreadyExists && maxReprsAllowed !== null) {
-      const count = await countReprsForUser(userId)
-      if (count >= maxReprsAllowed) {
-        return reprLimitExceededResponse(maxReprsAllowed)
-      }
+    if (subscription.maxReprs !== null && isAtReprLimit(count, subscription)) {
+      return reprLimitReachedResponse(subscription.maxReprs)
     }
 
     const result = await upsertRepr(userId, repr)

@@ -88,6 +88,17 @@ export class ReprServerStack extends cdk.Stack {
         DEFAULT_MAX_REPRS_ALLOWED: String(
           this.node.tryGetContext('defaultMaxReprsAllowed') ?? '25'
         ),
+        DEFAULT_TRIAL_DAYS: String(
+          this.node.tryGetContext('defaultTrialDays') ?? '90'
+        ),
+        STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY ?? '',
+        STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET ?? '',
+        STRIPE_PRICE_ID: process.env.STRIPE_PRICE_ID ?? '',
+        STRIPE_CHECKOUT_SUCCESS_URL:
+          process.env.STRIPE_CHECKOUT_SUCCESS_URL ?? '',
+        STRIPE_CHECKOUT_CANCEL_URL:
+          process.env.STRIPE_CHECKOUT_CANCEL_URL ?? '',
+        STRIPE_PORTAL_RETURN_URL: process.env.STRIPE_PORTAL_RETURN_URL ?? '',
         APP_VERSION: process.env.APP_VERSION ?? 'unknown',
         APP_BUILD_NUMBER: process.env.APP_BUILD_NUMBER ?? 'local',
         APP_BUILD_TIME_UTC: process.env.APP_BUILD_TIME_UTC ?? 'unknown',
@@ -146,6 +157,7 @@ export class ReprServerStack extends cdk.Stack {
           apigwv2.CorsHttpMethod.GET,
           apigwv2.CorsHttpMethod.POST,
           apigwv2.CorsHttpMethod.PUT,
+          apigwv2.CorsHttpMethod.PATCH,
           apigwv2.CorsHttpMethod.DELETE,
           apigwv2.CorsHttpMethod.OPTIONS,
         ],
@@ -212,6 +224,28 @@ export class ReprServerStack extends cdk.Stack {
       integration,
       authorizer,
       authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+    })
+
+    this.httpApi.addRoutes({
+      path: '/billing/checkout-session',
+      methods: [apigwv2.HttpMethod.POST],
+      integration,
+      authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+    })
+
+    this.httpApi.addRoutes({
+      path: '/billing/portal-session',
+      methods: [apigwv2.HttpMethod.POST],
+      integration,
+      authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+    })
+
+    this.httpApi.addRoutes({
+      path: '/billing/stripe-webhook',
+      methods: [apigwv2.HttpMethod.POST],
+      integration,
     })
 
     this.apiBaseUrlOutput = new cdk.CfnOutput(this, 'ApiBaseUrl', {

@@ -15,7 +15,7 @@ const authEvent = (overrides: Record<string, unknown> = {}) =>
     },
     rawPath: '/reprs',
     ...overrides,
-  }) as any
+  } as any)
 
 const validRepr = {
   id: 'r1',
@@ -27,14 +27,18 @@ const validRepr = {
 }
 
 describe('repr handlers', () => {
-  let trackDailyUniqueUserSpy: jest.SpiedFunction<typeof analytics.trackDailyUniqueUser>
+  let trackDailyUniqueUserSpy: jest.SpiedFunction<
+    typeof analytics.trackDailyUniqueUser
+  >
   let trackActionSpy: jest.SpiedFunction<typeof analytics.trackAction>
 
   beforeEach(() => {
     trackDailyUniqueUserSpy = jest
       .spyOn(analytics, 'trackDailyUniqueUser')
       .mockResolvedValue(undefined)
-    trackActionSpy = jest.spyOn(analytics, 'trackAction').mockImplementation(() => undefined)
+    trackActionSpy = jest
+      .spyOn(analytics, 'trackAction')
+      .mockImplementation(() => undefined)
   })
 
   afterEach(() => {
@@ -113,9 +117,8 @@ describe('repr handlers', () => {
       jest.spyOn(reprStore, 'getUserConfig').mockResolvedValue({
         pk: 'USER#user-1',
         sk: 'CONFIG',
-        maxReprsAllowed: 2,
       })
-      jest.spyOn(reprStore, 'countReprsForUser').mockResolvedValue(2)
+      jest.spyOn(reprStore, 'countReprsForUser').mockResolvedValue(25)
 
       const res = await putReprHandler(
         authEvent({
@@ -125,16 +128,16 @@ describe('repr handlers', () => {
       )
 
       expect(res.statusCode).toBe(403)
-      expect(JSON.parse(res.body).code).toBe('REPR_LIMIT_EXCEEDED')
+      expect(JSON.parse(res.body).code).toBe('REPR_LIMIT_REACHED')
     })
 
-    it('allows unlimited reprs when maxReprsAllowed is null', async () => {
-      const countSpy = jest.spyOn(reprStore, 'countReprsForUser').mockResolvedValue(99)
+    it('allows unlimited reprs for unlimited subscription tier', async () => {
       jest.spyOn(reprStore, 'getUserConfig').mockResolvedValue({
         pk: 'USER#user-1',
         sk: 'CONFIG',
-        maxReprsAllowed: null,
+        subscriptionTier: 'unlimited',
       })
+      jest.spyOn(reprStore, 'countReprsForUser').mockResolvedValue(99)
 
       const res = await putReprHandler(
         authEvent({
@@ -144,7 +147,6 @@ describe('repr handlers', () => {
       )
 
       expect(res.statusCode).toBe(200)
-      expect(countSpy).not.toHaveBeenCalled()
     })
 
     it('returns 400 for invalid JSON', async () => {
@@ -182,7 +184,9 @@ describe('repr handlers', () => {
 
   describe('markReprPracticedHandler', () => {
     it('returns 400 when repr id is missing', async () => {
-      const res = await markReprPracticedHandler(authEvent({ pathParameters: {} }))
+      const res = await markReprPracticedHandler(
+        authEvent({ pathParameters: {} })
+      )
       expect(res.statusCode).toBe(400)
     })
 

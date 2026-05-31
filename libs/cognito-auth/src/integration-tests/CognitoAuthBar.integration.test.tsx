@@ -61,8 +61,7 @@ vi.mock('../cognitoSession', () => ({
 }))
 
 vi.mock('../CognitoAuthContext', async (importOriginal) => {
-  const actual =
-    await importOriginal<typeof import('../CognitoAuthContext')>()
+  const actual = await importOriginal<typeof import('../CognitoAuthContext')>()
   return {
     ...actual,
     useCognitoAuth: useCognitoAuthMock,
@@ -171,11 +170,21 @@ describe('CognitoAuthBar (integration)', () => {
           userId: 'sub-1',
           name: 'Jane Doe',
         },
+        reprsQuota: {
+          subscription: {
+            status: 'trial',
+            expiration: '2026-08-01T00:00:00.000Z',
+            maxReprs: 100,
+          },
+        },
       },
     })
 
     fireEvent.click(document.getElementById('cognito-user-avatar-toggle')!)
     expect(screen.getByText('Jane Doe')).toBeTruthy()
+    expect(document.getElementById('cognito-user-subscription')).toBeTruthy()
+    expect(screen.getByText('billing.subscriptionLabel')).toBeTruthy()
+    expect(screen.getByText('billing.status.trial')).toBeTruthy()
     fireEvent.click(document.getElementById('cognito-terms-of-use')!)
     expect(navigateMock).toHaveBeenCalledWith('/terms')
 

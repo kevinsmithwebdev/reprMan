@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { homeAuthGateActive } from '@reprman/cognito-auth/configureAmplify'
 import { CognitoAuthBar } from '@reprman/cognito-auth'
+import SubscriptionHeaderStatus from '../SubscriptionHeaderStatus/SubscriptionHeaderStatus'
 import { useCognitoAuth } from '@reprman/cognito-auth/CognitoAuthContext'
 import { useL10n } from '@reprman/localization'
 import { Nav, Navbar } from 'react-bootstrap'
@@ -29,6 +30,9 @@ function pageTitleKeyForPath(pathname: string): string | null {
   }
   if (pathname.startsWith('/settings')) {
     return 'pages.settings.title'
+  }
+  if (pathname.startsWith('/subscribe')) {
+    return 'pages.subscribe.title'
   }
   if (pathname.startsWith('/view')) {
     return 'pages.viewRepr.title'
@@ -93,7 +97,8 @@ const Header = () => {
     { name: t('pages.settings.title'), path: '/settings' },
   ] as RouteData[]
 
-  const settingsNavDisabled = homeAuthGateActive() && sessionChecked && !signedIn
+  const settingsNavDisabled =
+    homeAuthGateActive() && sessionChecked && !signedIn
 
   return (
     <div
@@ -127,6 +132,7 @@ const Header = () => {
           >
             {routes.map((r) => renderLink(r, rootPath, settingsNavDisabled, t))}
           </Nav>
+          <SubscriptionHeaderStatus />
           <CognitoAuthBar />
         </div>
       </Navbar>

@@ -8,6 +8,9 @@ import {
 import { getUserConfigHandler } from './userConfig'
 import { patchUserSettingsHandler } from './patchUserSettings'
 import { postTermsAcceptanceHandler } from './termsAcceptance'
+import { postCheckoutSessionHandler } from './billing/checkoutSession'
+import { postPortalSessionHandler } from './billing/portalSession'
+import { postStripeWebhookHandler } from './billing/webhook'
 
 const serverBuildInfo = {
   version: process.env.APP_VERSION ?? 'unknown',
@@ -38,6 +41,27 @@ export const handler = async (event: any): Promise<any> => {
     event.rawPath === '/user/terms-acceptance'
   ) {
     return postTermsAcceptanceHandler(event)
+  }
+
+  if (
+    event.requestContext.http.method === 'POST' &&
+    event.rawPath === '/billing/checkout-session'
+  ) {
+    return postCheckoutSessionHandler(event)
+  }
+
+  if (
+    event.requestContext.http.method === 'POST' &&
+    event.rawPath === '/billing/portal-session'
+  ) {
+    return postPortalSessionHandler(event)
+  }
+
+  if (
+    event.requestContext.http.method === 'POST' &&
+    event.rawPath === '/billing/stripe-webhook'
+  ) {
+    return postStripeWebhookHandler(event)
   }
 
   if (

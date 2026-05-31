@@ -23,6 +23,7 @@
       ],
       "@reprman/shared/repr-rules": ["libs/shared/repr-rules/src/index.ts"],
       "@reprman/shared/quota": ["libs/shared/quota/src/index.ts"],
+      "@reprman/shared/subscription": ["libs/shared/subscription/src/index.ts"],
 
       "@reprman/components": ["libs/components/src/index.ts"],
       "@reprman/components/*": ["libs/components/src/*"],

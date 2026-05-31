@@ -1,7 +1,12 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { runSaga } from 'redux-saga'
 
-import { resetMaxReprsQuota, setMaxReprsQuota, setTermsConfig } from '@reprman/state/reprsQuota'
+import {
+  resetMaxReprsQuota,
+  setMaxReprsQuota,
+  setSubscription,
+  setTermsConfig,
+} from '@reprman/state/reprsQuota'
 import { setSettingsAC } from '@reprman/state/settings/settings.actions'
 import { storeReprsSAC } from '../reprs.actions'
 import { loadReprsWorker } from './loadReprs.saga'
@@ -53,7 +58,12 @@ describe('loadReprsWorker', () => {
       },
     ])
     getUserConfig.mockResolvedValue({
-      maxReprsAllowed: 10,
+      subscription: {
+        status: 'trial',
+        expiration: '2026-04-01T00:00:00.000Z',
+        maxReprs: 100,
+      },
+      maxReprsAllowed: 100,
       practiceDelay: 14,
       warningRatio: 0.4,
       termsAcceptedAt: undefined,
@@ -73,7 +83,14 @@ describe('loadReprsWorker', () => {
     expect(dispatched).toContainEqual(
       setSettingsAC({ practiceDelay: 14, warningRatio: 0.4 })
     )
-    expect(dispatched).toContainEqual(setMaxReprsQuota(10))
+    expect(dispatched).toContainEqual(setMaxReprsQuota(100))
+    expect(dispatched).toContainEqual(
+      setSubscription({
+        status: 'trial',
+        expiration: '2026-04-01T00:00:00.000Z',
+        maxReprs: 100,
+      })
+    )
     expect(dispatched).toContainEqual(
       setTermsConfig({
         termsAcceptedAt: null,
@@ -87,6 +104,43 @@ describe('loadReprsWorker', () => {
   it('falls back to empty reprs when the API throws', async () => {
     apiConfigured = true
     listReprs.mockRejectedValue(new Error('network'))
+    getUserConfig.mockResolvedValue({
+      subscription: {
+        status: 'trial',
+        expiration: '2026-04-01T00:00:00.000Z',
+        maxReprs: 100,
+      },
+      maxReprsAllowed: 100,
+      practiceDelay: 30,
+      warningRatio: 0.5,
+      termsAcceptedAt: undefined,
+      termsVersion: undefined,
+      currentTermsVersion: '1',
+    })
+
+    const dispatched: unknown[] = []
+    await runSaga(
+      {
+        dispatch: (action) => dispatched.push(action),
+        getState: () => ({}),
+      },
+      loadReprsWorker
+    ).toPromise()
+
+    expect(dispatched).toContainEqual(
+      setSubscription({
+        status: 'trial',
+        expiration: '2026-04-01T00:00:00.000Z',
+        maxReprs: 100,
+      })
+    )
+    expect(dispatched).toContainEqual(storeReprsSAC([]))
+  })
+
+  it('resets quota when user config fails even if reprs would succeed', async () => {
+    apiConfigured = true
+    getUserConfig.mockRejectedValue(new Error('config failed'))
+    listReprs.mockResolvedValue([])
 
     const dispatched: unknown[] = []
     await runSaga(

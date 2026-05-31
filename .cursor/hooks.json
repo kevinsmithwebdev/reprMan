@@ -3,12 +3,12 @@
   "hooks": {
     "afterFileEdit": [
       {
-        "command": ".cursor/hooks/prettier.sh"
+        "command": "node .cursor/hooks/prettier.js"
       }
     ],
     "afterTabFileEdit": [
       {
-        "command": ".cursor/hooks/prettier.sh"
+        "command": "node .cursor/hooks/prettier.js"
       }
     ]
   }

@@ -9,7 +9,12 @@ import { addReprSAC } from '@reprman/state/sagas/reprs/reprs.actions'
 import { useCategories } from '@reprman/state/categories'
 import CategoryPills from '@reprman/components/CategoryPills'
 import { useReprCreationCap } from '@reprman/state/reprsQuota'
+import {
+  selectAtReprLimit,
+  selectSubscription,
+} from '@reprman/state/reprsQuota'
 import { useL10n } from '@reprman/localization'
+import { useSelector } from 'react-redux'
 import CategoryLine from './CategoryLine'
 import {
   addCategory,
@@ -31,6 +36,8 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const [enteredCategory, setEnteredCategory] = useState('')
   const { getRepr, reprs } = useReprs()
   const { quotaLoaded, reprCreationCap } = useReprCreationCap()
+  const atLimit = useSelector(selectAtReprLimit)
+  const subscription = useSelector(selectSubscription)
   const repr = getRepr(id)
   const isCreateMode = !id
   const initialCategories = repr?.categories ?? []
@@ -67,7 +74,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
 
   const categoriesComplement = getComplement(availableCategories, categories)
 
-  if (isCreateMode && !quotaLoaded) {
+  if (!quotaLoaded) {
     return (
       <>
         <Modal.Header closeButton>
@@ -80,17 +87,16 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
     )
   }
 
-  const atCreationLimit =
-    isCreateMode && reprCreationCap !== null && reprs.length >= reprCreationCap
+  const limitCap = subscription?.maxReprs ?? reprCreationCap
 
-  if (atCreationLimit) {
+  if (atLimit && limitCap !== null) {
     return (
       <>
         <Modal.Header closeButton>
           <Modal.Title>{t('modals.editRepr.exceeded.title')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {t('modals.editRepr.exceeded.body', { num: reprCreationCap })}
+          {t('modals.editRepr.exceeded.body', { num: limitCap })}
         </Modal.Body>
       </>
     )
