@@ -64,7 +64,15 @@ runs:
           echo "::error::Missing apps/client-web/coverage/lcov.info. Run tests with coverage before the Sonar scan."
           exit 1
         }
-        node scripts/normalize-lcov-paths.mjs
+        node scripts/normalize-lcov-paths.mjs apps/client-web/coverage/lcov.info
+        if grep -qE 'SF:.*/coverage/' apps/client-web/coverage/lcov.info; then
+          echo "::error::LCOV SF paths still contain '/coverage/' — Sonar cannot match them to source files. Check scripts/normalize-lcov-paths.mjs"
+          grep -E 'SF:.*/coverage/' apps/client-web/coverage/lcov.info | head -5
+          exit 1
+        fi
+        if ! grep -q 'SF:apps/server/src/' apps/client-web/coverage/lcov.info; then
+          echo "::warning::Merged LCOV has no apps/server/src/ entries — server coverage may be missing from yarn test:coverage"
+        fi
 
     - name: SonarQube Scan (SonarCloud)
       if: env.sonar_mode == 'cloud'

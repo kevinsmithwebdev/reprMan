@@ -28,18 +28,20 @@ alwaysApply: false
 - **Pages** (`apps/client-web/src/pages/<Page>/`): `integration-tests/**/*.test.tsx` (or `.test.ts` if no JSX).
 - **`libs/components`** modules: `libs/components/src/<Component>/integration-tests/**/*.test.tsx`.
 - **Harness**: render through [apps/client-web/src/test-utils/renderWithAppShell.tsx](apps/client-web/src/test-utils/renderWithAppShell.tsx) — Redux `Provider`, `MemoryRouter`, `CognitoAuthProvider`. Pass `preloadedState` and/or an existing `store` from [createTestStore.ts](apps/client-web/src/test-utils/createTestStore.ts) (no saga middleware).
-- **Imports from `libs/**` into app test-utils**: prefer a **repo-relative** path into `apps/client-web/src/test-utils` where ESLint `import/no-relative-packages` applies; `@client-web/test-utils` exists in Vite for resolution when appropriate.
+- **Imports from `libs/**`into app test-utils**: prefer a **repo-relative** path into`apps/client-web/src/test-utils`where ESLint`import/no-relative-packages`applies;`@client-web/test-utils` exists in Vite for resolution when appropriate.
 - **Components that import `store` from `@reprman/state/store`**: use `vi.mock('@reprman/state/store', async () => { … })` so the mock resolves before the component module; reuse the same store instance the `Provider` gets.
 
 ## Coverage requirements (required before merge)
 
-Run **`yarn test:coverage`** from the repo root. CI and Sonar consume the merged LCOV at `apps/client-web/coverage/lcov.info`.
+Run **`yarn test:coverage`** from the repo root. CI and Sonar consume the merged LCOV at `apps/client-web/coverage/lcov.info` (paths must be repo-root-relative, e.g. `apps/server/src/handlers/billing/webhook.ts`, not `apps/client-web/coverage/src/...` — see [scripts/normalize-lcov-paths.mjs](scripts/normalize-lcov-paths.mjs)).
 
-| Source kind | Test style | Per-file target (lines, branches, functions, statements) |
-|-------------|------------|----------------------------------------------------------|
-| Pure logic (`*.ts` / `*.js`, not UI) | Colocated unit tests, saga tests | **100%** |
-| `libs/shared/**`, `libs/utilities/**`, `*.{helpers,helper}.*` | Unit tests | **100%** |
-| UI (`*.tsx` / `*.jsx` pages and components) | Integration tests under `integration-tests/` | **≥ 80%** |
+**Sonar vs local terminal reports:** Vitest/Jest print coverage against real source paths. Sonar only reads `lcov.info`. If path normalization is wrong, local thresholds can pass while Sonar shows **0% on new code**. After `yarn test:coverage`, spot-check: `grep '^SF:apps/server/src/' apps/client-web/coverage/lcov.info` should return hits.
+
+| Source kind                                                   | Test style                                   | Per-file target (lines, branches, functions, statements) |
+| ------------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------------- |
+| Pure logic (`*.ts` / `*.js`, not UI)                          | Colocated unit tests, saga tests             | **100%**                                                 |
+| `libs/shared/**`, `libs/utilities/**`, `*.{helpers,helper}.*` | Unit tests                                   | **100%**                                                 |
+| UI (`*.tsx` / `*.jsx` pages and components)                   | Integration tests under `integration-tests/` | **≥ 80%**                                                |
 
 - **New or changed production code** must meet the row above in the same PR. Sonar “new code” coverage follows the merged LCOV; untested handlers, sagas, and shared libs will fail the quality gate.
 - **Do not** add coverage for excluded paths (below). Add tests for everything else you touch.

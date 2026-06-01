@@ -5,6 +5,8 @@
  *
  * Vitest runs from apps/client-web, so SF entries are relative to that cwd
  * (e.g. src/App.tsx, ../../libs/state/src/store.ts).
+ * Jest runs from each package root (e.g. apps/server), so SF entries are
+ * relative to that package (e.g. src/handlers/router.ts).
  *
  * Idempotent: safe to run after tests and again before Sonar (CI does both).
  */
@@ -19,21 +21,28 @@ const targets = lcovPaths.length > 0 ? lcovPaths : [defaultLcov]
 
 const toPosix = (p) => p.replaceAll('\\', '/')
 
-const toRepoRelativePath = (rawPath, baseDir) => {
+/** Project root for an lcov file at `<project>/coverage/lcov.info`. */
+const projectRootForLcov = (lcovPath) => resolve(lcovPath, '../..')
+
+const toRepoRelativePath = (rawPath, projectRoot) => {
   const posix = toPosix(rawPath.replace(/^\.\/+/, ''))
   if (posix.startsWith('libs/') || posix.startsWith('apps/')) {
     return posix
   }
-  return toPosix(relative(root, resolve(baseDir, rawPath)))
+  return toPosix(relative(root, resolve(projectRoot, rawPath)))
 }
 
 for (const lcovPath of targets) {
-  const baseDir = resolve(lcovPath, '..')
+  const projectRoot = projectRootForLcov(lcovPath)
   const lcov = readFileSync(lcovPath, 'utf8')
   const normalized = lcov.replace(/^SF:(.+)$/gm, (_, rawPath) => {
-    return `SF:${toRepoRelativePath(rawPath, baseDir)}`
+    return `SF:${toRepoRelativePath(rawPath, projectRoot)}`
   })
 
   writeFileSync(lcovPath, normalized)
-  console.log(`[normalize-lcov-paths] Normalized SF paths in ${lcovPath}`)
+  console.log(
+    `[normalize-lcov-paths] Normalized SF paths in ${lcovPath} (project root: ${toPosix(
+      relative(root, projectRoot)
+    )})`
+  )
 }
