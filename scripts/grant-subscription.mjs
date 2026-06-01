@@ -65,27 +65,67 @@ function parseArgs(argv) {
   return { email, tier, days, env }
 }
 
+async function listStackResources(cfn, stackName) {
+  const resources = []
+  let nextToken
+
+  do {
+    const page = await cfn.send(
+      new DescribeStackResourcesCommand({
+        StackName: stackName,
+        NextToken: nextToken,
+      })
+    )
+    resources.push(...(page.StackResources ?? []))
+    nextToken = page.NextToken
+  } while (nextToken)
+
+  return resources
+}
+
+/** CDK logical ids are `ReprsTable` + hash, not the bare construct id. */
+function findDynamoTablePhysicalId(resources, constructId) {
+  const match = resources.find(
+    (r) =>
+      r.ResourceType === 'AWS::DynamoDB::Table' &&
+      (r.LogicalResourceId === constructId ||
+        r.LogicalResourceId?.startsWith(`${constructId}`))
+  )
+  return match?.PhysicalResourceId
+}
+
 async function resolveStackOutputs(stackName) {
   const cfn = new CloudFormationClient({})
   const stacks = await cfn.send(
     new DescribeStacksCommand({ StackName: stackName })
   )
-  const outputs = stacks.Stacks?.[0]?.Outputs ?? []
-  const byKey = Object.fromEntries(
-    outputs.map((o) => [o.OutputKey, o.OutputValue])
-  )
-
-  const resources = await cfn.send(
-    new DescribeStackResourcesCommand({ StackName: stackName })
-  )
-  const table = resources.StackResources?.find(
-    (r) => r.LogicalResourceId === 'ReprsTable'
-  )?.PhysicalResourceId
-
-  return {
-    userPoolId: byKey.UserPoolId,
-    tableName: table,
+  const stack = stacks.Stacks?.[0]
+  if (!stack) {
+    throw new Error(`Stack not found: ${stackName}`)
   }
+
+  const userPoolId = stack.Outputs?.find(
+    (o) => o.OutputKey === 'UserPoolId'
+  )?.OutputValue
+  if (!userPoolId) {
+    throw new Error(`Stack ${stackName} has no UserPoolId output`)
+  }
+
+  const resources = await listStackResources(cfn, stackName)
+  const tableName = findDynamoTablePhysicalId(resources, 'ReprsTable')
+  if (!tableName) {
+    const tables = resources
+      .filter((r) => r.ResourceType === 'AWS::DynamoDB::Table')
+      .map((r) => r.LogicalResourceId)
+      .join(', ')
+    throw new Error(
+      `Stack ${stackName} has no ReprsTable* DynamoDB resource (tables: ${
+        tables || 'none'
+      })`
+    )
+  }
+
+  return { userPoolId, tableName }
 }
 
 async function main() {
