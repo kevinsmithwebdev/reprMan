@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * List Cognito users with account creation time, last API activity day, and repr count.
+ * List Cognito users with account creation time, last API activity day, subscription
+ * status, and repr count.
  *
  * Usage:
  *   node scripts/list-users.mjs
@@ -29,7 +30,38 @@ import { DynamoDBDocumentClient, ScanCommand } from '@aws-sdk/lib-dynamodb'
 
 const USER_PK_PREFIX = 'USER#'
 const REPR_SK_PREFIX = 'REPR#'
+const CONFIG_SK = 'CONFIG'
 const DAY_PK_PREFIX = 'DAY#'
+
+const STRIPE_PAID_STATUSES = new Set(['active', 'trialing'])
+
+/** Keep in sync with libs/shared/subscription/src/index.ts */
+function resolveSubscriptionStatus(config, nowMs = Date.now()) {
+  if (config?.subscriptionTier === 'unlimited') {
+    return 'unlimited'
+  }
+
+  const stripePaid = Boolean(
+    config?.stripeSubscriptionStatus &&
+      STRIPE_PAID_STATUSES.has(config.stripeSubscriptionStatus)
+  )
+  const complimentaryPaid =
+    typeof config?.complimentaryPaidUntilMs === 'number' &&
+    nowMs < config.complimentaryPaidUntilMs
+
+  if (stripePaid || complimentaryPaid) {
+    return 'paid'
+  }
+
+  if (
+    typeof config?.trialEndsAtMs === 'number' &&
+    nowMs < config.trialEndsAtMs
+  ) {
+    return 'trial'
+  }
+
+  return 'unpaid'
+}
 
 const STACK_BY_ENV = {
   dev: 'ReprServerStack-Dev',
@@ -99,6 +131,39 @@ function formatDay(dayKey) {
     return '—'
   }
   return dayKey
+}
+
+const TABLE_COLUMNS = [
+  'email',
+  'created',
+  'last_active',
+  'subscription',
+  'reprs',
+]
+
+/** Like console.table but index column has no header label. */
+function printUserTable(rows) {
+  const headers = ['', ...TABLE_COLUMNS]
+  const body = rows.map((row, index) => [
+    String(index),
+    ...TABLE_COLUMNS.map((col) => String(row[col] ?? '')),
+  ])
+  const widths = headers.map((header, col) =>
+    Math.max(header.length, ...body.map((cells) => cells[col].length))
+  )
+  const pad = (text, col) => text.padEnd(widths[col])
+  const rowLine = (cells) =>
+    `│ ${cells.map((cell, col) => pad(cell, col)).join(' │ ')} │`
+  const borderSegment = (left, mid, right) =>
+    left + widths.map((w) => '─'.repeat(w + 2)).join(mid) + right
+
+  console.log(borderSegment('┌', '┬', '┐'))
+  console.log(rowLine(headers))
+  console.log(borderSegment('├', '┼', '┤'))
+  for (const cells of body) {
+    console.log(rowLine(cells))
+  }
+  console.log(borderSegment('└', '┴', '┘'))
 }
 
 const cf = new CloudFormationClient({})
@@ -202,37 +267,52 @@ async function listCognitoUsers(userPoolId) {
   return users
 }
 
-async function scanReprCounts(tableName) {
-  const counts = new Map()
+async function scanReprsTableData(tableName) {
+  const reprCounts = new Map()
+  const userConfigs = new Map()
   let exclusiveStartKey
 
   do {
     const page = await doc.send(
       new ScanCommand({
         TableName: tableName,
-        ProjectionExpression: 'pk, sk',
+        ProjectionExpression:
+          'pk, sk, trialEndsAtMs, subscriptionTier, stripeSubscriptionStatus, stripeCurrentPeriodEndMs, complimentaryPaidUntilMs',
         ExclusiveStartKey: exclusiveStartKey,
       })
     )
 
     for (const item of page.Items ?? []) {
       const { pk, sk } = item
-      if (
-        typeof pk !== 'string' ||
-        !pk.startsWith(USER_PK_PREFIX) ||
-        typeof sk !== 'string' ||
-        !sk.startsWith(REPR_SK_PREFIX)
-      ) {
+      if (typeof pk !== 'string' || !pk.startsWith(USER_PK_PREFIX)) {
         continue
       }
+      if (typeof sk !== 'string') {
+        continue
+      }
+
       const userId = pk.slice(USER_PK_PREFIX.length)
-      counts.set(userId, (counts.get(userId) ?? 0) + 1)
+
+      if (sk === CONFIG_SK) {
+        userConfigs.set(userId, {
+          trialEndsAtMs: item.trialEndsAtMs,
+          subscriptionTier: item.subscriptionTier,
+          stripeSubscriptionStatus: item.stripeSubscriptionStatus,
+          stripeCurrentPeriodEndMs: item.stripeCurrentPeriodEndMs,
+          complimentaryPaidUntilMs: item.complimentaryPaidUntilMs,
+        })
+        continue
+      }
+
+      if (sk.startsWith(REPR_SK_PREFIX)) {
+        reprCounts.set(userId, (reprCounts.get(userId) ?? 0) + 1)
+      }
     }
 
     exclusiveStartKey = page.LastEvaluatedKey
   } while (exclusiveStartKey)
 
-  return counts
+  return { reprCounts, userConfigs }
 }
 
 async function scanLastActiveDays(tableName) {
@@ -283,8 +363,8 @@ async function main() {
   console.error('Listing Cognito users…')
   const cognitoUsers = await listCognitoUsers(userPoolId)
 
-  console.error(`Scanning repr counts (${reprsTableName})…`)
-  const reprCounts = await scanReprCounts(reprsTableName)
+  console.error(`Scanning reprs table (${reprsTableName})…`)
+  const { reprCounts, userConfigs } = await scanReprsTableData(reprsTableName)
 
   console.error(`Scanning last activity (${dailyUsageTableName})…`)
   const lastActiveDays = await scanLastActiveDays(dailyUsageTableName)
@@ -297,6 +377,9 @@ async function main() {
         email,
         created: formatDateTime(user.UserCreateDate),
         last_active: userId ? formatDay(lastActiveDays.get(userId)) : '—',
+        subscription: userId
+          ? resolveSubscriptionStatus(userConfigs.get(userId))
+          : '—',
         reprs: userId ? reprCounts.get(userId) ?? 0 : 0,
         _sort: email.toLowerCase(),
       }
@@ -306,10 +389,11 @@ async function main() {
 
   console.error(
     `\n${env} | pool ${userPoolId} | ${rows.length} user(s)\n` +
-      'last_active = last calendar day with API usage (DailyUsageTable; ~120d retention)\n'
+      'last_active = last calendar day with API usage (DailyUsageTable; ~120d retention)\n' +
+      'subscription = resolved tier from USER#…/CONFIG (trial | unpaid | paid | unlimited)\n'
   )
 
-  console.table(rows)
+  printUserTable(rows)
 }
 
 try {
