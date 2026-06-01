@@ -1,3 +1,30 @@
+#Header.header-navbar {
+  display: block;
+}
+
+#Header .header-navbar-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  width: 100%;
+  gap: 8px;
+}
+
+#Header .header-navbar-center {
+  justify-self: center;
+  text-align: center;
+}
+
+#Header .header-navbar-end {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: flex-end;
+  justify-self: end;
+  padding: 0 16px;
+  gap: 8px;
+}
+
 #Header .nav-link {
   color: #ccc;
 }

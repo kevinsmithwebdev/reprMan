@@ -58,7 +58,7 @@ const SubscriptionHeaderStatus = () => {
   if (subscription.status === 'trial' && subscription.expiration) {
     const days = daysUntilExpiration(subscription.expiration) ?? 0
     return (
-      <span className="small text-light me-2" id="subscription-header-status">
+      <span className="small text-light" id="subscription-header-status">
         {dayLabel(
           days,
           'billing.header.trialOne',
@@ -72,7 +72,7 @@ const SubscriptionHeaderStatus = () => {
   if (subscription.status === 'unpaid') {
     return (
       <div
-        className="d-flex flex-wrap align-items-center gap-2 me-2"
+        className="d-flex flex-wrap align-items-center justify-content-center gap-2"
         id="subscription-header-status"
       >
         <span className="small text-light">{t('billing.header.unpaid')}</span>
@@ -96,7 +96,7 @@ const SubscriptionHeaderStatus = () => {
     const days = daysUntilExpiration(subscription.expiration) ?? 0
     return (
       <div
-        className="d-flex flex-wrap align-items-center gap-2 me-2"
+        className="d-flex flex-wrap align-items-center justify-content-center gap-2"
         id="subscription-header-status"
       >
         <span className="small text-light">

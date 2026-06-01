@@ -19,5 +19,9 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "prettier.requireConfig": true
+  "prettier.requireConfig": true,
+  "sonarlint.connectedMode.project": {
+    "connectionId": "kevinsmithwebdev",
+    "projectKey": "kevinsmithwebdev_reprMan"
+  }
 }

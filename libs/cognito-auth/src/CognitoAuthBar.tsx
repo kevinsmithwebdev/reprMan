@@ -124,7 +124,7 @@ const CognitoAuthBar = () => {
   const initials = signedIn ? getUserInitials(user) : ''
 
   return (
-    <div className="d-flex align-items-center gap-2 flex-wrap justify-content-end text-white px-2 ms-auto">
+    <div className="d-flex align-items-center gap-2 flex-wrap justify-content-end text-white px-2">
       {signedIn ? (
         <Dropdown align="end">
           <Dropdown.Toggle

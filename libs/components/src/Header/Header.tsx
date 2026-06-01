@@ -114,26 +114,34 @@ const Header = () => {
         id="Header"
         bg="dark"
         expand={false}
-        className="mb-0"
+        className="mb-0 header-navbar"
         variant="dark"
       >
-        <Navbar.Brand style={{ padding: '0 20px' }} href="/" id="header-brand">
-          {navbarBrandLabel}
-        </Navbar.Brand>
-
-        <div
-          className="ms-auto d-flex flex-row flex-wrap align-items-center"
-          style={{ padding: '0 16px', gap: '8px' }}
-        >
-          <Nav
-            className="justify-content-end flex-row"
-            style={{ padding: '0 14px' }}
-            id="nav-links"
+        <div className="header-navbar-inner">
+          <Navbar.Brand
+            style={{ padding: '0 20px' }}
+            href="/"
+            id="header-brand"
           >
-            {routes.map((r) => renderLink(r, rootPath, settingsNavDisabled, t))}
-          </Nav>
-          <SubscriptionHeaderStatus />
-          <CognitoAuthBar />
+            {navbarBrandLabel}
+          </Navbar.Brand>
+
+          <div className="header-navbar-center" id="header-subscription-center">
+            <SubscriptionHeaderStatus />
+          </div>
+
+          <div className="header-navbar-end">
+            <Nav
+              className="justify-content-end flex-row"
+              style={{ padding: '0 14px' }}
+              id="nav-links"
+            >
+              {routes.map((r) =>
+                renderLink(r, rootPath, settingsNavDisabled, t)
+              )}
+            </Nav>
+            <CognitoAuthBar />
+          </div>
         </div>
       </Navbar>
     </div>
