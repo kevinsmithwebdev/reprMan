@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.60.0",
+  "version": "0.61.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -63,6 +63,7 @@
     "migrate:user-config": "node scripts/backfill-user-config.mjs",
     "migrate:repr-learning": "node scripts/backfill-repr-learning.mjs",
     "users:list": "node scripts/list-users.mjs",
+    "users:set-status": "node scripts/set-user-status.mjs",
     "grant:subscription": "node scripts/grant-subscription.mjs",
     "postinstall": "simple-git-hooks && node scripts/patch-vitest-coverage.mjs",
     "prettier": "prettier --write apps/client-web/src",
