@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.63.0",
+  "version": "0.64.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -74,10 +74,14 @@
     "test:server": "nx run server:test",
     "test:coverage": "node scripts/run-all-coverage.mjs",
     "test:watch": "nx run client-web:test:watch",
+    "test:e2e": "nx run client-web:test:e2e",
+    "test:e2e:ui": "playwright test --config apps/client-web/e2e/playwright.config.cts --ui",
+    "test:e2e:install": "playwright install chromium",
     "test": "nx run client-web:test",
-    "validate": "yarn lint && prettier --check apps/client-web/src && yarn test --silent"
+    "validate": "yarn lint && prettier --check apps/client-web/src && yarn test --silent && yarn test:e2e"
   },
   "devDependencies": {
+    "@playwright/test": "^1.52.0",
     "@babel/preset-env": "^7.18.9",
     "@babel/preset-react": "^7.18.6",
     "@types/uuid": "^8.3.4",

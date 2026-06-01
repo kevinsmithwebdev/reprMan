@@ -39,11 +39,13 @@ export function* clearThemAll() {
   const currentReprs = (yield select(selectReprs)) as Reprs
   try {
     if (isReprsApiConfigured) {
-      yield all(
-        currentReprs.map((repr) =>
-          call([reprsApi, reprsApi.removeRepr], repr.id)
+      const batchSize = 10
+      for (let i = 0; i < currentReprs.length; i += batchSize) {
+        const batch = currentReprs.slice(i, i + batchSize)
+        yield all(
+          batch.map((repr) => call([reprsApi, reprsApi.removeRepr], repr.id))
         )
-      )
+      }
     }
     yield put(clearAllReprs())
     yield put(clearCategories())

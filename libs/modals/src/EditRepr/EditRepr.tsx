@@ -89,7 +89,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
 
   const limitCap = subscription?.maxReprs ?? reprCreationCap
 
-  if (atLimit && limitCap !== null) {
+  if (isCreateMode && atLimit && limitCap !== null) {
     return (
       <>
         <Modal.Header closeButton>

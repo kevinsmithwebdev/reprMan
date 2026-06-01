@@ -68,13 +68,17 @@ describe('EditRepr (integration)', () => {
 
   it('shows exceeded message when at creation limit', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState([
-          testRepr({ id: 'r1' }),
-          testRepr({ id: 'r2', title: 'Second' }),
-        ]),
-        reprsQuota: { maxReprsAllowed: 2 },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState([
+            testRepr({ id: 'r1' }),
+            testRepr({ id: 'r2', title: 'Second' }),
+          ]),
+          reprsQuota: { maxReprsAllowed: 2 },
+        }
+      )
     )
 
     expect(screen.getByText(/limit/i)).toBeTruthy()
@@ -83,15 +87,38 @@ describe('EditRepr (integration)', () => {
 
   it('renders create form when quota allows new reprs', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: 10 },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: 10 },
+        }
+      )
     )
 
     expect(screen.getByText(/create repr/i)).toBeTruthy()
     expect(screen.getByPlaceholderText(/enter title/i)).toBeTruthy()
     expect(screen.getByRole('button', { name: /^save$/i })).toBeDisabled()
+  })
+
+  it('renders edit form at repr limit when editing an existing repr', async () => {
+    renderEditReprModal(
+      withModal(
+        ModalSelection.EDIT_REPR,
+        { id: 'repr-1' },
+        {
+          ...loadedAppState([
+            testRepr({ id: 'repr-1' }),
+            testRepr({ id: 'r2', title: 'Second' }),
+          ]),
+          reprsQuota: { maxReprsAllowed: 2 },
+        }
+      )
+    )
+
+    expect(screen.getByDisplayValue('Test repr')).toBeTruthy()
+    expect(document.getElementById('edit-repr-modal')).toBeTruthy()
   })
 
   it('renders edit form with existing repr data and disables save until dirty', async () => {
@@ -125,10 +152,14 @@ describe('EditRepr (integration)', () => {
 
   it('shows validation errors for invalid save input', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: null },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: null },
+        }
+      )
     )
 
     fillInput(screen.getByPlaceholderText(/enter title/i), 'Bad*title')
@@ -142,10 +173,14 @@ describe('EditRepr (integration)', () => {
 
   it('dispatches add repr and closes modal on valid save', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: null },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: null },
+        }
+      )
     )
 
     const dispatchSpy = vi.spyOn(storeHolder.store!, 'dispatch')
@@ -168,14 +203,18 @@ describe('EditRepr (integration)', () => {
 
   it('adds category via pill and closes without saving', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: null },
-        categories: {
-          categories: ['music', 'dance'],
-          filter: { text: '', categories: [] },
-        },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: null },
+          categories: {
+            categories: ['music', 'dance'],
+            filter: { text: '', categories: [] },
+          },
+        }
+      )
     )
 
     fillInput(screen.getByPlaceholderText(/enter title/i), 'With category')
@@ -188,10 +227,14 @@ describe('EditRepr (integration)', () => {
 
   it('adds a new category when Enter is pressed in the category input', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: null },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: null },
+        }
+      )
     )
 
     fillInput(screen.getByPlaceholderText(/enter title/i), 'Enter category')
@@ -203,10 +246,14 @@ describe('EditRepr (integration)', () => {
 
   it('adds a new category with the plus button and removes it', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: null },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: null },
+        }
+      )
     )
 
     fillInput(screen.getByPlaceholderText(/enter title/i), 'Category test')
@@ -220,14 +267,18 @@ describe('EditRepr (integration)', () => {
 
   it('shows category validation errors', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: null },
-        categories: {
-          categories: ['music'],
-          filter: { text: '', categories: [] },
-        },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: null },
+          categories: {
+            categories: ['music'],
+            filter: { text: '', categories: [] },
+          },
+        }
+      )
     )
 
     fillInput(screen.getByPlaceholderText(/enter title/i), 'Category error')
@@ -239,10 +290,14 @@ describe('EditRepr (integration)', () => {
 
   it('saves with learning toggled on', async () => {
     renderEditReprModal(
-      withModal(ModalSelection.EDIT_REPR, {}, {
-        ...loadedAppState(),
-        reprsQuota: { maxReprsAllowed: null },
-      })
+      withModal(
+        ModalSelection.EDIT_REPR,
+        {},
+        {
+          ...loadedAppState(),
+          reprsQuota: { maxReprsAllowed: null },
+        }
+      )
     )
 
     fillInput(screen.getByPlaceholderText(/enter title/i), 'Learning repr')

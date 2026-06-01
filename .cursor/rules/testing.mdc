@@ -1,8 +1,10 @@
 ---
-description: Vitest/RTL and Jest testing layout, naming, harness, and monorepo coverage
+description: Vitest/RTL, Jest, Playwright e2e layout, naming, harness, and monorepo coverage
 globs:
   - '**/*.test.{ts,tsx,js}'
+  - '**/*.spec.{ts,tsx}'
   - '**/integration-tests/**/*.test.{ts,tsx}'
+  - 'apps/client-web/e2e/**'
   - 'apps/client-web/src/test-utils/**/*.{ts,tsx}'
 alwaysApply: false
 ---
@@ -11,16 +13,26 @@ alwaysApply: false
 
 ## File naming (required)
 
-- **Always** use the `*.test.*` suffix for test files. Examples: `foo.test.ts`, `Bar.integration.test.tsx`, `jest.config.test.js`.
-- **Never** add new `*.spec.*` files (`*.spec.ts`, `*.spec.tsx`, `*.spec.js`). The repo standardized on `*.test.*`; Vitest, Jest, and Sonar are configured for that pattern only.
+### Unit and integration tests (Vitest / Jest)
+
+- **Always** use the `*.test.*` suffix. Examples: `foo.test.ts`, `Bar.integration.test.tsx`, `jest.config.test.js`.
+- **Never** add `*.test.*` files under `apps/client-web/e2e/` (that tree is Playwright-only).
 - **Colocate** unit tests as a sibling of the module under test: `foo.ts` → `foo.test.ts` (use `.tsx` only if the test file contains JSX).
 - **Do not** add new suites under `__TESTS__/`. Prefer TypeScript (`.test.ts` / `.test.tsx`) for new tests; existing `.test.js` is limited to legacy fixture/helpers (e.g. `libs/state/.../__FIXTURES__/`).
+
+### End-to-end tests (Playwright)
+
+- **Always** use the `*.spec.ts` suffix under `apps/client-web/e2e/specs/` (e.g. `repr.spec.ts`, `reports.spec.ts`).
+- **Never** add `*.spec.*` outside `apps/client-web/e2e/` — unit/integration runners and Sonar only discover `*.test.*` elsewhere.
+- **Helpers, config, and setup** live next to `specs/` (`helpers/`, `playwright.config.cts`, `auth.setup.ts`), not inside `specs/`.
+- E2E specs **do not** count toward Vitest/Jest coverage and must stay excluded (see [scripts/coverage-exclude-globs.mjs](scripts/coverage-exclude-globs.mjs)).
 
 ## Runner and stack
 
 - **Client UI and libs pulled into client-web Vitest**: `yarn test` → `nx run client-web:test` → Vitest (jsdom) from [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Use **Vitest** (`vi`, `describe`, …), not Jest, for these tests.
 - **Server (`apps/server`)**: **Jest** (Node) via `yarn test:server` → `nx run server:test`. Test files: `apps/server/src/**/*.test.ts` (see [apps/server/jest.config.js](apps/server/jest.config.js)).
-- **Shared packages with an Nx Jest target** (quota, repr-validation, repr-rules, constants): **Jest** via `nx run <project>:test`. Same `*.test.ts` naming; do not introduce `*.spec.ts`.
+- **Shared packages with an Nx Jest target** (quota, repr-validation, repr-rules, constants): **Jest** via `nx run <project>:test`. Same `*.test.ts` naming; do not introduce `*.spec.ts` outside e2e.
+- **E2E (Playwright)**: `yarn test:e2e` → `nx run client-web:test:e2e` → [apps/client-web/e2e/playwright.config.cts](apps/client-web/e2e/playwright.config.cts). Specs in `e2e/specs/**/*.spec.ts`. Local setup: [apps/client-web/e2e/README.md](apps/client-web/e2e/README.md).
 - **RTL**: `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom` via [apps/client-web/src/setupTests.ts](apps/client-web/src/setupTests.ts). Legacy `jest.*` APIs are bridged to `vi` in that file.
 
 ## Integration tests (pages and `libs/components`)
@@ -45,6 +57,7 @@ Run **`yarn test:coverage`** from the repo root. CI and Sonar consume the merged
 
 - **New or changed production code** must meet the row above in the same PR. Sonar “new code” coverage follows the merged LCOV; untested handlers, sagas, and shared libs will fail the quality gate.
 - **Do not** add coverage for excluded paths (below). Add tests for everything else you touch.
+- **Playwright e2e** (`apps/client-web/e2e/**`, `*.spec.*`) is **never** included in coverage metrics.
 
 ## Excluded from coverage (Vitest, Jest, Sonar)
 
@@ -52,7 +65,8 @@ Canonical list: [scripts/coverage-exclude-globs.mjs](scripts/coverage-exclude-gl
 
 Excluded patterns include:
 
-- **Test and harness code**: `**/*.test.*`, `**/*.integration.test.*`, `**/integration-tests/**`, `**/*.testData.ts`, `**/test-utils/**`, `**/__FIXTURES__/**`
+- **Unit/integration test code**: `**/*.test.*`, `**/*.integration.test.*`, `**/integration-tests/**`, `**/*.testData.ts`, `**/test-utils/**`, `**/__FIXTURES__/**`
+- **E2E / Playwright**: `**/*.spec.*`, `**/e2e/**`, `**/playwright-report/**`, `**/test-results/**`, `**/blob-report/**`
 - **Config / tooling**: `**/vite.config.ts`, `**/jest.config.js`, `**/jest.config.test.js`, `**/scripts/**`, `**/setupTests.ts`, `apps/server/esbuild.config.mjs`
 - **Non-executable / barrel-only**: `**/*.types.ts`, `**/*.constants.ts`, `**/*.css`, `**/*.html`, thin `index.ts` re-export barrels (pages, components, modals, state, theme, types, etc.)
 - **Server entry shim**: `apps/server/src/handlers/index.ts`
@@ -68,7 +82,7 @@ Interface-only `*.types.ts` files listed in the Vite coverage exclude are not th
 ## Vitest discovery and coverage (monorepo)
 
 - Test **include** and **coverage** live in [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Lib tests are discovered via `**/*.test.{ts,tsx,js}` globs under `../../libs/...` (no `*.spec.*` patterns).
-- **Sonar** test detection: [sonar-project.properties](sonar-project.properties) → `**/*.test.ts`, `**/*.test.tsx` only.
+- **Sonar** unit-test detection: [sonar-project.properties](sonar-project.properties) → `**/*.test.ts`, `**/*.test.tsx` only (not Playwright specs).
 - Full merged coverage (Vitest + Jest, for CI/Sonar): `yarn test:coverage` → [scripts/run-all-coverage.mjs](scripts/run-all-coverage.mjs).
 - Coverage uses **`allowExternal: true`** and **POSIX-style absolute `coverage.include` paths** so `libs/**` appears on Windows; if you change coverage layout, keep those constraints in mind.
 
@@ -78,3 +92,4 @@ Interface-only `*.types.ts` files listed in the Vite coverage exclude are not th
 - Watch (no coverage): `yarn test:watch`.
 - Server Jest: `yarn test:server`.
 - Full monorepo coverage (Vitest + Jest → merged `lcov.info`): `yarn test:coverage`.
+- Playwright e2e: `yarn test:e2e` / `yarn test:e2e:ui` (see [apps/client-web/e2e/README.md](apps/client-web/e2e/README.md)).
