@@ -1,7 +1,11 @@
 #!/usr/bin/env node
 /**
  * Bump semver in package.json and apps/client-web/package.json (kept in sync).
- * Usage: node scripts/bump-version.mjs <minor|major>
+ * Usage: node scripts/bump-version.mjs <minor|major> [--root-only]
+ *
+ * --root-only  Bump only the repo root package.json (pre-commit hook).
+ *              Avoids calling `npm version` via yarn, which triggers npm 10+
+ *              warnings about Yarn's version-* config env vars.
  */
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
@@ -9,16 +13,25 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
-const PACKAGE_PATHS = [
+const ALL_PACKAGE_PATHS = [
   join(ROOT, 'package.json'),
   join(ROOT, 'apps', 'client-web', 'package.json'),
 ]
 
-const kind = process.argv[2]
-if (kind !== 'minor' && kind !== 'major') {
-  console.error('Usage: node scripts/bump-version.mjs <minor|major>')
+const args = process.argv.slice(2)
+const rootOnly = args.includes('--root-only')
+const kind = args.find((a) => a === 'minor' || a === 'major')
+
+if (!kind) {
+  console.error(
+    'Usage: node scripts/bump-version.mjs <minor|major> [--root-only]'
+  )
   process.exit(1)
 }
+
+const PACKAGE_PATHS = rootOnly
+  ? [join(ROOT, 'package.json')]
+  : ALL_PACKAGE_PATHS
 
 function parseVersion(v) {
   const m = /^(\d+)\.(\d+)\.(\d+)$/.exec(String(v).trim())

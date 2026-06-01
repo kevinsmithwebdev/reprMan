@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.62.0",
+  "version": "0.63.0",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -44,9 +44,9 @@
   "scripts": {
     "build:server": "nx run server:build",
     "build": "nx run client-web:build",
-    "bump:major": "npm version major --no-git-tag-version",
-    "bump:minor:commit": "npm version minor --no-git-tag-version && git add package.json",
-    "bump:minor": "npm version minor --no-git-tag-version",
+    "bump:major": "node scripts/bump-version.mjs major --root-only",
+    "bump:minor:commit": "node scripts/bump-version.mjs minor --root-only && git add package.json",
+    "bump:minor": "node scripts/bump-version.mjs minor --root-only",
     "clean:lock": "rm -rf node_modules && rm -f yarn.lock && yarn install",
     "clean:coverage": "node scripts/clean-coverage.mjs",
     "clean": "rm -rf node_modules && yarn install",
