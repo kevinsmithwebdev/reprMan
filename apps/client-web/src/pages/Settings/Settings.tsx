@@ -16,8 +16,6 @@ import { useL10n } from '@reprman/localization'
 import { useSettings } from '@reprman/state'
 import { saveUserSettingsSAC } from '@reprman/state/sagas/settings'
 import { useDispatch } from 'react-redux'
-
-import packageJson from '../../../package.json'
 import SettingsCardNumber from './SettingsCardNumber'
 import SupplementalSettingsCard from './SupplementalSettingsCard'
 import { getSupplementalSettingsCardData } from './Settings.helpers'
@@ -73,6 +71,7 @@ const Settings = () => {
   }
 
   const supplementalSettingsCardData = getSupplementalSettingsCardData()
+  const appVersion = import.meta.env.VITE_VERSION ?? 'unknown'
 
   return (
     <div className="app-page-padded settings-page" id="Settings-page">
@@ -133,7 +132,7 @@ const Settings = () => {
         {`${t('brand.copyright', {
           year: COPYRIGHT_YEAR,
         })} - ${t('brand.versionNumber', {
-          versionNumber: packageJson.version,
+          versionNumber: appVersion,
         })}`}
       </Card.Body>
     </div>

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Bump semver in package.json and apps/client-web/package.json (kept in sync).
- * Usage: node scripts/bump-version.mjs <minor|major> [--root-only]
+ * Usage: node scripts/bump-version.mjs <patch|minor|major> [--root-only]
  *
  * --root-only  Bump only the repo root package.json (pre-commit hook).
  *              Avoids calling `npm version` via yarn, which triggers npm 10+
@@ -20,11 +20,11 @@ const ALL_PACKAGE_PATHS = [
 
 const args = process.argv.slice(2)
 const rootOnly = args.includes('--root-only')
-const kind = args.find((a) => a === 'minor' || a === 'major')
+const kind = args.find((a) => a === 'patch' || a === 'minor' || a === 'major')
 
 if (!kind) {
   console.error(
-    'Usage: node scripts/bump-version.mjs <minor|major> [--root-only]'
+    'Usage: node scripts/bump-version.mjs <patch|minor|major> [--root-only]'
   )
   process.exit(1)
 }
@@ -39,9 +39,10 @@ function parseVersion(v) {
   return [Number(m[1]), Number(m[2]), Number(m[3])]
 }
 
-function bump([maj, min], bumpKind) {
+function bump([maj, min, pat], bumpKind) {
   if (bumpKind === 'major') return `${maj + 1}.0.0`
-  return `${maj}.${min + 1}.0`
+  if (bumpKind === 'minor') return `${maj}.${min + 1}.0`
+  return `${maj}.${min}.${pat + 1}`
 }
 
 const versions = PACKAGE_PATHS.map(

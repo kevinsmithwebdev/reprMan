@@ -84,8 +84,9 @@ export default defineConfig({
     : {
         command: 'yarn start',
         url: process.env.E2E_BASE_URL ?? 'http://localhost:3000',
-        // Only reuse when explicitly requested (e.g. `yarn start` already running).
-        reuseExistingServer: process.env.E2E_REUSE_EXISTING_SERVER === '1',
+        // Reuse an already running local dev server; CI still starts a fresh one.
+        reuseExistingServer:
+          process.env.E2E_REUSE_EXISTING_SERVER === '1' || !process.env.CI,
         cwd: repoRoot,
         timeout: 180_000,
         env: {

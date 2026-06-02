@@ -18,7 +18,7 @@
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "npx vite",
+        "command": "node ../../scripts/with-build-metadata.mjs VITE \"npx vite\"",
         "cwd": "apps/client-web"
       },
       "configurations": {

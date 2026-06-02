@@ -1,6 +1,6 @@
 {
   "name": "repr-man-web",
-  "version": "0.65.0",
+  "version": "0.2.1",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -44,12 +44,11 @@
   "scripts": {
     "build:server": "nx run server:build",
     "build": "nx run client-web:build",
-    "bump:major": "node scripts/bump-version.mjs major --root-only",
-    "bump:minor:commit": "node scripts/bump-version.mjs minor --root-only && git add package.json",
-    "bump:minor": "node scripts/bump-version.mjs minor --root-only",
     "clean:lock": "rm -rf node_modules && rm -f yarn.lock && yarn install",
     "clean:coverage": "node scripts/clean-coverage.mjs",
     "clean": "rm -rf node_modules && yarn install",
+    "bump:major": "node scripts/commit-with-bump.mjs major",
+    "bump:minor": "node scripts/commit-with-bump.mjs minor",
     "deploy:prod": "node scripts/promote-production.mjs",
     "deploy:server:prod": "nx run server:cdk:deploy:prod",
     "deploy:server": "nx run server:cdk:deploy",
@@ -114,6 +113,6 @@
     "autoprefixer": "10.4.5"
   },
   "simple-git-hooks": {
-    "pre-commit": "yarn bump:minor:commit"
+    "pre-commit": "node scripts/pre-commit-version-bump.mjs"
   }
 }
