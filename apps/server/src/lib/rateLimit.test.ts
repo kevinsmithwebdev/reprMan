@@ -57,9 +57,11 @@ describe('rateLimit', () => {
   })
 
   it('returns rate limit metadata when threshold is exceeded', async () => {
-    mockSend.mockResolvedValueOnce({}).mockRejectedValueOnce(
-      new ConditionalCheckFailedException({ message: 'too many' } as any)
-    )
+    mockSend
+      .mockResolvedValueOnce({})
+      .mockRejectedValueOnce(
+        new ConditionalCheckFailedException({ message: 'too many' } as any)
+      )
     const blocked = await enforceUserActionRateLimit(
       'user-1',
       'read',
@@ -81,9 +83,9 @@ describe('rateLimit', () => {
 
     await new Promise<void>((resolve, reject) => {
       jest.isolateModules(() => {
-        const {
-          enforceUserActionRateLimit: enforceWithoutTable,
-        } = require('./rateLimit') as typeof import('./rateLimit')
+        // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
+        const { enforceUserActionRateLimit: enforceWithoutTable } =
+          require('./rateLimit') as typeof import('./rateLimit')
         enforceWithoutTable('user-1', 'read')
           .then(() => resolve())
           .catch(reject)

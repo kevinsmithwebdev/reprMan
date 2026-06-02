@@ -182,11 +182,14 @@ export const enforceUserActionRateLimit = async (
   now: Date = new Date()
 ): Promise<RateLimitExceeded | null> => {
   const limits = buildLimits(action)
-  for (const limit of limits) {
-    const blocked = await consumeLimit(userId, limit, now)
-    if (blocked) {
-      return blocked
-    }
-  }
-  return null
+  return limits.reduce<Promise<RateLimitExceeded | null>>(
+    async (accPromise, limit) => {
+      const existing = await accPromise
+      if (existing) {
+        return existing
+      }
+      return consumeLimit(userId, limit, now)
+    },
+    Promise.resolve(null)
+  )
 }
