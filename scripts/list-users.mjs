@@ -126,11 +126,12 @@ function formatDateTime(date) {
     .replace(/\.\d{3}Z$/, ' UTC')
 }
 
-function formatDay(dayKey) {
+function dayKeyToMs(dayKey) {
   if (!dayKey) {
-    return '—'
+    return undefined
   }
-  return dayKey
+  const ms = Date.parse(`${dayKey}T00:00:00.000Z`)
+  return Number.isNaN(ms) ? undefined : ms
 }
 
 const TABLE_COLUMNS = [
@@ -315,41 +316,56 @@ async function scanReprsTableData(tableName) {
   return { reprCounts, userConfigs }
 }
 
-async function scanLastActiveDays(tableName) {
+async function scanLastActivity(tableName) {
   const lastDay = new Map()
+  const lastAtMs = new Map()
   let exclusiveStartKey
 
   do {
     const page = await doc.send(
       new ScanCommand({
         TableName: tableName,
-        ProjectionExpression: 'pk, sk',
+        ProjectionExpression: 'pk, sk, activeAtMs',
         ExclusiveStartKey: exclusiveStartKey,
       })
     )
 
     for (const item of page.Items ?? []) {
-      const { pk, sk } = item
-      if (
-        typeof pk !== 'string' ||
-        !pk.startsWith(DAY_PK_PREFIX) ||
-        typeof sk !== 'string' ||
-        !sk.startsWith(USER_PK_PREFIX)
-      ) {
+      const { pk, sk, activeAtMs } = item
+      if (typeof pk !== 'string' || typeof sk !== 'string') {
         continue
       }
-      const day = pk.slice(DAY_PK_PREFIX.length)
-      const userId = sk.slice(USER_PK_PREFIX.length)
-      const prev = lastDay.get(userId)
-      if (!prev || day > prev) {
-        lastDay.set(userId, day)
+
+      if (sk === 'LAST_ACTIVE' && pk.startsWith(USER_PK_PREFIX)) {
+        if (typeof activeAtMs === 'number') {
+          const userId = pk.slice(USER_PK_PREFIX.length)
+          lastAtMs.set(userId, activeAtMs)
+        }
+        continue
+      }
+
+      if (pk.startsWith(DAY_PK_PREFIX) && sk.startsWith(USER_PK_PREFIX)) {
+        const day = pk.slice(DAY_PK_PREFIX.length)
+        const userId = sk.slice(USER_PK_PREFIX.length)
+        const prev = lastDay.get(userId)
+        if (!prev || day > prev) {
+          lastDay.set(userId, day)
+        }
       }
     }
 
     exclusiveStartKey = page.LastEvaluatedKey
   } while (exclusiveStartKey)
 
-  return lastDay
+  return { lastDay, lastAtMs }
+}
+
+function formatLastActive(userId, lastDay, lastAtMs) {
+  if (!userId) {
+    return '—'
+  }
+  const atMs = lastAtMs.get(userId) ?? dayKeyToMs(lastDay.get(userId))
+  return formatDateTime(atMs)
 }
 
 async function main() {
@@ -367,7 +383,7 @@ async function main() {
   const { reprCounts, userConfigs } = await scanReprsTableData(reprsTableName)
 
   console.error(`Scanning last activity (${dailyUsageTableName})…`)
-  const lastActiveDays = await scanLastActiveDays(dailyUsageTableName)
+  const { lastDay, lastAtMs } = await scanLastActivity(dailyUsageTableName)
 
   const rows = cognitoUsers
     .map((user) => {
@@ -376,7 +392,7 @@ async function main() {
       return {
         email,
         created: formatDateTime(user.UserCreateDate),
-        last_active: userId ? formatDay(lastActiveDays.get(userId)) : '—',
+        last_active: formatLastActive(userId, lastDay, lastAtMs),
         subscription: userId
           ? resolveSubscriptionStatus(userConfigs.get(userId))
           : '—',
@@ -389,7 +405,7 @@ async function main() {
 
   console.error(
     `\n${env} | pool ${userPoolId} | ${rows.length} user(s)\n` +
-      'last_active = last calendar day with API usage (DailyUsageTable; ~120d retention)\n' +
+      'last_active = last API request time when available, else UTC midnight on last active day (~120d retention)\n' +
       'subscription = resolved tier from USER#…/CONFIG (trial | unpaid | paid | unlimited)\n'
   )
 

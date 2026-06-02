@@ -7,6 +7,7 @@ jest.mock('@aws-sdk/lib-dynamodb', () => ({
     from: () => ({ send: mockSend }),
   },
   PutCommand: jest.fn((input) => ({ input })),
+  UpdateCommand: jest.fn((input) => ({ input })),
 }))
 
 process.env.DAILY_USAGE_TABLE_NAME = 'usage-table'
@@ -46,6 +47,15 @@ describe('analytics', () => {
       expect.objectContaining({
         input: expect.objectContaining({
           TableName: 'usage-table',
+          Key: { pk: 'USER#user-1', sk: 'LAST_ACTIVE' },
+          UpdateExpression: 'SET activeAtMs = :now, expiresAt = :ttl',
+        }),
+      })
+    )
+    expect(mockSend).toHaveBeenCalledWith(
+      expect.objectContaining({
+        input: expect.objectContaining({
+          TableName: 'usage-table',
           Item: expect.objectContaining({
             pk: expect.stringMatching(/^DAY#/),
             sk: 'USER#user-1',
@@ -76,18 +86,32 @@ describe('analytics', () => {
   })
 
   it('trackDailyUniqueUser ignores duplicate visitor writes', async () => {
-    mockSend.mockRejectedValue(
-      new ConditionalCheckFailedException({ message: 'exists' } as any)
-    )
+    mockSend
+      .mockResolvedValueOnce({})
+      .mockRejectedValueOnce(
+        new ConditionalCheckFailedException({ message: 'exists' } as any)
+      )
     await trackDailyUniqueUser('user-1')
     expect(warnSpy).not.toHaveBeenCalled()
   })
 
-  it('trackDailyUniqueUser warns on unexpected errors', async () => {
-    mockSend.mockRejectedValue(new Error('network'))
+  it('trackDailyUniqueUser warns on unexpected daily visitor errors', async () => {
+    mockSend
+      .mockResolvedValueOnce({})
+      .mockRejectedValueOnce(new Error('network'))
     await trackDailyUniqueUser('user-1')
     expect(warnSpy).toHaveBeenCalledWith(
       '[analytics] failed to write daily unique user',
+      expect.any(Error)
+    )
+  })
+
+  it('trackDailyUniqueUser warns on last active update errors', async () => {
+    mockSend.mockRejectedValueOnce(new Error('network'))
+    mockSend.mockResolvedValueOnce({})
+    await trackDailyUniqueUser('user-1')
+    expect(warnSpy).toHaveBeenCalledWith(
+      '[analytics] failed to update last active time',
       expect.any(Error)
     )
   })
