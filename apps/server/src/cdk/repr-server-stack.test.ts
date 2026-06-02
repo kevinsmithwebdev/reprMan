@@ -33,6 +33,21 @@ describe('ReprServerStack', () => {
     expect(
       Object.keys(template.findResources('AWS::CloudWatch::Alarm'))
     ).toHaveLength(0)
+    template.hasResourceProperties('AWS::Lambda::Function', {
+      Environment: {
+        Variables: Match.objectLike({
+          RATE_LIMIT_GLOBAL_PER_DAY: '1000',
+          RATE_LIMIT_READ_PER_HOUR: '300',
+          RATE_LIMIT_BILLING_SESSION_PER_DAY: '30',
+        }),
+      },
+    })
+    template.hasResourceProperties('AWS::ApiGatewayV2::Stage', {
+      DefaultRouteSettings: {
+        ThrottlingBurstLimit: 50,
+        ThrottlingRateLimit: 20,
+      },
+    })
   })
 
   it('creates a prod inactivity alarm', () => {

@@ -1,4 +1,8 @@
-import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
+import {
+  ReprsApiModule,
+  isReprsApiConfigured,
+  toUserFriendlyApiErrorMessage,
+} from '@reprman/reprs-api'
 import { call, put, select, takeLatest } from 'redux-saga/effects'
 import { selectReprs, setReprs } from '@reprman/state/reprs'
 import { Reprs, ToastLevel } from '@reprman/types'
@@ -37,11 +41,14 @@ function* removeRepr(currentReprs: Reprs, index: number) {
     if (isReprsApiConfigured) {
       yield reprsApi.removeRepr(removed.id)
     }
-  } catch {
+  } catch (error: unknown) {
     yield put(setReprs(currentReprs))
     yield put(
       makeToastSAC({
-        body: 'Could not remove repr. Your list was restored.',
+        body: toUserFriendlyApiErrorMessage(
+          error,
+          'Could not remove repr. Your list was restored.'
+        ),
         level: ToastLevel.FAIL,
         delay: 6000,
       })

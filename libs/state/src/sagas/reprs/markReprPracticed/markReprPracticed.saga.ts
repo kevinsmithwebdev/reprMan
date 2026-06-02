@@ -1,5 +1,9 @@
 import { takeLatest, put, select } from 'redux-saga/effects'
-import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
+import {
+  ReprsApiModule,
+  isReprsApiConfigured,
+  toUserFriendlyApiErrorMessage,
+} from '@reprman/reprs-api'
 import { selectReprs, setReprs } from '@reprman/state/reprs'
 import { Reprs, ToastLevel } from '@reprman/types'
 import moment from 'moment'
@@ -27,11 +31,14 @@ export function* markReprPracticedWorker({ payload: id }: any) {
     if (isReprsApiConfigured) {
       yield reprsApi.upsertRepr(newRepr)
     }
-  } catch {
+  } catch (error: unknown) {
     yield put(setReprs(currentReprs))
     yield put(
       makeToastSAC({
-        body: 'Could not mark repr practiced. Your list was restored.',
+        body: toUserFriendlyApiErrorMessage(
+          error,
+          'Could not mark repr practiced. Your list was restored.'
+        ),
         level: ToastLevel.FAIL,
         delay: 6000,
       })

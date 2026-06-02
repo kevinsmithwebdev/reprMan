@@ -1,5 +1,9 @@
 import { put, takeLatest } from 'redux-saga/effects'
-import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
+import {
+  ReprsApiModule,
+  isReprsApiConfigured,
+  toUserFriendlyApiErrorMessage,
+} from '@reprman/reprs-api'
 import { setSettingsAC } from '@reprman/state/settings/settings.actions'
 import { ToastLevel } from '@reprman/types'
 import { makeToastSAC } from '../toast/toast.actions'
@@ -23,10 +27,10 @@ export function* saveUserSettingsWorker({
         delay: 3000,
       })
     )
-  } catch {
+  } catch (error: unknown) {
     yield put(
       makeToastSAC({
-        body: 'Could not save settings',
+        body: toUserFriendlyApiErrorMessage(error, 'Could not save settings'),
         level: ToastLevel.FAIL,
         delay: 6000,
       })

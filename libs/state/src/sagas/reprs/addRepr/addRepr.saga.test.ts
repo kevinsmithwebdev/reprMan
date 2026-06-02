@@ -17,6 +17,8 @@ vi.mock('@reprman/reprs-api', () => ({
   get isReprsApiConfigured() {
     return apiMock.isConfigured
   },
+  toUserFriendlyApiErrorMessage: (_error: unknown, fallback: string) =>
+    fallback,
   ReprsApiModule: {
     getInstance: () => ({
       upsertRepr: apiMock.upsertRepr,

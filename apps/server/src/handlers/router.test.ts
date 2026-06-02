@@ -2,6 +2,9 @@ import * as patchUserSettings from './patchUserSettings'
 import * as reprs from './reprs'
 import * as termsAcceptance from './termsAcceptance'
 import * as userConfig from './userConfig'
+import * as webhook from './billing/webhook'
+import * as auth from '../lib/auth'
+import * as rateLimit from '../lib/rateLimit'
 import { handler } from './router'
 
 const routeEvent = (method: string, rawPath: string) =>
@@ -13,6 +16,15 @@ const routeEvent = (method: string, rawPath: string) =>
 describe('router handler', () => {
   afterEach(() => {
     jest.restoreAllMocks()
+  })
+
+  beforeEach(() => {
+    jest
+      .spyOn(auth, 'getUserId')
+      .mockReturnValue('user-1')
+    jest
+      .spyOn(rateLimit, 'enforceUserActionRateLimit')
+      .mockResolvedValue(null)
   })
 
   it('routes GET /user/config', async () => {
@@ -75,5 +87,36 @@ describe('router handler', () => {
     const res = await handler(routeEvent('GET', '/unknown'))
     expect(res.statusCode).toBe(404)
     expect(JSON.parse(res.body)).toEqual({ message: 'Not found' })
+  })
+
+  it('returns 429 when user rate limit is exceeded', async () => {
+    jest.spyOn(rateLimit, 'enforceUserActionRateLimit').mockResolvedValue({
+      key: 'read/hour',
+      max: 300,
+      window: 'hour',
+      retryAfterSeconds: 1200,
+    })
+
+    const res = await handler(routeEvent('GET', '/reprs'))
+    expect(res.statusCode).toBe(429)
+    expect(res.headers['retry-after']).toBe('1200')
+    expect(JSON.parse(res.body)).toEqual({
+      code: 'RATE_LIMIT_EXCEEDED',
+      message: 'Rate limit exceeded. Please retry later.',
+      limitKey: 'read/hour',
+      max: 300,
+      window: 'hour',
+      retryAfterSeconds: 1200,
+    })
+  })
+
+  it('does not apply user rate limits to stripe webhook route', async () => {
+    const limiterSpy = jest.spyOn(rateLimit, 'enforceUserActionRateLimit')
+    const stripeSpy = jest
+      .spyOn(webhook, 'postStripeWebhookHandler')
+      .mockResolvedValue({ statusCode: 200, body: '{}' })
+    await handler(routeEvent('POST', '/billing/stripe-webhook'))
+    expect(limiterSpy).not.toHaveBeenCalled()
+    expect(stripeSpy).toHaveBeenCalled()
   })
 })

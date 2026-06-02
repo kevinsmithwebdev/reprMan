@@ -103,6 +103,39 @@ export class ReprServerStack extends cdk.Stack {
         APP_BUILD_NUMBER: process.env.APP_BUILD_NUMBER ?? 'local',
         APP_BUILD_TIME_UTC: process.env.APP_BUILD_TIME_UTC ?? 'unknown',
         APP_GIT_SHA: process.env.APP_GIT_SHA ?? 'unknown',
+        RATE_LIMIT_GLOBAL_PER_DAY: String(
+          this.node.tryGetContext('rateLimitGlobalPerDay') ?? '1000'
+        ),
+        RATE_LIMIT_READ_PER_HOUR: String(
+          this.node.tryGetContext('rateLimitReadPerHour') ?? '300'
+        ),
+        RATE_LIMIT_READ_PER_DAY: String(
+          this.node.tryGetContext('rateLimitReadPerDay') ?? '3000'
+        ),
+        RATE_LIMIT_WRITE_PER_HOUR: String(
+          this.node.tryGetContext('rateLimitWritePerHour') ?? '60'
+        ),
+        RATE_LIMIT_WRITE_PER_DAY: String(
+          this.node.tryGetContext('rateLimitWritePerDay') ?? '500'
+        ),
+        RATE_LIMIT_PRACTICE_PER_HOUR: String(
+          this.node.tryGetContext('rateLimitPracticePerHour') ?? '120'
+        ),
+        RATE_LIMIT_PRACTICE_PER_DAY: String(
+          this.node.tryGetContext('rateLimitPracticePerDay') ?? '800'
+        ),
+        RATE_LIMIT_BILLING_SESSION_PER_HOUR: String(
+          this.node.tryGetContext('rateLimitBillingSessionPerHour') ?? '10'
+        ),
+        RATE_LIMIT_BILLING_SESSION_PER_DAY: String(
+          this.node.tryGetContext('rateLimitBillingSessionPerDay') ?? '30'
+        ),
+        RATE_LIMIT_TERMS_PER_HOUR: String(
+          this.node.tryGetContext('rateLimitTermsPerHour') ?? '20'
+        ),
+        RATE_LIMIT_TERMS_PER_DAY: String(
+          this.node.tryGetContext('rateLimitTermsPerDay') ?? '50'
+        ),
       },
     })
 
@@ -252,6 +285,19 @@ export class ReprServerStack extends cdk.Stack {
       value: this.httpApi.apiEndpoint,
       description: 'HTTP API base URL (no trailing slash)',
     })
+
+    const defaultStage = this.httpApi.defaultStage?.node
+      .defaultChild as apigwv2.CfnStage | undefined
+    if (defaultStage) {
+      defaultStage.defaultRouteSettings = {
+        throttlingBurstLimit: Number(
+          this.node.tryGetContext('apiDefaultThrottleBurst') ?? '50'
+        ),
+        throttlingRateLimit: Number(
+          this.node.tryGetContext('apiDefaultThrottleRate') ?? '20'
+        ),
+      }
+    }
 
     this.userPoolIdOutput = new cdk.CfnOutput(this, 'UserPoolId', {
       value: this.userPool.userPoolId,

@@ -1,7 +1,11 @@
 import { put, select, takeLatest } from 'redux-saga/effects'
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
-import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
+import {
+  ReprsApiModule,
+  isReprsApiConfigured,
+  toUserFriendlyApiErrorMessage,
+} from '@reprman/reprs-api'
 import { selectReprs, setReprs } from '@reprman/state/reprs'
 import { Categories, Reprs, ToastLevel } from '@reprman/types'
 import { selectCategories, setCategories } from '@reprman/state/categories'
@@ -40,11 +44,14 @@ export function* addReprWorker({ payload: repr }: any) {
       const targetRepr = repr.id ? repr : newReprs[0]
       yield reprsApi.upsertRepr(targetRepr)
     }
-  } catch {
+  } catch (error: unknown) {
     yield put(setReprs(currentReprs))
     yield put(
       makeToastSAC({
-        body: 'Could not save repr changes. Your list was restored.',
+        body: toUserFriendlyApiErrorMessage(
+          error,
+          'Could not save repr changes. Your list was restored.'
+        ),
         level: ToastLevel.FAIL,
         delay: 6000,
       })
