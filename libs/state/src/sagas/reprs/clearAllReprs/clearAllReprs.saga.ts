@@ -2,14 +2,13 @@ import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
 import { clearAllReprs } from '@reprman/state/reprs'
 import { selectReprs } from '@reprman/state/reprs/reprs.selectors'
 import { Reprs, ToastLevel } from '@reprman/types'
-import { call, delay, put, select, takeLatest } from 'redux-saga/effects'
+import { all, call, delay, put, select, takeLatest } from 'redux-saga/effects'
 import { clearCategories } from '@reprman/state/categories'
 import { callConfirmation } from '@reprman/modals/Confirmation'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { CLEAR_ALL_REPRS } from '../reprs.actions'
 
-// @ts-ignore
-function* clearAllReprsWorker() {
+export function* clearAllReprsWorker() {
   // @ts-ignore
   const isFirstResponseAffirmative = yield call(callConfirmation, {
     title: 'Clear All Reprs Confirmation',
@@ -35,13 +34,17 @@ function* clearAllReprsWorker() {
 
 export default [takeLatest(CLEAR_ALL_REPRS, clearAllReprsWorker)]
 
-function* clearThemAll() {
+export function* clearThemAll() {
   const reprsApi = ReprsApiModule.getInstance()
   const currentReprs = (yield select(selectReprs)) as Reprs
   try {
     if (isReprsApiConfigured) {
-      for (let i = 0; i < currentReprs.length; i += 1) {
-        yield reprsApi.removeRepr(currentReprs[i].id)
+      const batchSize = 10
+      for (let i = 0; i < currentReprs.length; i += batchSize) {
+        const batch = currentReprs.slice(i, i + batchSize)
+        yield all(
+          batch.map((repr) => call([reprsApi, reprsApi.removeRepr], repr.id))
+        )
       }
     }
     yield put(clearAllReprs())

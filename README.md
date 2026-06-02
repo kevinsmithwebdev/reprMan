@@ -28,6 +28,14 @@ Set `VITE_COGNITO_USER_POOL_ID`, `VITE_COGNITO_USER_POOL_CLIENT_ID`, and `VITE_R
 - `yarn lint:server`
 - `yarn test:server`
 
+### End-to-end tests (Playwright)
+
+Browser tests live in [`apps/client-web/e2e/specs`](apps/client-web/e2e/specs) (`*.spec.ts`). They need Dev Cognito/API in repo root `.env` plus test credentials in `.env.e2e` (see [`apps/client-web/e2e/README.md`](apps/client-web/e2e/README.md)).
+
+- `yarn test:e2e:install` — install Chromium for Playwright
+- `yarn test:e2e` — run the suite (starts the Vite dev server unless one is already running)
+- `yarn test:e2e:ui` — debug in UI mode
+
 ### CDK stacks (Dev and Prod)
 
 The app defines two stacks in the same AWS account:

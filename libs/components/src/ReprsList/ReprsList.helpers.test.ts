@@ -1,7 +1,8 @@
 import moment from 'moment'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
 
 import { Repr, Settings } from '@reprman/types'
+import * as reprLineHelpers from '@reprman/components/ReprLine/ReprLine.helpers'
 import { ReprStatus } from '@reprman/components/ReprLine/ReprLine.helpers'
 
 import {
@@ -66,6 +67,17 @@ describe('groupReprsByStatus', () => {
 
     const sections = groupReprsByStatus([a, b], settings)
     expect(sections[0].reprs.map((r) => r.id)).toEqual(['b', 'a'])
+  })
+
+  it('omits reprs when status is not in the section map', () => {
+    vi.spyOn(reprLineHelpers, 'getReprStatusForRepr').mockReturnValue(
+      'UNKNOWN' as ReprStatus
+    )
+
+    const sections = groupReprsByStatus([repr()], settings)
+
+    expect(sections).toEqual([])
+    vi.restoreAllMocks()
   })
 
   it('groups non-learning reprs by practice status', () => {

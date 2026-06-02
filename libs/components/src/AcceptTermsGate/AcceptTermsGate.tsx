@@ -4,7 +4,7 @@ import { useCognitoAuth } from '@reprman/cognito-auth/CognitoAuthContext'
 import { isReprsApiConfigured, ReprsApiModule } from '@reprman/reprs-api'
 import { useL10n } from '@reprman/localization'
 import { Button, Form, Modal, Spinner } from 'react-bootstrap'
-import { Link, useLocation } from 'react-router-dom'
+import { useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   selectNeedsTermsAcceptance,
@@ -13,6 +13,7 @@ import {
 } from '@reprman/state/reprsQuota'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { ToastLevel } from '@reprman/types'
+import TermsLink from '../TermsLink'
 
 const SKIP_PATH_PREFIXES = ['/terms', '/signup', '/signin']
 
@@ -81,10 +82,7 @@ const AcceptTermsGate = () => {
           disabled={busy}
           label={
             <span>
-              {t('auth.signUpTermsPrefix')}{' '}
-              <Link to="/terms" onClick={(ev) => ev.stopPropagation()}>
-                {t('auth.signUpTermsLink')}
-              </Link>
+              {t('auth.signUpTermsPrefix')} <TermsLink />
             </span>
           }
         />

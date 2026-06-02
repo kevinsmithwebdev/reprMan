@@ -62,9 +62,9 @@ const ControlsBarShell: FC<ControlsBarShellProps> = ({
       style={{
         ...baseStyle,
         ...variantLayout[variant],
-        ...(!bleedFullViewport && marginBottomPx != null
-          ? { marginBottom: marginBottomPx }
-          : {}),
+        ...(bleedFullViewport || marginBottomPx == null
+          ? {}
+          : { marginBottom: marginBottomPx }),
       }}
     >
       {children}
@@ -76,7 +76,7 @@ const ControlsBarShell: FC<ControlsBarShellProps> = ({
       <div
         style={{
           ...bleedWrapperStyle,
-          ...(marginBottomPx != null ? { marginBottom: marginBottomPx } : {}),
+          ...(marginBottomPx == null ? {} : { marginBottom: marginBottomPx }),
         }}
       >
         {bar}

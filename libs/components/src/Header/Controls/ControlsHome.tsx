@@ -6,8 +6,7 @@ import { Link } from 'react-router-dom'
 import { useL10n } from '@reprman/localization'
 import { useCategories } from '@reprman/state/categories'
 import { useReprs } from '@reprman/state/reprs'
-import { CategoryFilter, Reprs } from '@reprman/types'
-import { getDoesContainsAll } from '@reprman/utilities'
+import { getFilteredReprs } from '@reprman/utilities'
 import CategoryFilterTextInput from './CategoryFilterTextInput'
 import ControlsBarShell from './ControlsBarShell'
 import FilterForm from './FilterForm'
@@ -97,19 +96,3 @@ const ControlsHome: FC = () => {
 }
 
 export default ControlsHome
-
-const getFilteredReprs = (reprs: Reprs, filter: CategoryFilter) =>
-  reprs.filter((r) => {
-    const query = filter.text.toLowerCase()
-    const shouldPassForText =
-      !filter.text ||
-      r.title.toLowerCase().includes(query) ||
-      r.comment.toLowerCase().includes(query)
-
-    const shouldCheckCategories = !!filter.categories.length
-    const shouldPassForCategories =
-      !shouldCheckCategories ||
-      getDoesContainsAll(r.categories, filter.categories)
-
-    return shouldPassForText && shouldPassForCategories
-  })

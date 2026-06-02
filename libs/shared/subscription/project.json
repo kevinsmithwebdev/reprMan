@@ -1,0 +1,30 @@
+{
+  "name": "shared-subscription",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/shared/subscription/src",
+  "targets": {
+    "typecheck": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx tsc -p tsconfig.json",
+        "cwd": "libs/shared/subscription"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx jest --config jest.config.js",
+        "cwd": "libs/shared/subscription"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint \"src/**/*.ts\" --max-warnings=0 --cache --cache-location .eslintcache",
+        "cwd": "libs/shared/subscription"
+      }
+    }
+  },
+  "tags": ["scope:shared", "type:rules"]
+}

@@ -1,5 +1,11 @@
-import { getUserId, UnauthorizedError } from '../lib/auth'
+import { parseRepr } from '@reprman/shared/repr-validation'
+import {
+  isAtReprLimit,
+  resolveSubscription,
+} from '@reprman/shared/subscription'
+import { getUserId } from '../lib/auth'
 import { trackAction, trackDailyUniqueUser } from '../lib/analytics'
+import { mapHandlerError } from '../lib/handlerErrors'
 import { jsonResponse } from '../lib/http'
 import {
   countReprsForUser,
@@ -7,36 +13,17 @@ import {
   getUserConfig,
   listReprs,
   markPracticed,
-  reprExists,
   upsertRepr,
 } from '../lib/reprStore'
-import { resolveMaxReprsAllowed } from '../lib/userConfig'
-import { parseRepr } from '../lib/reprValidation'
 
-const reprLimitExceededResponse = (maxReprsAllowed: number) =>
+const reprLimitReachedResponse = (maxReprs: number) =>
   jsonResponse(403, {
-    code: 'REPR_LIMIT_EXCEEDED',
-    message: `You cannot create more than ${maxReprsAllowed} reprs.`,
-    maxReprsAllowed,
+    code: 'REPR_LIMIT_REACHED',
+    message: `Repr limit of ${maxReprs} reached.`,
+    maxReprs,
   })
 
-type Event = any
-type Result = any
-
-const handleError = (
-  error: unknown,
-  options: { defaultStatus: number; defaultMessage: string }
-): Result => {
-  if (error instanceof UnauthorizedError) {
-    return jsonResponse(401, { message: 'Unauthorized' })
-  }
-
-  return jsonResponse(options.defaultStatus, {
-    message: options.defaultMessage,
-  })
-}
-
-export const getReprsHandler = async (event: Event): Promise<Result> => {
+export const getReprsHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
@@ -46,14 +33,11 @@ export const getReprsHandler = async (event: Event): Promise<Result> => {
     ])
     return jsonResponse(200, { reprs })
   } catch (error: unknown) {
-    return handleError(error, {
-      defaultStatus: 500,
-      defaultMessage: 'Internal server error',
-    })
+    return mapHandlerError(error)
   }
 }
 
-export const putReprHandler = async (event: Event): Promise<Result> => {
+export const putReprHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
@@ -64,33 +48,28 @@ export const putReprHandler = async (event: Event): Promise<Result> => {
       return jsonResponse(400, { message: 'Path id and repr id must match' })
     }
 
-    const [alreadyExists, config] = await Promise.all([
-      reprExists(userId, repr.id),
+    const [config, count] = await Promise.all([
       getUserConfig(userId),
+      countReprsForUser(userId),
     ])
-    const maxReprsAllowed = resolveMaxReprsAllowed(config)
+    const subscription = resolveSubscription(config)
 
-    if (!alreadyExists && maxReprsAllowed !== null) {
-      const count = await countReprsForUser(userId)
-      if (count >= maxReprsAllowed) {
-        return reprLimitExceededResponse(maxReprsAllowed)
-      }
+    if (subscription.maxReprs !== null && isAtReprLimit(count, subscription)) {
+      return reprLimitReachedResponse(subscription.maxReprs)
     }
 
     const result = await upsertRepr(userId, repr)
     trackAction(result === 'created' ? 'create' : 'edit')
     return jsonResponse(200, { repr })
   } catch (error: unknown) {
-    return handleError(error, {
+    return mapHandlerError(error, {
       defaultStatus: 400,
       defaultMessage: 'Bad request',
     })
   }
 }
 
-export const markReprPracticedHandler = async (
-  event: Event
-): Promise<Result> => {
+export const markReprPracticedHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
@@ -107,14 +86,14 @@ export const markReprPracticedHandler = async (
     trackAction('practice')
     return jsonResponse(200, { repr })
   } catch (error: unknown) {
-    return handleError(error, {
+    return mapHandlerError(error, {
       defaultStatus: 400,
       defaultMessage: 'Bad request',
     })
   }
 }
 
-export const deleteReprHandler = async (event: Event): Promise<Result> => {
+export const deleteReprHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
@@ -127,7 +106,7 @@ export const deleteReprHandler = async (event: Event): Promise<Result> => {
     trackAction('delete')
     return jsonResponse(200, { ok: true })
   } catch (error: unknown) {
-    return handleError(error, {
+    return mapHandlerError(error, {
       defaultStatus: 400,
       defaultMessage: 'Bad request',
     })

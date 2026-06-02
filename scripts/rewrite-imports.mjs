@@ -7,8 +7,8 @@
  * Run from repo root:
  *   node scripts/rewrite-imports.mjs
  */
-import { readFileSync, writeFileSync, statSync, readdirSync } from 'fs'
-import { extname, join } from 'path'
+import { readFileSync, writeFileSync, statSync, readdirSync } from 'node:fs'
+import { extname, join } from 'node:path'
 
 const ROOTS = ['apps/client-web/src', 'libs']
 const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs'])
@@ -16,22 +16,22 @@ const EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs'])
 // Order matters: more specific patterns first.
 const RULES = [
   // modules/* — split into individual lib aliases
-  [/(['"])modules\/CognitoAuth(['"\/])/g, '$1@reprman/cognito-auth$2'],
-  [/(['"])modules\/Localization(['"\/])/g, '$1@reprman/localization$2'],
-  [/(['"])modules\/ReprsApi(['"\/])/g, '$1@reprman/reprs-api$2'],
+  [/(['"])modules\/CognitoAuth(['"/])/g, '$1@reprman/cognito-auth$2'],
+  [/(['"])modules\/Localization(['"/])/g, '$1@reprman/localization$2'],
+  [/(['"])modules\/ReprsApi(['"/])/g, '$1@reprman/reprs-api$2'],
 
   // Top-level lib folders
-  [/(['"])components(['"\/])/g, '$1@reprman/components$2'],
-  [/(['"])modals(['"\/])/g, '$1@reprman/modals$2'],
-  [/(['"])state(['"\/])/g, '$1@reprman/state$2'],
-  [/(['"])utilities(['"\/])/g, '$1@reprman/utilities$2'],
-  [/(['"])types(['"\/])/g, '$1@reprman/types$2'],
-  [/(['"])themes(['"\/])/g, '$1@reprman/theme$2'],
+  [/(['"])components(['"/])/g, '$1@reprman/components$2'],
+  [/(['"])modals(['"/])/g, '$1@reprman/modals$2'],
+  [/(['"])state(['"/])/g, '$1@reprman/state$2'],
+  [/(['"])utilities(['"/])/g, '$1@reprman/utilities$2'],
+  [/(['"])types(['"/])/g, '$1@reprman/types$2'],
+  [/(['"])themes(['"/])/g, '$1@reprman/theme$2'],
 
   // constants is a special case: existing imports use `'constants/index'`
   // (or `'constants'`). Map both to `'@reprman/constants'`.
   [/(['"])constants\/index(['"])/g, '$1@reprman/constants$2'],
-  [/(['"])constants(['"\/])/g, '$1@reprman/constants$2'],
+  [/(['"])constants(['"/])/g, '$1@reprman/constants$2'],
 
   // configureAmplify lives in the cognito-auth lib now.
   [

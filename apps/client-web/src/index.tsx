@@ -7,28 +7,16 @@ import { CognitoAuthProvider, configureAmplify } from '@reprman/cognito-auth'
 import store from '@reprman/state/store'
 
 import App from './App'
+import { LogBuildInfoOnMount } from './LogBuildInfoOnMount'
 import './index.css'
 
 configureAmplify()
 
-const LogBuildInfoOnMount = () => {
-  const didLog = React.useRef(false)
-  React.useEffect(() => {
-    if (didLog.current) {
-      return
-    }
-    didLog.current = true
-    console.info('[reprman] build', {
-      version: import.meta.env.VITE_VERSION,
-      buildNumber: import.meta.env.VITE_BUILD_NUMBER,
-      buildTimeUtc: import.meta.env.VITE_BUILD_TIME_UTC,
-      gitSha: import.meta.env.VITE_GIT_SHA,
-    })
-  }, [])
-  return null
+const rootElement = document.getElementById('root')
+if (!rootElement) {
+  throw new Error('Root element #root not found')
 }
-
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+const root = ReactDOM.createRoot(rootElement)
 
 root.render(
   <React.StrictMode>

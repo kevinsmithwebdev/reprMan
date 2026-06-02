@@ -20,7 +20,7 @@ export const useReprsListAnimation = (
   const activeAnimationsRef = useRef(new Map<string, Animation>())
 
   useLayoutEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
+    const prefersReducedMotion = globalThis.matchMedia(
       '(prefers-reduced-motion: reduce)'
     ).matches
 
@@ -44,7 +44,7 @@ export const useReprsListAnimation = (
 
           const durationMs = prefersReducedMotion
             ? 0
-            : (Math.abs(deltaY) / window.innerHeight) *
+            : (Math.abs(deltaY) / globalThis.innerHeight) *
               SECONDS_PER_SCREEN *
               1000
 

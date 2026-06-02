@@ -78,18 +78,18 @@ const Reports = () => {
     }
   }, [dispatch, includeComments, includeLabels, t, visibleReprs])
 
-  if (homeAuthGateActive && isCognitoConfigured && !sessionChecked) {
+  if (homeAuthGateActive() && isCognitoConfigured() && !sessionChecked) {
     return <CenteredSpinner id="Reports-page" layout="fill" />
   }
 
-  if (homeAuthGateActive && !signedIn) {
+  if (homeAuthGateActive() && !signedIn) {
     return (
       <div
         id="Reports-page"
         className="app-page-padded d-flex flex-grow-1 justify-content-center"
         style={{ minHeight: 0 }}
       >
-        <HomeAuthCard authReady={isCognitoConfigured} />
+        <HomeAuthCard authReady={isCognitoConfigured()} />
       </div>
     )
   }

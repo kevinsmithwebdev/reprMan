@@ -6,7 +6,7 @@ export function collectSortedUniqueCategories(reprs: Reprs): string[] {
   reprs.forEach((r) => {
     r.categories.forEach((c) => set.add(c))
   })
-  return [...set].sort((a, b) =>
+  return Array.from(set).sort((a, b) =>
     a.localeCompare(b, undefined, { sensitivity: 'base' })
   )
 }

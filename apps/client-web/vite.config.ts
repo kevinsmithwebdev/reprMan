@@ -1,11 +1,12 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import * as path from 'path'
+import * as path from 'node:path'
 import { coverageConfigDefaults } from 'vitest/config'
+import { vitestCoverageExclude } from '../../scripts/coverage-exclude-globs.mjs'
 
 const root = path.resolve(__dirname, '../..')
-const posixPath = (p) => p.replace(/\\/g, '/')
+const posixPath = (p) => p.replaceAll('\\', '/')
 
 const lib = (name) => path.resolve(root, 'libs', name, 'src/index.ts')
 const libRoot = (name) => path.resolve(root, 'libs', name, 'src')
@@ -32,6 +33,10 @@ export default defineConfig({
         replacement: sharedLib('repr-rules'),
       },
       { find: /^@reprman\/shared\/quota$/, replacement: sharedLib('quota') },
+      {
+        find: /^@reprman\/shared\/subscription$/,
+        replacement: sharedLib('subscription'),
+      },
 
       // App-local test helpers (used from `libs/.../integration-tests` via Vitest include).
       {
@@ -85,13 +90,29 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.ts'],
-    css: true,
+    globalSetup: ['./scripts/vitest-global-setup.mjs'],
+    // `forks` gives each worker its own process (safe with per-file `vi.mock` and jsdom).
+    // `threads` + parallel files share one jsdom per worker → empty `<body />` flakes.
+    pool: 'forks',
+    css: false,
     include: [
-      'src/**/*.{test,spec}.{ts,tsx}',
-      'src/**/integration-tests/**/*.{test,spec}.{ts,tsx}',
+      'src/**/*.test.{ts,tsx}',
+      'src/**/integration-tests/**/*.test.{ts,tsx}',
       '../../libs/components/src/**/*.test.{ts,tsx}',
-      '../../libs/components/src/**/integration-tests/**/*.{test,spec}.{ts,tsx}',
+      '../../libs/components/src/**/integration-tests/**/*.test.{ts,tsx}',
       '../../libs/utilities/src/**/*.test.{ts,tsx}',
+      '../../libs/modals/src/**/*.test.{ts,tsx}',
+      '../../libs/modals/src/**/integration-tests/**/*.test.{ts,tsx}',
+      '../../libs/state/src/**/*.test.{js,ts,tsx}',
+      '../../libs/cognito-auth/src/**/*.test.{ts,tsx}',
+      '../../libs/cognito-auth/src/**/integration-tests/**/*.test.{ts,tsx}',
+      '../../libs/reprs-api/src/**/*.test.{ts,tsx}',
+      '../../libs/theme/src/**/*.test.{ts,tsx}',
+      '../../libs/shared/repr-validation/src/**/*.test.{ts,tsx}',
+      '../../libs/shared/repr-model/src/**/*.test.{js,ts}',
+      '../../libs/shared/repr-rules/src/**/*.test.{ts,tsx}',
+      '../../libs/shared/quota/src/**/*.test.{ts,tsx}',
+      '../../libs/shared/subscription/src/**/*.test.{ts,tsx}',
     ],
     coverage: {
       ...coverageConfigDefaults,
@@ -99,8 +120,73 @@ export default defineConfig({
       // With default `allowExternal: false`, those files are omitted from coverage.
       allowExternal: true,
       provider: 'v8',
-      reporter: ['text', 'lcov'],
+      reporter: [['text', { maxCols: 200 }], 'lcov'],
       reportsDirectory: './coverage',
+      reportOnFailure: true,
+      exclude: [
+        ...coverageConfigDefaults.exclude,
+        ...vitestCoverageExclude,
+        '**/settings/settings.types.ts',
+        '**/categories/categories.types.ts',
+        '**/reprs/reprs.types.ts',
+        '**/reprsQuota/reprsQuota.types.ts',
+        '**/modal/modal.types.ts',
+        '**/user/user.types.ts',
+        '**/ReprsList/ReprsList.types.ts',
+      ],
+      thresholds: {
+        perFile: true,
+        [`${posixPath(root)}/libs/utilities/src/**`]: {
+          lines: 100,
+          functions: 100,
+          branches: 100,
+          statements: 100,
+        },
+        [`${posixPath(root)}/libs/shared/**/src/**`]: {
+          lines: 100,
+          functions: 100,
+          branches: 100,
+          statements: 100,
+        },
+        '**/*.{helpers,helper}.{ts,tsx}': {
+          lines: 100,
+          functions: 100,
+          branches: 100,
+          statements: 100,
+        },
+        [`${posixPath(root)}/libs/state/src/sagas/reprs.helpers.ts`]: {
+          lines: 100,
+          functions: 100,
+          branches: 100,
+          statements: 100,
+        },
+        // Pure logic: 100% per file (.ts / .js only — not .tsx).
+        [`${posixPath(root)}/libs/**/src/**/*.ts`]: {
+          lines: 100,
+          functions: 100,
+          branches: 100,
+          statements: 100,
+        },
+        [`${posixPath(path.resolve(__dirname, 'src'))}/**/*.ts`]: {
+          lines: 100,
+          functions: 100,
+          branches: 100,
+          statements: 100,
+        },
+        // UI (.tsx / .jsx): at least 80% per file in every column.
+        [`${posixPath(root)}/libs/**/src/**/*.{tsx,jsx}`]: {
+          lines: 80,
+          functions: 80,
+          branches: 80,
+          statements: 80,
+        },
+        [`${posixPath(path.resolve(__dirname, 'src'))}/**/*.{tsx,jsx}`]: {
+          lines: 80,
+          functions: 80,
+          branches: 80,
+          statements: 80,
+        },
+      },
       // Absolute POSIX globs: `allowExternal` sets test-exclude `relativePath: false`, and
       // backslashes in patterns can prevent matches on Windows.
       include: [

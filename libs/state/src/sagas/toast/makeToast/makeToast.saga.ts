@@ -5,7 +5,7 @@ import { ToastLevel } from '@reprman/types'
 import { v4 as uuidv4 } from 'uuid'
 import { MAKE_TOAST } from '../toast.actions'
 
-function* makeToastWorker({ payload: toastData }: any) {
+export function* makeToastWorker({ payload: toastData }: any) {
   const id = uuidv4()
   const { t } = LocalizationModule.getInstance()
   const DEFAULT_TITLE_BY_LEVEL = {

@@ -1,3 +1,1 @@
-import { Repr } from '@reprman/types'
-
-export type { Repr }
+export type { Repr } from '@reprman/types'

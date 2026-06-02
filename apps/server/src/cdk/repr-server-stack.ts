@@ -6,6 +6,7 @@ import * as cognito from 'aws-cdk-lib/aws-cognito'
 import * as cloudwatch from 'aws-cdk-lib/aws-cloudwatch'
 import * as cloudwatchActions from 'aws-cdk-lib/aws-cloudwatch-actions'
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb'
+import * as kms from 'aws-cdk-lib/aws-kms'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as sns from 'aws-cdk-lib/aws-sns'
 import * as snsSubs from 'aws-cdk-lib/aws-sns-subscriptions'
@@ -14,11 +15,8 @@ import { Construct } from 'constructs'
 function firstNonEmpty(
   ...candidates: (string | undefined)[]
 ): string | undefined {
-  const found = candidates.find((c) => {
-    if (c === undefined || c === null) return false
-    return Boolean(String(c).trim())
-  })
-  return found !== undefined ? String(found).trim() : undefined
+  const found = candidates.find((c) => Boolean(c?.trim()))
+  return found?.trim()
 }
 
 export type ReprStage = 'dev' | 'prod'
@@ -35,6 +33,14 @@ export class ReprServerStack extends cdk.Stack {
   public readonly userPoolClient: cognito.UserPoolClient
 
   public readonly httpApi: apigwv2.HttpApi
+
+  public readonly apiBaseUrlOutput: cdk.CfnOutput
+
+  public readonly userPoolIdOutput: cdk.CfnOutput
+
+  public readonly userPoolClientIdOutput: cdk.CfnOutput
+
+  public readonly noActionsAlarm?: cloudwatch.Alarm
 
   constructor(scope: Construct, id: string, props: ReprServerStackProps) {
     super(scope, id, props)
@@ -59,7 +65,9 @@ export class ReprServerStack extends cdk.Stack {
       sortKey: { name: 'sk', type: dynamodb.AttributeType.STRING },
       billingMode: dynamodb.BillingMode.PAY_PER_REQUEST,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
-      pointInTimeRecovery: true,
+      pointInTimeRecoverySpecification: {
+        pointInTimeRecoveryEnabled: true,
+      },
     })
 
     const dailyUsageTable = new dynamodb.Table(this, 'DailyUsageTable', {
@@ -80,6 +88,17 @@ export class ReprServerStack extends cdk.Stack {
         DEFAULT_MAX_REPRS_ALLOWED: String(
           this.node.tryGetContext('defaultMaxReprsAllowed') ?? '25'
         ),
+        DEFAULT_TRIAL_DAYS: String(
+          this.node.tryGetContext('defaultTrialDays') ?? '90'
+        ),
+        STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY ?? '',
+        STRIPE_WEBHOOK_SECRET: process.env.STRIPE_WEBHOOK_SECRET ?? '',
+        STRIPE_PRICE_ID: process.env.STRIPE_PRICE_ID ?? '',
+        STRIPE_CHECKOUT_SUCCESS_URL:
+          process.env.STRIPE_CHECKOUT_SUCCESS_URL ?? '',
+        STRIPE_CHECKOUT_CANCEL_URL:
+          process.env.STRIPE_CHECKOUT_CANCEL_URL ?? '',
+        STRIPE_PORTAL_RETURN_URL: process.env.STRIPE_PORTAL_RETURN_URL ?? '',
         APP_VERSION: process.env.APP_VERSION ?? 'unknown',
         APP_BUILD_NUMBER: process.env.APP_BUILD_NUMBER ?? 'local',
         APP_BUILD_TIME_UTC: process.env.APP_BUILD_TIME_UTC ?? 'unknown',
@@ -138,6 +157,7 @@ export class ReprServerStack extends cdk.Stack {
           apigwv2.CorsHttpMethod.GET,
           apigwv2.CorsHttpMethod.POST,
           apigwv2.CorsHttpMethod.PUT,
+          apigwv2.CorsHttpMethod.PATCH,
           apigwv2.CorsHttpMethod.DELETE,
           apigwv2.CorsHttpMethod.OPTIONS,
         ],
@@ -161,6 +181,14 @@ export class ReprServerStack extends cdk.Stack {
     this.httpApi.addRoutes({
       path: '/user/config',
       methods: [apigwv2.HttpMethod.GET],
+      integration,
+      authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+    })
+
+    this.httpApi.addRoutes({
+      path: '/user/settings',
+      methods: [apigwv2.HttpMethod.PATCH],
       integration,
       authorizer,
       authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
@@ -198,19 +226,38 @@ export class ReprServerStack extends cdk.Stack {
       authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
     })
 
-    // eslint-disable-next-line no-new
-    new cdk.CfnOutput(this, 'ApiBaseUrl', {
+    this.httpApi.addRoutes({
+      path: '/billing/checkout-session',
+      methods: [apigwv2.HttpMethod.POST],
+      integration,
+      authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+    })
+
+    this.httpApi.addRoutes({
+      path: '/billing/portal-session',
+      methods: [apigwv2.HttpMethod.POST],
+      integration,
+      authorizer,
+      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+    })
+
+    this.httpApi.addRoutes({
+      path: '/billing/stripe-webhook',
+      methods: [apigwv2.HttpMethod.POST],
+      integration,
+    })
+
+    this.apiBaseUrlOutput = new cdk.CfnOutput(this, 'ApiBaseUrl', {
       value: this.httpApi.apiEndpoint,
       description: 'HTTP API base URL (no trailing slash)',
     })
 
-    // eslint-disable-next-line no-new
-    new cdk.CfnOutput(this, 'UserPoolId', {
+    this.userPoolIdOutput = new cdk.CfnOutput(this, 'UserPoolId', {
       value: this.userPool.userPoolId,
     })
 
-    // eslint-disable-next-line no-new
-    new cdk.CfnOutput(this, 'UserPoolClientId', {
+    this.userPoolClientIdOutput = new cdk.CfnOutput(this, 'UserPoolClientId', {
       value: this.userPoolClient.userPoolClientId,
     })
 
@@ -223,8 +270,7 @@ export class ReprServerStack extends cdk.Stack {
     })
 
     if (stage === 'prod') {
-      // eslint-disable-next-line no-new
-      new cloudwatch.Alarm(this, 'NoActionsInDayAlarm', {
+      this.noActionsAlarm = new cloudwatch.Alarm(this, 'NoActionsInDayAlarm', {
         metric: actionCountMetric,
         threshold: 1,
         evaluationPeriods: 1,
@@ -245,8 +291,14 @@ export class ReprServerStack extends cdk.Stack {
     const monthlyBudgetUsd = Number(monthlyBudgetUsdRaw ?? '25')
 
     if (billingAlertEmail && stage === 'prod') {
+      const billingAlertsKey = new kms.Key(this, 'BillingAlertsKey', {
+        enableKeyRotation: true,
+        description: `Encrypts ReprMan billing alert SNS messages (${stage})`,
+      })
+
       const topic = new sns.Topic(this, 'BillingAlertsTopic', {
         displayName: `ReprMan Billing Alerts (${stage})`,
+        masterKey: billingAlertsKey,
       })
       topic.addSubscription(new snsSubs.EmailSubscription(billingAlertEmail))
 

@@ -13,7 +13,9 @@ import {
   useCognitoAuth,
 } from '@reprman/cognito-auth'
 import { useL10n } from '@reprman/localization'
-import { setSettingsAC, store, useSettings } from '@reprman/state'
+import { useSettings } from '@reprman/state'
+import { saveUserSettingsSAC } from '@reprman/state/sagas/settings'
+import { useDispatch } from 'react-redux'
 
 import packageJson from '../../../package.json'
 import SettingsCardNumber from './SettingsCardNumber'
@@ -21,6 +23,7 @@ import SupplementalSettingsCard from './SupplementalSettingsCard'
 import { getSupplementalSettingsCardData } from './Settings.helpers'
 
 const Settings = () => {
+  const dispatch = useDispatch()
   const { sessionChecked, signedIn } = useCognitoAuth()
   const { settings: previousSettings } = useSettings()
   const [practiceDelayValue, setPracticeDelayValue] = useState(
@@ -61,18 +64,18 @@ const Settings = () => {
 
   const { t } = useL10n()
 
-  if (homeAuthGateActive && isCognitoConfigured && !sessionChecked) {
+  if (homeAuthGateActive() && isCognitoConfigured() && !sessionChecked) {
     return <CenteredSpinner id="Settings-page" />
   }
 
-  if (homeAuthGateActive && !signedIn) {
+  if (homeAuthGateActive() && !signedIn) {
     return <Navigate to="/" replace />
   }
 
   const supplementalSettingsCardData = getSupplementalSettingsCardData()
 
   return (
-    <div className="app-page-padded" id="Settings-page">
+    <div className="app-page-padded settings-page" id="Settings-page">
       <h2>{t('pages.settings.title')}</h2>
       <SettingsCardNumber
         onChange={setPracticeDelay}
@@ -92,8 +95,8 @@ const Settings = () => {
           style={{ margin: '5px' }}
           variant="success"
           onClick={() =>
-            store.dispatch(
-              setSettingsAC({
+            dispatch(
+              saveUserSettingsSAC({
                 practiceDelay: +practiceDelayValue,
                 warningRatio: +warningRatioValue,
               })
@@ -117,8 +120,14 @@ const Settings = () => {
 
       <hr style={{ borderWidth: '3px' }} />
 
-      {/* @ts-ignore */}
-      {supplementalSettingsCardData.map(SupplementalSettingsCard)}
+      {supplementalSettingsCardData.map((cardData) => (
+        <SupplementalSettingsCard
+          key={cardData.title}
+          title={cardData.title}
+          subtitle={cardData.subtitle}
+          buttons={cardData.buttons}
+        />
+      ))}
 
       <Card.Body style={{ textAlign: 'center', paddingTop: '20px' }}>
         {`${t('brand.copyright', {

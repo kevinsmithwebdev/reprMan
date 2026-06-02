@@ -2,16 +2,71 @@
 /* eslint-disable no-useless-constructor */
 /* eslint-disable no-empty-function */
 import { fetchAuthSession } from 'aws-amplify/auth'
-import { parseMaxReprsAllowed } from '@reprman/shared/quota'
-import { Repr, Reprs } from '@reprman/types'
+import {
+  DEFAULT_PRACTICE_DELAY,
+  DEFAULT_WARNING_RATIO,
+  parseMaxReprsAllowed,
+} from '@reprman/shared/quota'
+import type {
+  Subscription,
+  SubscriptionStatus,
+} from '@reprman/shared/subscription'
+import { parseRepr, parseReprs } from '@reprman/shared/repr-validation'
+import { Repr, Reprs, Settings } from '@reprman/types'
 
 type Json = Record<string, unknown>
 
+const SUBSCRIPTION_STATUSES = new Set<SubscriptionStatus>([
+  'trial',
+  'unpaid',
+  'paid',
+  'unlimited',
+])
+
+export const parseSubscription = (raw: unknown): Subscription | undefined => {
+  if (!raw || typeof raw !== 'object') {
+    return undefined
+  }
+  const body = raw as Record<string, unknown>
+  const { status } = body
+  if (
+    typeof status !== 'string' ||
+    !SUBSCRIPTION_STATUSES.has(status as SubscriptionStatus)
+  ) {
+    return undefined
+  }
+  let expiration: string | null = null
+  if (typeof body.expiration === 'string') {
+    expiration = body.expiration
+  } else if (body.expiration !== null && body.expiration !== undefined) {
+    return undefined
+  }
+  let maxReprs: number | null | undefined
+  if (body.maxReprs === null) {
+    maxReprs = null
+  } else if (typeof body.maxReprs === 'number') {
+    maxReprs = body.maxReprs
+  } else {
+    maxReprs = undefined
+  }
+  if (maxReprs === undefined) {
+    return undefined
+  }
+  return {
+    status: status as SubscriptionStatus,
+    expiration,
+    maxReprs,
+  }
+}
+
 export type UserConfigResponse = {
+  subscription: Subscription
   maxReprsAllowed: number | null | undefined
   termsAcceptedAt?: string | null
   termsVersion?: string | null
   currentTermsVersion?: string | null
+  practiceDelay: number
+  warningRatio: number
 }
 
 export type TermsAcceptanceResponse = {
@@ -21,7 +76,8 @@ export type TermsAcceptanceResponse = {
 }
 
 const trimEnv = (v: string | undefined) => (v ?? '').trim()
-const apiBaseUrl = trimEnv(import.meta.env.VITE_REPRS_API_BASE_URL)
+const env = (key: string) => trimEnv(import.meta.env[key] as string | undefined)
+const apiBaseUrl = env('VITE_REPRS_API_BASE_URL')
 export const isReprsApiConfigured = Boolean(apiBaseUrl)
 
 const assertConfigured = (): string => {
@@ -78,12 +134,17 @@ class ReprsApiModule {
 
   async listReprs(): Promise<Reprs> {
     const data = await request('/reprs', 'GET')
-    return (data.reprs ?? []) as Reprs
+    return parseReprs(data.reprs ?? [])
   }
 
   async getUserConfig(): Promise<UserConfigResponse> {
     const data = await request('/user/config', 'GET')
+    const subscription = parseSubscription(data.subscription)
+    if (!subscription) {
+      throw new Error('Invalid subscription in user config response')
+    }
     return {
+      subscription,
       maxReprsAllowed: parseMaxReprsAllowed(data.maxReprsAllowed),
       termsAcceptedAt:
         typeof data.termsAcceptedAt === 'string' ? data.termsAcceptedAt : null,
@@ -93,6 +154,47 @@ class ReprsApiModule {
         typeof data.currentTermsVersion === 'string'
           ? data.currentTermsVersion
           : null,
+      practiceDelay:
+        typeof data.practiceDelay === 'number'
+          ? data.practiceDelay
+          : DEFAULT_PRACTICE_DELAY,
+      warningRatio:
+        typeof data.warningRatio === 'number'
+          ? data.warningRatio
+          : DEFAULT_WARNING_RATIO,
+    }
+  }
+
+  async createCheckoutSession(): Promise<{ url: string }> {
+    const data = await request('/billing/checkout-session', 'POST')
+    if (typeof data.url !== 'string' || !data.url) {
+      throw new Error('Checkout session did not return a URL')
+    }
+    return { url: data.url }
+  }
+
+  async createPortalSession(): Promise<{ url: string }> {
+    const data = await request('/billing/portal-session', 'POST')
+    if (typeof data.url !== 'string' || !data.url) {
+      throw new Error('Portal session did not return a URL')
+    }
+    return { url: data.url }
+  }
+
+  async updateUserSettings(settings: Settings): Promise<Settings> {
+    const data = await request('/user/settings', 'PATCH', {
+      practiceDelay: settings.practiceDelay,
+      warningRatio: settings.warningRatio,
+    })
+    return {
+      practiceDelay:
+        typeof data.practiceDelay === 'number'
+          ? data.practiceDelay
+          : settings.practiceDelay,
+      warningRatio:
+        typeof data.warningRatio === 'number'
+          ? data.warningRatio
+          : settings.warningRatio,
     }
   }
 
@@ -104,17 +206,13 @@ class ReprsApiModule {
   }
 
   async upsertRepr(repr: Repr): Promise<Repr> {
-    const data = await request(
-      `/reprs/${repr.id}`,
-      'PUT',
-      repr as unknown as Json
-    )
-    return data.repr as Repr
+    const data = await request(`/reprs/${repr.id}`, 'PUT', { ...repr })
+    return parseRepr(data.repr)
   }
 
   async markReprPracticed(id: string): Promise<Repr> {
     const data = await request(`/reprs/${id}/practice`, 'POST')
-    return data.repr as Repr
+    return parseRepr(data.repr)
   }
 
   async removeRepr(id: string): Promise<void> {

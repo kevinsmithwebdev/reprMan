@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import AcceptTermsGate from '@reprman/components/AcceptTermsGate'
 import Header from '@reprman/components/Header'
+import ReprLimitBanner from '@reprman/components/ReprLimitBanner'
 import Footer from '@reprman/components/Footer'
 import ToastWrapper from '@reprman/components/ToastWrapper'
 import ModalContainer from '@reprman/modals/ModalContainer'
@@ -18,6 +19,7 @@ import Signup from './pages/Signup'
 import ForgotPassword from './pages/ForgotPassword'
 import ChangePassword from './pages/ChangePassword'
 import Reports from './pages/Reports/Reports'
+import Subscribe from './pages/Subscribe/Subscribe'
 import ViewRepr from './pages/ViewRepr'
 
 const App = () => {
@@ -38,6 +40,8 @@ const App = () => {
     >
       <Header />
 
+      <ReprLimitBanner />
+
       <div className="app-content-container">
         <div className="app-content-routes">
           <Routes>
@@ -52,6 +56,7 @@ const App = () => {
 
             <Route path="/" element={<Home />} />
             <Route path="/reports" element={<Reports />} />
+            <Route path="/subscribe" element={<Subscribe />} />
 
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

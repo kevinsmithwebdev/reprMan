@@ -1,3 +1,4 @@
+import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
 import moment from 'moment'
 import { getDateAndFrom, getDateDiffText } from './dates'
 import {
@@ -9,12 +10,12 @@ const BASE_DATE = '2020-12-31'
 
 describe(`dates, Date mocked to ${BASE_DATE}`, () => {
   beforeAll(() => {
-    jest.useFakeTimers()
-    jest.setSystemTime(new Date(BASE_DATE))
+    vi.useFakeTimers()
+    vi.setSystemTime(new Date(BASE_DATE))
   })
 
   afterAll(() => {
-    jest.useRealTimers()
+    vi.useRealTimers()
   })
 
   describe('getDateAndFrom', () => {

@@ -29,7 +29,7 @@ const ChangePassword = () => {
     t: tForm,
   } = useCognitoChangePassword(() => navigate('/', { replace: true }))
 
-  if (!isCognitoConfigured) {
+  if (!isCognitoConfigured()) {
     return (
       <AuthUnavailableCard
         pageId="ChangePassword-page"

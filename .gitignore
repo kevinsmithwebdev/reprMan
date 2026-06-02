@@ -2,11 +2,16 @@
 
 # dependencies
 node_modules
+package-lock.json
 /.pnp
 .pnp.js
 
 # testing
 /coverage
+apps/client-web/e2e/.auth/
+apps/client-web/e2e/test-results/
+apps/client-web/e2e/playwright-report/
+apps/client-web/e2e/blob-report/
 coverage/
 **/coverage/
 
@@ -17,6 +22,9 @@ coverage/
 # nx
 .nx/
 
+# eslint
+**/.eslintcache
+
 # misc
 .DS_Store
 .env.local
@@ -24,6 +32,7 @@ coverage/
 .env.test.local
 .env.production.local
 .env
+.env.e2e
 # Single client env file (copy from apps/client-web/.env.example)
 apps/client-web/.env
 
@@ -33,9 +42,14 @@ yarn-error.log*
 
 # CDK deploy outputs (e.g. GitHub Actions prod workflow)
 apps/server/cdk-outputs.json
+apps/server/cdk.out
+apps/server/dist
 
 # stuff I don't want pushed
 /personal
+
+# Local SonarScanner working directory
+.scannerwork/
 
 # Accidental `nul` file breaks `git add` on Windows (reserved device name)
 nul

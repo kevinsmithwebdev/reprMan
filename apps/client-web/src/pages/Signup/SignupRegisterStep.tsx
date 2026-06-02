@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Spinner } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { PasswordFormControl } from '@reprman/components'
+import { PasswordFormControl, TermsLink } from '@reprman/components'
 import { useL10n } from '@reprman/localization'
 
 interface SignupRegisterStepProps {
@@ -77,8 +77,7 @@ const SignupRegisterStep = ({
           required
           label={
             <span>
-              {t('auth.signUpTermsPrefix')}{' '}
-              <Link to="/terms">{t('auth.signUpTermsLink')}</Link>
+              {t('auth.signUpTermsPrefix')} <TermsLink />
             </span>
           }
         />

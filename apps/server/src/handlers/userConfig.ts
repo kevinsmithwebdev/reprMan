@@ -1,27 +1,27 @@
+import { resolveSubscription } from '@reprman/shared/subscription'
 import { TERMS_VERSION } from '@reprman/shared/quota'
-import { getUserId, UnauthorizedError } from '../lib/auth'
+import { getUserId } from '../lib/auth'
+import { mapHandlerError } from '../lib/handlerErrors'
 import { jsonResponse } from '../lib/http'
 import { getUserConfig } from '../lib/reprStore'
-import { resolveMaxReprsAllowed } from '../lib/userConfig'
+import { resolvePracticeSettings } from '../lib/userConfig'
 
-type Event = any
-type Result = any
-
-export const getUserConfigHandler = async (event: Event): Promise<Result> => {
+export const getUserConfigHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     const config = await getUserConfig(userId)
-    const maxReprsAllowed = resolveMaxReprsAllowed(config)
+    const subscription = resolveSubscription(config)
+    const practiceSettings = resolvePracticeSettings(config)
     return jsonResponse(200, {
-      maxReprsAllowed,
+      subscription,
+      maxReprsAllowed: subscription.maxReprs,
       termsAcceptedAt: config.termsAcceptedAt ?? null,
       termsVersion: config.termsVersion ?? null,
       currentTermsVersion: TERMS_VERSION,
+      practiceDelay: practiceSettings.practiceDelay,
+      warningRatio: practiceSettings.warningRatio,
     })
   } catch (error: unknown) {
-    if (error instanceof UnauthorizedError) {
-      return jsonResponse(401, { message: 'Unauthorized' })
-    }
-    return jsonResponse(500, { message: 'Internal server error' })
+    return mapHandlerError(error)
   }
 }

@@ -8,8 +8,13 @@ import store from '@reprman/state/store'
 import { addReprSAC } from '@reprman/state/sagas/reprs/reprs.actions'
 import { useCategories } from '@reprman/state/categories'
 import CategoryPills from '@reprman/components/CategoryPills'
-import { useReprCreationCap } from '@reprman/state/reprsQuota'
+import {
+  useReprCreationCap,
+  selectAtReprLimit,
+  selectSubscription,
+} from '@reprman/state/reprsQuota'
 import { useL10n } from '@reprman/localization'
+import { useSelector } from 'react-redux'
 import CategoryLine from './CategoryLine'
 import {
   addCategory,
@@ -29,14 +34,16 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   const { t } = useL10n()
   const { categories: availableCategories } = useCategories()
   const [enteredCategory, setEnteredCategory] = useState('')
-  const { getRepr, reprs } = useReprs()
+  const { getRepr } = useReprs()
   const { quotaLoaded, reprCreationCap } = useReprCreationCap()
+  const atLimit = useSelector(selectAtReprLimit)
+  const subscription = useSelector(selectSubscription)
   const repr = getRepr(id)
   const isCreateMode = !id
-  const initialCategories = repr.categories || []
-  const initialTitle = repr.title ?? ''
-  const initialComment = repr.comment ?? ''
-  const initialLearning = repr.learning === true
+  const initialCategories = repr?.categories ?? []
+  const initialTitle = repr?.title ?? ''
+  const initialComment = repr?.comment ?? ''
+  const initialLearning = repr?.learning === true
   const [categories, setCategories] = useState<string[]>(initialCategories)
 
   const [form, setForm] = useState<ReprForm>({
@@ -67,7 +74,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
 
   const categoriesComplement = getComplement(availableCategories, categories)
 
-  if (isCreateMode && !quotaLoaded) {
+  if (!quotaLoaded) {
     return (
       <>
         <Modal.Header closeButton>
@@ -80,17 +87,16 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
     )
   }
 
-  const atCreationLimit =
-    isCreateMode && reprCreationCap !== null && reprs.length >= reprCreationCap
+  const limitCap = subscription?.maxReprs ?? reprCreationCap
 
-  if (atCreationLimit) {
+  if (isCreateMode && atLimit && limitCap !== null) {
     return (
       <>
         <Modal.Header closeButton>
           <Modal.Title>{t('modals.editRepr.exceeded.title')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {t('modals.editRepr.exceeded.body', { num: reprCreationCap })}
+          {t('modals.editRepr.exceeded.body', { num: limitCap })}
         </Modal.Body>
       </>
     )
@@ -198,7 +204,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                   onChange={({ target: { value } }) =>
                     setEnteredCategory(value)
                   }
-                  onKeyPress={({ key }) => {
+                  onKeyDown={({ key }) => {
                     if (key === 'Enter') {
                       addCategory({
                         form,
@@ -297,15 +303,15 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             if (Object.keys(foundErrors).length > 0) {
               setErrors(foundErrors)
             } else {
-              const thisRepr = {
-                id: repr.id || '',
+              const thisRepr: Repr = {
+                id: repr?.id ?? '',
                 title: form.title,
                 categories,
-                dateCreated: repr.dateCreated || NaN,
-                datesPracticed: repr.datesPracticed || ([] as number[]),
+                dateCreated: repr?.dateCreated ?? Number.NaN,
+                datesPracticed: repr?.datesPracticed ?? [],
                 comment: form.comment,
                 learning: form.learning,
-              } as Repr
+              }
               store.dispatch(addReprSAC(thisRepr))
               closeModal()
             }

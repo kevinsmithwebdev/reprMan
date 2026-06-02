@@ -1,6 +1,7 @@
+import { DEFAULT_DAYS_WARNING, DEFAULT_WARNING_RATIO } from '@reprman/constants'
 import LocalizationModule from '@reprman/localization/Localization.module'
 import { clearAllReprsSAC } from '@reprman/state/sagas/reprs/reprs.actions'
-import { resetSettingsAC } from '@reprman/state/settings/settings.actions'
+import { saveUserSettingsSAC } from '@reprman/state/sagas/settings'
 import store from '@reprman/state/store'
 
 const { t } = LocalizationModule.getInstance()
@@ -14,7 +15,13 @@ export const getSupplementalSettingsCardData = () => {
         {
           text: t('pages.settings.resetSettings.button'),
           variant: 'warning',
-          onClick: () => store.dispatch(resetSettingsAC()),
+          onClick: () =>
+            store.dispatch(
+              saveUserSettingsSAC({
+                practiceDelay: DEFAULT_DAYS_WARNING,
+                warningRatio: DEFAULT_WARNING_RATIO,
+              })
+            ),
         },
       ],
     },

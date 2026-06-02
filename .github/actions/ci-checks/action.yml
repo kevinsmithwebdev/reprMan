@@ -1,0 +1,22 @@
+name: CI checks
+description: Prettier check, Nx affected lint/build, and client-web tests with coverage.
+
+inputs:
+  nx-base:
+    description: Git ref for nx affected (e.g. origin/main or HEAD~1)
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Prettier
+      shell: bash
+      run: yarn prettier:check
+
+    - name: Lint and build (Nx affected)
+      shell: bash
+      run: npx nx affected -t lint,build --base="${{ inputs.nx-base }}"
+
+    - name: Tests with coverage
+      shell: bash
+      run: node scripts/run-all-coverage.mjs --silent

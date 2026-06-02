@@ -19,18 +19,18 @@ const Home = () => {
   const { filter } = useCategories()
   const { sessionChecked, signedIn } = useCognitoAuth()
 
-  if (homeAuthGateActive && isCognitoConfigured && !sessionChecked) {
+  if (homeAuthGateActive() && isCognitoConfigured() && !sessionChecked) {
     return <CenteredSpinner id="Home-page" layout="fill" />
   }
 
-  if (homeAuthGateActive && !signedIn) {
+  if (homeAuthGateActive() && !signedIn) {
     return (
       <div
         id="Home-page"
         className="app-page-padded d-flex flex-grow-1 justify-content-center"
         style={{ minHeight: 0 }}
       >
-        <HomeAuthCard authReady={isCognitoConfigured} />
+        <HomeAuthCard authReady={isCognitoConfigured()} />
       </div>
     )
   }

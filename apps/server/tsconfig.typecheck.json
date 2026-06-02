@@ -11,10 +11,5 @@
     "types": ["node", "aws-lambda", "jest"]
   },
   "include": ["src/**/*.ts", "../../libs/shared/**/src/**/*.ts"],
-  "exclude": [
-    "src/**/*.spec.ts",
-    "src/**/*.test.ts",
-    "../../libs/shared/**/*.spec.ts",
-    "../../libs/shared/**/*.test.ts"
-  ]
+  "exclude": ["src/**/*.test.ts", "../../libs/shared/**/*.test.ts"]
 }

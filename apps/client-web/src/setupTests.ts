@@ -9,8 +9,8 @@ vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
   >()
   return {
     ...actual,
-    isCognitoConfigured: false,
-    homeAuthGateActive: false,
+    isCognitoConfigured: () => false,
+    homeAuthGateActive: () => false,
   }
 })
 
@@ -19,8 +19,21 @@ vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
 const globalRef = globalThis as unknown as { jest: typeof vi }
 globalRef.jest = vi
 
+// Default stub for network I/O — individual suites override via vi.mock / stubGlobal.
+vi.stubGlobal(
+  'fetch',
+  vi.fn(() =>
+    Promise.resolve({
+      ok: true,
+      status: 200,
+      json: () => Promise.resolve({}),
+      text: () => Promise.resolve(''),
+    })
+  )
+)
+
 // jsdom does not implement matchMedia (used by ReprsList and others).
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(globalThis, 'matchMedia', {
   writable: true,
   configurable: true,
   value: vi.fn().mockImplementation((query: string) => ({

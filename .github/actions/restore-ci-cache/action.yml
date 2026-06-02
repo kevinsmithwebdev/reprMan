@@ -1,0 +1,25 @@
+name: Restore CI caches
+description: Restore Nx, ESLint, Vite, Vitest, and Sonar scanner caches for faster CI.
+
+runs:
+  using: composite
+  steps:
+    - name: Restore Nx and tool caches
+      uses: actions/cache@v4
+      with:
+        path: |
+          .nx/cache
+          apps/client-web/.eslintcache
+          apps/client-web/node_modules/.vite
+          apps/client-web/node_modules/.vitest
+        key: ci-tools-${{ runner.os }}-${{ hashFiles('yarn.lock', 'nx.json', '**/project.json', '.eslintrc.js', 'apps/client-web/vite.config.ts') }}
+        restore-keys: |
+          ci-tools-${{ runner.os }}-
+
+    - name: Restore Sonar scanner cache
+      uses: actions/cache@v4
+      with:
+        path: ~/.sonar/cache
+        key: sonar-${{ runner.os }}
+        restore-keys: |
+          sonar-${{ runner.os }}-

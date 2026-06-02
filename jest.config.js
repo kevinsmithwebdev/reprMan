@@ -1,4 +1,4 @@
-const { join } = require('path')
+const { join } = require('node:path')
 const { pathsToModuleNameMapper } = require('ts-jest')
 const { compilerOptions } = require('./tsconfig.json')
 
@@ -17,7 +17,7 @@ module.exports = {
   bail: true,
   clearMocks: true,
   displayName: 'unit-tests',
-  testMatch: ['<rootDir>/src/modules/**/*.spec.ts'],
+  testMatch: ['<rootDir>/src/modules/**/*.test.ts'],
 
   preset: 'ts-jest',
   testEnvironment: 'node',

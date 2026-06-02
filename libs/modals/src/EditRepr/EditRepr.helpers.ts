@@ -25,9 +25,7 @@ export const findFormErrors = ({
   if (title?.includes(FILE_LINE_DELIMITER))
     newErrors.title = 'This field cannot contain an asterisk (*).'
 
-  const indexExistingCategories = categories.findIndex(
-    (c) => c === enteredCategory
-  )
+  const indexExistingCategories = categories.indexOf(enteredCategory)
 
   if (indexExistingCategories !== -1)
     newErrors.categoryInput = appendError(
@@ -87,7 +85,7 @@ export const addPillCategory = (
   categories: string[],
   setCategories: Function
 ) => {
-  const index = categories.findIndex((c) => c === category)
+  const index = categories.indexOf(category)
 
   if (index !== -1) return
 

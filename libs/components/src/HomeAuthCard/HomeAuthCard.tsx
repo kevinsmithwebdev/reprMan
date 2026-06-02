@@ -27,11 +27,11 @@ const HomeAuthCard = ({ authReady }: HomeAuthCardProps) => {
           <Card.Text className="text-muted mb-3">
             {t('auth.homeSignedOutBody')}
           </Card.Text>
-          {!authReady ? (
+          {authReady ? null : (
             <Alert variant="warning" className="mb-3">
               {t('auth.homeCognitoEnvMissing')}
             </Alert>
-          ) : null}
+          )}
           <div className="d-grid gap-2">
             <Button
               variant="primary"

@@ -9,7 +9,7 @@ import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { ADD_REPR } from '../reprs.actions'
 import { mergeCategories } from '../../reprs.helpers'
 
-function* addReprWorker({ payload: repr }: any) {
+export function* addReprWorker({ payload: repr }: any) {
   const reprsApi = ReprsApiModule.getInstance()
 
   const currentReprs = (yield select(selectReprs)) as Reprs
@@ -53,8 +53,10 @@ function* addReprWorker({ payload: repr }: any) {
   }
 
   const currentCategories = (yield select(selectCategories)) as Categories
-  // TODO: more efficient way to merge?
-  const mergedCategories = mergeCategories(currentCategories, repr.categories)
+  const mergedCategories =
+    repr.categories.length === 0
+      ? currentCategories
+      : mergeCategories(currentCategories, repr.categories)
   yield put(setCategories(mergedCategories))
 }
 

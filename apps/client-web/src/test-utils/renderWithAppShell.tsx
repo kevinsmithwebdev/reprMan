@@ -18,6 +18,8 @@ export type RenderWithAppShellOptions = Omit<RenderOptions, 'wrapper'> & {
   store?: TestStore
   /** `initialEntries` for `MemoryRouter` (default `['/']`). */
   initialEntries?: MemoryRouterProps['initialEntries']
+  /** `initialIndex` for `MemoryRouter` (default `0`). */
+  initialIndex?: MemoryRouterProps['initialIndex']
 }
 
 export type RenderWithAppShellResult = ReturnType<typeof render> & {
@@ -34,6 +36,7 @@ export function renderWithAppShell(
     preloadedState,
     store: storeOption,
     initialEntries = ['/'],
+    initialIndex = 0,
     ...renderOptions
   }: RenderWithAppShellOptions = {}
 ): RenderWithAppShellResult {
@@ -41,7 +44,7 @@ export function renderWithAppShell(
 
   const Wrapper = ({ children }: { children: React.ReactNode }) => (
     <Provider store={store}>
-      <MemoryRouter initialEntries={initialEntries}>
+      <MemoryRouter initialEntries={initialEntries} initialIndex={initialIndex}>
         <CognitoAuthProvider>{children}</CognitoAuthProvider>
       </MemoryRouter>
     </Provider>

@@ -11,20 +11,36 @@ jobs:
       matrix:
         node-version: [24.x]
 
+    permissions:
+      contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: ${{ matrix.node-version }}
           cache: yarn
 
-      - name: Install
-        run: yarn install
+      - name: Restore CI caches
+        uses: ./.github/actions/restore-ci-cache
 
-      - name: Inspect (prettier, lint, tests)
-        run: yarn inspect
+      - name: Install
+        run: yarn install --frozen-lockfile
+
+      - name: CI checks
+        uses: ./.github/actions/ci-checks
+        with:
+          nx-base: HEAD~1
+
+      - name: SonarQube scan
+        uses: ./.github/actions/sonar-scan
+        with:
+          sonar-token: ${{ secrets.SONAR_TOKEN }}
+          sonar-organization: ${{ vars.SONAR_ORGANIZATION }}
+          sonar-host-url: ${{ vars.SONAR_HOST_URL }}
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v6

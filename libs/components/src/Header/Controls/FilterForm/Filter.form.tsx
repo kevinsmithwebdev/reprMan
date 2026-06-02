@@ -15,7 +15,7 @@ const FilterForm = () => {
     category: string
   ) => {
     const newCategories = filter.categories.slice()
-    const index = filter.categories.findIndex((c) => c === category)
+    const index = filter.categories.indexOf(category)
     if (index === -1) {
       newCategories.push(category)
     } else {
