@@ -26,6 +26,8 @@ function run(command, args, options = {}) {
   }
 }
 
+run(process.execPath, [join(ROOT, 'scripts', 'guard-production-commit.mjs')])
+
 run(process.execPath, [
   join(ROOT, 'scripts', 'bump-version.mjs'),
   'patch',

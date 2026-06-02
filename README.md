@@ -68,9 +68,16 @@ yarn deploy:prod
 This runs [`scripts/promote-production.mjs`](scripts/promote-production.mjs): fast-forward `main` from `origin`, merge `origin/main` into `production` with a merge commit, and **`git push origin production`**. That push triggers the **Deploy Production** workflow — no AWS steps run on your laptop.
 
 - First run: if `origin/production` does not exist yet, the script creates **`production`** from the current **`main`** tip and pushes it (then CI deploys).
+- On success, the script checks out **`main`** again and deletes your local **`production`** branch for safety.
 - Optional env: `REPRMAN_MAIN_BRANCH` (default `main`), `REPRMAN_PRODUCTION_BRANCH` (default `production`).
 
 **If `production` is already up to date with `main`**, the merge is a no-op and the push may not create a new commit — GitHub Actions might not run again. To **redeploy the same commit**, use Actions → **Deploy Production** → **Run workflow** (`workflow_dispatch`).
+
+**Local commit guard on `production`**
+
+- The pre-commit hook now blocks commits when your current branch is **`production`**.
+- `yarn deploy:prod` still works because it sets an internal one-command bypass (`ALLOW_PRODUCTION_COMMIT=1`) for the release merge commit only.
+- If a promotion merge conflicts, the script leaves you on `production` so you can resolve/abort manually.
 
 **Protecting `production` from casual pushes**
 
