@@ -12,6 +12,8 @@ apps/client-web/e2e/.auth/
 apps/client-web/e2e/test-results/
 apps/client-web/e2e/playwright-report/
 apps/client-web/e2e/blob-report/
+apps/client-web/test-results/
+apps/client-web/playwright-report/
 coverage/
 **/coverage/
 

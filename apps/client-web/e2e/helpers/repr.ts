@@ -60,10 +60,13 @@ export async function openReprFromHome(
   page: Page,
   title: string
 ): Promise<void> {
-  const card = reprCard(page, title)
+  const card = reprCard(page, title).first()
   if (!(await card.isVisible().catch(() => false))) {
     await waitForAuthenticatedHome(page)
+    await waitForHomeControls(page)
+    await resetHomeFilters(page)
   }
+  await expect(card).toBeVisible({ timeout: 30_000 })
   await card.click()
   await expect(page).toHaveURL(/\/view\//)
   await expect(page.getByText(title).first()).toBeVisible()

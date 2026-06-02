@@ -18,6 +18,9 @@ interface HomeAuthCardProps {
 const HomeAuthCard = ({ authReady }: HomeAuthCardProps) => {
   const navigate = useNavigate()
   const { t } = useL10n()
+  const missingAuthMessageKey = import.meta.env.DEV
+    ? 'auth.homeCognitoEnvMissingDev'
+    : 'auth.homeCognitoEnvMissingProd'
 
   return (
     <div className="w-100 d-flex justify-content-center">
@@ -29,7 +32,7 @@ const HomeAuthCard = ({ authReady }: HomeAuthCardProps) => {
           </Card.Text>
           {authReady ? null : (
             <Alert variant="warning" className="mb-3">
-              {t('auth.homeCognitoEnvMissing')}
+              {t(missingAuthMessageKey)}
             </Alert>
           )}
           <div className="d-grid gap-2">

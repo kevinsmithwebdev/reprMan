@@ -71,7 +71,6 @@ test.describe('reprs', () => {
     await createRepr(page, { title })
     await openReprFromHome(page, title)
     await editReprOnViewPage(page, updatedTitle)
-    await openReprFromHome(page, updatedTitle)
   })
 
   test('deletes a repr from the view page', async ({ page }) => {
