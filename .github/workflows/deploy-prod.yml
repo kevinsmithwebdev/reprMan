@@ -81,7 +81,8 @@ jobs:
           } >> "$GITHUB_ENV"
 
       - name: Build client (production bundle)
-        run: yarn build
+        # Must be a fresh build so runtime config from previous CI caches is never reused.
+        run: yarn nx run client-web:build --skip-nx-cache
 
       - name: Resolve production bucket
         id: bucket
