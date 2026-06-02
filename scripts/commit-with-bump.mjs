@@ -7,14 +7,14 @@ const __dirname = dirname(fileURLToPath(import.meta.url))
 const ROOT = join(__dirname, '..')
 
 const kind = process.argv[2]
-const commitArgs = process.argv.slice(3)
 
 if (kind !== 'minor' && kind !== 'major') {
-  console.error(
-    'Usage: node scripts/commit-with-bump.mjs <minor|major> [git commit args]'
-  )
+  console.error('Usage: node scripts/commit-with-bump.mjs <minor|major>')
   process.exit(1)
 }
+
+const commitMessage =
+  kind === 'major' ? 'major version bump' : 'minor version bump'
 
 function run(command, args, options = {}) {
   const result = spawnSync(command, args, {
@@ -34,7 +34,7 @@ function run(command, args, options = {}) {
 
 run(process.execPath, [join(ROOT, 'scripts', 'bump-version.mjs'), kind])
 run('git', ['add', 'package.json', 'apps/client-web/package.json'])
-run('git', ['commit', ...commitArgs], {
+run('git', ['commit', '-m', commitMessage], {
   env: {
     ...process.env,
     SKIP_VERSION_BUMP_HOOK: '1',

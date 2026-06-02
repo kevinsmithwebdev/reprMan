@@ -45,16 +45,37 @@ function bump([maj, min, pat], bumpKind) {
   return `${maj}.${min}.${pat + 1}`
 }
 
+function compareVersions(a, b) {
+  const [aMaj, aMin, aPat] = parseVersion(a)
+  const [bMaj, bMin, bPat] = parseVersion(b)
+
+  if (aMaj !== bMaj) return aMaj - bMaj
+  if (aMin !== bMin) return aMin - bMin
+  return aPat - bPat
+}
+
 const versions = PACKAGE_PATHS.map(
   (p) => JSON.parse(readFileSync(p, 'utf8')).version
 )
-const current = versions[0]
+let current = versions[0]
 if (versions.some((v) => v !== current)) {
-  console.error(
-    'Version mismatch between package.json files:',
-    versions.join(', ')
+  if (rootOnly) {
+    console.error(
+      'Version mismatch between package.json files:',
+      versions.join(', ')
+    )
+    process.exit(1)
+  }
+
+  current = versions.reduce(
+    (acc, v) => (compareVersions(v, acc) > 0 ? v : acc),
+    versions[0]
   )
-  process.exit(1)
+  console.warn(
+    `Version mismatch detected (${versions.join(
+      ', '
+    )}); syncing from highest version ${current}.`
+  )
 }
 
 const next = bump(parseVersion(current), kind)
