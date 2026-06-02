@@ -4,7 +4,6 @@ import { Link, Navigate, useNavigate } from 'react-router-dom'
 import { AuthUnavailableCard, CenteredSpinner } from '@reprman/components'
 import {
   CognitoSignInFields,
-  homeAuthGateActive,
   isCognitoConfigured,
   useCognitoAuth,
   useCognitoSignIn,
@@ -25,7 +24,7 @@ const SignIn = () => {
     t: tForm,
   } = useCognitoSignIn(refreshSession, () => navigate('/', { replace: true }))
 
-  if (!homeAuthGateActive() || signedIn) {
+  if (signedIn) {
     return <Navigate to="/" replace />
   }
 

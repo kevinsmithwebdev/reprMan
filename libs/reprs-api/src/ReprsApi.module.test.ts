@@ -51,6 +51,12 @@ describe('ReprsApi.module', () => {
       const { isReprsApiConfigured } = await import('./ReprsApi.module')
       expect(isReprsApiConfigured).toBe(false)
     })
+
+    it('is true when base URL has surrounding whitespace', async () => {
+      vi.stubEnv('VITE_REPRS_API_BASE_URL', '  https://api.example.com  ')
+      const { isReprsApiConfigured } = await import('./ReprsApi.module')
+      expect(isReprsApiConfigured).toBe(true)
+    })
   })
 
   describe('request (via public API)', () => {
@@ -107,6 +113,123 @@ describe('ReprsApi.module', () => {
       const ReprsApiModule = await loadModule()
       await expect(ReprsApiModule.getInstance().listReprs()).rejects.toThrow(
         'Request failed (404)'
+      )
+    })
+
+    it('uses JSON message from error response body', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        text: async () =>
+          JSON.stringify({ message: '  Invalid repr payload  ', code: 'BAD' }),
+      })
+      const ReprsApiModule = await loadModule()
+      await expect(ReprsApiModule.getInstance().listReprs()).rejects.toThrow(
+        'Invalid repr payload'
+      )
+    })
+  })
+
+  describe('toUserFriendlyApiErrorMessage', () => {
+    it('formats rate-limit errors with max and retry window', async () => {
+      const { ReprsApiError, toUserFriendlyApiErrorMessage } = await import(
+        './ReprsApi.module'
+      )
+      const error = new ReprsApiError(429, 'Too many requests', {
+        code: 'RATE_LIMIT_EXCEEDED',
+        limitKey: 'repr_create',
+        max: 10,
+        window: 'hour',
+        retryAfterSeconds: 3661,
+      })
+      expect(toUserFriendlyApiErrorMessage(error, 'fallback')).toBe(
+        'Rate limit exceeded (repr_create: 10 per hour). Try again in 1h 1m.'
+      )
+    })
+
+    it('formats rate-limit errors without max or retry hint', async () => {
+      const { ReprsApiError, toUserFriendlyApiErrorMessage } = await import(
+        './ReprsApi.module'
+      )
+      const error = new ReprsApiError(429, 'Too many requests', {
+        code: 'RATE_LIMIT_EXCEEDED',
+        limitKey: 'repr_create',
+      })
+      expect(toUserFriendlyApiErrorMessage(error, 'fallback')).toBe(
+        'Rate limit exceeded (repr_create).'
+      )
+
+      const defaultLimitError = new ReprsApiError(429, 'Too many requests', {
+        code: 'RATE_LIMIT_EXCEEDED',
+      })
+      expect(toUserFriendlyApiErrorMessage(defaultLimitError, 'fallback')).toBe(
+        'Rate limit exceeded (request limit).'
+      )
+
+      const invalidMaxError = new ReprsApiError(429, 'Too many requests', {
+        code: 'RATE_LIMIT_EXCEEDED',
+        limitKey: 'repr_create',
+        max: Number.NaN,
+      })
+      expect(toUserFriendlyApiErrorMessage(invalidMaxError, 'fallback')).toBe(
+        'Rate limit exceeded (repr_create).'
+      )
+    })
+
+    it('formats minute-only and second-only retry windows', async () => {
+      const { ReprsApiError, toUserFriendlyApiErrorMessage } = await import(
+        './ReprsApi.module'
+      )
+      const minuteError = new ReprsApiError(429, 'Too many requests', {
+        code: 'RATE_LIMIT_EXCEEDED',
+        limitKey: 'repr_create',
+        retryAfterSeconds: 120,
+      })
+      expect(toUserFriendlyApiErrorMessage(minuteError, 'fallback')).toBe(
+        'Rate limit exceeded (repr_create). Try again in 2m.'
+      )
+
+      const secondError = new ReprsApiError(429, 'Too many requests', {
+        code: 'RATE_LIMIT_EXCEEDED',
+        limitKey: 'repr_create',
+        retryAfterSeconds: 45,
+      })
+      expect(toUserFriendlyApiErrorMessage(secondError, 'fallback')).toBe(
+        'Rate limit exceeded (repr_create). Try again in 45s.'
+      )
+
+      const hourOnlyError = new ReprsApiError(429, 'Too many requests', {
+        code: 'RATE_LIMIT_EXCEEDED',
+        limitKey: 'repr_create',
+        retryAfterSeconds: 7200,
+      })
+      expect(toUserFriendlyApiErrorMessage(hourOnlyError, 'fallback')).toBe(
+        'Rate limit exceeded (repr_create). Try again in 2h.'
+      )
+
+      const invalidRetryError = new ReprsApiError(429, 'Too many requests', {
+        code: 'RATE_LIMIT_EXCEEDED',
+        limitKey: 'repr_create',
+        retryAfterSeconds: Number.NaN,
+      })
+      expect(toUserFriendlyApiErrorMessage(invalidRetryError, 'fallback')).toBe(
+        'Rate limit exceeded (repr_create). Try again in a short while.'
+      )
+    })
+
+    it('returns Error message or fallback for other failures', async () => {
+      const { toUserFriendlyApiErrorMessage } = await import(
+        './ReprsApi.module'
+      )
+      expect(
+        toUserFriendlyApiErrorMessage(new Error('Network down'), 'fallback')
+      ).toBe('Network down')
+      expect(toUserFriendlyApiErrorMessage({}, 'fallback')).toBe('fallback')
+      expect(toUserFriendlyApiErrorMessage(new Error(''), 'fallback')).toBe(
+        'fallback'
+      )
+      expect(toUserFriendlyApiErrorMessage(new Error('   '), 'fallback')).toBe(
+        'fallback'
       )
     })
   })
@@ -203,9 +326,9 @@ describe('ReprsApi.module', () => {
         }),
       })
       const ReprsApiModule = await loadModule()
-      await expect(ReprsApiModule.getInstance().getUserConfig()).rejects.toThrow(
-        'Invalid subscription in user config response'
-      )
+      await expect(
+        ReprsApiModule.getInstance().getUserConfig()
+      ).rejects.toThrow('Invalid subscription in user config response')
     })
 
     it('rejects unknown subscription status', async () => {
@@ -217,9 +340,9 @@ describe('ReprsApi.module', () => {
         }),
       })
       const ReprsApiModule = await loadModule()
-      await expect(ReprsApiModule.getInstance().getUserConfig()).rejects.toThrow(
-        'Invalid subscription in user config response'
-      )
+      await expect(
+        ReprsApiModule.getInstance().getUserConfig()
+      ).rejects.toThrow('Invalid subscription in user config response')
     })
 
     it('rejects non-numeric maxReprs', async () => {
@@ -231,9 +354,9 @@ describe('ReprsApi.module', () => {
         }),
       })
       const ReprsApiModule = await loadModule()
-      await expect(ReprsApiModule.getInstance().getUserConfig()).rejects.toThrow(
-        'Invalid subscription in user config response'
-      )
+      await expect(
+        ReprsApiModule.getInstance().getUserConfig()
+      ).rejects.toThrow('Invalid subscription in user config response')
     })
 
     it('rejects invalid subscription expiration type', async () => {

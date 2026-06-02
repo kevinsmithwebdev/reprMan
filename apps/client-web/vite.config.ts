@@ -136,13 +136,14 @@ export default defineConfig({
       ],
       thresholds: {
         perFile: true,
-        [`${posixPath(root)}/libs/utilities/src/**`]: {
+        // Use repo-relative globs (not absolute paths) so per-file checks work on Windows.
+        '**/libs/utilities/src/**': {
           lines: 100,
           functions: 100,
           branches: 100,
           statements: 100,
         },
-        [`${posixPath(root)}/libs/shared/**/src/**`]: {
+        '**/libs/shared/**/src/**': {
           lines: 100,
           functions: 100,
           branches: 100,
@@ -154,33 +155,33 @@ export default defineConfig({
           branches: 100,
           statements: 100,
         },
-        [`${posixPath(root)}/libs/state/src/sagas/reprs.helpers.ts`]: {
+        '**/libs/state/src/sagas/reprs.helpers.ts': {
           lines: 100,
           functions: 100,
           branches: 100,
           statements: 100,
         },
         // Pure logic: 100% per file (.ts / .js only — not .tsx).
-        [`${posixPath(root)}/libs/**/src/**/*.ts`]: {
+        '**/libs/**/src/**/*.ts': {
           lines: 100,
           functions: 100,
           branches: 100,
           statements: 100,
         },
-        [`${posixPath(path.resolve(__dirname, 'src'))}/**/*.ts`]: {
+        '**/apps/client-web/src/**/*.ts': {
           lines: 100,
           functions: 100,
           branches: 100,
           statements: 100,
         },
         // UI (.tsx / .jsx): at least 80% per file in every column.
-        [`${posixPath(root)}/libs/**/src/**/*.{tsx,jsx}`]: {
+        '**/libs/**/src/**/*.{tsx,jsx}': {
           lines: 80,
           functions: 80,
           branches: 80,
           statements: 80,
         },
-        [`${posixPath(path.resolve(__dirname, 'src'))}/**/*.{tsx,jsx}`]: {
+        '**/apps/client-web/src/**/*.{tsx,jsx}': {
           lines: 80,
           functions: 80,
           branches: 80,

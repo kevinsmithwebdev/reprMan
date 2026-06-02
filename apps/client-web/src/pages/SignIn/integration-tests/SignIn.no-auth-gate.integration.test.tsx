@@ -1,8 +1,9 @@
+import { screen } from '@testing-library/react'
 import React from 'react'
 import { describe, expect, it, vi } from 'vitest'
 
 import { renderWithAppShell } from '../../../test-utils'
-import ForgotPassword from '../ForgotPassword'
+import SignIn from '../SignIn'
 
 vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
   const actual = await importOriginal<
@@ -29,31 +30,23 @@ vi.mock('@reprman/cognito-auth/CognitoAuthContext', async (importOriginal) => {
   }
 })
 
-vi.mock('@reprman/cognito-auth/useCognitoForgotPassword', () => ({
-  useCognitoForgotPassword: () => ({
-    step: 'request',
+vi.mock('@reprman/cognito-auth/useCognitoSignIn', () => ({
+  useCognitoSignIn: () => ({
     email: '',
     setEmail: vi.fn(),
-    code: '',
-    setCode: vi.fn(),
-    newPassword: '',
-    setNewPassword: vi.fn(),
-    confirmPassword: '',
-    setConfirmPassword: vi.fn(),
+    password: '',
+    setPassword: vi.fn(),
     busy: false,
-    reset: vi.fn(),
-    handleRequest: vi.fn(),
-    handleConfirm: vi.fn(),
-    handleResend: vi.fn(),
+    handleSignIn: vi.fn((e: React.FormEvent) => e.preventDefault()),
+    t: (key: string) => key,
   }),
 }))
 
-describe('ForgotPassword without auth gate (integration)', () => {
-  it('renders forgot-password on /forgot-password when home auth gate is off', () => {
-    renderWithAppShell(<ForgotPassword />, {
-      initialEntries: ['/forgot-password'],
-    })
+describe('SignIn without auth gate (integration)', () => {
+  it('renders sign-in on /signin when home auth gate is off', () => {
+    renderWithAppShell(<SignIn />, { initialEntries: ['/signin'] })
 
-    expect(document.getElementById('ForgotPassword-page')).toBeTruthy()
+    expect(document.getElementById('SignIn-page')).toBeTruthy()
+    expect(screen.getByLabelText('auth.email')).toBeTruthy()
   })
 })

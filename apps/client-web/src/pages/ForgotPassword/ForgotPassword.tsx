@@ -3,7 +3,6 @@ import { Card } from 'react-bootstrap'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { AuthUnavailableCard, CenteredSpinner } from '@reprman/components'
 import {
-  homeAuthGateActive,
   isCognitoConfigured,
   useCognitoAuth,
   useCognitoForgotPassword,
@@ -21,7 +20,7 @@ const ForgotPassword = () => {
     navigate('/signin', { replace: true })
   )
 
-  if (!homeAuthGateActive() || signedIn) {
+  if (signedIn) {
     return <Navigate to="/" replace />
   }
 

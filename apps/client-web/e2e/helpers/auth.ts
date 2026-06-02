@@ -250,8 +250,21 @@ export async function signIn(
   password = e2eEnv.userPassword()
 ): Promise<void> {
   await gotoApp(page, '/signin')
+  await expect(page).toHaveURL(/\/signin(?:\?.*)?$/, { timeout: 15_000 })
   await expect(page.locator('#SignIn-page')).toBeVisible({ timeout: 30_000 })
-  await page.locator('#signin-page-email').fill(email)
+
+  const emailField = page.locator('#signin-page-email')
+  const emailVisible = await emailField
+    .isVisible({ timeout: 5_000 })
+    .catch(() => false)
+  if (!emailVisible) {
+    throw new Error(
+      'Sign-in form is not available on /signin (auth may be unconfigured). ' +
+        'Set VITE_COGNITO_USER_POOL_ID and VITE_COGNITO_USER_POOL_CLIENT_ID in .env at the repo root.'
+    )
+  }
+
+  await emailField.fill(email)
   await page.locator('#signin-page-password').fill(password)
   await page
     .locator('#SignIn-page')
