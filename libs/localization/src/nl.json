@@ -1,0 +1,457 @@
+{
+  "auth": {
+    "cancel": "Annuleren",
+    "changePasswordMenu": "Wachtwoord wijzigen",
+    "changePasswordCurrent": "Huidig wachtwoord",
+    "changePasswordNew": "Nieuw wachtwoord",
+    "changePasswordSubmit": "Wachtwoord bijwerken",
+    "changePasswordSuccess": "Je wachtwoord is bijgewerkt.",
+    "changePasswordMismatch": "Nieuw wachtwoord en bevestiging komen niet overeen.",
+    "confirmPassword": "Wachtwoord bevestigen",
+    "confirmationCode": "Bevestigingscode",
+    "createAccount": "Een account aanmaken",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "showPassword": "Wachtwoord tonen",
+    "hidePassword": "Wachtwoord verbergen",
+    "signIn": "Inloggen",
+    "signInButton": "Inloggen",
+    "signInTitle": "Inloggen",
+    "signInUnavailable": "Inloggen is niet beschikbaar omdat Cognito niet is geconfigureerd voor deze app.",
+    "signOut": "Uitloggen",
+    "deleteAccount": "Account verwijderen",
+    "deleteAccountWarningLead": "Dit is permanent, alle reprs worden",
+    "deleteAccountWarningLost": "verloren",
+    "deleteAccountWarningMiddle": "en je account wordt",
+    "deleteAccountWarningDeleted": "verwijderd",
+    "deleteAccountWarningTail": "Je kunt later nog een nieuw account aanmaken, maar je gegevens kunnen niet worden hersteld.",
+    "deleteAccountSuccess": "Je account en gegevens zijn verwijderd.",
+    "deleteAccountUnexpectedError": "Het verwijderen van het account is mislukt.",
+    "userAvatarMenuLabel": "Gebruikersmenu openen",
+    "userMenuCurrentUser": "Ingelogd als",
+    "signInChallengeNotSupported": "Dit account vereist een extra inlogstap (bijvoorbeeld MFA of een nieuw wachtwoord). Voltooi die flow in een toekomstige update of in de Cognito hosted UI.",
+    "settingsDisabledHint": "Log in om Instellingen te openen.",
+    "signInUnexpectedError": "Inloggen mislukt.",
+    "signUpBackHome": "Terug naar home",
+    "signUpCodeResent": "Er is een nieuwe bevestigingscode verzonden.",
+    "signUpCodeSent": "Controleer je e-mail voor een bevestigingscode.",
+    "signUpConfirmIntro": "Voer de code in die we naar {{email}} hebben gestuurd.",
+    "signUpConfirmSubmit": "Bevestigen en inloggen",
+    "signUpConfirmUnexpectedError": "Bevestigen mislukt.",
+    "signUpEditEmail": "Een ander e-mailadres gebruiken",
+    "signUpPasswordHint": "Gebruik minimaal 8 tekens, in overeenstemming met het wachtwoordbeleid van je user pool.",
+    "signUpPasswordMismatch": "Wachtwoorden komen niet overeen.",
+    "signUpResendCode": "Code opnieuw verzenden",
+    "signUpResendUnexpectedError": "De code kon niet opnieuw worden verzonden.",
+    "signUpSubmit": "Account aanmaken",
+    "signUpSuccessSignedIn": "Je bent ingelogd.",
+    "signUpUnavailable": "Registreren is niet beschikbaar omdat Cognito niet is geconfigureerd voor deze app.",
+    "signUpUnexpectedError": "Registreren mislukt.",
+    "signUpUnexpectedNextStep": "Registreren vereist een extra stap die deze pagina nog niet ondersteunt. Probeer de Cognito hosted UI of neem contact op met support.",
+    "homeCognitoEnvMissingDev": "Cognito is niet geconfigureerd in deze build (VITE_COGNITO_USER_POOL_ID / VITE_COGNITO_USER_POOL_CLIENT_ID ontbreekt). Voeg ze toe aan de .env in de root van de repo (zie .env.example) en start de dev-server opnieuw (`yarn start`).",
+    "homeCognitoEnvMissingProd": "Inloggen is tijdelijk niet beschikbaar in deze omgeving vanwege een configuratieprobleem. Probeer het later opnieuw.",
+    "homeSignedOutBody": "Log in of maak een account aan om je repertoire te gebruiken.",
+    "homeSignedOutTitle": "ReprMan",
+    "signUpButton": "Registreren",
+    "forgotPasswordLink": "Ik ben mijn wachtwoord vergeten",
+    "forgotPasswordCodeSent": "Controleer je e-mail voor een code om je wachtwoord te resetten.",
+    "forgotPasswordSendCode": "Resetcode verzenden",
+    "forgotPasswordSubmit": "Nieuw wachtwoord instellen",
+    "forgotPasswordSuccess": "Je wachtwoord is gereset. Je kunt nu inloggen.",
+    "forgotPasswordUnexpectedError": "Het resetten van het wachtwoord kon niet worden gestart.",
+    "forgotPasswordConfirmUnexpectedError": "Het wachtwoord kon niet worden gereset. Controleer de code en probeer het opnieuw.",
+    "forgotPasswordUnexpectedNextStep": "Het resetten van het wachtwoord vereist een extra stap die deze pagina nog niet ondersteunt.",
+    "forgotPasswordConfirmIntro": "Voer de code in die we naar {{email}} hebben gestuurd en kies een nieuw wachtwoord.",
+    "signUpTermsPrefix": "Ik ga akkoord met de",
+    "signUpTermsLink": "Gebruiksvoorwaarden",
+    "signUpTermsRequired": "Je moet akkoord gaan met de Gebruiksvoorwaarden om een account aan te maken.",
+    "signUpTermsAcceptFailed": "Je account is aangemaakt, maar we konden je acceptatie van de Gebruiksvoorwaarden niet registreren. Probeer het opnieuw of neem contact op met support.",
+    "termsOfUseMenu": "Gebruiksvoorwaarden",
+    "acceptTermsSubmit": "Accepteren",
+    "acceptTermsTitle": "Gebruiksvoorwaarden",
+    "acceptTermsIntro": "Lees en accepteer de Gebruiksvoorwaarden om ReprMan te blijven gebruiken.",
+    "acceptTermsFailed": "Je acceptatie kon niet worden geregistreerd. Controleer je verbinding en probeer het opnieuw."
+  },
+  "billing": {
+    "subscribe": "Abonneren",
+    "subscriptionLabel": "Abonnement",
+    "subscriptionLoading": "Laden…",
+    "checkoutUnavailable": "Afrekenen is niet beschikbaar in deze omgeving.",
+    "checkoutFailed": "Afrekenen kon niet worden gestart. Probeer het later opnieuw.",
+    "reprLimitReached": "Repr-limiet van {{maxReprs}} bereikt.",
+    "reprLimitReachedShort": "Repr-limiet bereikt.",
+    "status": {
+      "trial": "Proefperiode",
+      "unpaid": "Onbetaald",
+      "paid": "Betaald",
+      "unlimited": "Onbeperkt"
+    },
+    "header": {
+      "trialOne": "Proefaccount, nog {{count}} dag.",
+      "trialOther": "Proefaccount, nog {{count}} dagen.",
+      "unpaid": "Onbetaald account, beperkte functionaliteit.",
+      "expiringOne": "Account verloopt over {{count}} dag.",
+      "expiringOther": "Account verloopt over {{count}} dagen."
+    }
+  },
+  "brand": {
+    "copyright": "copyright ©{{year}}",
+    "repertoireManagement": "Repertoirebeheer",
+    "repr": "Repr",
+    "reprMan": "ReprMan",
+    "versionNumber": "Versienummer: {{versionNumber}}"
+  },
+  "buttons": {
+    "addReprButton": "+ Repr toevoegen",
+    "back": "Terug",
+    "closeWithoutSave": "Sluiten zonder opslaan",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "practiced": "Als geoefend markeren",
+    "save": "Opslaan"
+  },
+  "confirmations": {
+    "clearAllReprs": {
+      "title": "Bevestiging: alle reprs wissen",
+      "body": "Weet je zeker dat je alle reprs wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+      "titleLastChance": "Bevestiging: alle reprs wissen, laatste kans",
+      "bodyLastChance": "Echt waar? Als je ze wist, zijn ze weg. Weet je het zeker? Als ze weg zijn, zijn ze weg."
+    },
+    "removeRepr": {
+      "title": "Bevestiging: repr verwijderen",
+      "body": "Weet je zeker dat je de repr met de titel \"{{title}}\" wilt verwijderen? Dit kan niet ongedaan worden gemaakt."
+    }
+  },
+  "common": {
+    "fail": "Mislukt",
+    "info": "Info",
+    "lastPracticed": "Laatst geoefend",
+    "never": "nooit",
+    "no": "Nee",
+    "success": "Gelukt",
+    "title": "Titel",
+    "warning": "Waarschuwing",
+    "yes": "Ja"
+  },
+  "components": {
+    "controls": {
+      "reportsPageAriaLabel": "Rapportenlijst openen",
+      "reportsPageTitle": "Rapporten"
+    },
+    "categoryFilter": {
+      "openMenuAriaLabel": "Categoriefilter openen",
+      "titleTextAria": "Reprs filteren op titel of opmerking",
+      "titleTextPlaceholder": "Filteren op titel of opmerking"
+    },
+    "reprsList": {
+      "emptyList": "Geen reprs gevonden. Voeg er enkele toe met de knop \"Repr toevoegen\" linksboven.",
+      "reprsCountShort_one": "{{count}} repr",
+      "reprsCountShort_other": "{{count}} reprs",
+      "reprsCount_one": "{{count}} repr gevonden.",
+      "reprsCount_other": "{{count}} reprs gevonden.",
+      "sectionOverdue": "Achterstallig",
+      "sectionWarning": "Waarschuwing",
+      "sectionUpToDate": "Bijgewerkt",
+      "sectionLearning": "Aan het leren"
+    }
+  },
+  "errors": {
+    "settingsSaved": "Instellingen opgeslagen",
+    "couldNotSaveSettings": "Instellingen konden niet worden opgeslagen",
+    "couldNotClearAllReprs": "Alle reprs konden niet worden gewist. Er zijn geen wijzigingen toegepast.",
+    "couldNotRemoveRepr": "Repr kon niet worden verwijderd. Je lijst is hersteld.",
+    "couldNotMarkPracticed": "Repr kon niet als geoefend worden gemarkeerd. Je lijst is hersteld.",
+    "couldNotSaveReprChanges": "Wijzigingen aan de repr konden niet worden opgeslagen. Je lijst is hersteld.",
+    "rateLimit": {
+      "exceededWithMax": "Snelheidslimiet overschreden ({{limit}}: {{max}} per {{window}}).",
+      "exceeded": "Snelheidslimiet overschreden ({{limit}}).",
+      "tryAgainIn": "Probeer het opnieuw over {{retryAfter}}.",
+      "shortWhile": "korte tijd",
+      "requestLimit": "verzoeklimiet",
+      "window": "periode"
+    }
+  },
+  "file": {
+    "reprReadFail": "Repr-bestand kon niet worden gelezen.",
+    "reprReadSuccess": "Repr-bestand succesvol gelezen - gestart met {{startedCount}}, {{addedCount}} toegevoegd.",
+    "reprSaveFail": "Repr-bestand kon niet worden opgeslagen.",
+    "reprSaveSuccess": "Repr-bestand succesvol opgeslagen - {{count}} opgeslagen."
+  },
+  "language": {
+    "switcherLabel": "Taal",
+    "english": "English",
+    "spanish": "Español",
+    "portuguese": "Português",
+    "french": "Français",
+    "german": "Deutsch",
+    "dutch": "Nederlands",
+    "japanese": "日本語",
+    "names": {
+      "en": "English",
+      "es": "Español",
+      "pt": "Português",
+      "fr": "Français",
+      "de": "Deutsch",
+      "nl": "Nederlands",
+      "ja": "日本語"
+    },
+    "flagAlt": {
+      "en": "Vlag van het Verenigd Koninkrijk",
+      "es": "Vlag van Spanje",
+      "pt": "Vlag van Portugal",
+      "fr": "Vlag van Frankrijk",
+      "de": "Vlag van Duitsland",
+      "nl": "Vlag van Nederland",
+      "ja": "Vlag van Japan"
+    }
+  },
+  "meta": {
+    "description": "ReprMan - Webapp voor repertoirebeheer",
+    "noscript": "Je moet JavaScript inschakelen om deze app te gebruiken.",
+    "manifestName": "ReprMan - Repertoirebeheer",
+    "manifestShortName": "ReprMan"
+  },
+  "modals": {
+    "editRepr": {
+      "addNewCategory": "Nieuwe categorie toevoegen",
+      "available": "Beschikbaar",
+      "closeWithoutSave": "Sluiten zonder opslaan",
+      "createTitle": "Repr aanmaken",
+      "current": "Huidig",
+      "enterCategoryPlaceholder": "Nieuwe categorie invoeren...",
+      "enterCommentPlaceholder": "Opmerking invoeren...",
+      "enterTitlePlaceholder": "Titel invoeren...",
+      "exceeded": {
+        "body": "Voor de gratis versie van de app (momenteel de enige versie) geldt een limiet van {{num}} gratis reprs.",
+        "title": "Toegestane reprs overschreden"
+      },
+      "quotaUnavailable": {
+        "body": "Je repr-limiet kon niet worden geladen. Controleer je verbinding, log in indien nodig en probeer het opnieuw.",
+        "title": "Repr-limiet niet beschikbaar"
+      },
+      "noCategoriesSelected": "Geen categorieën geselecteerd.",
+      "learningLabel": "Aan het leren",
+      "learningHelp": "Reprs die je aan het leren bent, verschijnen in een eigen sectie bovenaan de lijst.",
+      "title": "Repr bewerken"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "Over",
+      "historySection": {
+        "subtitle": "Waarom deze app?",
+        "body": [
+          [
+            "Als jazzmuzikant zou ik zeggen dat ik ongeveer 200 nummers ken.",
+            "Met \"kennen\" bedoel ik dat ik de melodie en akkoorden uit mijn hoofd kan spelen en erover kan improviseren.",
+            "Wat ik soms merkte, is dat ik in werkelijkheid ongeveer 50 van hen comfortabel uit mijn hoofd kon spelen, misschien nog eens 50 oncomfortabel, nog eens 50 met wat fouten, en de laatste 50..."
+          ],
+          [
+            "Het probleem is oefenen.",
+            "Bepaalde nummers komen *altijd* voor op optredens.",
+            "En bepaalde nummers zijn leuker om te oefenen.",
+            "We oefenen de ene veel en de andere bijna nooit."
+          ],
+          [
+            "Als nerd werkte ik met spreadsheets om het bij te houden.",
+            "Ik begon met een veld voor de datum/tijd waarop ik het voor het laatst had geoefend.",
+            "Vervolgens voegde ik een knop toe voor elk nummer om de datum/tijd bij te werken en de nummers opnieuw te sorteren.",
+            "Deze app is een evolutie van dat concept."
+          ]
+        ]
+      },
+      "instructionsSection": {
+        "subtitle": "Hoe je deze app gebruikt",
+        "body": [
+          [
+            "Het is vrij eenvoudig.",
+            "Voer je nummers in.",
+            "Oefen het nummer bovenaan de lijst (het nummer dat je het langst niet hebt geoefend) en druk als je klaar bent op de knop \"Als geoefend markeren\"; het verplaatst zich dan naar de onderkant van de lijst.",
+            "De lijst is gesorteerd zodat het nummer dat je het langst niet hebt geoefend bovenaan staat.",
+            "Nummers die achterstallig zijn voor oefening worden rood weergegeven, nummers die er bijna aan komen oranje.",
+            "Groen betekent dat het nog niet aan de beurt is."
+          ],
+          [
+            "Je kunt zelf bepalen hoe je het gebruikt.",
+            "Voor mij zet ik alleen dingen in mijn lijst die \"af\" zijn - ik ken ze.",
+            "Ik werk ook aan dingen die ik aan het leren ben, maar dat zijn er maar een paar en ik hoef daar niet aan herinnerd te worden.",
+            "De lijst is voor mijn \"boek\" met nummers die ik moet beheren."
+          ]
+        ]
+      },
+      "futureSection": {
+        "subtitle": "De toekomst",
+        "body": [
+          [
+            "Dit is het begin.",
+            "Dit is de gratis versie van de app.",
+            "Er zal altijd een gratis versie van de app zijn, maar uiteindelijk komt er een versie met meer functies.",
+            "Ik zal iets moeten vragen om de kosten te dekken (en een beetje te verdienen), maar ik probeer de prijzen laag te houden.",
+            "Op dit moment neig ik naar een zeer goedkoop abonnement, maar advertenties of donaties zijn ook een optie.",
+            "Enkele dingen die worden overwogen:"
+          ]
+        ]
+      },
+      "suggestions": "Als je suggesties hebt, neem dan contact met me op via {{email}}.",
+      "imageAlt": "repr.jpg",
+      "futureItems": {
+        "accounts": "accounts",
+        "mobileVersions": "mobiele versies",
+        "sharing": "delen",
+        "scalesFeature": "vergelijkbare functie voor dingen zoals toonladders, enz.",
+        "darkMode": "donkere modus"
+      }
+    },
+    "terms": {
+      "title": "Gebruiksvoorwaarden",
+      "purposeSection": {
+        "subtitle": "Doel",
+        "body": [
+          [
+            "ReprMan is uitsluitend bedoeld voor het bijhouden van je muzikale repertoire en oefengeschiedenis.",
+            "Als je er een toepassing voor vindt die goed past bij het oorspronkelijke doel (trainingsroutines, enz.), dan is dat acceptabel gebruik.",
+            "Je mag deze app niet voor enig ander doel gebruiken.",
+            "Elke poging om het authenticatie- of autorisatiesysteem te omzeilen is strikt verboden."
+          ]
+        ]
+      },
+      "conductSection": {
+        "subtitle": "Gedrag",
+        "body": [
+          [
+            "Je stemt ermee in geen beledigend gedrag te vertonen en geen beledigende taal te gebruiken in verband met de app.",
+            "We tolereren geen intimidatie, bedreigingen, haatzaaiende taal, spam of pogingen om de dienst te verstoren.",
+            "Het gebruik van deze app voor illegale activiteiten is strikt verboden.",
+            "Overtredingen kunnen leiden tot onmiddellijke opschorting of beëindiging van je account."
+          ]
+        ]
+      },
+      "inactivitySection": {
+        "subtitle": "Gratis accounts en inactiviteit",
+        "body": [
+          [
+            "Onbetaalde accounts zonder login gedurende 90 opeenvolgende dagen kunnen worden gesloten.",
+            "Wanneer een account wordt gesloten wegens inactiviteit, kunnen alle bijbehorende gegevens permanent worden verwijderd."
+          ]
+        ]
+      },
+      "emailUseSection": {
+        "subtitle": "E-mailgebruik",
+        "body": [
+          [
+            "Je e-mailadres wordt alleen gebruikt voor communicatie met betrekking tot deze app.",
+            "We verkopen je e-mailadres niet en gebruiken het niet voor marketing die niets met ReprMan te maken heeft."
+          ]
+        ]
+      },
+      "emailVolumeSection": {
+        "subtitle": "E-mailvolume",
+        "body": [
+          [
+            "We sturen slechts een minimaal aantal e-mails over de status en het gebruik van je account en de app.",
+            "E-mails over je repertoire (bijvoorbeeld herinneringen aan reprs die geoefend moeten worden) worden alleen verzonden als je ze inschakelt in Instellingen.",
+            "Je kunt die meldingen op elk moment uitschakelen of je afmelden."
+          ]
+        ]
+      },
+      "agreementSection": {
+        "subtitle": "Overeenkomst",
+        "body": [
+          [
+            "Door deze app te gebruiken, ga je akkoord met de gebruiksvoorwaarden.",
+            "Door akkoord te gaan met de gebruiksvoorwaarden, stem je ermee in dat elke overtreding leidt tot beëindiging van je account, verwijdering van je gegevens en niet-restitueerbaar verlies van betaalde abonnementen."
+          ]
+        ]
+      }
+    },
+    "home": {
+      "title": "Home"
+    },
+    "subscribe": {
+      "title": "Abonneren",
+      "body": "Krijg volledige toegang tot ReprMan met een jaarabonnement. Er was geen creditcard nodig tijdens je proefperiode.",
+      "price": "€5 per jaar (wordt automatisch verlengd totdat je opzegt)."
+    },
+    "reports": {
+      "title": "Rapporten",
+      "filterByLabel": "Filteren op label",
+      "contentHeading": "Inhoud",
+      "contentComments": "Opmerkingen",
+      "contentLabels": "Labels",
+      "exportHeading": "Exporteren",
+      "copyToClipboard": "Lijst naar klembord kopiëren",
+      "copySuccess": "Lijst gekopieerd naar klembord.",
+      "copyFail": "Kon niet naar klembord kopiëren.",
+      "emptyFiltered": "Geen reprs komen overeen met de geselecteerde labels."
+    },
+    "signin": {
+      "title": "Inloggen"
+    },
+    "forgotPassword": {
+      "title": "Wachtwoord resetten",
+      "subtitle": "Voer het e-mailadres van je account in. We sturen je een code om een nieuw wachtwoord te kiezen."
+    },
+    "changePassword": {
+      "title": "Wachtwoord wijzigen",
+      "subtitle": "Voer je huidige wachtwoord in en kies een nieuw wachtwoord."
+    },
+    "signup": {
+      "title": "Registreren"
+    },
+    "settings": {
+      "title": "Instellingen",
+      "practiceDelay": {
+        "subtitle": "Oefeninterval",
+        "text": "Na hoeveel dagen wil je een melding krijgen dat je moet oefenen?"
+      },
+      "warningRatio": {
+        "subtitle": "Waarschuwingsratio",
+        "text": "Na welk deel van de oefentijd wil je een waarschuwing krijgen? Als je dit op 0,5 instelt, wordt de kaart oranje zodra de helft van de tijd is verstreken."
+      },
+      "resetSettings": {
+        "title": "Alle instellingen terugzetten naar standaard",
+        "subtitle": "Dit zet alle instellingen terug naar de standaardwaarden.",
+        "button": "Alle instellingen resetten"
+      },
+      "deleteAllReprs": {
+        "title": "Alle reprs verwijderen",
+        "subtitle": "Je wilt alle reprs en categorieën permanent verwijderen.",
+        "button": "Alle reprs verwijderen"
+      },
+      "saveSettingsChanges": "Instellingen opslaan",
+      "clearSettingsChanges": "Wijzigingen in instellingen wissen"
+    },
+    "viewRepr": {
+      "title": "Repr bekijken",
+      "data": {
+        "title": "Titel",
+        "categories": "Categorieën",
+        "noCategories": "[geen categorieën]",
+        "comment": "Opmerking",
+        "noComment": "[geen opmerking]",
+        "dateCreated": "Datum aangemaakt",
+        "learning": "Aan het leren",
+        "learningYes": "Ja",
+        "learningNo": "Nee",
+        "datesPracticed": "Data geoefend",
+        "noteMaxRepr": "Let op: we slaan alleen de laatste {{max}} oefensessies per repr op.",
+        "practiceData": "Oefengegevens"
+      },
+      "practice": {
+        "never": "Je hebt deze repr nog niet geoefend.",
+        "once": "Je hebt deze repr slechts één keer geoefend.",
+        "noDifference": "Er is geen verschil in je oefentijden.",
+        "summary": "Je hebt deze repr {{count}} keer geoefend over een periode van {{span}}. Dat is een tempo van {{rate}}.",
+        "ratePerHour": "{{rate}} keer per uur",
+        "ratePerDay": "{{rate}} keer per dag",
+        "ratePerMonth": "{{rate}} keer per maand",
+        "ratePerYear": "{{rate}} keer per jaar"
+      }
+    }
+  },
+  "validation": {
+    "required": "Dit veld is verplicht.",
+    "noAsterisk": "Dit veld mag geen asterisk (*) bevatten.",
+    "categoryExists": "Die categorie bestaat al."
+  }
+}

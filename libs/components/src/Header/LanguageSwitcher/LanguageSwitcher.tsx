@@ -1,6 +1,10 @@
 import React, { useMemo } from 'react'
 import { Dropdown } from 'react-bootstrap'
-import { useL10n, type SupportedLanguage } from '@reprman/localization'
+import {
+  LANGUAGE_DISPLAY_ORDER,
+  useL10n,
+  type SupportedLanguage,
+} from '@reprman/localization'
 
 import './LanguageSwitcher.css'
 
@@ -8,9 +12,11 @@ const FLAG_SRC: Record<SupportedLanguage, string> = {
   en: '/static/flags/gb.svg',
   es: '/static/flags/es.svg',
   pt: '/static/flags/pt.svg',
+  fr: '/static/flags/fr.svg',
+  de: '/static/flags/de.svg',
+  nl: '/static/flags/nl.svg',
+  ja: '/static/flags/ja.svg',
 }
-
-const LANGUAGE_OPTIONS: SupportedLanguage[] = ['en', 'es', 'pt']
 
 const LanguageFlag = ({
   language,
@@ -37,7 +43,8 @@ const LanguageSwitcher = () => {
 
   const currentLanguage = useMemo(
     () =>
-      LANGUAGE_OPTIONS.find((option) => language.startsWith(option)) ?? 'en',
+      LANGUAGE_DISPLAY_ORDER.find((option) => language.startsWith(option)) ??
+      'en',
     [language]
   )
 
@@ -64,7 +71,7 @@ const LanguageSwitcher = () => {
         className="header-language-menu"
         popperConfig={{ strategy: 'fixed' }}
       >
-        {LANGUAGE_OPTIONS.map((option) => (
+        {LANGUAGE_DISPLAY_ORDER.map((option) => (
           <Dropdown.Item
             key={option}
             active={currentLanguage === option}

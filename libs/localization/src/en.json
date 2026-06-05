@@ -182,15 +182,27 @@
     "english": "English",
     "spanish": "Español",
     "portuguese": "Português",
+    "french": "Français",
+    "german": "Deutsch",
+    "dutch": "Nederlands",
+    "japanese": "日本語",
     "names": {
       "en": "English",
       "es": "Español",
-      "pt": "Português"
+      "pt": "Português",
+      "fr": "Français",
+      "de": "Deutsch",
+      "nl": "Nederlands",
+      "ja": "日本語"
     },
     "flagAlt": {
       "en": "United Kingdom flag",
       "es": "Spain flag",
-      "pt": "Portugal flag"
+      "pt": "Portugal flag",
+      "fr": "France flag",
+      "de": "Germany flag",
+      "nl": "Netherlands flag",
+      "ja": "Japan flag"
     }
   },
   "meta": {

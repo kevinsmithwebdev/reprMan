@@ -1,6 +1,25 @@
 export const LANGUAGE_STORAGE_KEY = 'reprman-language'
-export const SUPPORTED_LANGUAGES = ['en', 'es', 'pt'] as const
+export const SUPPORTED_LANGUAGES = [
+  'en',
+  'es',
+  'pt',
+  'fr',
+  'de',
+  'nl',
+  'ja',
+] as const
 export type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number]
+
+/** Order shown in the language dropdown. */
+export const LANGUAGE_DISPLAY_ORDER: SupportedLanguage[] = [
+  'en',
+  'es',
+  'pt',
+  'fr',
+  'de',
+  'nl',
+  'ja',
+]
 
 export const isSupportedLanguage = (
   value: string | null | undefined

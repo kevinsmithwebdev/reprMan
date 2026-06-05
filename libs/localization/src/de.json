@@ -1,0 +1,457 @@
+{
+  "auth": {
+    "cancel": "Abbrechen",
+    "changePasswordMenu": "Passwort ändern",
+    "changePasswordCurrent": "Aktuelles Passwort",
+    "changePasswordNew": "Neues Passwort",
+    "changePasswordSubmit": "Passwort aktualisieren",
+    "changePasswordSuccess": "Ihr Passwort wurde aktualisiert.",
+    "changePasswordMismatch": "Neues Passwort und Bestätigung stimmen nicht überein.",
+    "confirmPassword": "Passwort bestätigen",
+    "confirmationCode": "Bestätigungscode",
+    "createAccount": "Konto erstellen",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "showPassword": "Passwort anzeigen",
+    "hidePassword": "Passwort ausblenden",
+    "signIn": "Anmelden",
+    "signInButton": "Anmelden",
+    "signInTitle": "Anmelden",
+    "signInUnavailable": "Die Anmeldung ist nicht verfügbar, weil Cognito für diese App nicht konfiguriert ist.",
+    "signOut": "Abmelden",
+    "deleteAccount": "Konto löschen",
+    "deleteAccountWarningLead": "Dies ist dauerhaft, alle reprs werden",
+    "deleteAccountWarningLost": "verloren gehen",
+    "deleteAccountWarningMiddle": "und Ihr Konto wird",
+    "deleteAccountWarningDeleted": "gelöscht",
+    "deleteAccountWarningTail": "Sie können später ein neues Konto erstellen, aber Ihre Daten können nicht wiederhergestellt werden.",
+    "deleteAccountSuccess": "Ihr Konto und Ihre Daten wurden gelöscht.",
+    "deleteAccountUnexpectedError": "Das Löschen des Kontos ist fehlgeschlagen.",
+    "userAvatarMenuLabel": "Benutzermenü öffnen",
+    "userMenuCurrentUser": "Angemeldet als",
+    "signInChallengeNotSupported": "Dieses Konto erfordert einen zusätzlichen Anmeldeschritt (z. B. MFA oder ein neues Passwort). Schließen Sie diesen Vorgang in einem zukünftigen Update oder in der Cognito-Hosted-UI ab.",
+    "settingsDisabledHint": "Melden Sie sich an, um die Einstellungen zu öffnen.",
+    "signInUnexpectedError": "Anmeldung fehlgeschlagen.",
+    "signUpBackHome": "Zurück zur Startseite",
+    "signUpCodeResent": "Ein neuer Bestätigungscode wurde gesendet.",
+    "signUpCodeSent": "Prüfen Sie Ihre E-Mail auf einen Bestätigungscode.",
+    "signUpConfirmIntro": "Geben Sie den Code ein, den wir an {{email}} gesendet haben.",
+    "signUpConfirmSubmit": "Bestätigen und anmelden",
+    "signUpConfirmUnexpectedError": "Bestätigung fehlgeschlagen.",
+    "signUpEditEmail": "Andere E-Mail-Adresse verwenden",
+    "signUpPasswordHint": "Verwenden Sie mindestens 8 Zeichen gemäß der Passwortrichtlinie Ihres User Pools.",
+    "signUpPasswordMismatch": "Die Passwörter stimmen nicht überein.",
+    "signUpResendCode": "Code erneut senden",
+    "signUpResendUnexpectedError": "Der Code konnte nicht erneut gesendet werden.",
+    "signUpSubmit": "Konto erstellen",
+    "signUpSuccessSignedIn": "Sie sind angemeldet.",
+    "signUpUnavailable": "Die Registrierung ist nicht verfügbar, weil Cognito für diese App nicht konfiguriert ist.",
+    "signUpUnexpectedError": "Registrierung fehlgeschlagen.",
+    "signUpUnexpectedNextStep": "Die Registrierung erfordert einen zusätzlichen Schritt, den diese Seite noch nicht unterstützt. Versuchen Sie die Cognito-Hosted-UI oder wenden Sie sich an den Support.",
+    "homeCognitoEnvMissingDev": "Cognito ist in diesem Build nicht konfiguriert (VITE_COGNITO_USER_POOL_ID / VITE_COGNITO_USER_POOL_CLIENT_ID fehlen). Fügen Sie sie zur .env im Repository-Stammverzeichnis hinzu (siehe .env.example) und starten Sie den Entwicklungsserver neu (`yarn start`).",
+    "homeCognitoEnvMissingProd": "Die Anmeldung ist in dieser Umgebung vorübergehend aufgrund eines Konfigurationsproblems nicht verfügbar. Bitte versuchen Sie es später erneut.",
+    "homeSignedOutBody": "Melden Sie sich an oder erstellen Sie ein Konto, um Ihr Repertoire zu nutzen.",
+    "homeSignedOutTitle": "ReprMan",
+    "signUpButton": "Registrieren",
+    "forgotPasswordLink": "Ich habe mein Passwort vergessen",
+    "forgotPasswordCodeSent": "Prüfen Sie Ihre E-Mail auf einen Code zum Zurücksetzen des Passworts.",
+    "forgotPasswordSendCode": "Code zum Zurücksetzen senden",
+    "forgotPasswordSubmit": "Neues Passwort festlegen",
+    "forgotPasswordSuccess": "Ihr Passwort wurde zurückgesetzt. Sie können sich jetzt anmelden.",
+    "forgotPasswordUnexpectedError": "Das Zurücksetzen des Passworts konnte nicht gestartet werden.",
+    "forgotPasswordConfirmUnexpectedError": "Das Passwort konnte nicht zurückgesetzt werden. Prüfen Sie den Code und versuchen Sie es erneut.",
+    "forgotPasswordUnexpectedNextStep": "Das Zurücksetzen des Passworts erfordert einen zusätzlichen Schritt, den diese Seite noch nicht unterstützt.",
+    "forgotPasswordConfirmIntro": "Geben Sie den Code ein, den wir an {{email}} gesendet haben, und wählen Sie dann ein neues Passwort.",
+    "signUpTermsPrefix": "Ich stimme den",
+    "signUpTermsLink": "Nutzungsbedingungen",
+    "signUpTermsRequired": "Sie müssen den Nutzungsbedingungen zustimmen, um ein Konto zu erstellen.",
+    "signUpTermsAcceptFailed": "Ihr Konto wurde erstellt, aber wir konnten Ihre Zustimmung zu den Nutzungsbedingungen nicht speichern. Bitte versuchen Sie es erneut oder wenden Sie sich an den Support.",
+    "termsOfUseMenu": "Nutzungsbedingungen",
+    "acceptTermsSubmit": "Akzeptieren",
+    "acceptTermsTitle": "Nutzungsbedingungen",
+    "acceptTermsIntro": "Bitte lesen und akzeptieren Sie die Nutzungsbedingungen, um ReprMan weiter zu nutzen.",
+    "acceptTermsFailed": "Ihre Zustimmung konnte nicht gespeichert werden. Prüfen Sie Ihre Verbindung und versuchen Sie es erneut."
+  },
+  "billing": {
+    "subscribe": "Abonnieren",
+    "subscriptionLabel": "Abonnement",
+    "subscriptionLoading": "Wird geladen…",
+    "checkoutUnavailable": "Der Checkout ist in dieser Umgebung nicht verfügbar.",
+    "checkoutFailed": "Der Checkout konnte nicht gestartet werden. Versuchen Sie es später erneut.",
+    "reprLimitReached": "Repr-Limit von {{maxReprs}} erreicht.",
+    "reprLimitReachedShort": "Repr-Limit erreicht.",
+    "status": {
+      "trial": "Testversion",
+      "unpaid": "Unbezahlt",
+      "paid": "Bezahlt",
+      "unlimited": "Unbegrenzt"
+    },
+    "header": {
+      "trialOne": "Testkonto, noch {{count}} Tag.",
+      "trialOther": "Testkonto, noch {{count}} Tage.",
+      "unpaid": "Unbezahltes Konto, eingeschränkte Funktionen.",
+      "expiringOne": "Konto läuft in {{count}} Tag ab.",
+      "expiringOther": "Konto läuft in {{count}} Tagen ab."
+    }
+  },
+  "brand": {
+    "copyright": "copyright ©{{year}}",
+    "repertoireManagement": "Repertoire-Verwaltung",
+    "repr": "Repr",
+    "reprMan": "ReprMan",
+    "versionNumber": "Versionsnummer: {{versionNumber}}"
+  },
+  "buttons": {
+    "addReprButton": "+ Repr hinzufügen",
+    "back": "Zurück",
+    "closeWithoutSave": "Schließen ohne Speichern",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "practiced": "Als geübt markieren",
+    "save": "Speichern"
+  },
+  "confirmations": {
+    "clearAllReprs": {
+      "title": "Bestätigung: Alle Reprs löschen",
+      "body": "Möchten Sie wirklich alle reprs entfernen? Dies ist unwiderruflich.",
+      "titleLastChance": "Bestätigung: Alle Reprs löschen, letzte Chance",
+      "bodyLastChance": "Wirklich? Sobald Sie sie löschen, sind sie weg. Sind Sie sicher? Wenn sie weg sind, sind sie weg."
+    },
+    "removeRepr": {
+      "title": "Bestätigung: Repr entfernen",
+      "body": "Möchten Sie den Repr mit dem Titel „{{title}}“ wirklich entfernen? Dies ist unwiderruflich."
+    }
+  },
+  "common": {
+    "fail": "Fehler",
+    "info": "Info",
+    "lastPracticed": "Zuletzt geübt",
+    "never": "nie",
+    "no": "Nein",
+    "success": "Erfolg",
+    "title": "Titel",
+    "warning": "Warnung",
+    "yes": "Ja"
+  },
+  "components": {
+    "controls": {
+      "reportsPageAriaLabel": "Berichtsliste öffnen",
+      "reportsPageTitle": "Berichte"
+    },
+    "categoryFilter": {
+      "openMenuAriaLabel": "Kategoriefilter öffnen",
+      "titleTextAria": "Reprs nach Titel oder Kommentar filtern",
+      "titleTextPlaceholder": "Nach Titel oder Kommentar filtern"
+    },
+    "reprsList": {
+      "emptyList": "Keine reprs gefunden. Fügen Sie welche mit der Schaltfläche „Repr hinzufügen“ oben links hinzu.",
+      "reprsCountShort_one": "{{count}} Repr",
+      "reprsCountShort_other": "{{count}} reprs",
+      "reprsCount_one": "{{count}} Repr gefunden.",
+      "reprsCount_other": "{{count}} reprs gefunden.",
+      "sectionOverdue": "Überfällig",
+      "sectionWarning": "Warnung",
+      "sectionUpToDate": "Aktuell",
+      "sectionLearning": "In Arbeit"
+    }
+  },
+  "errors": {
+    "settingsSaved": "Einstellungen gespeichert",
+    "couldNotSaveSettings": "Einstellungen konnten nicht gespeichert werden",
+    "couldNotClearAllReprs": "Alle reprs konnten nicht gelöscht werden. Es wurden keine Änderungen vorgenommen.",
+    "couldNotRemoveRepr": "Repr konnte nicht entfernt werden. Ihre Liste wurde wiederhergestellt.",
+    "couldNotMarkPracticed": "Repr konnte nicht als geübt markiert werden. Ihre Liste wurde wiederhergestellt.",
+    "couldNotSaveReprChanges": "Repr-Änderungen konnten nicht gespeichert werden. Ihre Liste wurde wiederhergestellt.",
+    "rateLimit": {
+      "exceededWithMax": "Ratenlimit überschritten ({{limit}}: {{max}} pro {{window}}).",
+      "exceeded": "Ratenlimit überschritten ({{limit}}).",
+      "tryAgainIn": "Versuchen Sie es in {{retryAfter}} erneut.",
+      "shortWhile": "kurzer Zeit",
+      "requestLimit": "Anfragelimit",
+      "window": "Zeitfenster"
+    }
+  },
+  "file": {
+    "reprReadFail": "Repr-Datei konnte nicht gelesen werden.",
+    "reprReadSuccess": "Repr-Datei erfolgreich gelesen – begonnen mit {{startedCount}}, {{addedCount}} hinzugefügt.",
+    "reprSaveFail": "Repr-Datei konnte nicht gespeichert werden.",
+    "reprSaveSuccess": "Repr-Datei erfolgreich gespeichert – {{count}} gespeichert."
+  },
+  "language": {
+    "switcherLabel": "Sprache",
+    "english": "English",
+    "spanish": "Español",
+    "portuguese": "Português",
+    "french": "Français",
+    "german": "Deutsch",
+    "dutch": "Nederlands",
+    "japanese": "日本語",
+    "names": {
+      "en": "English",
+      "es": "Español",
+      "pt": "Português",
+      "fr": "Français",
+      "de": "Deutsch",
+      "nl": "Nederlands",
+      "ja": "日本語"
+    },
+    "flagAlt": {
+      "en": "Flagge des Vereinigten Königreichs",
+      "es": "Flagge von Spanien",
+      "pt": "Flagge von Portugal",
+      "fr": "Flagge von Frankreich",
+      "de": "Flagge von Deutschland",
+      "nl": "Flagge der Niederlande",
+      "ja": "Flagge von Japan"
+    }
+  },
+  "meta": {
+    "description": "ReprMan – Web-App zur Repertoire-Verwaltung",
+    "noscript": "Sie müssen JavaScript aktivieren, um diese App auszuführen.",
+    "manifestName": "ReprMan – Repertoire-Verwaltung",
+    "manifestShortName": "ReprMan"
+  },
+  "modals": {
+    "editRepr": {
+      "addNewCategory": "Neue Kategorie hinzufügen",
+      "available": "Verfügbar",
+      "closeWithoutSave": "Schließen ohne Speichern",
+      "createTitle": "Repr erstellen",
+      "current": "Aktuell",
+      "enterCategoryPlaceholder": "Neue Kategorie eingeben…",
+      "enterCommentPlaceholder": "Kommentar eingeben…",
+      "enterTitlePlaceholder": "Titel eingeben…",
+      "exceeded": {
+        "body": "In der kostenlosen Version der App (derzeit die einzige Version) gibt es ein Limit von {{num}} kostenlosen reprs.",
+        "title": "Erlaubte Reprs überschritten"
+      },
+      "quotaUnavailable": {
+        "body": "Ihr Repr-Limit konnte nicht geladen werden. Prüfen Sie Ihre Verbindung, melden Sie sich bei Bedarf an und versuchen Sie es erneut.",
+        "title": "Repr-Limit nicht verfügbar"
+      },
+      "noCategoriesSelected": "Keine Kategorien ausgewählt.",
+      "learningLabel": "In Arbeit",
+      "learningHelp": "Reprs in Arbeit erscheinen in einem eigenen Abschnitt oben in der Liste.",
+      "title": "Repr bearbeiten"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "Über",
+      "historySection": {
+        "subtitle": "Warum diese App?",
+        "body": [
+          [
+            "Als Jazzmusiker würde ich sagen, dass ich etwa 200 Stücke kenne.",
+            "Mit „kennen“ meine ich, dass ich Melodie und Akkorde aus dem Gedächtnis spielen und darüber improvisieren kann.",
+            "Was ich manchmal feststellte, war, dass ich in Wirklichkeit nur etwa 50 davon bequem aus dem Gedächtnis spielen konnte, vielleicht weitere 50 unbequem, weitere 50 mit einigen Fehlern, und die letzten 50…"
+          ],
+          [
+            "Das Problem ist das Üben.",
+            "Bestimmte Stücke kommen bei Auftritten *immer* vor.",
+            "Und bestimmte Stücke machen mehr Spaß beim Üben.",
+            "Wir neigen dazu, manche sehr viel und manche fast nie zu üben."
+          ],
+          [
+            "Als Nerd habe ich mit Tabellenkalkulationen gearbeitet, um den Überblick zu behalten.",
+            "Ich habe ein Feld für das Datum und die Uhrzeit hinzugefügt, an dem ich es zuletzt geübt habe.",
+            "Dann habe ich für jedes Stück eine Schaltfläche hinzugefügt, um Datum und Uhrzeit zu aktualisieren und die Stücke neu zu sortieren.",
+            "Diese App ist eine Weiterentwicklung dieses Konzepts."
+          ]
+        ]
+      },
+      "instructionsSection": {
+        "subtitle": "So nutzen Sie diese App",
+        "body": [
+          [
+            "Es ist ziemlich einfach.",
+            "Geben Sie Ihre Stücke ein.",
+            "Üben Sie das Stück oben in der Liste (das, das Sie am längsten nicht geübt haben), und wenn Sie fertig sind, drücken Sie die Schaltfläche „Als geübt markieren“ – dann rutscht es ans Ende der Liste.",
+            "Die Liste ist so sortiert, dass das Stück, das Sie am längsten nicht geübt haben, oben steht.",
+            "Stücke, die überfällig zum Üben sind, werden rot angezeigt, Stücke, die bald fällig werden, orange.",
+            "Grün bedeutet, dass es noch nicht fällig geworden ist."
+          ],
+          [
+            "Sie können selbst entscheiden, wie Sie die App nutzen.",
+            "Für mich kommen nur Stücke in die Liste, die „fertig“ sind – die ich kenne.",
+            "Ich arbeite auch an Stücken, die ich noch lerne, aber das sind nur wenige, und ich brauche dafür keine Erinnerung.",
+            "Die Liste ist für mein „Book“ von Stücken, die ich verwalten muss."
+          ]
+        ]
+      },
+      "futureSection": {
+        "subtitle": "Die Zukunft",
+        "body": [
+          [
+            "Das ist der Anfang.",
+            "Das ist die kostenlose Version der App.",
+            "Es wird immer eine kostenlose Version geben, aber irgendwann wird es eine Version mit mehr Funktionen geben.",
+            "Ich muss etwas verlangen, um die Kosten zu decken (und ein wenig zu verdienen), werde aber versuchen, die Preise niedrig zu halten.",
+            "Im Moment tendiere ich zu einem sehr günstigen Abonnement, könnte aber auch Werbung oder Spenden in Betracht ziehen.",
+            "Einige Dinge, die in Erwägung gezogen werden:"
+          ]
+        ]
+      },
+      "suggestions": "Wenn Sie Vorschläge haben, kontaktieren Sie mich bitte unter {{email}}.",
+      "imageAlt": "repr.jpg",
+      "futureItems": {
+        "accounts": "Konten",
+        "mobileVersions": "mobile Versionen",
+        "sharing": "Teilen",
+        "scalesFeature": "ähnliche Funktion für Dinge wie Tonleitern usw.",
+        "darkMode": "Dunkelmodus"
+      }
+    },
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "purposeSection": {
+        "subtitle": "Zweck",
+        "body": [
+          [
+            "ReprMan wird ausschließlich zur Verfolgung Ihres musikalischen Repertoires und Ihrer Übungsgeschichte bereitgestellt.",
+            "Wenn Sie eine Nutzung finden, die gut zu diesem ursprünglichen Zweck passt (Trainingsroutinen usw.), ist das eine zulässige Nutzung.",
+            "Sie dürfen diese App nicht für andere Zwecke verwenden.",
+            "Jeder Versuch, das Authentifizierungs- oder Autorisierungssystem zu umgehen, ist strengstens untersagt."
+          ]
+        ]
+      },
+      "conductSection": {
+        "subtitle": "Verhalten",
+        "body": [
+          [
+            "Sie stimmen zu, kein missbräuchliches Verhalten zu zeigen und keine missbräuchliche Sprache in Verbindung mit der App zu verwenden.",
+            "Wir tolerieren keine Belästigung, Drohungen, Hassrede, Spam oder Versuche, den Dienst zu stören.",
+            "Die Nutzung dieser App für illegale Aktivitäten ist strengstens untersagt.",
+            "Verstöße können zur sofortigen Sperrung oder Kündigung Ihres Kontos führen."
+          ]
+        ]
+      },
+      "inactivitySection": {
+        "subtitle": "Kostenlose Konten und Inaktivität",
+        "body": [
+          [
+            "Nicht bezahlte Konten ohne Anmeldung über 90 aufeinanderfolgende Tage können geschlossen werden.",
+            "Wenn ein Konto wegen Inaktivität geschlossen wird, können alle zugehörigen Daten dauerhaft gelöscht werden."
+          ]
+        ]
+      },
+      "emailUseSection": {
+        "subtitle": "E-Mail-Nutzung",
+        "body": [
+          [
+            "Ihre E-Mail-Adresse wird nur für die Kommunikation im Zusammenhang mit dieser App verwendet.",
+            "Wir werden Ihre E-Mail nicht verkaufen oder für Marketing verwenden, das nicht mit ReprMan zusammenhängt."
+          ]
+        ]
+      },
+      "emailVolumeSection": {
+        "subtitle": "E-Mail-Volumen",
+        "body": [
+          [
+            "Wir senden nur eine minimale Anzahl von E-Mails über den Status und die Nutzung Ihres Kontos und der App.",
+            "E-Mails zu Ihrem Repertoire (z. B. Erinnerungen an reprs, die geübt werden müssen) werden nur gesendet, wenn Sie diese in den Einstellungen aktivieren.",
+            "Sie können diese Benachrichtigungen jederzeit deaktivieren oder sich davon abmelden."
+          ]
+        ]
+      },
+      "agreementSection": {
+        "subtitle": "Vereinbarung",
+        "body": [
+          [
+            "Durch die Nutzung dieser App stimmen Sie den Nutzungsbedingungen zu.",
+            "Mit Ihrer Zustimmung zu den Nutzungsbedingungen erklären Sie sich damit einverstanden, dass jeder Verstoß zur Kündigung Ihres Kontos, zur Löschung Ihrer Daten und zum nicht erstattungsfähigen Verlust bezahlter Abonnements führt."
+          ]
+        ]
+      }
+    },
+    "home": {
+      "title": "Startseite"
+    },
+    "subscribe": {
+      "title": "Abonnieren",
+      "body": "Erhalten Sie vollen Zugang zu ReprMan mit einem Jahresabonnement. Während Ihrer Testversion war keine Kreditkarte erforderlich.",
+      "price": "5 € pro Jahr (verlängert sich automatisch, bis Sie kündigen)."
+    },
+    "reports": {
+      "title": "Berichte",
+      "filterByLabel": "Nach Label filtern",
+      "contentHeading": "Inhalt",
+      "contentComments": "Kommentare",
+      "contentLabels": "Labels",
+      "exportHeading": "Export",
+      "copyToClipboard": "Liste in Zwischenablage kopieren",
+      "copySuccess": "Liste in die Zwischenablage kopiert.",
+      "copyFail": "Kopieren in die Zwischenablage fehlgeschlagen.",
+      "emptyFiltered": "Keine reprs entsprechen den ausgewählten Labels."
+    },
+    "signin": {
+      "title": "Anmelden"
+    },
+    "forgotPassword": {
+      "title": "Passwort zurücksetzen",
+      "subtitle": "Geben Sie die E-Mail-Adresse Ihres Kontos ein. Wir senden Ihnen einen Code, um ein neues Passwort zu wählen."
+    },
+    "changePassword": {
+      "title": "Passwort ändern",
+      "subtitle": "Geben Sie Ihr aktuelles Passwort ein und wählen Sie dann ein neues."
+    },
+    "signup": {
+      "title": "Registrieren"
+    },
+    "settings": {
+      "title": "Einstellungen",
+      "practiceDelay": {
+        "subtitle": "Übungsintervall",
+        "text": "Nach wie vielen Tagen möchten Sie darauf hingewiesen werden, dass Sie üben sollten?"
+      },
+      "warningRatio": {
+        "subtitle": "Warnverhältnis",
+        "text": "Nach welchem Anteil der Übungsintervall-Zeit möchten Sie gewarnt werden? Wenn Sie 0,5 einstellen, wird die Karte nach der Hälfte der Zeit orange, um Sie zu warnen."
+      },
+      "resetSettings": {
+        "title": "Alle Einstellungen auf Standard zurücksetzen",
+        "subtitle": "Dies setzt die Einstellungen auf ihre Standardwerte zurück.",
+        "button": "Alle Einstellungen zurücksetzen"
+      },
+      "deleteAllReprs": {
+        "title": "Alle Reprs löschen",
+        "subtitle": "Sie möchten alle reprs und Kategorien dauerhaft löschen.",
+        "button": "Alle Reprs löschen"
+      },
+      "saveSettingsChanges": "Einstellungsänderungen speichern",
+      "clearSettingsChanges": "Einstellungsänderungen verwerfen"
+    },
+    "viewRepr": {
+      "title": "Repr anzeigen",
+      "data": {
+        "title": "Titel",
+        "categories": "Kategorien",
+        "noCategories": "[keine Kategorien]",
+        "comment": "Kommentar",
+        "noComment": "[kein Kommentar]",
+        "dateCreated": "Erstellungsdatum",
+        "learning": "In Arbeit",
+        "learningYes": "Ja",
+        "learningNo": "Nein",
+        "datesPracticed": "Übungsdaten",
+        "noteMaxRepr": "Hinweis: Wir speichern nur die letzten {{max}} Übungseinheiten für einen Repr.",
+        "practiceData": "Übungsdaten"
+      },
+      "practice": {
+        "never": "Sie haben diesen Repr noch nicht geübt.",
+        "once": "Sie haben diesen Repr nur einmal geübt.",
+        "noDifference": "Es gibt keinen Unterschied in Ihren Übungszeiten.",
+        "summary": "Sie haben diesen Repr {{count}} Mal über einen Zeitraum von {{span}} geübt. Das entspricht einer Rate von {{rate}}.",
+        "ratePerHour": "{{rate}} Mal pro Stunde",
+        "ratePerDay": "{{rate}} Mal pro Tag",
+        "ratePerMonth": "{{rate}} Mal pro Monat",
+        "ratePerYear": "{{rate}} Mal pro Jahr"
+      }
+    }
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich.",
+    "noAsterisk": "Dieses Feld darf kein Sternchen (*) enthalten.",
+    "categoryExists": "Diese Kategorie existiert bereits."
+  }
+}

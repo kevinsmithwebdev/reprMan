@@ -20,6 +20,34 @@ describe('setupI18n', () => {
     await i18next.changeLanguage('en')
   })
 
+  it('loads French resources', async () => {
+    const i18next = (await import('@reprman/localization/setupI18n')).default
+    await i18next.changeLanguage('fr')
+    expect(i18next.t('pages.home.title')).toBe('Accueil')
+    await i18next.changeLanguage('en')
+  })
+
+  it('loads German resources', async () => {
+    const i18next = (await import('@reprman/localization/setupI18n')).default
+    await i18next.changeLanguage('de')
+    expect(i18next.t('pages.home.title')).toBe('Startseite')
+    await i18next.changeLanguage('en')
+  })
+
+  it('loads Dutch resources', async () => {
+    const i18next = (await import('@reprman/localization/setupI18n')).default
+    await i18next.changeLanguage('nl')
+    expect(i18next.t('pages.home.title')).toBe('Home')
+    await i18next.changeLanguage('en')
+  })
+
+  it('loads Japanese resources', async () => {
+    const i18next = (await import('@reprman/localization/setupI18n')).default
+    await i18next.changeLanguage('ja')
+    expect(i18next.t('pages.home.title')).toBe('ホーム')
+    await i18next.changeLanguage('en')
+  })
+
   it('falls back to English when a key is missing in another locale', async () => {
     const i18next = (await import('@reprman/localization/setupI18n')).default
     const key = 'test.fallback.onlyInEnglish'

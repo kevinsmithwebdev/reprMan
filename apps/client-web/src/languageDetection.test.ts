@@ -14,11 +14,16 @@ describe('languageFromLocaleTag', () => {
     expect(languageFromLocaleTag('pt-PT')).toBe('pt')
     expect(languageFromLocaleTag('pt-BR')).toBe('pt')
     expect(languageFromLocaleTag('en-US')).toBe('en')
+    expect(languageFromLocaleTag('fr-FR')).toBe('fr')
+    expect(languageFromLocaleTag('de-DE')).toBe('de')
+    expect(languageFromLocaleTag('nl-NL')).toBe('nl')
+    expect(languageFromLocaleTag('ja-JP')).toBe('ja')
   })
 
   it('returns null for unsupported languages', () => {
-    expect(languageFromLocaleTag('fr-FR')).toBeNull()
-    expect(languageFromLocaleTag('de')).toBeNull()
+    expect(languageFromLocaleTag('it-IT')).toBeNull()
+    expect(languageFromLocaleTag('zh-CN')).toBeNull()
+    expect(languageFromLocaleTag('ru')).toBeNull()
   })
 })
 
@@ -30,7 +35,7 @@ describe('resolveBrowserLanguage', () => {
   it('uses the first supported browser locale', () => {
     vi.stubGlobal('navigator', {
       language: 'en-US',
-      languages: ['fr-FR', 'es-ES', 'en-US'],
+      languages: ['it-IT', 'es-ES', 'en-US'],
     })
 
     expect(resolveBrowserLanguage()).toBe('es')
@@ -38,8 +43,8 @@ describe('resolveBrowserLanguage', () => {
 
   it('falls back to English when no browser locale is supported', () => {
     vi.stubGlobal('navigator', {
-      language: 'fr-FR',
-      languages: ['fr-FR', 'de-DE'],
+      language: 'it-IT',
+      languages: ['it-IT', 'zh-CN'],
     })
 
     expect(resolveBrowserLanguage()).toBe('en')
@@ -79,15 +84,15 @@ describe('resolveInitialLanguage', () => {
 
   it('uses English when storage is empty and browser locale is unsupported', () => {
     vi.stubGlobal('navigator', {
-      language: 'fr-FR',
-      languages: ['fr-FR'],
+      language: 'it-IT',
+      languages: ['it-IT'],
     })
 
     expect(resolveInitialLanguage()).toBe('en')
   })
 
   it('ignores invalid stored values', () => {
-    globalThis.localStorage.setItem(LANGUAGE_STORAGE_KEY, 'fr')
+    globalThis.localStorage.setItem(LANGUAGE_STORAGE_KEY, 'zh')
     vi.stubGlobal('navigator', {
       language: 'es-ES',
       languages: ['es-ES'],
@@ -103,7 +108,7 @@ describe('readStoredLanguage', () => {
   })
 
   it('returns null for unsupported stored values', () => {
-    globalThis.localStorage.setItem(LANGUAGE_STORAGE_KEY, 'de')
+    globalThis.localStorage.setItem(LANGUAGE_STORAGE_KEY, 'it')
     expect(readStoredLanguage()).toBeNull()
   })
 })

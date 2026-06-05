@@ -1,0 +1,457 @@
+{
+  "auth": {
+    "cancel": "キャンセル",
+    "changePasswordMenu": "パスワードを変更",
+    "changePasswordCurrent": "現在のパスワード",
+    "changePasswordNew": "新しいパスワード",
+    "changePasswordSubmit": "パスワードを更新",
+    "changePasswordSuccess": "パスワードを更新しました。",
+    "changePasswordMismatch": "新しいパスワードと確認用パスワードが一致しません。",
+    "confirmPassword": "パスワード（確認）",
+    "confirmationCode": "確認コード",
+    "createAccount": "アカウントを作成",
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "showPassword": "パスワードを表示",
+    "hidePassword": "パスワードを非表示",
+    "signIn": "ログイン",
+    "signInButton": "ログイン",
+    "signInTitle": "ログイン",
+    "signInUnavailable": "Cognito が設定されていないため、ログインできません。",
+    "signOut": "ログアウト",
+    "deleteAccount": "アカウントを削除",
+    "deleteAccountWarningLead": "この操作は取り消せません。すべての repr は",
+    "deleteAccountWarningLost": "失われ",
+    "deleteAccountWarningMiddle": "アカウントは",
+    "deleteAccountWarningDeleted": "削除されます",
+    "deleteAccountWarningTail": "後から新しいアカウントを作成することはできますが、データを復元することはできません。",
+    "deleteAccountSuccess": "アカウントとデータを削除しました。",
+    "deleteAccountUnexpectedError": "アカウントの削除に失敗しました。",
+    "userAvatarMenuLabel": "ユーザーメニューを開く",
+    "userMenuCurrentUser": "ログイン中:",
+    "signInChallengeNotSupported": "このアカウントには追加のログイン手順（MFA や新しいパスワードの設定など）が必要です。今後の更新または Cognito ホスト UI で完了してください。",
+    "settingsDisabledHint": "設定を開くにはログインしてください。",
+    "signInUnexpectedError": "ログインに失敗しました。",
+    "signUpBackHome": "ホームに戻る",
+    "signUpCodeResent": "新しい確認コードを送信しました。",
+    "signUpCodeSent": "確認コードをメールでご確認ください。",
+    "signUpConfirmIntro": "{{email}} に送信したコードを入力してください。",
+    "signUpConfirmSubmit": "確認してログイン",
+    "signUpConfirmUnexpectedError": "確認に失敗しました。",
+    "signUpEditEmail": "別のメールアドレスを使う",
+    "signUpPasswordHint": "8 文字以上で、ユーザープールのパスワードポリシーに従ってください。",
+    "signUpPasswordMismatch": "パスワードが一致しません。",
+    "signUpResendCode": "コードを再送信",
+    "signUpResendUnexpectedError": "コードを再送信できませんでした。",
+    "signUpSubmit": "アカウントを作成",
+    "signUpSuccessSignedIn": "ログインしました。",
+    "signUpUnavailable": "Cognito が設定されていないため、登録できません。",
+    "signUpUnexpectedError": "登録に失敗しました。",
+    "signUpUnexpectedNextStep": "登録にはこのページでは未対応の追加手順が必要です。Cognito ホスト UI をお試しいただくか、サポートにお問い合わせください。",
+    "homeCognitoEnvMissingDev": "このビルドでは Cognito が設定されていません（VITE_COGNITO_USER_POOL_ID / VITE_COGNITO_USER_POOL_CLIENT_ID が未設定）。リポジトリルートの .env に追加してください（.env.example を参照）。その後、開発サーバーを再起動してください（`yarn start`）。",
+    "homeCognitoEnvMissingProd": "設定の問題により、この環境では一時的にログインできません。しばらくしてから再度お試しください。",
+    "homeSignedOutBody": "ログインまたはアカウントを作成して、レパートリーをご利用ください。",
+    "homeSignedOutTitle": "ReprMan",
+    "signUpButton": "登録",
+    "forgotPasswordLink": "パスワードを忘れた場合",
+    "forgotPasswordCodeSent": "パスワードリセット用のコードをメールでご確認ください。",
+    "forgotPasswordSendCode": "リセットコードを送信",
+    "forgotPasswordSubmit": "新しいパスワードを設定",
+    "forgotPasswordSuccess": "パスワードをリセットしました。ログインできます。",
+    "forgotPasswordUnexpectedError": "パスワードリセットを開始できませんでした。",
+    "forgotPasswordConfirmUnexpectedError": "パスワードをリセットできませんでした。コードを確認して再度お試しください。",
+    "forgotPasswordUnexpectedNextStep": "パスワードリセットにはこのページでは未対応の追加手順が必要です。",
+    "forgotPasswordConfirmIntro": "{{email}} に送信したコードを入力し、新しいパスワードを設定してください。",
+    "signUpTermsPrefix": "次に同意します:",
+    "signUpTermsLink": "利用規約",
+    "signUpTermsRequired": "アカウントを作成するには利用規約への同意が必要です。",
+    "signUpTermsAcceptFailed": "アカウントは作成されましたが、利用規約への同意を記録できませんでした。再度お試しいただくか、サポートにお問い合わせください。",
+    "termsOfUseMenu": "利用規約",
+    "acceptTermsSubmit": "同意する",
+    "acceptTermsTitle": "利用規約",
+    "acceptTermsIntro": "ReprMan を引き続きご利用いただくには、利用規約をお読みのうえ同意してください。",
+    "acceptTermsFailed": "同意を記録できませんでした。接続を確認して再度お試しください。"
+  },
+  "billing": {
+    "subscribe": "購読する",
+    "subscriptionLabel": "サブスクリプション",
+    "subscriptionLoading": "読み込み中…",
+    "checkoutUnavailable": "この環境ではチェックアウトを利用できません。",
+    "checkoutFailed": "チェックアウトを開始できませんでした。しばらくしてから再度お試しください。",
+    "reprLimitReached": "Repr の上限（{{maxReprs}} 件）に達しました。",
+    "reprLimitReachedShort": "Repr の上限に達しました。",
+    "status": {
+      "trial": "トライアル",
+      "unpaid": "未払い",
+      "paid": "有料",
+      "unlimited": "無制限"
+    },
+    "header": {
+      "trialOne": "トライアルアカウント、残り {{count}} 日。",
+      "trialOther": "トライアルアカウント、残り {{count}} 日。",
+      "unpaid": "未払いアカウント、機能が制限されています。",
+      "expiringOne": "アカウントの有効期限まであと {{count}} 日。",
+      "expiringOther": "アカウントの有効期限まであと {{count}} 日。"
+    }
+  },
+  "brand": {
+    "copyright": "copyright ©{{year}}",
+    "repertoireManagement": "レパートリー管理",
+    "repr": "Repr",
+    "reprMan": "ReprMan",
+    "versionNumber": "バージョン: {{versionNumber}}"
+  },
+  "buttons": {
+    "addReprButton": "+ Repr を追加",
+    "back": "戻る",
+    "closeWithoutSave": "保存せずに閉じる",
+    "delete": "削除",
+    "edit": "編集",
+    "practiced": "練習済みにする",
+    "save": "保存"
+  },
+  "confirmations": {
+    "clearAllReprs": {
+      "title": "すべての Repr を削除する確認",
+      "body": "すべての repr を削除してもよろしいですか？この操作は取り消せません。",
+      "titleLastChance": "すべての Repr を削除する確認（最終確認）",
+      "bodyLastChance": "本当によろしいですか？削除すると元に戻せません。本当に削除しますか？一度消えたら復元できません。"
+    },
+    "removeRepr": {
+      "title": "Repr を削除する確認",
+      "body": "「{{title}}」という Repr を削除してもよろしいですか？この操作は取り消せません。"
+    }
+  },
+  "common": {
+    "fail": "失敗",
+    "info": "情報",
+    "lastPracticed": "最終練習日",
+    "never": "なし",
+    "no": "いいえ",
+    "success": "成功",
+    "title": "タイトル",
+    "warning": "警告",
+    "yes": "はい"
+  },
+  "components": {
+    "controls": {
+      "reportsPageAriaLabel": "レポート一覧を開く",
+      "reportsPageTitle": "レポート"
+    },
+    "categoryFilter": {
+      "openMenuAriaLabel": "カテゴリフィルターを開く",
+      "titleTextAria": "タイトルまたはコメントで repr を絞り込む",
+      "titleTextPlaceholder": "タイトルまたはコメントで絞り込む"
+    },
+    "reprsList": {
+      "emptyList": "repr が見つかりませんでした。左上の「Repr を追加」ボタンから追加してください。",
+      "reprsCountShort_one": "{{count}} 件の repr",
+      "reprsCountShort_other": "{{count}} 件の repr",
+      "reprsCount_one": "{{count}} 件の repr が見つかりました。",
+      "reprsCount_other": "{{count}} 件の repr が見つかりました。",
+      "sectionOverdue": "期限超過",
+      "sectionWarning": "警告",
+      "sectionUpToDate": "問題なし",
+      "sectionLearning": "学習中"
+    }
+  },
+  "errors": {
+    "settingsSaved": "設定を保存しました",
+    "couldNotSaveSettings": "設定を保存できませんでした",
+    "couldNotClearAllReprs": "すべての repr を削除できませんでした。変更は適用されていません。",
+    "couldNotRemoveRepr": "repr を削除できませんでした。一覧を元に戻しました。",
+    "couldNotMarkPracticed": "練習済みにできませんでした。一覧を元に戻しました。",
+    "couldNotSaveReprChanges": "repr の変更を保存できませんでした。一覧を元に戻しました。",
+    "rateLimit": {
+      "exceededWithMax": "レート制限を超えました（{{limit}}: {{window}} あたり {{max}}）。",
+      "exceeded": "レート制限を超えました（{{limit}}）。",
+      "tryAgainIn": "{{retryAfter}} 後に再度お試しください。",
+      "shortWhile": "しばらく",
+      "requestLimit": "リクエスト制限",
+      "window": "期間"
+    }
+  },
+  "file": {
+    "reprReadFail": "Repr ファイルの読み込みに失敗しました。",
+    "reprReadSuccess": "Repr ファイルを読み込みました — 開始時 {{startedCount}} 件、追加 {{addedCount}} 件。",
+    "reprSaveFail": "Repr ファイルの保存に失敗しました。",
+    "reprSaveSuccess": "Repr ファイルを保存しました — {{count}} 件を保存。"
+  },
+  "language": {
+    "switcherLabel": "言語",
+    "english": "English",
+    "spanish": "Español",
+    "portuguese": "Português",
+    "french": "Français",
+    "german": "Deutsch",
+    "dutch": "Nederlands",
+    "japanese": "日本語",
+    "names": {
+      "en": "English",
+      "es": "Español",
+      "pt": "Português",
+      "fr": "Français",
+      "de": "Deutsch",
+      "nl": "Nederlands",
+      "ja": "日本語"
+    },
+    "flagAlt": {
+      "en": "イギリスの国旗",
+      "es": "スペインの国旗",
+      "pt": "ポルトガルの国旗",
+      "fr": "フランスの国旗",
+      "de": "ドイツの国旗",
+      "nl": "オランダの国旗",
+      "ja": "日本の国旗"
+    }
+  },
+  "meta": {
+    "description": "ReprMan - レパートリー管理ウェブアプリ",
+    "noscript": "このアプリを実行するには JavaScript を有効にする必要があります。",
+    "manifestName": "ReprMan - レパートリー管理",
+    "manifestShortName": "ReprMan"
+  },
+  "modals": {
+    "editRepr": {
+      "addNewCategory": "新しいカテゴリを追加",
+      "available": "利用可能",
+      "closeWithoutSave": "保存せずに閉じる",
+      "createTitle": "Repr を作成",
+      "current": "選択中",
+      "enterCategoryPlaceholder": "新しいカテゴリを入力...",
+      "enterCommentPlaceholder": "コメントを入力...",
+      "enterTitlePlaceholder": "タイトルを入力...",
+      "exceeded": {
+        "body": "無料版（現在は唯一のバージョン）では、無料の repr は {{num}} 件までです。",
+        "title": "Repr の上限を超えました"
+      },
+      "quotaUnavailable": {
+        "body": "Repr の上限を読み込めませんでした。接続を確認し、必要であればログインしてから再度お試しください。",
+        "title": "Repr の上限を取得できません"
+      },
+      "noCategoriesSelected": "カテゴリが選択されていません。",
+      "learningLabel": "学習中",
+      "learningHelp": "学習中の repr は一覧の上部に専用セクションとして表示されます。",
+      "title": "Repr を編集"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "このアプリについて",
+      "historySection": {
+        "subtitle": "なぜこのアプリを作ったのか",
+        "body": [
+          [
+            "ジャズミュージシャンとして、私は約 200 曲を「知っている」と言えるでしょう。",
+            "「知っている」とは、メロディとコードを記憶から演奏し、その上で即興できるという意味です。",
+            "しかし実際には、記憶から快適に演奏できるのは約 50 曲、不快ながらも演奏できるのがさらに 50 曲、多少ミスしながら演奏できるのがさらに 50 曲、残りの 50 曲は..."
+          ],
+          [
+            "問題は練習です。",
+            "ある曲はライブで*いつも*呼ばれます。",
+            "ある曲は練習するのがもっと楽しいです。",
+            "私たちはある曲をたくさん練習し、ある曲はほとんど練習しません。"
+          ],
+          [
+            "オタク気質の私は、管理するためにスプレッドシートを使い始めました。",
+            "最後に練習した日時の欄を追加しました。",
+            "各曲に日時を更新して並べ替えるボタンを追加しました。",
+            "このアプリは、その考え方の発展形です。"
+          ]
+        ]
+      },
+      "instructionsSection": {
+        "subtitle": "使い方",
+        "body": [
+          [
+            "とてもシンプルです。",
+            "曲を登録します。",
+            "一覧の一番上（最も長く練習していない曲）を練習し、終わったら「練習済みにする」ボタンを押すと、一覧の一番下に移動します。",
+            "一覧は、最も長く練習していない曲が上に来るよう並べ替えられます。",
+            "練習期限を過ぎた曲は赤、期限が近い曲はオレンジで表示されます。",
+            "緑は、まだ期限になっていない状態です。"
+          ],
+          [
+            "使い方は自由に決めてください。",
+            "私の場合、一覧に入れるのは「完成した」曲だけです — すでに覚えている曲です。",
+            "学習中の曲にも取り組みますが、それは少数で、リマインダーは必要ありません。",
+            "この一覧は、管理が必要な「ブック」の曲のためのものです。"
+          ]
+        ]
+      },
+      "futureSection": {
+        "subtitle": "今後の予定",
+        "body": [
+          [
+            "これは始まりにすぎません。",
+            "これはアプリの無料版です。",
+            "無料版は今後も提供しますが、いずれ機能が充実した版も出す予定です。",
+            "経費（と少しの利益）を賄うため有料にする必要がありますが、価格はできるだけ低く抑えたいと考えています。",
+            "現時点では非常に安いサブスクリプションを検討していますが、広告や寄付も考えるかもしれません。",
+            "検討中の機能:"
+          ]
+        ]
+      },
+      "suggestions": "ご提案があれば、{{email}} までご連絡ください。",
+      "imageAlt": "repr.jpg",
+      "futureItems": {
+        "accounts": "アカウント",
+        "mobileVersions": "モバイル版",
+        "sharing": "共有",
+        "scalesFeature": "スケールなどに対する同様の機能",
+        "darkMode": "ダークモード"
+      }
+    },
+    "terms": {
+      "title": "利用規約",
+      "purposeSection": {
+        "subtitle": "目的",
+        "body": [
+          [
+            "ReprMan は、音楽のレパートリーと練習履歴を記録する目的でのみ提供されます。",
+            "本来の目的に合致する用途（ワークアウトの記録など）であれば、それは許容される利用です。",
+            "その他の目的で本アプリを使用してはなりません。",
+            "認証または認可システムを回避しようとする行為は固く禁じられています。"
+          ]
+        ]
+      },
+      "conductSection": {
+        "subtitle": "行動規範",
+        "body": [
+          [
+            "本アプリに関連して、虐待的な行為や侮辱的な言葉遣いを行わないことに同意するものとします。",
+            "ハラスメント、脅迫、ヘイトスピーチ、スパム、サービス妨害の試みは容認しません。",
+            "違法行為への本アプリの利用は固く禁じられています。",
+            "違反した場合、アカウントは直ちに停止または削除されることがあります。"
+          ]
+        ]
+      },
+      "inactivitySection": {
+        "subtitle": "無料アカウントと非アクティブ",
+        "body": [
+          [
+            "有料でないアカウントで、90 日間連続してログインがない場合、アカウントが閉鎖されることがあります。",
+            "非アクティブによりアカウントが閉鎖された場合、関連するすべてのデータが永久に削除されることがあります。"
+          ]
+        ]
+      },
+      "emailUseSection": {
+        "subtitle": "メールの利用",
+        "body": [
+          [
+            "メールアドレスは、本アプリに関連する連絡にのみ使用されます。",
+            "メールアドレスを販売したり、ReprMan と無関係なマーケティングに使用したりすることはありません。"
+          ]
+        ]
+      },
+      "emailVolumeSection": {
+        "subtitle": "メールの送信量",
+        "body": [
+          [
+            "アカウントとアプリの状態・利用に関するメールは、必要最小限のみ送信します。",
+            "レパートリーに関するメール（例: 練習が必要な repr のリマインダー）は、設定で有効にした場合のみ送信されます。",
+            "これらの通知はいつでもオフにしたり、配信停止したりできます。"
+          ]
+        ]
+      },
+      "agreementSection": {
+        "subtitle": "同意",
+        "body": [
+          [
+            "本アプリを利用することで、利用規約に同意したものとみなされます。",
+            "利用規約に同意することで、違反した場合はアカウントの終了、データの削除、有料サブスクリプションの返金不可による喪失に同意したものとみなされます。"
+          ]
+        ]
+      }
+    },
+    "home": {
+      "title": "ホーム"
+    },
+    "subscribe": {
+      "title": "購読",
+      "body": "年間サブスクリプションで ReprMan の全機能をご利用いただけます。トライアル期間中にクレジットカードの登録は不要でした。",
+      "price": "年額 €5（キャンセルするまで自動更新）。"
+    },
+    "reports": {
+      "title": "レポート",
+      "filterByLabel": "ラベルで絞り込む",
+      "contentHeading": "内容",
+      "contentComments": "コメント",
+      "contentLabels": "ラベル",
+      "exportHeading": "エクスポート",
+      "copyToClipboard": "一覧をクリップボードにコピー",
+      "copySuccess": "一覧をクリップボードにコピーしました。",
+      "copyFail": "クリップボードにコピーできませんでした。",
+      "emptyFiltered": "選択したラベルに一致する repr がありません。"
+    },
+    "signin": {
+      "title": "ログイン"
+    },
+    "forgotPassword": {
+      "title": "パスワードをリセット",
+      "subtitle": "アカウントのメールアドレスを入力してください。新しいパスワードを設定するためのコードをお送りします。"
+    },
+    "changePassword": {
+      "title": "パスワードを変更",
+      "subtitle": "現在のパスワードを入力し、新しいパスワードを設定してください。"
+    },
+    "signup": {
+      "title": "登録"
+    },
+    "settings": {
+      "title": "設定",
+      "practiceDelay": {
+        "subtitle": "練習間隔",
+        "text": "何日後に練習が必要かお知らせしますか？"
+      },
+      "warningRatio": {
+        "subtitle": "警告のタイミング",
+        "text": "練習間隔のうち、どの時点で警告を表示しますか？0.5 に設定すると、経過時間の半分でカードがオレンジ色の警告になります。"
+      },
+      "resetSettings": {
+        "title": "すべての設定をデフォルトに戻す",
+        "subtitle": "設定をデフォルト値にリセットします。",
+        "button": "すべての設定をリセット"
+      },
+      "deleteAllReprs": {
+        "title": "すべての Repr を削除",
+        "subtitle": "すべての repr とカテゴリを永久に削除します。",
+        "button": "すべての Repr を削除"
+      },
+      "saveSettingsChanges": "設定の変更を保存",
+      "clearSettingsChanges": "設定の変更をクリア"
+    },
+    "viewRepr": {
+      "title": "Repr を表示",
+      "data": {
+        "title": "タイトル",
+        "categories": "カテゴリ",
+        "noCategories": "[カテゴリなし]",
+        "comment": "コメント",
+        "noComment": "[コメントなし]",
+        "dateCreated": "作成日",
+        "learning": "学習中",
+        "learningYes": "はい",
+        "learningNo": "いいえ",
+        "datesPracticed": "練習日",
+        "noteMaxRepr": "repr の練習履歴は直近 {{max}} 回分のみ保存されます。",
+        "practiceData": "練習データ"
+      },
+      "practice": {
+        "never": "この repr はまだ練習していません。",
+        "once": "この repr は 1 回だけ練習しています。",
+        "noDifference": "練習間隔に差はありません。",
+        "summary": "この repr は {{span}} の期間に {{count}} 回練習しました。ペースは {{rate}} です。",
+        "ratePerHour": "1 時間あたり {{rate}} 回",
+        "ratePerDay": "1 日あたり {{rate}} 回",
+        "ratePerMonth": "1 ヶ月あたり {{rate}} 回",
+        "ratePerYear": "1 年あたり {{rate}} 回"
+      }
+    }
+  },
+  "validation": {
+    "required": "この項目は必須です。",
+    "noAsterisk": "この項目にアスタリスク（*）は使用できません。",
+    "categoryExists": "そのカテゴリはすでに存在します。"
+  }
+}

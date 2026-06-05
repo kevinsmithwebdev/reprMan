@@ -1,9 +1,17 @@
 import i18next from 'i18next'
 import moment from 'moment'
+import 'moment/locale/de'
 import 'moment/locale/es'
+import 'moment/locale/fr'
+import 'moment/locale/ja'
+import 'moment/locale/nl'
 import 'moment/locale/pt'
+import deL10ns from './de.json'
 import enL10ns from './en.json'
 import esL10ns from './es.json'
+import frL10ns from './fr.json'
+import jaL10ns from './ja.json'
+import nlL10ns from './nl.json'
 import ptL10ns from './pt.json'
 import {
   LANGUAGE_STORAGE_KEY,
@@ -14,21 +22,30 @@ import {
 
 export {
   LANGUAGE_STORAGE_KEY,
+  LANGUAGE_DISPLAY_ORDER,
   SUPPORTED_LANGUAGES,
   type SupportedLanguage,
 } from './languageDetection'
+
+const MOMENT_LOCALES: Record<SupportedLanguage, string> = {
+  en: 'en',
+  es: 'es',
+  pt: 'pt',
+  fr: 'fr',
+  de: 'de',
+  nl: 'nl',
+  ja: 'ja',
+}
+
+const englishFallbackLng = Object.fromEntries(
+  SUPPORTED_LANGUAGES.filter((lng) => lng !== 'en').map((lng) => [lng, ['en']])
+) as Record<string, string[]>
 
 const applyDocumentLanguage = (lng: string) => {
   if (typeof document === 'undefined') {
     return
   }
   document.documentElement.lang = lng
-}
-
-const MOMENT_LOCALES: Record<SupportedLanguage, string> = {
-  en: 'en',
-  es: 'es',
-  pt: 'pt',
 }
 
 const applyMomentLocale = (lng: string) => {
@@ -42,11 +59,7 @@ const initialLng = resolveInitialLanguage()
 
 i18next.init({
   lng: initialLng,
-  fallbackLng: {
-    es: ['en'],
-    pt: ['en'],
-    default: ['en'],
-  },
+  fallbackLng: { ...englishFallbackLng, default: ['en'] },
   supportedLngs: [...SUPPORTED_LANGUAGES],
   nonExplicitSupportedLngs: true,
   debug: false,
@@ -55,6 +68,10 @@ i18next.init({
     en: { translation: enL10ns },
     es: { translation: esL10ns },
     pt: { translation: ptL10ns },
+    fr: { translation: frL10ns },
+    de: { translation: deL10ns },
+    nl: { translation: nlL10ns },
+    ja: { translation: jaL10ns },
   },
 })
 
