@@ -19,4 +19,16 @@ describe('setupI18n', () => {
     expect(i18next.t('pages.home.title')).toBe('Início')
     await i18next.changeLanguage('en')
   })
+
+  it('falls back to English when a key is missing in another locale', async () => {
+    const i18next = (await import('@reprman/localization/setupI18n')).default
+    const key = 'test.fallback.onlyInEnglish'
+
+    i18next.addResource('en', 'translation', key, 'English value')
+
+    await i18next.changeLanguage('es')
+    expect(i18next.t(key)).toBe('English value')
+
+    await i18next.changeLanguage('en')
+  })
 })

@@ -5,20 +5,18 @@ import 'moment/locale/pt'
 import enL10ns from './en.json'
 import esL10ns from './es.json'
 import ptL10ns from './pt.json'
+import {
+  LANGUAGE_STORAGE_KEY,
+  SUPPORTED_LANGUAGES,
+  resolveInitialLanguage,
+  type SupportedLanguage,
+} from './languageDetection'
 
-export const LANGUAGE_STORAGE_KEY = 'reprman-language'
-export const SUPPORTED_LANGUAGES = ['en', 'es', 'pt'] as const
-export type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number]
-
-const readStoredLanguage = (): SupportedLanguage | null => {
-  if (typeof globalThis.localStorage === 'undefined') {
-    return null
-  }
-  const stored = globalThis.localStorage.getItem(LANGUAGE_STORAGE_KEY)
-  return SUPPORTED_LANGUAGES.includes(stored as SupportedLanguage)
-    ? (stored as SupportedLanguage)
-    : null
-}
+export {
+  LANGUAGE_STORAGE_KEY,
+  SUPPORTED_LANGUAGES,
+  type SupportedLanguage,
+} from './languageDetection'
 
 const applyDocumentLanguage = (lng: string) => {
   if (typeof document === 'undefined') {
@@ -40,12 +38,17 @@ const applyMomentLocale = (lng: string) => {
   }
 }
 
-const initialLng = readStoredLanguage() ?? 'en'
+const initialLng = resolveInitialLanguage()
 
 i18next.init({
   lng: initialLng,
-  fallbackLng: 'en',
+  fallbackLng: {
+    es: ['en'],
+    pt: ['en'],
+    default: ['en'],
+  },
   supportedLngs: [...SUPPORTED_LANGUAGES],
+  nonExplicitSupportedLngs: true,
   debug: false,
   initImmediate: false,
   resources: {
