@@ -7,9 +7,10 @@ import './LanguageSwitcher.css'
 const FLAG_SRC: Record<SupportedLanguage, string> = {
   en: '/static/flags/gb.svg',
   es: '/static/flags/es.svg',
+  pt: '/static/flags/pt.svg',
 }
 
-const LANGUAGE_OPTIONS: SupportedLanguage[] = ['en', 'es']
+const LANGUAGE_OPTIONS: SupportedLanguage[] = ['en', 'es', 'pt']
 
 const LanguageFlag = ({
   language,

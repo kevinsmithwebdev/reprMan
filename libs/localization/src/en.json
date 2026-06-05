@@ -181,13 +181,16 @@
     "switcherLabel": "Language",
     "english": "English",
     "spanish": "Español",
+    "portuguese": "Português",
     "names": {
       "en": "English",
-      "es": "Español"
+      "es": "Español",
+      "pt": "Português"
     },
     "flagAlt": {
       "en": "United Kingdom flag",
-      "es": "Spain flag"
+      "es": "Spain flag",
+      "pt": "Portugal flag"
     }
   },
   "meta": {
