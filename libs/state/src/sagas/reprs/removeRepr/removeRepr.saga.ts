@@ -1,3 +1,4 @@
+import LocalizationModule from '@reprman/localization/Localization.module'
 import {
   ReprsApiModule,
   isReprsApiConfigured,
@@ -19,9 +20,13 @@ export function* removeReprWorker({ payload: id }: any) {
   const { title } = currentReprs[index]
 
   // @ts-ignore
+  const t = LocalizationModule.getInstance().t.bind(
+    LocalizationModule.getInstance()
+  )
+
   const isRemoveConfirmed = yield call(callConfirmation, {
-    title: 'Remove Repr Confirmation',
-    body: `Are you sure you want to remove the repr titled "${title}"? This is irreversible.`,
+    title: t('confirmations.removeRepr.title'),
+    body: t('confirmations.removeRepr.body', { title }),
   })
 
   if (isRemoveConfirmed) {
@@ -47,7 +52,7 @@ function* removeRepr(currentReprs: Reprs, index: number) {
       makeToastSAC({
         body: toUserFriendlyApiErrorMessage(
           error,
-          'Could not remove repr. Your list was restored.'
+          LocalizationModule.getInstance().t('errors.couldNotRemoveRepr')
         ),
         level: ToastLevel.FAIL,
         delay: 6000,

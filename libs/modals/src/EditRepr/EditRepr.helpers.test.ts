@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+import LocalizationModule from '@reprman/localization/Localization.module'
 
 import {
   addCategory,
@@ -7,6 +8,10 @@ import {
   removeCategory,
   type ReprForm,
 } from './EditRepr.helpers'
+
+const t = LocalizationModule.getInstance().t.bind(
+  LocalizationModule.getInstance()
+)
 
 const baseForm: ReprForm = {
   title: 'Title',
@@ -22,8 +27,9 @@ describe('findFormErrors', () => {
         form: { ...baseForm, title: '' },
         categories: [],
         enteredCategory: '',
+        t,
       })
-    ).toEqual({ title: 'This field is required.' })
+    ).toEqual({ title: t('validation.required') })
   })
 
   it('rejects asterisk in title', () => {
@@ -32,9 +38,10 @@ describe('findFormErrors', () => {
         form: { ...baseForm, title: 'bad*title' },
         categories: [],
         enteredCategory: '',
+        t,
       })
     ).toEqual({
-      title: 'This field cannot contain an asterisk (*).',
+      title: t('validation.noAsterisk'),
     })
   })
 
@@ -44,8 +51,9 @@ describe('findFormErrors', () => {
         form: baseForm,
         categories: ['existing'],
         enteredCategory: 'existing',
+        t,
       })
-    ).toEqual({ categoryInput: 'That category already exists.' })
+    ).toEqual({ categoryInput: t('validation.categoryExists') })
   })
 
   it('rejects asterisk in entered category and categoryInput', () => {
@@ -54,9 +62,10 @@ describe('findFormErrors', () => {
         form: { ...baseForm, categoryInput: 'bad*' },
         categories: [],
         enteredCategory: 'x*y',
+        t,
       })
     ).toEqual({
-      categoryInput: ' This field cannot contain an asterisk (*).',
+      categoryInput: ` ${t('validation.noAsterisk')}`,
     })
   })
 
@@ -66,8 +75,9 @@ describe('findFormErrors', () => {
         form: { ...baseForm, comment: 'note*' },
         categories: [],
         enteredCategory: '',
+        t,
       })
-    ).toEqual({ comment: 'This field cannot contain an asterisk (*).' })
+    ).toEqual({ comment: t('validation.noAsterisk') })
   })
 
   it('returns no errors for valid form', () => {
@@ -76,6 +86,7 @@ describe('findFormErrors', () => {
         form: baseForm,
         categories: ['a'],
         enteredCategory: 'b',
+        t,
       })
     ).toEqual({})
   })
@@ -102,6 +113,7 @@ describe('addCategory', () => {
       setCategories,
       enteredCategory: 'dup',
       setEnteredCategory,
+      t,
     })
 
     expect(setErrors).toHaveBeenCalled()
@@ -120,6 +132,7 @@ describe('addCategory', () => {
       setCategories,
       enteredCategory: 'b',
       setEnteredCategory,
+      t,
     })
 
     expect(setErrors).toHaveBeenCalledWith({})
@@ -136,6 +149,7 @@ describe('addCategory', () => {
       setCategories,
       enteredCategory: '',
       setEnteredCategory: vi.fn(),
+      t,
     })
     expect(setCategories).not.toHaveBeenCalled()
   })

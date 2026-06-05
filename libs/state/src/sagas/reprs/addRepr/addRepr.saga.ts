@@ -1,3 +1,4 @@
+import LocalizationModule from '@reprman/localization/Localization.module'
 import { put, select, takeLatest } from 'redux-saga/effects'
 import moment from 'moment'
 import { v4 as uuidv4 } from 'uuid'
@@ -50,7 +51,7 @@ export function* addReprWorker({ payload: repr }: any) {
       makeToastSAC({
         body: toUserFriendlyApiErrorMessage(
           error,
-          'Could not save repr changes. Your list was restored.'
+          LocalizationModule.getInstance().t('errors.couldNotSaveReprChanges')
         ),
         level: ToastLevel.FAIL,
         delay: 6000,

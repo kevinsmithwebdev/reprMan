@@ -1,5 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import i18next from './setupI18n'
+import type { SupportedLanguage } from './setupI18n'
 
 class LocalizationModule {
   private static instance: LocalizationModule
@@ -14,6 +15,14 @@ class LocalizationModule {
 
   t(key: string, props?: Object) {
     return i18next.t(key, props || {})
+  }
+
+  getLanguage(): string {
+    return i18next.language
+  }
+
+  changeLanguage(lng: SupportedLanguage) {
+    return i18next.changeLanguage(lng)
   }
 }
 

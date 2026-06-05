@@ -1,3 +1,4 @@
+import LocalizationModule from '@reprman/localization/Localization.module'
 import { takeLatest, put, select } from 'redux-saga/effects'
 import {
   ReprsApiModule,
@@ -37,7 +38,7 @@ export function* markReprPracticedWorker({ payload: id }: any) {
       makeToastSAC({
         body: toUserFriendlyApiErrorMessage(
           error,
-          'Could not mark repr practiced. Your list was restored.'
+          LocalizationModule.getInstance().t('errors.couldNotMarkPracticed')
         ),
         level: ToastLevel.FAIL,
         delay: 6000,

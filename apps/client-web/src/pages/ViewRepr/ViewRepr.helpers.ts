@@ -1,39 +1,41 @@
 import { getDateDiffText } from '@reprman/utilities'
 
-export const getPracticedStr = (datesPracticed: number[]) => {
+type TranslateFn = (key: string, props?: object) => string
+
+export const getPracticedStr = (datesPracticed: number[], t: TranslateFn) => {
   const firstPracticed = datesPracticed.at(-1)
   const lastPracticed = datesPracticed.at(0)
 
   let durationStr
   switch (true) {
     case datesPracticed.length === 0:
-      durationStr = 'You have not practiced this repr.'
+      durationStr = t('pages.viewRepr.practice.never')
       break
 
     case datesPracticed.length === 1:
-      durationStr = 'You have only practiced this repr once.'
+      durationStr = t('pages.viewRepr.practice.once')
       break
 
     case firstPracticed === lastPracticed:
-      durationStr = 'There is no difference in your practice times.'
+      durationStr = t('pages.viewRepr.practice.noDifference')
       break
 
     default:
-      durationStr = `You have practiced this repr ${
-        datesPracticed.length
-      } times over a span of ${getDateDiffText(
-        firstPracticed,
-        lastPracticed
-      )}. That is a rate of ${_getRateOfPracticedStr(datesPracticed)}.`
+      durationStr = t('pages.viewRepr.practice.summary', {
+        count: datesPracticed.length,
+        span: getDateDiffText(firstPracticed, lastPracticed),
+        rate: _getRateOfPracticedStr(datesPracticed, t),
+      })
   }
 
   return durationStr
 }
 
 export const _getRateOfPracticedStr = (
-  datesPracticed?: number[] | null
+  datesPracticed?: number[] | null,
+  t?: TranslateFn
 ): string => {
-  if (!datesPracticed?.length) return ''
+  if (!datesPracticed?.length || !t) return ''
 
   const firstPracticed = datesPracticed.at(-1)
   const lastPracticed = datesPracticed.at(0)
@@ -45,22 +47,30 @@ export const _getRateOfPracticedStr = (
   const diffInHours = (lastPracticed - firstPracticed) / (1000 * 60 * 60)
 
   if (diffInHours < 1) {
-    return `${(numPracticed / diffInHours).toFixed(2)} times per hour`
+    return t('pages.viewRepr.practice.ratePerHour', {
+      rate: (numPracticed / diffInHours).toFixed(2),
+    })
   }
 
   const diffInDays = diffInHours / 24
 
   if (diffInDays < 1) {
-    return `${(numPracticed / diffInDays).toFixed(2)} times per day`
+    return t('pages.viewRepr.practice.ratePerDay', {
+      rate: (numPracticed / diffInDays).toFixed(2),
+    })
   }
 
   const diffInMonths = diffInDays / 30
 
   if (diffInMonths < 1) {
-    return `${(numPracticed / diffInMonths).toFixed(2)} times per month`
+    return t('pages.viewRepr.practice.ratePerMonth', {
+      rate: (numPracticed / diffInMonths).toFixed(2),
+    })
   }
 
   const diffInYears = diffInDays / 365
 
-  return `${(numPracticed / diffInYears).toFixed(2)} times per year`
+  return t('pages.viewRepr.practice.ratePerYear', {
+    rate: (numPracticed / diffInYears).toFixed(2),
+  })
 }

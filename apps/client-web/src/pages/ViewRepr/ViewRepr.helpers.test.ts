@@ -1,22 +1,27 @@
 import moment from 'moment'
 import { describe, expect, it } from 'vitest'
+import LocalizationModule from '@reprman/localization/Localization.module'
 
 import { _getRateOfPracticedStr, getPracticedStr } from './ViewRepr.helpers'
+
+const t = LocalizationModule.getInstance().t.bind(
+  LocalizationModule.getInstance()
+)
 
 const getUTCValue = (dateString: string) => moment.utc(dateString).valueOf()
 
 describe('getPracticedStr', () => {
   it('reports when never practiced', () => {
-    expect(getPracticedStr([])).toBe('You have not practiced this repr.')
+    expect(getPracticedStr([], t)).toBe(t('pages.viewRepr.practice.never'))
   })
 
   it('reports single practice', () => {
-    expect(getPracticedStr([1])).toBe('You have only practiced this repr once.')
+    expect(getPracticedStr([1], t)).toBe(t('pages.viewRepr.practice.once'))
   })
 
   it('reports identical first and last practice times', () => {
-    expect(getPracticedStr([100, 100])).toBe(
-      'There is no difference in your practice times.'
+    expect(getPracticedStr([100, 100], t)).toBe(
+      t('pages.viewRepr.practice.noDifference')
     )
   })
 
@@ -25,25 +30,25 @@ describe('getPracticedStr', () => {
       getUTCValue('2022-12-01T12:00:00Z'),
       getUTCValue('2022-11-30T15:00:00Z'),
     ]
-    const result = getPracticedStr(dates)
-    expect(result).toContain('You have practiced this repr 2 times')
-    expect(result).toContain('times per')
+    const result = getPracticedStr(dates, t)
+    expect(result).toContain('2')
+    expect(result).toContain('2.29')
   })
 })
 
 describe('_getRateOfPracticedStr', () => {
   describe('with bad data', () => {
     it('should return an empty string if no data', () => {
-      expect(_getRateOfPracticedStr(undefined)).toBe('')
+      expect(_getRateOfPracticedStr(undefined, t)).toBe('')
     })
 
     it('should return an empty string if no dates', () => {
-      expect(_getRateOfPracticedStr([])).toBe('')
+      expect(_getRateOfPracticedStr([], t)).toBe('')
     })
 
     it('should return an empty string if only one datum', () => {
       const datesPracticed = [getUTCValue('2022-12-01T12:00:00Z')]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe('')
     })
   })
 
@@ -53,7 +58,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-12-01T12:00:00Z'),
         getUTCValue('2022-12-01T11:01:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('2.03 times per hour')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerHour', { rate: '2.03' })
+      )
     })
 
     it('should return correct string 3 practices over 20 minutes span', () => {
@@ -62,7 +69,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-12-01T11:50:00Z'),
         getUTCValue('2022-12-01T11:40:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('9.00 times per hour')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerHour', { rate: '9.00' })
+      )
     })
 
     it('should return correct string 5 practices over 41 minutes span', () => {
@@ -73,7 +82,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-12-01T11:33:00Z'),
         getUTCValue('2022-12-01T11:29:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('9.68 times per hour')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerHour', { rate: '9.68' })
+      )
     })
   })
 
@@ -83,7 +94,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-12-01T12:00:00Z'),
         getUTCValue('2022-11-30T15:00:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('2.29 times per day')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerDay', { rate: '2.29' })
+      )
     })
 
     it('should return correct string 6 practices over 20 hour span', () => {
@@ -95,7 +108,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-11-30T17:00:00Z'),
         getUTCValue('2022-11-30T16:00:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('7.20 times per day')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerDay', { rate: '7.20' })
+      )
     })
   })
 
@@ -105,8 +120,8 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-12-01T12:00:00Z'),
         getUTCValue('2022-11-13T14:00:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe(
-        '3.35 times per month'
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerMonth', { rate: '3.35' })
       )
     })
 
@@ -123,8 +138,8 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-11-05T13:00:00Z'),
         getUTCValue('2022-11-05T12:00:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe(
-        '11.54 times per month'
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerMonth', { rate: '11.54' })
       )
     })
   })
@@ -135,7 +150,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-12-01T12:00:00Z'),
         getUTCValue('2022-05-01T14:00:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('3.41 times per year')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerYear', { rate: '3.41' })
+      )
     })
 
     it('should return correct string 2 practices over 685 day span', () => {
@@ -143,7 +160,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-12-01T12:00:00Z'),
         getUTCValue('2021-01-15T14:00:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('1.07 times per year')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerYear', { rate: '1.07' })
+      )
     })
 
     it('should return correct string 4 practices over 595 day span', () => {
@@ -153,7 +172,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2021-08-15T14:00:00Z'),
         getUTCValue('2021-04-15T14:00:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('2.45 times per year')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerYear', { rate: '2.45' })
+      )
     })
 
     it('should return correct string 2 practices over 1750 day span', () => {
@@ -161,7 +182,9 @@ describe('_getRateOfPracticedStr', () => {
         getUTCValue('2022-12-01T12:00:00Z'),
         getUTCValue('2018-02-15T14:00:00Z'),
       ]
-      expect(_getRateOfPracticedStr(datesPracticed)).toBe('0.42 times per year')
+      expect(_getRateOfPracticedStr(datesPracticed, t)).toBe(
+        t('pages.viewRepr.practice.ratePerYear', { rate: '0.42' })
+      )
     })
   })
 })

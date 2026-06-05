@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { useDocumentMeta } from '@reprman/localization'
 import { Routes, Route, Navigate } from 'react-router-dom'
 import AcceptTermsGate from '@reprman/components/AcceptTermsGate'
 import Header from '@reprman/components/Header'
@@ -23,6 +24,8 @@ import Subscribe from './pages/Subscribe/Subscribe'
 import ViewRepr from './pages/ViewRepr'
 
 const App = () => {
+  useDocumentMeta()
+
   useEffect(() => {
     store.dispatch(runGenesisSaga())
   }, [])

@@ -1,3 +1,4 @@
+import LocalizationModule from '@reprman/localization/Localization.module'
 import { ReprsApiModule, isReprsApiConfigured } from '@reprman/reprs-api'
 import { clearAllReprs } from '@reprman/state/reprs'
 import { selectReprs } from '@reprman/state/reprs/reprs.selectors'
@@ -9,10 +10,14 @@ import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { CLEAR_ALL_REPRS } from '../reprs.actions'
 
 export function* clearAllReprsWorker() {
+  const t = LocalizationModule.getInstance().t.bind(
+    LocalizationModule.getInstance()
+  )
+
   // @ts-ignore
   const isFirstResponseAffirmative = yield call(callConfirmation, {
-    title: 'Clear All Reprs Confirmation',
-    body: 'Are you sure you want to remove all reprs? This is irreversible.',
+    title: t('confirmations.clearAllReprs.title'),
+    body: t('confirmations.clearAllReprs.body'),
   })
 
   if (!isFirstResponseAffirmative) {
@@ -23,8 +28,8 @@ export function* clearAllReprsWorker() {
 
   // @ts-ignore
   const isSecondResponseAffirmative = yield call(callConfirmation, {
-    title: 'Clear All Reprs Confirmation, Last Chance',
-    body: "Really? Once you clear them, they are gone. Are you sure you want to? Once they're gone, they're gone.",
+    title: t('confirmations.clearAllReprs.titleLastChance'),
+    body: t('confirmations.clearAllReprs.bodyLastChance'),
   })
 
   if (isSecondResponseAffirmative) {
@@ -52,7 +57,9 @@ export function* clearThemAll() {
   } catch {
     yield put(
       makeToastSAC({
-        body: 'Could not clear all reprs. No changes were applied.',
+        body: LocalizationModule.getInstance().t(
+          'errors.couldNotClearAllReprs'
+        ),
         level: ToastLevel.FAIL,
         delay: 6000,
       })

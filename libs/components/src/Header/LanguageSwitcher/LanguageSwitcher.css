@@ -1,0 +1,52 @@
+.header-language-switcher {
+  display: flex;
+  align-items: center;
+}
+
+.header-language-toggle::after {
+  display: none;
+}
+
+.header-language-toggle {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  line-height: 0;
+}
+
+.header-language-toggle:hover,
+.header-language-toggle:focus,
+.header-language-toggle:focus-visible,
+.header-language-toggle.show {
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: none;
+}
+
+.header-language-flag {
+  display: block;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 2px;
+}
+
+.header-language-flag--current {
+  width: 28px;
+  height: 18px;
+}
+
+.header-language-flag--menu {
+  width: 22px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.header-language-menu {
+  min-width: 9.5rem;
+}
+
+.header-language-item {
+  font-size: 0.9rem;
+}
+
+.header-language-item.active {
+  font-weight: 600;
+}

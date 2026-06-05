@@ -1,0 +1,442 @@
+{
+  "auth": {
+    "cancel": "Cancelar",
+    "changePasswordMenu": "Cambiar contraseña",
+    "changePasswordCurrent": "Contraseña actual",
+    "changePasswordNew": "Nueva contraseña",
+    "changePasswordSubmit": "Actualizar contraseña",
+    "changePasswordSuccess": "Tu contraseña se ha actualizado.",
+    "changePasswordMismatch": "La nueva contraseña y la confirmación no coinciden.",
+    "confirmPassword": "Confirmar contraseña",
+    "confirmationCode": "Código de confirmación",
+    "createAccount": "Crear una cuenta",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "showPassword": "Mostrar contraseña",
+    "hidePassword": "Ocultar contraseña",
+    "signIn": "Iniciar sesión",
+    "signInButton": "Iniciar sesión",
+    "signInTitle": "Iniciar sesión",
+    "signInUnavailable": "No es posible iniciar sesión porque Cognito no está configurado para esta aplicación.",
+    "signOut": "Cerrar sesión",
+    "deleteAccount": "Eliminar cuenta",
+    "deleteAccountWarningLead": "Esto es permanente; todos los reprs se",
+    "deleteAccountWarningLost": "perderán",
+    "deleteAccountWarningMiddle": "y tu cuenta se",
+    "deleteAccountWarningDeleted": "eliminará",
+    "deleteAccountWarningTail": "Podrás crear una cuenta nueva más adelante, pero no podrás recuperar tus datos.",
+    "deleteAccountSuccess": "Tu cuenta y tus datos se han eliminado.",
+    "deleteAccountUnexpectedError": "No se pudo eliminar la cuenta.",
+    "userAvatarMenuLabel": "Abrir menú de usuario",
+    "userMenuCurrentUser": "Sesión iniciada como",
+    "signInChallengeNotSupported": "Esta cuenta requiere un paso adicional para iniciar sesión (por ejemplo, MFA o una contraseña nueva). Completa ese proceso en una actualización futura o en la interfaz alojada de Cognito.",
+    "settingsDisabledHint": "Inicia sesión para abrir Ajustes.",
+    "signInUnexpectedError": "No se pudo iniciar sesión.",
+    "signUpBackHome": "Volver al inicio",
+    "signUpCodeResent": "Se ha enviado un nuevo código de confirmación.",
+    "signUpCodeSent": "Revisa tu correo electrónico para obtener el código de confirmación.",
+    "signUpConfirmIntro": "Introduce el código que enviamos a {{email}}.",
+    "signUpConfirmSubmit": "Confirmar e iniciar sesión",
+    "signUpConfirmUnexpectedError": "No se pudo confirmar.",
+    "signUpEditEmail": "Usar otro correo electrónico",
+    "signUpPasswordHint": "Usa al menos 8 caracteres, conforme a la política de contraseñas de tu grupo de usuarios.",
+    "signUpPasswordMismatch": "Las contraseñas no coinciden.",
+    "signUpResendCode": "Reenviar código",
+    "signUpResendUnexpectedError": "No se pudo reenviar el código.",
+    "signUpSubmit": "Crear cuenta",
+    "signUpSuccessSignedIn": "Has iniciado sesión.",
+    "signUpUnavailable": "No es posible registrarse porque Cognito no está configurado para esta aplicación.",
+    "signUpUnexpectedError": "No se pudo completar el registro.",
+    "signUpUnexpectedNextStep": "El registro requiere un paso adicional que esta página aún no admite. Prueba la interfaz alojada de Cognito o contacta con soporte.",
+    "homeCognitoEnvMissingDev": "Cognito no está configurado en esta compilación (faltan VITE_COGNITO_USER_POOL_ID / VITE_COGNITO_USER_POOL_CLIENT_ID). Añádelos al .env en la raíz del repositorio (consulta .env.example) y reinicia el servidor de desarrollo (`yarn start`).",
+    "homeCognitoEnvMissingProd": "Iniciar sesión no está disponible temporalmente en este entorno debido a un problema de configuración. Inténtalo de nuevo más tarde.",
+    "homeSignedOutBody": "Inicia sesión o crea una cuenta para usar tu repertorio.",
+    "homeSignedOutTitle": "ReprMan",
+    "signUpButton": "Registrarse",
+    "forgotPasswordLink": "No recuerdo mi contraseña",
+    "forgotPasswordCodeSent": "Revisa tu correo electrónico para obtener el código de restablecimiento.",
+    "forgotPasswordSendCode": "Enviar código de restablecimiento",
+    "forgotPasswordSubmit": "Establecer nueva contraseña",
+    "forgotPasswordSuccess": "Tu contraseña se ha restablecido. Ya puedes iniciar sesión.",
+    "forgotPasswordUnexpectedError": "No se pudo iniciar el restablecimiento de contraseña.",
+    "forgotPasswordConfirmUnexpectedError": "No se pudo restablecer la contraseña. Comprueba el código e inténtalo de nuevo.",
+    "forgotPasswordUnexpectedNextStep": "El restablecimiento de contraseña requiere un paso adicional que esta página aún no admite.",
+    "forgotPasswordConfirmIntro": "Introduce el código que enviamos a {{email}} y elige una contraseña nueva.",
+    "signUpTermsPrefix": "Acepto las",
+    "signUpTermsLink": "Condiciones de uso",
+    "signUpTermsRequired": "Debes aceptar las Condiciones de uso para crear una cuenta.",
+    "signUpTermsAcceptFailed": "Tu cuenta se creó, pero no pudimos registrar tu aceptación de las Condiciones. Inténtalo de nuevo o contacta con soporte.",
+    "termsOfUseMenu": "Condiciones de uso",
+    "acceptTermsSubmit": "Aceptar",
+    "acceptTermsTitle": "Condiciones de uso",
+    "acceptTermsIntro": "Lee y acepta las Condiciones de uso para seguir usando ReprMan.",
+    "acceptTermsFailed": "No se pudo registrar tu aceptación. Comprueba tu conexión e inténtalo de nuevo."
+  },
+  "billing": {
+    "subscribe": "Suscribirse",
+    "subscriptionLabel": "Suscripción",
+    "subscriptionLoading": "Cargando…",
+    "checkoutUnavailable": "El pago no está disponible en este entorno.",
+    "checkoutFailed": "No se pudo iniciar el pago. Inténtalo de nuevo más tarde.",
+    "reprLimitReached": "Se ha alcanzado el límite de {{maxReprs}} reprs.",
+    "reprLimitReachedShort": "Límite de reprs alcanzado.",
+    "status": {
+      "trial": "Prueba",
+      "unpaid": "Sin pagar",
+      "paid": "Pagada",
+      "unlimited": "Ilimitada"
+    },
+    "header": {
+      "trialOne": "Cuenta de prueba, queda {{count}} día.",
+      "trialOther": "Cuenta de prueba, quedan {{count}} días.",
+      "unpaid": "Cuenta sin pagar, funcionalidad limitada.",
+      "expiringOne": "La cuenta caduca en {{count}} día.",
+      "expiringOther": "La cuenta caduca en {{count}} días."
+    }
+  },
+  "brand": {
+    "copyright": "copyright ©{{year}}",
+    "repertoireManagement": "Gestión de repertorio",
+    "repr": "Repr",
+    "reprMan": "ReprMan",
+    "versionNumber": "Número de versión: {{versionNumber}}"
+  },
+  "buttons": {
+    "addReprButton": "+ Añadir repr",
+    "back": "Volver",
+    "closeWithoutSave": "Cerrar sin guardar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "practiced": "Marcar practicado",
+    "save": "Guardar"
+  },
+  "confirmations": {
+    "clearAllReprs": {
+      "title": "Confirmación de borrado de todos los reprs",
+      "body": "¿Seguro que quieres eliminar todos los reprs? Esta acción es irreversible.",
+      "titleLastChance": "Confirmación de borrado de todos los reprs, última oportunidad",
+      "bodyLastChance": "¿De verdad? Una vez borrados, desaparecerán. ¿Seguro que quieres continuar? Cuando se vayan, no habrá vuelta atrás."
+    },
+    "removeRepr": {
+      "title": "Confirmación de eliminación de repr",
+      "body": "¿Seguro que quieres eliminar el repr titulado \"{{title}}\"? Esta acción es irreversible."
+    }
+  },
+  "common": {
+    "fail": "Error",
+    "info": "Información",
+    "lastPracticed": "Última práctica",
+    "never": "nunca",
+    "no": "No",
+    "success": "Correcto",
+    "title": "Título",
+    "warning": "Advertencia",
+    "yes": "Sí"
+  },
+  "components": {
+    "controls": {
+      "reportsPageAriaLabel": "Abrir lista de informes",
+      "reportsPageTitle": "Informes"
+    },
+    "categoryFilter": {
+      "openMenuAriaLabel": "Abrir filtro de categorías",
+      "titleTextAria": "Filtrar reprs por título o comentario",
+      "titleTextPlaceholder": "Filtrar por título o comentario"
+    },
+    "reprsList": {
+      "emptyList": "No se encontraron reprs. Añade algunos con el botón \"Añadir repr\" en la parte superior izquierda.",
+      "reprsCountShort_one": "{{count}} repr",
+      "reprsCountShort_other": "{{count}} reprs",
+      "reprsCount_one": "Se encontró {{count}} repr.",
+      "reprsCount_other": "Se encontraron {{count}} reprs.",
+      "sectionOverdue": "Atrasados",
+      "sectionWarning": "Aviso",
+      "sectionUpToDate": "Al día",
+      "sectionLearning": "En aprendizaje"
+    }
+  },
+  "errors": {
+    "settingsSaved": "Ajustes guardados",
+    "couldNotSaveSettings": "No se pudieron guardar los ajustes",
+    "couldNotClearAllReprs": "No se pudieron borrar todos los reprs. No se aplicaron cambios.",
+    "couldNotRemoveRepr": "No se pudo eliminar el repr. Se restauró tu lista.",
+    "couldNotMarkPracticed": "No se pudo marcar el repr como practicado. Se restauró tu lista.",
+    "couldNotSaveReprChanges": "No se pudieron guardar los cambios del repr. Se restauró tu lista.",
+    "rateLimit": {
+      "exceededWithMax": "Límite de solicitudes superado ({{limit}}: {{max}} por {{window}}).",
+      "exceeded": "Límite de solicitudes superado ({{limit}}).",
+      "tryAgainIn": "Inténtalo de nuevo en {{retryAfter}}.",
+      "shortWhile": "un momento",
+      "requestLimit": "límite de solicitudes",
+      "window": "ventana"
+    }
+  },
+  "file": {
+    "reprReadFail": "No se pudo leer el archivo de reprs.",
+    "reprReadSuccess": "Archivo de reprs leído correctamente: empezó con {{startedCount}}, se añadieron {{addedCount}}.",
+    "reprSaveFail": "No se pudo guardar el archivo de reprs.",
+    "reprSaveSuccess": "Archivo de reprs guardado correctamente: se guardaron {{count}}."
+  },
+  "language": {
+    "switcherLabel": "Idioma",
+    "english": "English",
+    "spanish": "Español",
+    "names": {
+      "en": "English",
+      "es": "Español"
+    },
+    "flagAlt": {
+      "en": "Bandera del Reino Unido",
+      "es": "Bandera de España"
+    }
+  },
+  "meta": {
+    "description": "ReprMan - Aplicación web de gestión de repertorio",
+    "noscript": "Necesitas activar JavaScript para ejecutar esta aplicación.",
+    "manifestName": "ReprMan - Gestión de repertorio",
+    "manifestShortName": "ReprMan"
+  },
+  "modals": {
+    "editRepr": {
+      "addNewCategory": "Añadir categoría nueva",
+      "available": "Disponibles",
+      "closeWithoutSave": "Cerrar sin guardar",
+      "createTitle": "Crear repr",
+      "current": "Actuales",
+      "enterCategoryPlaceholder": "Introduce una categoría nueva...",
+      "enterCommentPlaceholder": "Introduce un comentario...",
+      "enterTitlePlaceholder": "Introduce un título...",
+      "exceeded": {
+        "body": "En la versión gratuita de la aplicación (actualmente la única versión), hay un límite de {{num}} reprs gratuitos.",
+        "title": "Límite de reprs superado"
+      },
+      "quotaUnavailable": {
+        "body": "No se pudo cargar tu límite de reprs. Comprueba tu conexión, inicia sesión si es necesario e inténtalo de nuevo.",
+        "title": "Límite de reprs no disponible"
+      },
+      "noCategoriesSelected": "No hay categorías seleccionadas.",
+      "learningLabel": "En aprendizaje",
+      "learningHelp": "Los reprs en aprendizaje aparecen en su propia sección en la parte superior de la lista.",
+      "title": "Editar repr"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "Acerca de",
+      "historySection": {
+        "subtitle": "¿Por qué esta aplicación?",
+        "body": [
+          [
+            "Como músico de jazz, diría que conozco unas 200 piezas.",
+            "Por \"conocer\" me refiero a que puedo tocar la melodía y los acordes de memoria e improvisar sobre ellos.",
+            "Lo que a veces descubría es que, en realidad, podía tocar cómodamente unas 50 de memoria, otras 50 con incomodidad, otras 50 con algunos errores, y las últimas 50..."
+          ],
+          [
+            "El problema es la práctica.",
+            "Ciertas piezas *siempre* salen en los bolos.",
+            "Y ciertas piezas son más divertidas de practicar.",
+            "Solemos practicar algunas mucho y otras casi nunca."
+          ],
+          [
+            "Siendo un friki, trabajé con hojas de cálculo para llevar el control.",
+            "Empecé añadiendo un campo con la fecha y hora de la última vez que la practiqué.",
+            "Después añadí un botón para cada pieza que actualizaba la fecha/hora y reordenaba la lista.",
+            "Esta aplicación es una evolución de ese concepto."
+          ]
+        ]
+      },
+      "instructionsSection": {
+        "subtitle": "Cómo usar esta aplicación",
+        "body": [
+          [
+            "Es bastante sencillo.",
+            "Introduce tus canciones.",
+            "Practica la canción que está arriba en la lista (la que llevas más tiempo sin practicar) y, cuando termines, pulsa el botón \"Marcar practicado\"; pasará al final de la lista.",
+            "La lista se ordena de modo que la pieza que llevas más tiempo sin practicar queda arriba.",
+            "Las piezas con la práctica atrasada aparecen en rojo; las que se acercan al límite, en naranja.",
+            "El verde significa que aún no ha llegado el momento."
+          ],
+          [
+            "Puedes decidir tú cómo usarla.",
+            "Yo solo pongo en mi lista cosas que están \"hechas\": las conozco.",
+            "También trabajo en cosas que estoy aprendiendo, pero son pocas y no necesito recordatorios.",
+            "La lista es para mi \"libro\" de piezas que necesito gestionar."
+          ]
+        ]
+      },
+      "futureSection": {
+        "subtitle": "El futuro",
+        "body": [
+          [
+            "Esto es solo el principio.",
+            "Esta es la versión gratuita de la aplicación.",
+            "Siempre habrá una versión gratuita, pero con el tiempo habrá una versión con más funciones.",
+            "Tendré que cobrar algo para cubrir gastos (y ganar un poco), pero intentaré mantener precios bajos.",
+            "Ahora mismo me inclino por una suscripción muy barata, aunque también podría considerar anuncios o donaciones.",
+            "Algunas cosas que se están valorando:"
+          ]
+        ]
+      },
+      "suggestions": "Si tienes alguna sugerencia, escríbeme a {{email}}.",
+      "imageAlt": "repr.jpg",
+      "futureItems": {
+        "accounts": "cuentas",
+        "mobileVersions": "versiones móviles",
+        "sharing": "compartir",
+        "scalesFeature": "función similar para escalas, etc.",
+        "darkMode": "modo oscuro"
+      }
+    },
+    "terms": {
+      "title": "Condiciones de uso",
+      "purposeSection": {
+        "subtitle": "Finalidad",
+        "body": [
+          [
+            "ReprMan se ofrece únicamente para hacer seguimiento de tu repertorio musical y tu historial de práctica.",
+            "Si encuentras un uso que encaje bien con su finalidad original (rutinas de entrenamiento, etc.), se considera un uso aceptable.",
+            "No puedes usar esta aplicación para ningún otro fin.",
+            "Cualquier intento de eludir el sistema de autenticación o autorización está estrictamente prohibido."
+          ]
+        ]
+      },
+      "conductSection": {
+        "subtitle": "Conducta",
+        "body": [
+          [
+            "Aceptas no realizar conductas abusivas ni usar lenguaje abusivo en relación con la aplicación.",
+            "No toleramos acoso, amenazas, discurso de odio, spam ni intentos de interrumpir el servicio.",
+            "El uso de esta aplicación para cualquier actividad ilegal está estrictamente prohibido.",
+            "Las infracciones pueden suponer la suspensión o cancelación inmediata de tu cuenta."
+          ]
+        ]
+      },
+      "inactivitySection": {
+        "subtitle": "Cuentas gratuitas e inactividad",
+        "body": [
+          [
+            "Las cuentas no de pago sin inicio de sesión durante 90 días consecutivos pueden cerrarse.",
+            "Cuando una cuenta se cierra por inactividad, todos los datos asociados pueden eliminarse de forma permanente."
+          ]
+        ]
+      },
+      "emailUseSection": {
+        "subtitle": "Uso del correo electrónico",
+        "body": [
+          [
+            "Tu dirección de correo electrónico solo se usará para comunicaciones relacionadas con esta aplicación.",
+            "No venderemos tu correo ni lo usaremos para marketing ajeno a ReprMan."
+          ]
+        ]
+      },
+      "emailVolumeSection": {
+        "subtitle": "Volumen de correos",
+        "body": [
+          [
+            "Solo enviamos un número mínimo de correos sobre el estado y el uso de tu cuenta y de la aplicación.",
+            "Los correos sobre tu repertorio (por ejemplo, recordatorios de reprs que necesitan práctica) solo se envían si los activas en Ajustes.",
+            "Puedes desactivar esas notificaciones o darte de baja en cualquier momento."
+          ]
+        ]
+      },
+      "agreementSection": {
+        "subtitle": "Acuerdo",
+        "body": [
+          [
+            "Al usar esta aplicación, aceptas las condiciones de uso.",
+            "Al aceptar las condiciones de uso, aceptas que cualquier infracción supondrá la cancelación de tu cuenta, la eliminación de tus datos y la pérdida no reembolsable de cualquier suscripción de pago."
+          ]
+        ]
+      }
+    },
+    "home": {
+      "title": "Inicio"
+    },
+    "subscribe": {
+      "title": "Suscribirse",
+      "body": "Obtén acceso completo a ReprMan con una suscripción anual. No se requirió tarjeta de crédito durante tu periodo de prueba.",
+      "price": "5 € al año (se renueva automáticamente hasta que canceles)."
+    },
+    "reports": {
+      "title": "Informes",
+      "filterByLabel": "Filtrar por etiqueta",
+      "contentHeading": "Contenido",
+      "contentComments": "Comentarios",
+      "contentLabels": "Etiquetas",
+      "exportHeading": "Exportar",
+      "copyToClipboard": "Copiar lista al portapapeles",
+      "copySuccess": "Lista copiada al portapapeles.",
+      "copyFail": "No se pudo copiar al portapapeles.",
+      "emptyFiltered": "Ningún repr coincide con las etiquetas seleccionadas."
+    },
+    "signin": {
+      "title": "Iniciar sesión"
+    },
+    "forgotPassword": {
+      "title": "Restablecer contraseña",
+      "subtitle": "Introduce el correo electrónico de tu cuenta. Te enviaremos un código para elegir una contraseña nueva."
+    },
+    "changePassword": {
+      "title": "Cambiar contraseña",
+      "subtitle": "Introduce tu contraseña actual y elige una nueva."
+    },
+    "signup": {
+      "title": "Registrarse"
+    },
+    "settings": {
+      "title": "Ajustes",
+      "practiceDelay": {
+        "subtitle": "Retraso de práctica",
+        "text": "¿Después de cuántos días quieres recibir un aviso de que necesitas practicar?"
+      },
+      "warningRatio": {
+        "subtitle": "Ratio de aviso",
+        "text": "¿Qué parte del tiempo de retraso de práctica quieres que active el aviso? Si lo pones en 0,5, cuando haya transcurrido la mitad del tiempo la tarjeta se pondrá naranja para avisarte."
+      },
+      "resetSettings": {
+        "title": "Restablecer todos los ajustes por defecto",
+        "subtitle": "Esto restablecerá los ajustes a sus valores predeterminados.",
+        "button": "Restablecer todos los ajustes"
+      },
+      "deleteAllReprs": {
+        "title": "Eliminar todos los reprs",
+        "subtitle": "Quieres eliminar permanentemente todos los reprs y categorías.",
+        "button": "Eliminar todos los reprs"
+      },
+      "saveSettingsChanges": "Guardar cambios de ajustes",
+      "clearSettingsChanges": "Descartar cambios de ajustes"
+    },
+    "viewRepr": {
+      "title": "Ver repr",
+      "data": {
+        "title": "Título",
+        "categories": "Categorías",
+        "noCategories": "[sin categorías]",
+        "comment": "Comentario",
+        "noComment": "[sin comentario]",
+        "dateCreated": "Fecha de creación",
+        "learning": "En aprendizaje",
+        "learningYes": "Sí",
+        "learningNo": "No",
+        "datesPracticed": "Fechas de práctica",
+        "noteMaxRepr": "Ten en cuenta que solo guardamos las últimas {{max}} prácticas de un repr.",
+        "practiceData": "Datos de práctica"
+      },
+      "practice": {
+        "never": "No has practicado este repr.",
+        "once": "Solo has practicado este repr una vez.",
+        "noDifference": "No hay diferencia en tus tiempos de práctica.",
+        "summary": "Has practicado este repr {{count}} veces en un periodo de {{span}}. Eso supone una frecuencia de {{rate}}.",
+        "ratePerHour": "{{rate}} veces por hora",
+        "ratePerDay": "{{rate}} veces por día",
+        "ratePerMonth": "{{rate}} veces por mes",
+        "ratePerYear": "{{rate}} veces por año"
+      }
+    }
+  },
+  "validation": {
+    "required": "Este campo es obligatorio.",
+    "noAsterisk": "Este campo no puede contener un asterisco (*).",
+    "categoryExists": "Esa categoría ya existe."
+  }
+}

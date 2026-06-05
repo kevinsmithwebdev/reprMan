@@ -9,46 +9,50 @@ export interface ReprForm {
 
 export type ReprFormErrors = Partial<ReprForm>
 
+type TranslateFn = (key: string) => string
+
 export const findFormErrors = ({
   form,
   categories,
   enteredCategory,
+  t,
 }: {
   form: ReprForm
   categories: string[]
   enteredCategory: string
+  t: TranslateFn
 }) => {
   const { title, comment, categoryInput } = form
   const newErrors = {} as ReprFormErrors
 
-  if (!title) newErrors.title = 'This field is required.'
+  if (!title) newErrors.title = t('validation.required')
   if (title?.includes(FILE_LINE_DELIMITER))
-    newErrors.title = 'This field cannot contain an asterisk (*).'
+    newErrors.title = t('validation.noAsterisk')
 
   const indexExistingCategories = categories.indexOf(enteredCategory)
 
   if (indexExistingCategories !== -1)
     newErrors.categoryInput = appendError(
       newErrors.categoryInput,
-      'That category already exists.'
+      t('validation.categoryExists')
     )
 
   if (enteredCategory.includes(FILE_LINE_DELIMITER))
     newErrors.categoryInput = appendError(
       newErrors.categoryInput,
-      'This field cannot contain an asterisk (*).'
+      t('validation.noAsterisk')
     )
 
   if (comment?.includes(FILE_LINE_DELIMITER))
     newErrors.comment = appendError(
       newErrors.comment,
-      'This field cannot contain an asterisk (*).'
+      t('validation.noAsterisk')
     )
 
   if (categoryInput.includes(FILE_LINE_DELIMITER))
     newErrors.categoryInput = appendError(
       newErrors.categoryInput,
-      'This field cannot contain an asterisk (*).'
+      t('validation.noAsterisk')
     )
 
   return newErrors
@@ -70,8 +74,17 @@ export const addCategory = ({
   setCategories,
   enteredCategory,
   setEnteredCategory,
+  t,
+}: {
+  form: ReprForm
+  setErrors: Function
+  categories: string[]
+  setCategories: Function
+  enteredCategory: string
+  setEnteredCategory: Function
+  t: TranslateFn
 }) => {
-  const foundErrors = findFormErrors({ form, categories, enteredCategory })
+  const foundErrors = findFormErrors({ form, categories, enteredCategory, t })
   setErrors(foundErrors)
 
   if (foundErrors.categoryInput || !enteredCategory) return

@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach, afterEach } from 'vitest'
 import { runSaga } from 'redux-saga'
+import LocalizationModule from '@reprman/localization/Localization.module'
 
 import { clearCategories } from '@reprman/state/categories'
 import { clearAllReprs } from '@reprman/state/reprs'
@@ -74,7 +75,17 @@ describe('clearAllReprsWorker', () => {
       {
         dispatch: (action) => dispatched.push(action),
         getState: () => ({
-          reprs: [{ id: 'r1', title: 'One', categories: [], dateCreated: 0, datesPracticed: [], comment: '', learning: false }],
+          reprs: [
+            {
+              id: 'r1',
+              title: 'One',
+              categories: [],
+              dateCreated: 0,
+              datesPracticed: [],
+              comment: '',
+              learning: false,
+            },
+          ],
         }),
       },
       clearAllReprsWorker
@@ -142,7 +153,17 @@ describe('clearThemAll', () => {
       {
         dispatch: (action) => dispatched.push(action),
         getState: () => ({
-          reprs: [{ id: 'r1', title: 'One', categories: [], dateCreated: 0, datesPracticed: [], comment: '', learning: false }],
+          reprs: [
+            {
+              id: 'r1',
+              title: 'One',
+              categories: [],
+              dateCreated: 0,
+              datesPracticed: [],
+              comment: '',
+              learning: false,
+            },
+          ],
         }),
       },
       clearThemAll
@@ -150,7 +171,9 @@ describe('clearThemAll', () => {
 
     expect(dispatched).toContainEqual(
       makeToastSAC({
-        body: 'Could not clear all reprs. No changes were applied.',
+        body: LocalizationModule.getInstance().t(
+          'errors.couldNotClearAllReprs'
+        ),
         level: ToastLevel.FAIL,
         delay: 6000,
       })

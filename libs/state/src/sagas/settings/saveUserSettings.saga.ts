@@ -1,3 +1,4 @@
+import LocalizationModule from '@reprman/localization/Localization.module'
 import { put, takeLatest } from 'redux-saga/effects'
 import {
   ReprsApiModule,
@@ -22,7 +23,7 @@ export function* saveUserSettingsWorker({
     yield put(setSettingsAC(saved))
     yield put(
       makeToastSAC({
-        body: 'Settings saved',
+        body: LocalizationModule.getInstance().t('errors.settingsSaved'),
         level: ToastLevel.SUCCESS,
         delay: 3000,
       })
@@ -30,7 +31,10 @@ export function* saveUserSettingsWorker({
   } catch (error: unknown) {
     yield put(
       makeToastSAC({
-        body: toUserFriendlyApiErrorMessage(error, 'Could not save settings'),
+        body: toUserFriendlyApiErrorMessage(
+          error,
+          LocalizationModule.getInstance().t('errors.couldNotSaveSettings')
+        ),
         level: ToastLevel.FAIL,
         delay: 6000,
       })

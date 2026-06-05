@@ -213,6 +213,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                         setCategories,
                         enteredCategory,
                         setEnteredCategory,
+                        t,
                       })
                     }
                   }}
@@ -230,6 +231,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                       setCategories,
                       enteredCategory,
                       setEnteredCategory,
+                      t,
                     })
                   }
                 >
@@ -298,6 +300,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
               form,
               categories,
               enteredCategory,
+              t,
             })
 
             if (Object.keys(foundErrors).length > 0) {

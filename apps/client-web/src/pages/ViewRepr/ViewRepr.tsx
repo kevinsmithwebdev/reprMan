@@ -26,7 +26,7 @@ const ViewRepr = () => {
   const { title, categories, dateCreated, datesPracticed, comment, learning } =
     repr
 
-  const practicedStr = getPracticedStr(datesPracticed)
+  const practicedStr = getPracticedStr(datesPracticed, t)
 
   return (
     <div className="app-page-padded">

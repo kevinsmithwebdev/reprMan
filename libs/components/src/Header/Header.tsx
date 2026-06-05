@@ -6,6 +6,7 @@ import { useL10n } from '@reprman/localization'
 import { Nav, Navbar } from 'react-bootstrap'
 import { NavLink, useLocation } from 'react-router-dom'
 import SubscriptionHeaderStatus from '../SubscriptionHeaderStatus/SubscriptionHeaderStatus'
+import LanguageSwitcher from './LanguageSwitcher'
 
 import './Header.css'
 
@@ -140,6 +141,7 @@ const Header = () => {
                 renderLink(r, rootPath, settingsNavDisabled, t)
               )}
             </Nav>
+            <LanguageSwitcher />
             <CognitoAuthBar />
           </div>
         </div>

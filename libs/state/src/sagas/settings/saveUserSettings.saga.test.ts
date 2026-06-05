@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { runSaga } from 'redux-saga'
+import LocalizationModule from '@reprman/localization/Localization.module'
 
 import { setSettingsAC } from '@reprman/state/settings/settings.actions'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
@@ -64,7 +65,7 @@ describe('saveUserSettingsWorker', () => {
     )
     expect(dispatched).toContainEqual(
       makeToastSAC({
-        body: 'Settings saved',
+        body: LocalizationModule.getInstance().t('errors.settingsSaved'),
         level: ToastLevel.SUCCESS,
         delay: 3000,
       })
@@ -86,7 +87,7 @@ describe('saveUserSettingsWorker', () => {
 
     expect(dispatched).toContainEqual(
       makeToastSAC({
-        body: 'Could not save settings',
+        body: LocalizationModule.getInstance().t('errors.couldNotSaveSettings'),
         level: ToastLevel.FAIL,
         delay: 6000,
       })

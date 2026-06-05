@@ -21,7 +21,9 @@
     "signOut": "Sign Out",
     "deleteAccount": "Delete Account",
     "deleteAccountWarningLead": "This is permanent, all reprs will be",
+    "deleteAccountWarningLost": "lost",
     "deleteAccountWarningMiddle": "and your account will be",
+    "deleteAccountWarningDeleted": "deleted",
     "deleteAccountWarningTail": "You can still create a new account later, but you will not be able to recover your data.",
     "deleteAccountSuccess": "Your account and data were deleted.",
     "deleteAccountUnexpectedError": "Account deletion failed.",
@@ -108,6 +110,18 @@
     "practiced": "Mark Practiced",
     "save": "Save"
   },
+  "confirmations": {
+    "clearAllReprs": {
+      "title": "Clear All Reprs Confirmation",
+      "body": "Are you sure you want to remove all reprs? This is irreversible.",
+      "titleLastChance": "Clear All Reprs Confirmation, Last Chance",
+      "bodyLastChance": "Really? Once you clear them, they are gone. Are you sure you want to? Once they're gone, they're gone."
+    },
+    "removeRepr": {
+      "title": "Remove Repr Confirmation",
+      "body": "Are you sure you want to remove the repr titled \"{{title}}\"? This is irreversible."
+    }
+  },
   "common": {
     "fail": "Fail",
     "info": "Info",
@@ -141,11 +155,46 @@
       "sectionLearning": "Learning"
     }
   },
+  "errors": {
+    "settingsSaved": "Settings saved",
+    "couldNotSaveSettings": "Could not save settings",
+    "couldNotClearAllReprs": "Could not clear all reprs. No changes were applied.",
+    "couldNotRemoveRepr": "Could not remove repr. Your list was restored.",
+    "couldNotMarkPracticed": "Could not mark repr practiced. Your list was restored.",
+    "couldNotSaveReprChanges": "Could not save repr changes. Your list was restored.",
+    "rateLimit": {
+      "exceededWithMax": "Rate limit exceeded ({{limit}}: {{max}} per {{window}}).",
+      "exceeded": "Rate limit exceeded ({{limit}}).",
+      "tryAgainIn": "Try again in {{retryAfter}}.",
+      "shortWhile": "a short while",
+      "requestLimit": "request limit",
+      "window": "window"
+    }
+  },
   "file": {
     "reprReadFail": "Repr file read failed.",
     "reprReadSuccess": "Repr file successfully read - started with {{startedCount}}, added {{addedCount}}.",
     "reprSaveFail": "Repr file save failed.",
     "reprSaveSuccess": "Repr file successfully saved - saved {{count}}."
+  },
+  "language": {
+    "switcherLabel": "Language",
+    "english": "English",
+    "spanish": "Español",
+    "names": {
+      "en": "English",
+      "es": "Español"
+    },
+    "flagAlt": {
+      "en": "United Kingdom flag",
+      "es": "Spain flag"
+    }
+  },
+  "meta": {
+    "description": "ReprMan - Repertoire management web app",
+    "noscript": "You need to enable JavaScript to run this app.",
+    "manifestName": "ReprMan - Repertoire Management",
+    "manifestShortName": "ReprMan"
   },
   "modals": {
     "editRepr": {
@@ -228,7 +277,15 @@
           ]
         ]
       },
-      "suggestions": "If you have any suggestions, please contact me at {{email}}."
+      "suggestions": "If you have any suggestions, please contact me at {{email}}.",
+      "imageAlt": "repr.jpg",
+      "futureItems": {
+        "accounts": "accounts",
+        "mobileVersions": "mobile versions",
+        "sharing": "sharing",
+        "scalesFeature": "similar feature for things like scales, etc.",
+        "darkMode": "dark mode"
+      }
     },
     "terms": {
       "title": "Terms of Use",
@@ -364,7 +421,22 @@
         "datesPracticed": "Dates Practiced",
         "noteMaxRepr": "Note that we only store the last {{max}} practices for a repr.",
         "practiceData": "Practice Data"
+      },
+      "practice": {
+        "never": "You have not practiced this repr.",
+        "once": "You have only practiced this repr once.",
+        "noDifference": "There is no difference in your practice times.",
+        "summary": "You have practiced this repr {{count}} times over a span of {{span}}. That is a rate of {{rate}}.",
+        "ratePerHour": "{{rate}} times per hour",
+        "ratePerDay": "{{rate}} times per day",
+        "ratePerMonth": "{{rate}} times per month",
+        "ratePerYear": "{{rate}} times per year"
       }
     }
+  },
+  "validation": {
+    "required": "This field is required.",
+    "noAsterisk": "This field cannot contain an asterisk (*).",
+    "categoryExists": "That category already exists."
   }
 }

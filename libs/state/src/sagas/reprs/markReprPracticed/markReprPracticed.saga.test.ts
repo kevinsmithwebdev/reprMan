@@ -1,5 +1,6 @@
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { runSaga } from 'redux-saga'
+import LocalizationModule from '@reprman/localization/Localization.module'
 
 import { setReprs } from '@reprman/state/reprs'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
@@ -106,7 +107,9 @@ describe('markReprPracticedWorker', () => {
     expect(dispatched).toContainEqual(setReprs([repr]))
     expect(dispatched).toContainEqual(
       makeToastSAC({
-        body: 'Could not mark repr practiced. Your list was restored.',
+        body: LocalizationModule.getInstance().t(
+          'errors.couldNotMarkPracticed'
+        ),
         level: ToastLevel.FAIL,
         delay: 6000,
       })

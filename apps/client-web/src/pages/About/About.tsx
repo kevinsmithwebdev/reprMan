@@ -15,7 +15,7 @@ const About = () => {
 
       <img
         src="/static/repr.jpg"
-        alt="repr.jpg"
+        alt={t('pages.about.imageAlt')}
         style={{
           maxWidth: '100%',
           height: 'auto',
@@ -36,11 +36,11 @@ const About = () => {
       <AboutSection slug="pages.about.futureSection" />
 
       <ul>
-        <li>accounts</li>
-        <li>mobile versions</li>
-        <li>sharing</li>
-        <li>similar feature for things like scales, etc.</li>
-        <li>dark mode</li>
+        <li>{t('pages.about.futureItems.accounts')}</li>
+        <li>{t('pages.about.futureItems.mobileVersions')}</li>
+        <li>{t('pages.about.futureItems.sharing')}</li>
+        <li>{t('pages.about.futureItems.scalesFeature')}</li>
+        <li>{t('pages.about.futureItems.darkMode')}</li>
       </ul>
 
       <Card.Text>{t('pages.about.suggestions', { email: MY_EMAIL })}</Card.Text>

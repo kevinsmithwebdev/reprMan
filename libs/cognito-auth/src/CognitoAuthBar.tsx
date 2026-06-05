@@ -235,9 +235,12 @@ const CognitoAuthBar = () => {
           <Modal.Title>{t('auth.deleteAccount')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <strong>Warning</strong>: {t('auth.deleteAccountWarningLead')}{' '}
-          <strong>lost</strong> {t('auth.deleteAccountWarningMiddle')}{' '}
-          <strong>deleted</strong>. {t('auth.deleteAccountWarningTail')}
+          <strong>{t('common.warning')}</strong>:{' '}
+          {t('auth.deleteAccountWarningLead')}{' '}
+          <strong>{t('auth.deleteAccountWarningLost')}</strong>{' '}
+          {t('auth.deleteAccountWarningMiddle')}{' '}
+          <strong>{t('auth.deleteAccountWarningDeleted')}</strong>.{' '}
+          {t('auth.deleteAccountWarningTail')}
         </Modal.Body>
         <Modal.Footer>
           <Button
