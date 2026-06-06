@@ -62,7 +62,7 @@ export const initialNarrowBrand = (): boolean =>
 const Header = () => {
   const location = useLocation()
   const rootPath = `/${location.pathname.split('/')[1]}`
-  const { t } = useL10n()
+  const { t, language } = useL10n()
   const { sessionChecked, signedIn } = useCognitoAuth()
 
   const [narrowBrand, setNarrowBrand] = useState(initialNarrowBrand)
@@ -81,12 +81,12 @@ const Header = () => {
       return name
     }
     return `${name} - ${t('brand.repertoireManagement')}`
-  }, [narrowBrand, t])
+  }, [narrowBrand, language, t])
 
   const navbarBrandLabel = useMemo(() => {
     const pageKey = pageTitleKeyForPath(location.pathname)
     return pageKey ? `${brandBase} - ${t(pageKey)}` : brandBase
-  }, [brandBase, location.pathname, t])
+  }, [brandBase, location.pathname, language, t])
 
   useEffect(() => {
     document.title = navbarBrandLabel

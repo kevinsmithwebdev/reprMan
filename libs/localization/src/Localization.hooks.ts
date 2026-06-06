@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import LocalizationModule from './Localization.module'
 import i18next from './setupI18n'
 import type { SupportedLanguage } from './setupI18n'
@@ -15,10 +15,19 @@ export const useL10n = () => {
     }
   }, [])
 
+  const t = useCallback(
+    (key: string, props?: object) => localization.t(key, props ?? {}),
+    [language, localization]
+  )
+
+  const changeLanguage = useCallback(
+    (lng: SupportedLanguage) => localization.changeLanguage(lng),
+    [localization]
+  )
+
   return {
-    t: localization.t,
+    t,
     language,
-    changeLanguage: (lng: SupportedLanguage) =>
-      localization.changeLanguage(lng),
+    changeLanguage,
   }
 }
