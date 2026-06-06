@@ -48,6 +48,20 @@ describe('setupI18n', () => {
     await i18next.changeLanguage('en')
   })
 
+  it('loads Mandarin resources', async () => {
+    const i18next = (await import('@reprman/localization/setupI18n')).default
+    await i18next.changeLanguage('zh')
+    expect(i18next.t('pages.home.title')).toBe('首页')
+    await i18next.changeLanguage('en')
+  })
+
+  it('loads Korean resources', async () => {
+    const i18next = (await import('@reprman/localization/setupI18n')).default
+    await i18next.changeLanguage('ko')
+    expect(i18next.t('pages.home.title')).toBe('홈')
+    await i18next.changeLanguage('en')
+  })
+
   it('falls back to English when a key is missing in another locale', async () => {
     const i18next = (await import('@reprman/localization/setupI18n')).default
     const key = 'test.fallback.onlyInEnglish'

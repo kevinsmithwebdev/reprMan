@@ -1,0 +1,463 @@
+{
+  "auth": {
+    "cancel": "취소",
+    "changePasswordMenu": "비밀번호 변경",
+    "changePasswordCurrent": "현재 비밀번호",
+    "changePasswordNew": "새 비밀번호",
+    "changePasswordSubmit": "비밀번호 업데이트",
+    "changePasswordSuccess": "비밀번호가 업데이트되었습니다.",
+    "changePasswordMismatch": "새 비밀번호와 확인 비밀번호가 일치하지 않습니다.",
+    "confirmPassword": "비밀번호 확인",
+    "confirmationCode": "인증 코드",
+    "createAccount": "계정 만들기",
+    "email": "이메일",
+    "password": "비밀번호",
+    "showPassword": "비밀번호 표시",
+    "hidePassword": "비밀번호 숨기기",
+    "signIn": "로그인",
+    "signInButton": "로그인",
+    "signInTitle": "로그인",
+    "signInUnavailable": "이 앱에 Cognito가 구성되어 있지 않아 로그인할 수 없습니다.",
+    "signOut": "로그아웃",
+    "deleteAccount": "계정 삭제",
+    "deleteAccountWarningLead": "이 작업은 되돌릴 수 없으며, 모든 reprs가",
+    "deleteAccountWarningLost": "사라지고",
+    "deleteAccountWarningMiddle": "계정이",
+    "deleteAccountWarningDeleted": "삭제됩니다",
+    "deleteAccountWarningTail": "나중에 새 계정을 만들 수는 있지만, 데이터는 복구할 수 없습니다.",
+    "deleteAccountSuccess": "계정과 데이터가 삭제되었습니다.",
+    "deleteAccountUnexpectedError": "계정 삭제에 실패했습니다.",
+    "userAvatarMenuLabel": "사용자 메뉴 열기",
+    "userMenuCurrentUser": "로그인 계정:",
+    "signInChallengeNotSupported": "이 계정에는 추가 로그인 단계(MFA 또는 새 비밀번호 설정 등)가 필요합니다. 향후 업데이트 또는 Cognito 호스팅 UI에서 완료해 주세요.",
+    "settingsDisabledHint": "설정을 열려면 로그인하세요.",
+    "signInUnexpectedError": "로그인에 실패했습니다.",
+    "signUpBackHome": "홈으로 돌아가기",
+    "signUpCodeResent": "새 인증 코드가 전송되었습니다.",
+    "signUpCodeSent": "이메일에서 인증 코드를 확인하세요.",
+    "signUpConfirmIntro": "{{email}}(으)로 보낸 코드를 입력하세요.",
+    "signUpConfirmSubmit": "확인 후 로그인",
+    "signUpConfirmUnexpectedError": "인증에 실패했습니다.",
+    "signUpEditEmail": "다른 이메일 사용",
+    "signUpPasswordHint": "8자 이상이며, 사용자 풀 비밀번호 정책을 따라야 합니다.",
+    "signUpPasswordMismatch": "비밀번호가 일치하지 않습니다.",
+    "signUpResendCode": "코드 다시 보내기",
+    "signUpResendUnexpectedError": "코드를 다시 보낼 수 없습니다.",
+    "signUpSubmit": "계정 만들기",
+    "signUpSuccessSignedIn": "로그인되었습니다.",
+    "signUpUnavailable": "이 앱에 Cognito가 구성되어 있지 않아 회원가입할 수 없습니다.",
+    "signUpUnexpectedError": "회원가입에 실패했습니다.",
+    "signUpUnexpectedNextStep": "회원가입에 이 페이지에서 처리하지 않는 추가 단계가 필요합니다. Cognito 호스팅 UI를 사용하거나 지원팀에 문의하세요.",
+    "homeCognitoEnvMissingDev": "이 빌드에 Cognito가 구성되어 있지 않습니다(VITE_COGNITO_USER_POOL_ID / VITE_COGNITO_USER_POOL_CLIENT_ID 누락). 저장소 루트의 .env에 추가하세요(.env.example 참고). 그런 다음 개발 서버를 다시 시작하세요(`yarn start`).",
+    "homeCognitoEnvMissingProd": "구성 문제로 이 환경에서는 일시적으로 로그인할 수 없습니다. 나중에 다시 시도해 주세요.",
+    "homeSignedOutBody": "로그인하거나 계정을 만들어 레퍼토리를 사용하세요.",
+    "homeSignedOutTitle": "ReprMan",
+    "signUpButton": "회원가입",
+    "forgotPasswordLink": "비밀번호를 잊었습니다",
+    "forgotPasswordCodeSent": "이메일에서 비밀번호 재설정 코드를 확인하세요.",
+    "forgotPasswordSendCode": "재설정 코드 보내기",
+    "forgotPasswordSubmit": "새 비밀번호 설정",
+    "forgotPasswordSuccess": "비밀번호가 재설정되었습니다. 이제 로그인할 수 있습니다.",
+    "forgotPasswordUnexpectedError": "비밀번호 재설정을 시작할 수 없습니다.",
+    "forgotPasswordConfirmUnexpectedError": "비밀번호를 재설정할 수 없습니다. 코드를 확인하고 다시 시도하세요.",
+    "forgotPasswordUnexpectedNextStep": "비밀번호 재설정에 이 페이지에서 처리하지 않는 추가 단계가 필요합니다.",
+    "forgotPasswordConfirmIntro": "{{email}}(으)로 보낸 코드를 입력한 다음 새 비밀번호를 선택하세요.",
+    "signUpTermsPrefix": "다음에 동의합니다:",
+    "signUpTermsLink": "이용약관",
+    "signUpTermsRequired": "계정을 만들려면 이용약관에 동의해야 합니다.",
+    "signUpTermsAcceptFailed": "계정은 생성되었지만 이용약관 동의를 기록하지 못했습니다. 다시 시도하거나 지원팀에 문의하세요.",
+    "termsOfUseMenu": "이용약관",
+    "acceptTermsSubmit": "동의",
+    "acceptTermsTitle": "이용약관",
+    "acceptTermsIntro": "ReprMan을 계속 사용하려면 이용약관을 읽고 동의해 주세요.",
+    "acceptTermsFailed": "동의를 기록하지 못했습니다. 연결을 확인하고 다시 시도하세요."
+  },
+  "billing": {
+    "subscribe": "구독",
+    "subscriptionLabel": "구독",
+    "subscriptionLoading": "불러오는 중…",
+    "checkoutUnavailable": "이 환경에서는 결제를 사용할 수 없습니다.",
+    "checkoutFailed": "결제를 시작할 수 없습니다. 나중에 다시 시도하세요.",
+    "reprLimitReached": "Repr 한도 {{maxReprs}}개에 도달했습니다.",
+    "reprLimitReachedShort": "Repr 한도에 도달했습니다.",
+    "status": {
+      "trial": "체험",
+      "unpaid": "미결제",
+      "paid": "결제됨",
+      "unlimited": "무제한"
+    },
+    "header": {
+      "trialOne": "체험 계정, {{count}}일 남음.",
+      "trialOther": "체험 계정, {{count}}일 남음.",
+      "unpaid": "미결제 계정, 기능이 제한됩니다.",
+      "expiringOne": "계정 만료까지 {{count}}일 남음.",
+      "expiringOther": "계정 만료까지 {{count}}일 남음."
+    }
+  },
+  "brand": {
+    "copyright": "copyright ©{{year}}",
+    "repertoireManagement": "레퍼토리 관리",
+    "repr": "Repr",
+    "reprMan": "ReprMan",
+    "versionNumber": "버전: {{versionNumber}}"
+  },
+  "buttons": {
+    "addReprButton": "+ Repr 추가",
+    "back": "뒤로",
+    "closeWithoutSave": "저장하지 않고 닫기",
+    "delete": "삭제",
+    "edit": "편집",
+    "practiced": "연습 완료로 표시",
+    "save": "저장"
+  },
+  "confirmations": {
+    "clearAllReprs": {
+      "title": "모든 Repr 삭제 확인",
+      "body": "모든 reprs를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "titleLastChance": "모든 Repr 삭제 확인, 마지막 확인",
+      "bodyLastChance": "정말요? 삭제하면 복구할 수 없습니다. 정말 삭제하시겠습니까? 한 번 삭제하면 끝입니다."
+    },
+    "removeRepr": {
+      "title": "Repr 삭제 확인",
+      "body": "제목이 \"{{title}}\"인 repr을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다."
+    }
+  },
+  "common": {
+    "fail": "실패",
+    "info": "정보",
+    "lastPracticed": "마지막 연습",
+    "never": "없음",
+    "no": "아니요",
+    "success": "성공",
+    "title": "제목",
+    "warning": "경고",
+    "yes": "예"
+  },
+  "components": {
+    "controls": {
+      "reportsPageAriaLabel": "보고서 목록 열기",
+      "reportsPageTitle": "보고서"
+    },
+    "categoryFilter": {
+      "openMenuAriaLabel": "카테고리 필터 열기",
+      "titleTextAria": "제목 또는 코멘트로 reprs 필터",
+      "titleTextPlaceholder": "제목 또는 코멘트로 필터"
+    },
+    "reprsList": {
+      "emptyList": "reprs를 찾을 수 없습니다. 왼쪽 상단의 \"Repr 추가\" 버튼으로 추가하세요.",
+      "reprsCountShort_one": "repr {{count}}개",
+      "reprsCountShort_other": "repr {{count}}개",
+      "reprsCount_one": "repr {{count}}개를 찾았습니다.",
+      "reprsCount_other": "repr {{count}}개를 찾았습니다.",
+      "sectionOverdue": "연체",
+      "sectionWarning": "경고",
+      "sectionUpToDate": "최신",
+      "sectionLearning": "학습 중"
+    }
+  },
+  "errors": {
+    "settingsSaved": "설정이 저장되었습니다",
+    "couldNotSaveSettings": "설정을 저장할 수 없습니다",
+    "couldNotClearAllReprs": "모든 reprs를 삭제할 수 없습니다. 변경 사항이 적용되지 않았습니다.",
+    "couldNotRemoveRepr": "repr을 삭제할 수 없습니다. 목록이 복원되었습니다.",
+    "couldNotMarkPracticed": "repr 연습 완료 표시에 실패했습니다. 목록이 복원되었습니다.",
+    "couldNotSaveReprChanges": "repr 변경 사항을 저장할 수 없습니다. 목록이 복원되었습니다.",
+    "rateLimit": {
+      "exceededWithMax": "요청 한도를 초과했습니다({{limit}}: {{window}}당 {{max}}회).",
+      "exceeded": "요청 한도를 초과했습니다({{limit}}).",
+      "tryAgainIn": "{{retryAfter}} 후 다시 시도하세요.",
+      "shortWhile": "잠시",
+      "requestLimit": "요청 한도",
+      "window": "기간"
+    }
+  },
+  "file": {
+    "reprReadFail": "Repr 파일을 읽지 못했습니다.",
+    "reprReadSuccess": "Repr 파일을 성공적으로 읽었습니다 — 시작 {{startedCount}}개, 추가 {{addedCount}}개.",
+    "reprSaveFail": "Repr 파일 저장에 실패했습니다.",
+    "reprSaveSuccess": "Repr 파일을 성공적으로 저장했습니다 — {{count}}개 저장됨."
+  },
+  "language": {
+    "switcherLabel": "언어",
+    "english": "English",
+    "spanish": "Español",
+    "portuguese": "Português",
+    "french": "Français",
+    "german": "Deutsch",
+    "dutch": "Nederlands",
+    "japanese": "日本語",
+    "mandarin": "中文",
+    "korean": "한국어",
+    "names": {
+      "en": "English",
+      "es": "Español",
+      "pt": "Português",
+      "fr": "Français",
+      "de": "Deutsch",
+      "nl": "Nederlands",
+      "ja": "日本語",
+      "zh": "中文",
+      "ko": "한국어"
+    },
+    "flagAlt": {
+      "en": "영국 국기",
+      "es": "스페인 국기",
+      "pt": "포르투갈 국기",
+      "fr": "프랑스 국기",
+      "de": "독일 국기",
+      "nl": "네덜란드 국기",
+      "ja": "일본 국기",
+      "zh": "중국 국기",
+      "ko": "대한민국 국기"
+    }
+  },
+  "meta": {
+    "description": "ReprMan - 레퍼토리 관리 웹 앱",
+    "noscript": "이 앱을 실행하려면 JavaScript를 활성화해야 합니다.",
+    "manifestName": "ReprMan - 레퍼토리 관리",
+    "manifestShortName": "ReprMan"
+  },
+  "modals": {
+    "editRepr": {
+      "addNewCategory": "새 카테고리 추가",
+      "available": "사용 가능",
+      "closeWithoutSave": "저장하지 않고 닫기",
+      "createTitle": "Repr 만들기",
+      "current": "현재",
+      "enterCategoryPlaceholder": "새 카테고리 입력...",
+      "enterCommentPlaceholder": "코멘트 입력...",
+      "enterTitlePlaceholder": "제목 입력...",
+      "exceeded": {
+        "body": "무료 버전(현재 유일한 버전)에서는 무료 repr {{num}}개까지 사용할 수 있습니다.",
+        "title": "허용된 Repr 수 초과"
+      },
+      "quotaUnavailable": {
+        "body": "repr 한도를 불러올 수 없습니다. 연결을 확인하고 필요하면 로그인한 뒤 다시 시도하세요.",
+        "title": "Repr 한도를 사용할 수 없음"
+      },
+      "noCategoriesSelected": "선택된 카테고리가 없습니다.",
+      "learningLabel": "학습 중",
+      "learningHelp": "학습 중 reprs는 목록 상단의 별도 섹션에 표시됩니다.",
+      "title": "Repr 편집"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "소개",
+      "historySection": {
+        "subtitle": "왜 이 앱을 만들었나요?",
+        "body": [
+          [
+            "재즈 뮤지션으로서, 저는 약 200곡을 안다고 말할 수 있습니다.",
+            "\"안다\"는 것은 멜로디와 코드를 기억해서 연주하고 그 위에서 즉흥 연주할 수 있다는 뜻입니다.",
+            "하지만 실제로는 기억만으로 편하게 연주할 수 있는 곡은 약 50곡, 불편하게 연주할 수 있는 곡은 약 50곡, 실수를 조금 하면서 연주할 수 있는 곡은 약 50곡, 나머지 50곡은..."
+          ],
+          [
+            "문제는 연습입니다.",
+            "어떤 곡은 공연에서 *항상* 불립니다.",
+            "어떤 곡은 연습하기 더 재미있습니다.",
+            "우리는 어떤 곡은 많이 연습하고, 어떤 곡은 거의 연습하지 않는 경향이 있습니다."
+          ],
+          [
+            "덕후 기질이 있어서, 관리를 위해 스프레드시트를 사용하기 시작했습니다.",
+            "마지막으로 연습한 날짜/시간 필드를 추가했습니다.",
+            "각 곡마다 날짜/시간을 업데이트하고 곡 목록을 다시 정렬하는 버튼을 추가했습니다.",
+            "이 앱은 그 개념의 발전형입니다."
+          ]
+        ]
+      },
+      "instructionsSection": {
+        "subtitle": "사용 방법",
+        "body": [
+          [
+            "아주 간단합니다.",
+            "곡을 입력하세요.",
+            "목록 맨 위(가장 오래 연습하지 않은 곡)를 연습하고, 끝나면 \"연습 완료로 표시\" 버튼을 누르면 목록 맨 아래로 이동합니다.",
+            "목록은 가장 오래 연습하지 않은 곡이 맨 위에 오도록 정렬됩니다.",
+            "연습 기한이 지난 곡은 빨간색, 기한이 가까워지면 주황색으로 표시됩니다.",
+            "초록색은 아직 기한이 되지 않았다는 뜻입니다."
+          ],
+          [
+            "사용 방법은 스스로 정하면 됩니다.",
+            "저는 목록에 \"완성된\" 곡만 넣습니다 — 이미 아는 곡입니다.",
+            "배우고 있는 곡도 연습하지만, 그건 몇 곡뿐이라 알림이 필요 없습니다.",
+            "이 목록은 관리가 필요한 \"북\"의 곡들을 위한 것입니다."
+          ]
+        ]
+      },
+      "futureSection": {
+        "subtitle": "앞으로",
+        "body": [
+          [
+            "이것은 시작에 불과합니다.",
+            "이것은 앱의 무료 버전입니다.",
+            "무료 버전은 항상 제공할 예정이지만, 결국 기능이 더 풍부한 버전도 나올 것입니다.",
+            "비용(과 약간의 수익)을 충당하려면 요금을 받아야 하지만, 가격은 최대한 낮게 유지하려고 합니다.",
+            "현재는 매우 저렴한 구독을 검토하고 있지만, 광고나 기부도 고려할 수 있습니다.",
+            "검토 중인 기능:"
+          ]
+        ]
+      },
+      "suggestions": "제안이 있으시면 {{email}}(으)로 연락해 주세요.",
+      "imageAlt": "repr.jpg",
+      "futureItems": {
+        "accounts": "계정",
+        "mobileVersions": "모바일 버전",
+        "sharing": "공유",
+        "scalesFeature": "스케일 등을 위한 유사 기능",
+        "darkMode": "다크 모드"
+      }
+    },
+    "terms": {
+      "title": "이용약관",
+      "purposeSection": {
+        "subtitle": "목적",
+        "body": [
+          [
+            "ReprMan은 음악 레퍼토리와 연습 기록을 추적하기 위해서만 제공됩니다.",
+            "원래 의도된 목적에 잘 맞는 용도(운동 루틴 등)로 사용하는 것은 허용됩니다.",
+            "그 외의 목적으로 이 앱을 사용해서는 안 됩니다.",
+            "인증 또는 권한 시스템을 우회하려는 시도는 엄격히 금지됩니다."
+          ]
+        ]
+      },
+      "conductSection": {
+        "subtitle": "행동 규범",
+        "body": [
+          [
+            "앱과 관련하여 학대적 행위나 모욕적인 언어를 사용하지 않을 것에 동의합니다.",
+            "괴롭힘, 위협, 혐오 발언, 스팸, 서비스 방해 시도는 용납하지 않습니다.",
+            "불법 활동을 위해 이 앱을 사용하는 것은 엄격히 금지됩니다.",
+            "위반 시 계정이 즉시 정지되거나 삭제될 수 있습니다."
+          ]
+        ]
+      },
+      "inactivitySection": {
+        "subtitle": "무료 계정 및 비활성",
+        "body": [
+          [
+            "90일 연속 로그인이 없는 유료가 아닌 계정은 종료될 수 있습니다.",
+            "비활성으로 계정이 종료되면 관련된 모든 데이터가 영구적으로 삭제될 수 있습니다."
+          ]
+        ]
+      },
+      "emailUseSection": {
+        "subtitle": "이메일 사용",
+        "body": [
+          [
+            "이메일 주소는 이 앱과 관련된 연락에만 사용됩니다.",
+            "이메일을 판매하거나 ReprMan과 무관한 마케팅에 사용하지 않습니다."
+          ]
+        ]
+      },
+      "emailVolumeSection": {
+        "subtitle": "이메일 발송량",
+        "body": [
+          [
+            "계정 및 앱 상태와 사용에 관한 이메일은 최소한으로만 보냅니다.",
+            "레퍼토리 관련 이메일(예: 연습이 필요한 reprs 알림)은 설정에서 활성화한 경우에만 보냅니다.",
+            "해당 알림은 언제든지 끄거나 수신 거부할 수 있습니다."
+          ]
+        ]
+      },
+      "agreementSection": {
+        "subtitle": "동의",
+        "body": [
+          [
+            "이 앱을 사용하면 이용약관에 동의한 것으로 간주됩니다.",
+            "이용약관에 동의하면, 위반 시 계정 종료, 데이터 삭제, 유료 구독의 환불 불가 손실에 동의한 것으로 간주됩니다."
+          ]
+        ]
+      }
+    },
+    "home": {
+      "title": "홈"
+    },
+    "subscribe": {
+      "title": "구독",
+      "body": "연간 구독으로 ReprMan의 전체 기능을 이용하세요. 체험 기간 동안에는 신용카드가 필요하지 않았습니다.",
+      "price": "연 €5(취소할 때까지 자동 갱신)."
+    },
+    "reports": {
+      "title": "보고서",
+      "filterByLabel": "라벨로 필터",
+      "contentHeading": "내용",
+      "contentComments": "코멘트",
+      "contentLabels": "라벨",
+      "exportHeading": "내보내기",
+      "copyToClipboard": "목록을 클립보드에 복사",
+      "copySuccess": "목록이 클립보드에 복사되었습니다.",
+      "copyFail": "클립보드에 복사할 수 없습니다.",
+      "emptyFiltered": "선택한 라벨과 일치하는 reprs가 없습니다."
+    },
+    "signin": {
+      "title": "로그인"
+    },
+    "forgotPassword": {
+      "title": "비밀번호 재설정",
+      "subtitle": "계정 이메일을 입력하세요. 새 비밀번호를 선택할 수 있는 코드를 보내 드립니다."
+    },
+    "changePassword": {
+      "title": "비밀번호 변경",
+      "subtitle": "현재 비밀번호를 입력한 다음 새 비밀번호를 선택하세요."
+    },
+    "signup": {
+      "title": "회원가입"
+    },
+    "settings": {
+      "title": "설정",
+      "practiceDelay": {
+        "subtitle": "연습 간격",
+        "text": "며칠 후에 연습이 필요하다고 알림을 받고 싶으신가요?"
+      },
+      "warningRatio": {
+        "subtitle": "경고 비율",
+        "text": "연습 간격의 어느 시점에서 경고를 받고 싶으신가요? 0.5로 설정하면 시간의 절반이 지나면 카드가 주황색으로 경고 표시됩니다."
+      },
+      "resetSettings": {
+        "title": "모든 설정을 기본값으로 재설정",
+        "subtitle": "설정을 기본값으로 재설정합니다.",
+        "button": "모든 설정 재설정"
+      },
+      "deleteAllReprs": {
+        "title": "모든 Repr 삭제",
+        "subtitle": "모든 reprs와 카테고리를 영구적으로 삭제합니다.",
+        "button": "모든 Repr 삭제"
+      },
+      "saveSettingsChanges": "설정 변경 저장",
+      "clearSettingsChanges": "설정 변경 취소"
+    },
+    "viewRepr": {
+      "title": "Repr 보기",
+      "data": {
+        "title": "제목",
+        "categories": "카테고리",
+        "noCategories": "[카테고리 없음]",
+        "comment": "코멘트",
+        "noComment": "[코멘트 없음]",
+        "dateCreated": "생성일",
+        "learning": "학습 중",
+        "learningYes": "예",
+        "learningNo": "아니요",
+        "datesPracticed": "연습 날짜",
+        "noteMaxRepr": "repr당 최근 {{max}}회의 연습만 저장됩니다.",
+        "practiceData": "연습 데이터"
+      },
+      "practice": {
+        "never": "이 repr을 아직 연습하지 않았습니다.",
+        "once": "이 repr을 한 번만 연습했습니다.",
+        "noDifference": "연습 간격에 차이가 없습니다.",
+        "summary": "이 repr을 {{span}} 동안 {{count}}번 연습했습니다. 연습 빈도는 {{rate}}입니다.",
+        "ratePerHour": "시간당 {{rate}}회",
+        "ratePerDay": "일당 {{rate}}회",
+        "ratePerMonth": "월당 {{rate}}회",
+        "ratePerYear": "연당 {{rate}}회"
+      }
+    }
+  },
+  "validation": {
+    "required": "이 필드는 필수입니다.",
+    "noAsterisk": "이 필드에는 별표(*)를 사용할 수 없습니다.",
+    "categoryExists": "해당 카테고리가 이미 존재합니다."
+  }
+}

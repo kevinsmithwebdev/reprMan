@@ -193,7 +193,9 @@
       "fr": "Français",
       "de": "Deutsch",
       "nl": "Nederlands",
-      "ja": "日本語"
+      "ja": "日本語",
+      "zh": "中文",
+      "ko": "한국어"
     },
     "flagAlt": {
       "en": "Vlag van het Verenigd Koninkrijk",
@@ -202,7 +204,9 @@
       "fr": "Vlag van Frankrijk",
       "de": "Vlag van Duitsland",
       "nl": "Vlag van Nederland",
-      "ja": "Vlag van Japan"
+      "ja": "Vlag van Japan",
+      "zh": "Vlag van China",
+      "ko": "Vlag van Zuid-Korea"
     }
   },
   "meta": {

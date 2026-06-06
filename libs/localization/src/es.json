@@ -193,7 +193,9 @@
       "fr": "Français",
       "de": "Deutsch",
       "nl": "Nederlands",
-      "ja": "日本語"
+      "ja": "日本語",
+      "zh": "中文",
+      "ko": "한국어"
     },
     "flagAlt": {
       "en": "Bandera del Reino Unido",
@@ -202,7 +204,9 @@
       "fr": "Bandera de Francia",
       "de": "Bandera de Alemania",
       "nl": "Bandera de los Países Bajos",
-      "ja": "Bandera de Japón"
+      "ja": "Bandera de Japón",
+      "zh": "Bandera de China",
+      "ko": "Bandera de Corea del Sur"
     }
   },
   "meta": {

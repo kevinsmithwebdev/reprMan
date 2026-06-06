@@ -193,7 +193,9 @@
       "fr": "Français",
       "de": "Deutsch",
       "nl": "Nederlands",
-      "ja": "日本語"
+      "ja": "日本語",
+      "zh": "中文",
+      "ko": "한국어"
     },
     "flagAlt": {
       "en": "Drapeau du Royaume-Uni",
@@ -202,7 +204,9 @@
       "fr": "Drapeau de la France",
       "de": "Drapeau de l'Allemagne",
       "nl": "Drapeau des Pays-Bas",
-      "ja": "Drapeau du Japon"
+      "ja": "Drapeau du Japon",
+      "zh": "Drapeau de la Chine",
+      "ko": "Drapeau de la Corée du Sud"
     }
   },
   "meta": {

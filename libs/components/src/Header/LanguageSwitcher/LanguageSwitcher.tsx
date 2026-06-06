@@ -16,6 +16,8 @@ const FLAG_SRC: Record<SupportedLanguage, string> = {
   de: '/static/flags/de.svg',
   nl: '/static/flags/nl.svg',
   ja: '/static/flags/ja.svg',
+  zh: '/static/flags/zh.svg',
+  ko: '/static/flags/ko.svg',
 }
 
 const LanguageFlag = ({

@@ -18,12 +18,14 @@ describe('languageFromLocaleTag', () => {
     expect(languageFromLocaleTag('de-DE')).toBe('de')
     expect(languageFromLocaleTag('nl-NL')).toBe('nl')
     expect(languageFromLocaleTag('ja-JP')).toBe('ja')
+    expect(languageFromLocaleTag('zh-CN')).toBe('zh')
+    expect(languageFromLocaleTag('ko-KR')).toBe('ko')
   })
 
   it('returns null for unsupported languages', () => {
     expect(languageFromLocaleTag('it-IT')).toBeNull()
-    expect(languageFromLocaleTag('zh-CN')).toBeNull()
-    expect(languageFromLocaleTag('ru')).toBeNull()
+    expect(languageFromLocaleTag('ru-RU')).toBeNull()
+    expect(languageFromLocaleTag('ar')).toBeNull()
   })
 })
 
@@ -44,7 +46,7 @@ describe('resolveBrowserLanguage', () => {
   it('falls back to English when no browser locale is supported', () => {
     vi.stubGlobal('navigator', {
       language: 'it-IT',
-      languages: ['it-IT', 'zh-CN'],
+      languages: ['it-IT', 'ru-RU'],
     })
 
     expect(resolveBrowserLanguage()).toBe('en')
@@ -92,7 +94,7 @@ describe('resolveInitialLanguage', () => {
   })
 
   it('ignores invalid stored values', () => {
-    globalThis.localStorage.setItem(LANGUAGE_STORAGE_KEY, 'zh')
+    globalThis.localStorage.setItem(LANGUAGE_STORAGE_KEY, 'it')
     vi.stubGlobal('navigator', {
       language: 'es-ES',
       languages: ['es-ES'],

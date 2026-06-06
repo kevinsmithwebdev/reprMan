@@ -7,6 +7,8 @@ export const SUPPORTED_LANGUAGES = [
   'de',
   'nl',
   'ja',
+  'zh',
+  'ko',
 ] as const
 export type SupportedLanguage = typeof SUPPORTED_LANGUAGES[number]
 
@@ -19,6 +21,8 @@ export const LANGUAGE_DISPLAY_ORDER: SupportedLanguage[] = [
   'de',
   'nl',
   'ja',
+  'zh',
+  'ko',
 ]
 
 export const isSupportedLanguage = (

@@ -1,0 +1,463 @@
+{
+  "auth": {
+    "cancel": "取消",
+    "changePasswordMenu": "更改密码",
+    "changePasswordCurrent": "当前密码",
+    "changePasswordNew": "新密码",
+    "changePasswordSubmit": "更新密码",
+    "changePasswordSuccess": "您的密码已更新。",
+    "changePasswordMismatch": "新密码与确认密码不一致。",
+    "confirmPassword": "确认密码",
+    "confirmationCode": "确认码",
+    "createAccount": "创建账户",
+    "email": "电子邮件",
+    "password": "密码",
+    "showPassword": "显示密码",
+    "hidePassword": "隐藏密码",
+    "signIn": "登录",
+    "signInButton": "登录",
+    "signInTitle": "登录",
+    "signInUnavailable": "无法登录，因为此应用未配置 Cognito。",
+    "signOut": "退出登录",
+    "deleteAccount": "删除账户",
+    "deleteAccountWarningLead": "此操作不可撤销，所有 reprs 将",
+    "deleteAccountWarningLost": "丢失",
+    "deleteAccountWarningMiddle": "，您的账户将被",
+    "deleteAccountWarningDeleted": "删除",
+    "deleteAccountWarningTail": "您之后仍可创建新账户，但无法恢复您的数据。",
+    "deleteAccountSuccess": "您的账户和数据已删除。",
+    "deleteAccountUnexpectedError": "账户删除失败。",
+    "userAvatarMenuLabel": "打开用户菜单",
+    "userMenuCurrentUser": "当前登录为",
+    "signInChallengeNotSupported": "此账户需要额外的登录步骤（例如 MFA 或新密码）。请在后续更新中完成该流程，或在 Cognito 托管界面中完成。",
+    "settingsDisabledHint": "登录后可打开设置。",
+    "signInUnexpectedError": "登录失败。",
+    "signUpBackHome": "返回首页",
+    "signUpCodeResent": "已发送新的确认码。",
+    "signUpCodeSent": "请查收电子邮件中的确认码。",
+    "signUpConfirmIntro": "请输入我们发送至 {{email}} 的确认码。",
+    "signUpConfirmSubmit": "确认并登录",
+    "signUpConfirmUnexpectedError": "确认失败。",
+    "signUpEditEmail": "使用其他电子邮件",
+    "signUpPasswordHint": "请使用至少 8 个字符，并符合用户池密码策略。",
+    "signUpPasswordMismatch": "两次输入的密码不一致。",
+    "signUpResendCode": "重新发送确认码",
+    "signUpResendUnexpectedError": "无法重新发送确认码。",
+    "signUpSubmit": "创建账户",
+    "signUpSuccessSignedIn": "您已登录。",
+    "signUpUnavailable": "无法注册，因为此应用未配置 Cognito。",
+    "signUpUnexpectedError": "注册失败。",
+    "signUpUnexpectedNextStep": "注册需要此页面尚未支持的额外步骤。请尝试 Cognito 托管界面或联系支持。",
+    "homeCognitoEnvMissingDev": "此构建未配置 Cognito（缺少 VITE_COGNITO_USER_POOL_ID / VITE_COGNITO_USER_POOL_CLIENT_ID）。请在仓库根目录的 .env 中添加（参见 .env.example），然后重启开发服务器（`yarn start`）。",
+    "homeCognitoEnvMissingProd": "由于配置问题，此环境暂时无法登录。请稍后再试。",
+    "homeSignedOutBody": "登录或创建账户以使用您的曲目库。",
+    "homeSignedOutTitle": "ReprMan",
+    "signUpButton": "注册",
+    "forgotPasswordLink": "我忘记了密码",
+    "forgotPasswordCodeSent": "请查收电子邮件中的密码重置码。",
+    "forgotPasswordSendCode": "发送重置码",
+    "forgotPasswordSubmit": "设置新密码",
+    "forgotPasswordSuccess": "您的密码已重置。您现在可以登录。",
+    "forgotPasswordUnexpectedError": "无法启动密码重置。",
+    "forgotPasswordConfirmUnexpectedError": "无法重置密码。请检查确认码后重试。",
+    "forgotPasswordUnexpectedNextStep": "密码重置需要此页面尚未支持的额外步骤。",
+    "forgotPasswordConfirmIntro": "请输入我们发送至 {{email}} 的确认码，然后设置新密码。",
+    "signUpTermsPrefix": "我同意",
+    "signUpTermsLink": "使用条款",
+    "signUpTermsRequired": "创建账户前必须同意使用条款。",
+    "signUpTermsAcceptFailed": "您的账户已创建，但我们无法记录您对使用条款的同意。请重试或联系支持。",
+    "termsOfUseMenu": "使用条款",
+    "acceptTermsSubmit": "接受",
+    "acceptTermsTitle": "使用条款",
+    "acceptTermsIntro": "请阅读并接受使用条款以继续使用 ReprMan。",
+    "acceptTermsFailed": "无法记录您的接受。请检查网络连接后重试。"
+  },
+  "billing": {
+    "subscribe": "订阅",
+    "subscriptionLabel": "订阅",
+    "subscriptionLoading": "加载中…",
+    "checkoutUnavailable": "此环境无法使用结账功能。",
+    "checkoutFailed": "无法启动结账。请稍后再试。",
+    "reprLimitReached": "已达到 Repr 上限 {{maxReprs}}。",
+    "reprLimitReachedShort": "已达到 Repr 上限。",
+    "status": {
+      "trial": "试用",
+      "unpaid": "未付款",
+      "paid": "已付款",
+      "unlimited": "无限制"
+    },
+    "header": {
+      "trialOne": "试用账户，剩余 {{count}} 天。",
+      "trialOther": "试用账户，剩余 {{count}} 天。",
+      "unpaid": "未付款账户，功能受限。",
+      "expiringOne": "账户将在 {{count}} 天后到期。",
+      "expiringOther": "账户将在 {{count}} 天后到期。"
+    }
+  },
+  "brand": {
+    "copyright": "版权所有 ©{{year}}",
+    "repertoireManagement": "曲目管理",
+    "repr": "Repr",
+    "reprMan": "ReprMan",
+    "versionNumber": "版本号：{{versionNumber}}"
+  },
+  "buttons": {
+    "addReprButton": "+ 添加 Repr",
+    "back": "返回",
+    "closeWithoutSave": "关闭且不保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "practiced": "标记已练习",
+    "save": "保存"
+  },
+  "confirmations": {
+    "clearAllReprs": {
+      "title": "清除所有 Reprs 确认",
+      "body": "确定要删除所有 reprs 吗？此操作不可撤销。",
+      "titleLastChance": "清除所有 Reprs 确认，最后确认",
+      "bodyLastChance": "真的吗？一旦清除，它们就消失了。您确定要这样做吗？一旦删除，就无法恢复。"
+    },
+    "removeRepr": {
+      "title": "删除 Repr 确认",
+      "body": "确定要删除标题为「{{title}}」的 repr 吗？此操作不可撤销。"
+    }
+  },
+  "common": {
+    "fail": "失败",
+    "info": "信息",
+    "lastPracticed": "上次练习",
+    "never": "从未",
+    "no": "否",
+    "success": "成功",
+    "title": "标题",
+    "warning": "警告",
+    "yes": "是"
+  },
+  "components": {
+    "controls": {
+      "reportsPageAriaLabel": "打开报告列表",
+      "reportsPageTitle": "报告"
+    },
+    "categoryFilter": {
+      "openMenuAriaLabel": "打开分类筛选",
+      "titleTextAria": "按标题或备注筛选 reprs",
+      "titleTextPlaceholder": "按标题或备注筛选"
+    },
+    "reprsList": {
+      "emptyList": "未找到 reprs。请使用左上角的「添加 Repr」按钮添加。",
+      "reprsCountShort_one": "{{count}} 个 repr",
+      "reprsCountShort_other": "{{count}} 个 reprs",
+      "reprsCount_one": "找到 {{count}} 个 repr。",
+      "reprsCount_other": "找到 {{count}} 个 reprs。",
+      "sectionOverdue": "已逾期",
+      "sectionWarning": "警告",
+      "sectionUpToDate": "正常",
+      "sectionLearning": "学习中"
+    }
+  },
+  "errors": {
+    "settingsSaved": "设置已保存",
+    "couldNotSaveSettings": "无法保存设置",
+    "couldNotClearAllReprs": "无法清除所有 reprs。未应用任何更改。",
+    "couldNotRemoveRepr": "无法删除 repr。您的列表已恢复。",
+    "couldNotMarkPracticed": "无法标记 repr 为已练习。您的列表已恢复。",
+    "couldNotSaveReprChanges": "无法保存 repr 更改。您的列表已恢复。",
+    "rateLimit": {
+      "exceededWithMax": "超出速率限制（{{limit}}：每 {{window}} {{max}} 次）。",
+      "exceeded": "超出速率限制（{{limit}}）。",
+      "tryAgainIn": "请在 {{retryAfter}} 后重试。",
+      "shortWhile": "稍后",
+      "requestLimit": "请求限制",
+      "window": "时间窗口"
+    }
+  },
+  "file": {
+    "reprReadFail": "Repr 文件读取失败。",
+    "reprReadSuccess": "Repr 文件读取成功——起始 {{startedCount}} 个，新增 {{addedCount}} 个。",
+    "reprSaveFail": "Repr 文件保存失败。",
+    "reprSaveSuccess": "Repr 文件保存成功——已保存 {{count}} 个。"
+  },
+  "language": {
+    "switcherLabel": "语言",
+    "english": "English",
+    "spanish": "Español",
+    "portuguese": "Português",
+    "french": "Français",
+    "german": "Deutsch",
+    "dutch": "Nederlands",
+    "japanese": "日本語",
+    "mandarin": "中文",
+    "korean": "한국어",
+    "names": {
+      "en": "English",
+      "es": "Español",
+      "pt": "Português",
+      "fr": "Français",
+      "de": "Deutsch",
+      "nl": "Nederlands",
+      "ja": "日本語",
+      "zh": "中文",
+      "ko": "한국어"
+    },
+    "flagAlt": {
+      "en": "英国国旗",
+      "es": "西班牙国旗",
+      "pt": "葡萄牙国旗",
+      "fr": "法国国旗",
+      "de": "德国国旗",
+      "nl": "荷兰国旗",
+      "ja": "日本国旗",
+      "zh": "中国国旗",
+      "ko": "韩国国旗"
+    }
+  },
+  "meta": {
+    "description": "ReprMan - 曲目管理 Web 应用",
+    "noscript": "您需要启用 JavaScript 才能运行此应用。",
+    "manifestName": "ReprMan - 曲目管理",
+    "manifestShortName": "ReprMan"
+  },
+  "modals": {
+    "editRepr": {
+      "addNewCategory": "添加新分类",
+      "available": "可用",
+      "closeWithoutSave": "关闭且不保存",
+      "createTitle": "创建 Repr",
+      "current": "当前",
+      "enterCategoryPlaceholder": "输入新分类…",
+      "enterCommentPlaceholder": "输入备注…",
+      "enterTitlePlaceholder": "输入标题…",
+      "exceeded": {
+        "body": "免费版应用（目前是唯一版本）的 repr 上限为 {{num}} 个。",
+        "title": "超出允许的 Reprs 数量"
+      },
+      "quotaUnavailable": {
+        "body": "无法加载您的 repr 上限。请检查网络连接，如需登录请先登录，然后重试。",
+        "title": "Repr 上限不可用"
+      },
+      "noCategoriesSelected": "未选择分类。",
+      "learningLabel": "学习中",
+      "learningHelp": "学习中的 reprs 会显示在列表顶部的独立区域。",
+      "title": "编辑 Repr"
+    }
+  },
+  "pages": {
+    "about": {
+      "title": "关于",
+      "historySection": {
+        "subtitle": "为什么做这个应用？",
+        "body": [
+          [
+            "作为一名爵士乐手，我会说自己大约会 200 首曲子。",
+            "所谓「会」，是指我能凭记忆演奏旋律和和弦，并即兴演奏。",
+            "但我有时发现，实际上我能从容地凭记忆演奏的大约只有 50 首，也许还有 50 首能勉强演奏，另外 50 首会出错，最后 50 首……"
+          ],
+          [
+            "问题在于练习。",
+            "某些曲子*总是*会在演出中出现。",
+            "而某些曲子练习起来更有趣。",
+            "我们往往会大量练习一些曲子，而几乎从不练习另一些。"
+          ],
+          [
+            "作为一个极客，我用电子表格来记录。",
+            "我开始添加一个字段，记录上次练习的日期/时间。",
+            "然后为每首曲子添加一个按钮，用于更新日期/时间并重新排序。",
+            "这个应用就是这一概念的演进。"
+          ]
+        ]
+      },
+      "instructionsSection": {
+        "subtitle": "如何使用此应用",
+        "body": [
+          [
+            "其实很简单。",
+            "输入您的曲目。",
+            "练习列表顶部的曲子（最久未练习的那首），完成后点击「已练习」按钮，它会移到列表底部。",
+            "列表按最久未练习的曲子排在最上方排序。",
+            "逾期未练习的曲目显示为红色，即将到期的显示为橙色。",
+            "绿色表示尚未到期。"
+          ],
+          [
+            "您可以自行决定如何使用。",
+            "对我来说，我只把已经「完成」——我已掌握的曲子——放入列表。",
+            "我也会练习正在学习的曲子，但那些只有几首，不需要提醒。",
+            "这个列表用于管理我需要维护的「曲目本」。"
+          ]
+        ]
+      },
+      "futureSection": {
+        "subtitle": "未来",
+        "body": [
+          [
+            "这只是开始。",
+            "这是应用的免费版。",
+            "应用将始终有免费版，但最终会有功能更丰富的版本。",
+            "我需要收取一定费用来覆盖开支（并略有盈余），但会尽量保持低价。",
+            "目前我倾向于非常便宜的订阅制，但也可能考虑广告或捐赠。",
+            "正在考虑的一些功能："
+          ]
+        ]
+      },
+      "suggestions": "如有任何建议，请通过 {{email}} 联系我。",
+      "imageAlt": "repr.jpg",
+      "futureItems": {
+        "accounts": "账户",
+        "mobileVersions": "移动版",
+        "sharing": "分享",
+        "scalesFeature": "音阶等内容的类似功能",
+        "darkMode": "深色模式"
+      }
+    },
+    "terms": {
+      "title": "使用条款",
+      "purposeSection": {
+        "subtitle": "用途",
+        "body": [
+          [
+            "ReprMan 仅供您追踪音乐曲目库和练习记录。",
+            "如果您能找到符合其原始用途的用法（例如健身计划等），则属于可接受的使用。",
+            "您不得将此应用用于任何其他目的。",
+            "严禁试图绕过身份验证或授权系统。"
+          ]
+        ]
+      },
+      "conductSection": {
+        "subtitle": "行为规范",
+        "body": [
+          [
+            "您同意不在使用应用时从事辱骂行为或使用辱骂性语言。",
+            "我们不容忍骚扰、威胁、仇恨言论、垃圾信息或破坏服务的行为。",
+            "严禁将本应用用于任何非法活动。",
+            "违规可能导致您的账户立即被暂停或终止。"
+          ]
+        ]
+      },
+      "inactivitySection": {
+        "subtitle": "免费账户与不活跃",
+        "body": [
+          [
+            "连续 90 天未登录的非付费账户可能会被关闭。",
+            "因不活跃而关闭账户时，所有相关数据可能会被永久删除。"
+          ]
+        ]
+      },
+      "emailUseSection": {
+        "subtitle": "电子邮件使用",
+        "body": [
+          [
+            "您的电子邮件地址仅用于与本应用相关的通信。",
+            "我们不会出售您的电子邮件，也不会将其用于与 ReprMan 无关的营销。"
+          ]
+        ]
+      },
+      "emailVolumeSection": {
+        "subtitle": "电子邮件数量",
+        "body": [
+          [
+            "我们仅发送少量关于您的账户和应用状态与使用的电子邮件。",
+            "关于您曲目库的电子邮件（例如需要练习的 reprs 提醒）仅在您在设置中启用时发送。",
+            "您可以随时关闭这些通知或取消订阅。"
+          ]
+        ]
+      },
+      "agreementSection": {
+        "subtitle": "协议",
+        "body": [
+          [
+            "使用本应用即表示您同意使用条款。",
+            "同意使用条款即表示您同意，任何违规行为将导致您的账户被终止、数据被删除，且已付费订阅不予退款。"
+          ]
+        ]
+      }
+    },
+    "home": {
+      "title": "首页"
+    },
+    "subscribe": {
+      "title": "订阅",
+      "body": "通过年度订阅获得 ReprMan 的完整访问权限。试用期间无需信用卡。",
+      "price": "每年 €5（自动续订，直至您取消）。"
+    },
+    "reports": {
+      "title": "报告",
+      "filterByLabel": "按标签筛选",
+      "contentHeading": "内容",
+      "contentComments": "备注",
+      "contentLabels": "标签",
+      "exportHeading": "导出",
+      "copyToClipboard": "复制列表到剪贴板",
+      "copySuccess": "列表已复制到剪贴板。",
+      "copyFail": "无法复制到剪贴板。",
+      "emptyFiltered": "没有 reprs 符合所选标签。"
+    },
+    "signin": {
+      "title": "登录"
+    },
+    "forgotPassword": {
+      "title": "重置密码",
+      "subtitle": "输入您账户的电子邮件。我们将向您发送确认码以设置新密码。"
+    },
+    "changePassword": {
+      "title": "更改密码",
+      "subtitle": "输入当前密码，然后设置新密码。"
+    },
+    "signup": {
+      "title": "注册"
+    },
+    "settings": {
+      "title": "设置",
+      "practiceDelay": {
+        "subtitle": "练习间隔",
+        "text": "多少天后提醒您需要练习？"
+      },
+      "warningRatio": {
+        "subtitle": "警告比例",
+        "text": "在练习间隔的多少比例时发出警告？如果设为 0.5，则时间过半时卡片会变为橙色提醒您。"
+      },
+      "resetSettings": {
+        "title": "将所有设置重置为默认值",
+        "subtitle": "这将把设置重置为默认值。",
+        "button": "重置所有设置"
+      },
+      "deleteAllReprs": {
+        "title": "删除所有 Reprs",
+        "subtitle": "您将永久删除所有 reprs 和分类。",
+        "button": "删除所有 Reprs"
+      },
+      "saveSettingsChanges": "保存设置更改",
+      "clearSettingsChanges": "清除设置更改"
+    },
+    "viewRepr": {
+      "title": "查看 Repr",
+      "data": {
+        "title": "标题",
+        "categories": "分类",
+        "noCategories": "[无分类]",
+        "comment": "备注",
+        "noComment": "[无备注]",
+        "dateCreated": "创建日期",
+        "learning": "学习中",
+        "learningYes": "是",
+        "learningNo": "否",
+        "datesPracticed": "练习日期",
+        "noteMaxRepr": "请注意，我们仅保存每个 repr 最近 {{max}} 次练习记录。",
+        "practiceData": "练习数据"
+      },
+      "practice": {
+        "never": "您尚未练习过此 repr。",
+        "once": "您仅练习过此 repr 一次。",
+        "noDifference": "您的练习时间没有差异。",
+        "summary": "您在 {{span}} 内练习了此 repr {{count}} 次。频率为 {{rate}}。",
+        "ratePerHour": "每小时 {{rate}} 次",
+        "ratePerDay": "每天 {{rate}} 次",
+        "ratePerMonth": "每月 {{rate}} 次",
+        "ratePerYear": "每年 {{rate}} 次"
+      }
+    }
+  },
+  "validation": {
+    "required": "此字段为必填项。",
+    "noAsterisk": "此字段不能包含星号（*）。",
+    "categoryExists": "该分类已存在。"
+  }
+}

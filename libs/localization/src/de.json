@@ -193,7 +193,9 @@
       "fr": "Français",
       "de": "Deutsch",
       "nl": "Nederlands",
-      "ja": "日本語"
+      "ja": "日本語",
+      "zh": "中文",
+      "ko": "한국어"
     },
     "flagAlt": {
       "en": "Flagge des Vereinigten Königreichs",
@@ -202,7 +204,9 @@
       "fr": "Flagge von Frankreich",
       "de": "Flagge von Deutschland",
       "nl": "Flagge der Niederlande",
-      "ja": "Flagge von Japan"
+      "ja": "Flagge von Japan",
+      "zh": "Flagge von China",
+      "ko": "Flagge von Südkorea"
     }
   },
   "meta": {

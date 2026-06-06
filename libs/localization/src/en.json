@@ -186,6 +186,8 @@
     "german": "Deutsch",
     "dutch": "Nederlands",
     "japanese": "日本語",
+    "mandarin": "中文",
+    "korean": "한국어",
     "names": {
       "en": "English",
       "es": "Español",
@@ -193,7 +195,9 @@
       "fr": "Français",
       "de": "Deutsch",
       "nl": "Nederlands",
-      "ja": "日本語"
+      "ja": "日本語",
+      "zh": "中文",
+      "ko": "한국어"
     },
     "flagAlt": {
       "en": "United Kingdom flag",
@@ -202,7 +206,9 @@
       "fr": "France flag",
       "de": "Germany flag",
       "nl": "Netherlands flag",
-      "ja": "Japan flag"
+      "ja": "Japan flag",
+      "zh": "China flag",
+      "ko": "South Korea flag"
     }
   },
   "meta": {
