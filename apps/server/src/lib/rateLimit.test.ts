@@ -83,8 +83,8 @@ describe('rateLimit', () => {
 
     await new Promise<void>((resolve, reject) => {
       jest.isolateModules(() => {
-        // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
         const { enforceUserActionRateLimit: enforceWithoutTable } =
+          // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
           require('./rateLimit') as typeof import('./rateLimit')
         enforceWithoutTable('user-1', 'read')
           .then(() => resolve())
