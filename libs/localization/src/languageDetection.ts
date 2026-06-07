@@ -58,14 +58,11 @@ export const resolveBrowserLanguage = (): SupportedLanguage => {
     navigatorRef.language,
   ].filter((value): value is string => Boolean(value))
 
-  for (const candidate of candidates) {
-    const resolved = languageFromLocaleTag(candidate)
-    if (resolved) {
-      return resolved
-    }
-  }
+  const resolved = candidates
+    .map(languageFromLocaleTag)
+    .find((lang): lang is SupportedLanguage => lang !== null)
 
-  return 'en'
+  return resolved ?? 'en'
 }
 
 /**
