@@ -7,11 +7,7 @@ import {
   DEFAULT_DAYS_WARNING_MAX,
   DEFAULT_DAYS_WARNING_MIN,
 } from '@reprman/constants'
-import {
-  homeAuthGateActive,
-  isCognitoConfigured,
-  useCognitoAuth,
-} from '@reprman/cognito-auth'
+import { useAuthGate } from '@reprman/cognito-auth'
 import { useL10n } from '@reprman/localization'
 import { useSettings } from '@reprman/state'
 import { saveUserSettingsSAC } from '@reprman/state/sagas/settings'
@@ -22,7 +18,7 @@ import { getSupplementalSettingsCardData } from './Settings.helpers'
 
 const Settings = () => {
   const dispatch = useDispatch()
-  const { sessionChecked, signedIn } = useCognitoAuth()
+  const { isLoading, isSignedOut } = useAuthGate()
   const { settings: previousSettings } = useSettings()
   const [practiceDelayValue, setPracticeDelayValue] = useState(
     previousSettings.practiceDelay
@@ -62,15 +58,18 @@ const Settings = () => {
 
   const { t } = useL10n()
 
-  if (homeAuthGateActive() && isCognitoConfigured() && !sessionChecked) {
+  if (isLoading) {
     return <CenteredSpinner id="Settings-page" />
   }
 
-  if (homeAuthGateActive() && !signedIn) {
+  if (isSignedOut) {
     return <Navigate to="/" replace />
   }
 
-  const supplementalSettingsCardData = getSupplementalSettingsCardData()
+  const supplementalSettingsCardData = getSupplementalSettingsCardData(
+    dispatch,
+    t
+  )
   const appVersion = import.meta.env.VITE_VERSION ?? 'unknown'
 
   return (

@@ -1,0 +1,23 @@
+# OSX
+#
+.DS_Store
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+.cxx/
+.kotlin/
+captures/
+.externalNativeBuild/
+
+# Release keystores (debug.keystore is committed for local builds)
+*.keystore
+!debug.keystore
+
+# Bundle artifacts
+*.jsbundle

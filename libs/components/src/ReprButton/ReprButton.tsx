@@ -1,12 +1,12 @@
 import { useL10n } from '@reprman/localization'
 import React, { FC } from 'react'
 import { Button } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import { setModal } from '@reprman/state/modal'
 import {
   markReprPracticedSAC,
   removeReprSAC,
 } from '@reprman/state/sagas/reprs/reprs.actions'
-import store from '@reprman/state/store'
 
 interface ReprButtonProps {
   style?: any
@@ -30,6 +30,7 @@ const ReprButton: FC<ReprButtonProps> = ({
   className,
   actionDisabled = false,
 }) => {
+  const dispatch = useDispatch()
   const { t } = useL10n()
 
   const typeDataMap = {
@@ -59,7 +60,7 @@ const ReprButton: FC<ReprButtonProps> = ({
       onClick={(e) => {
         e.stopPropagation()
         if (actionDisabled) return
-        store.dispatch(typeData.actionCreator(actionData))
+        dispatch(typeData.actionCreator(actionData))
       }}
     >
       {typeData.text}

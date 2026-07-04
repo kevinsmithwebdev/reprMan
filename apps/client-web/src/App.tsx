@@ -7,7 +7,7 @@ import ReprLimitBanner from '@reprman/components/ReprLimitBanner'
 import Footer from '@reprman/components/Footer'
 import ToastWrapper from '@reprman/components/ToastWrapper'
 import ModalContainer from '@reprman/modals/ModalContainer'
-import store from '@reprman/state/store'
+import { useDispatch } from 'react-redux'
 import { runGenesisSaga } from '@reprman/state/sagas/genesis/genesis.actions'
 
 import './App.css'
@@ -24,11 +24,12 @@ import Subscribe from './pages/Subscribe/Subscribe'
 import ViewRepr from './pages/ViewRepr'
 
 const App = () => {
+  const dispatch = useDispatch()
   useDocumentMeta()
 
   useEffect(() => {
-    store.dispatch(runGenesisSaga())
-  }, [])
+    dispatch(runGenesisSaga())
+  }, [dispatch])
 
   return (
     <main

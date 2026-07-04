@@ -1,0 +1,39 @@
+{
+  "expo": {
+    "name": "ReprMan",
+    "slug": "reprman",
+    "scheme": "reprman",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "bundleIdentifier": "com.reprman.app",
+      "supportsTablet": true
+    },
+    "android": {
+      "package": "com.reprman.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      }
+    },
+    "plugins": ["expo-router"],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "EXPO_PUBLIC_COGNITO_USER_POOL_ID": "",
+      "EXPO_PUBLIC_COGNITO_USER_POOL_CLIENT_ID": "",
+      "EXPO_PUBLIC_COGNITO_IDENTITY_POOL_ID": "",
+      "EXPO_PUBLIC_REPRS_API_BASE_URL": "",
+      "EXPO_PUBLIC_REQUIRE_HOME_SIGN_IN": "false",
+      "EXPO_PUBLIC_ALLOW_ANONYMOUS_HOME": "false"
+    }
+  }
+}

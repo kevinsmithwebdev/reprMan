@@ -77,23 +77,18 @@ describe('rateLimit', () => {
     expect(mockSend).toHaveBeenCalledTimes(2)
   })
 
-  it('skips quota writes when table env is missing', async () => {
+  it('throws when daily usage table env is missing', () => {
     const original = process.env.DAILY_USAGE_TABLE_NAME
     delete process.env.DAILY_USAGE_TABLE_NAME
 
-    await new Promise<void>((resolve, reject) => {
-      jest.isolateModules(() => {
-        const { enforceUserActionRateLimit: enforceWithoutTable } =
-          // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
-          require('./rateLimit') as typeof import('./rateLimit')
-        enforceWithoutTable('user-1', 'read')
-          .then(() => resolve())
-          .catch(reject)
-      })
+    jest.isolateModules(() => {
+      expect(() => {
+        // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
+        require('./rateLimit')
+      }).toThrow(/DAILY_USAGE_TABLE_NAME/)
     })
 
     process.env.DAILY_USAGE_TABLE_NAME = original
-    expect(mockSend).not.toHaveBeenCalled()
   })
 
   it('supports env overrides for limits', async () => {

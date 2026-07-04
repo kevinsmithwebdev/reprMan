@@ -14,6 +14,7 @@ import type {
 import { parseRepr, parseReprs } from '@reprman/shared/repr-validation'
 import { Repr, Reprs, Settings } from '@reprman/types'
 
+import { getClientConfig } from '@reprman/client-config'
 import { ReprsApiError } from './ReprsApiError'
 import type { ApiErrorPayload } from './ReprsApiError'
 
@@ -81,14 +82,19 @@ export type TermsAcceptanceResponse = {
   currentTermsVersion: string
 }
 
-const trimEnv = (v: string | undefined) => (v ?? '').trim()
-const env = (key: string) => trimEnv(import.meta.env[key] as string | undefined)
-const apiBaseUrl = env('VITE_REPRS_API_BASE_URL')
-export const isReprsApiConfigured = Boolean(apiBaseUrl)
+const trimUrl = (value: string): string => value.trim()
+
+export let isReprsApiConfigured = false
+
+/** Sync API availability from `setClientConfig()`. Call at app startup. */
+export const configureReprsApi = (): void => {
+  isReprsApiConfigured = Boolean(trimUrl(getClientConfig().reprsApiBaseUrl))
+}
 
 const assertConfigured = (): string => {
+  const apiBaseUrl = trimUrl(getClientConfig().reprsApiBaseUrl)
   if (!apiBaseUrl) {
-    throw new Error('VITE_REPRS_API_BASE_URL is not configured')
+    throw new Error('reprs API base URL is not configured')
   }
   return apiBaseUrl
 }

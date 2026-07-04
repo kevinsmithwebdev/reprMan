@@ -2,16 +2,17 @@
 import React from 'react'
 import EditRepr, { EditReprProps } from '@reprman/modals/EditRepr'
 import Confirmation, { ConfirmationProps } from '@reprman/modals/Confirmation'
+import { useDispatch } from 'react-redux'
 import { clearModal, useModal } from '@reprman/state/modal'
 import { Modal } from 'react-bootstrap'
-import store from '@reprman/state/store'
 import Query, { QueryProps } from '@reprman/modals/Query'
 import Info, { InfoProps } from '@reprman/modals/Info/Info'
 import { ModalSelection } from './ModalContainer.types'
 
 const ModalContainer = () => {
+  const dispatch = useDispatch()
   const { selection, props } = useModal()
-  const closeModal = () => store.dispatch(clearModal())
+  const closeModal = () => dispatch(clearModal())
 
   return (
     <Modal

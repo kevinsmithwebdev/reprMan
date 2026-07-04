@@ -180,13 +180,13 @@ describe('reprStore', () => {
   })
 
   it('markPracticed returns null when repr is missing', async () => {
-    mockSend.mockResolvedValueOnce({ Items: [] })
+    mockSend.mockResolvedValueOnce({})
     await expect(markPracticed('user-1', 'missing')).resolves.toBeNull()
   })
 
   it('markPracticed prepends a practice timestamp', async () => {
     mockSend
-      .mockResolvedValueOnce({ Items: [{ repr }] })
+      .mockResolvedValueOnce({ Item: { repr } })
       .mockResolvedValueOnce({ Item: { pk: 'USER#user-1' } })
       .mockResolvedValueOnce({})
 
@@ -240,16 +240,27 @@ describe('reprStore', () => {
     expect(mockSend).toHaveBeenCalledTimes(2)
   })
 
-  it('findUserIdByStripeCustomerId returns user id from scan', async () => {
+  it('findUserIdByStripeCustomerId returns user id from GSI query', async () => {
     mockSend.mockResolvedValueOnce({
       Items: [{ pk: 'USER#user-42' }],
     })
     await expect(findUserIdByStripeCustomerId('cus_1')).resolves.toBe('user-42')
+    expect(mockSend).toHaveBeenCalledWith(
+      expect.objectContaining({
+        input: expect.objectContaining({
+          IndexName: 'StripeCustomerIndex',
+          KeyConditionExpression:
+            'stripeCustomerId = :customerId AND sk = :configSk',
+        }),
+      })
+    )
   })
 
   it('findUserIdByStripeCustomerId returns null when not found', async () => {
     mockSend.mockResolvedValueOnce({ Items: [] })
-    await expect(findUserIdByStripeCustomerId('cus_missing')).resolves.toBeNull()
+    await expect(
+      findUserIdByStripeCustomerId('cus_missing')
+    ).resolves.toBeNull()
   })
 
   it('deleteRepr sends a delete command', async () => {

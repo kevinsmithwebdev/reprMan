@@ -4,8 +4,10 @@ import { jsonResponse } from '../../lib/http'
 import { getUserConfig } from '../../lib/reprStore'
 import { getStripeClient, isStripeConfigured } from '../../lib/stripeClient'
 
+import { getStripePortalReturnUrl } from '../../lib/stripeClient'
+
 const portalReturnUrl = (): string => {
-  const url = process.env.STRIPE_PORTAL_RETURN_URL?.trim()
+  const url = getStripePortalReturnUrl()
   if (!url) {
     throw new Error('STRIPE_PORTAL_RETURN_URL is not configured')
   }

@@ -3,6 +3,7 @@ import {
   DynamoDBClient,
 } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient, UpdateCommand } from '@aws-sdk/lib-dynamodb'
+import { getRateLimits, serverConfig } from './config'
 
 type Window = 'hour' | 'day'
 
@@ -27,17 +28,8 @@ export type RateLimitExceeded = {
   retryAfterSeconds: number
 }
 
-const usageTableName = process.env.DAILY_USAGE_TABLE_NAME ?? ''
+const usageTableName = serverConfig.dailyUsageTableName
 const client = DynamoDBDocumentClient.from(new DynamoDBClient({}))
-
-const readIntEnv = (name: string, fallback: number): number => {
-  const raw = process.env[name]
-  if (!raw?.trim()) {
-    return fallback
-  }
-  const parsed = Number.parseInt(raw, 10)
-  return Number.isFinite(parsed) ? parsed : fallback
-}
 
 const toEpochSeconds = (date: Date): number => Math.floor(date.getTime() / 1000)
 
@@ -64,41 +56,29 @@ const getBucketKey = (date: Date, window: Window): string =>
   window === 'hour' ? formatHourBucket(date) : formatDayBucket(date)
 
 const buildLimits = (action: RateLimitAction): LimitDefinition[] => {
-  const globalPerDay = readIntEnv('RATE_LIMIT_GLOBAL_PER_DAY', 1000)
-  const map: Record<
-    RateLimitAction,
-    { hourEnv: string; hourDefault: number; dayEnv: string; dayDefault: number }
-  > = {
-    read: {
-      hourEnv: 'RATE_LIMIT_READ_PER_HOUR',
-      hourDefault: 300,
-      dayEnv: 'RATE_LIMIT_READ_PER_DAY',
-      dayDefault: 3000,
-    },
-    write: {
-      hourEnv: 'RATE_LIMIT_WRITE_PER_HOUR',
-      hourDefault: 60,
-      dayEnv: 'RATE_LIMIT_WRITE_PER_DAY',
-      dayDefault: 500,
-    },
-    practice: {
-      hourEnv: 'RATE_LIMIT_PRACTICE_PER_HOUR',
-      hourDefault: 120,
-      dayEnv: 'RATE_LIMIT_PRACTICE_PER_DAY',
-      dayDefault: 800,
-    },
+  const {
+    globalPerDay,
+    readPerHour,
+    readPerDay,
+    writePerHour,
+    writePerDay,
+    practicePerHour,
+    practicePerDay,
+    billingSessionPerHour,
+    billingSessionPerDay,
+    termsPerHour,
+    termsPerDay,
+  } = getRateLimits()
+
+  const map: Record<RateLimitAction, { hourMax: number; dayMax: number }> = {
+    read: { hourMax: readPerHour, dayMax: readPerDay },
+    write: { hourMax: writePerHour, dayMax: writePerDay },
+    practice: { hourMax: practicePerHour, dayMax: practicePerDay },
     billingSession: {
-      hourEnv: 'RATE_LIMIT_BILLING_SESSION_PER_HOUR',
-      hourDefault: 10,
-      dayEnv: 'RATE_LIMIT_BILLING_SESSION_PER_DAY',
-      dayDefault: 30,
+      hourMax: billingSessionPerHour,
+      dayMax: billingSessionPerDay,
     },
-    terms: {
-      hourEnv: 'RATE_LIMIT_TERMS_PER_HOUR',
-      hourDefault: 20,
-      dayEnv: 'RATE_LIMIT_TERMS_PER_DAY',
-      dayDefault: 50,
-    },
+    terms: { hourMax: termsPerHour, dayMax: termsPerDay },
   }
 
   const actionLimits = map[action]
@@ -112,13 +92,13 @@ const buildLimits = (action: RateLimitAction): LimitDefinition[] => {
     {
       key: `${action}/hour`,
       window: 'hour',
-      max: readIntEnv(actionLimits.hourEnv, actionLimits.hourDefault),
+      max: actionLimits.hourMax,
       actionScope: action,
     },
     {
       key: `${action}/day`,
       window: 'day',
-      max: readIntEnv(actionLimits.dayEnv, actionLimits.dayDefault),
+      max: actionLimits.dayMax,
       actionScope: action,
     },
   ]
@@ -130,10 +110,6 @@ const consumeLimit = async (
   limit: LimitDefinition,
   now: Date
 ): Promise<RateLimitExceeded | null> => {
-  if (!usageTableName) {
-    return null
-  }
-
   const bucket = getBucketKey(now, limit.window)
   const retryAfterSeconds = getRetryAfterSeconds(now, limit.window)
   const ttl = toEpochSeconds(

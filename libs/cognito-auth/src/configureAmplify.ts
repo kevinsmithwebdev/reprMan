@@ -1,63 +1,47 @@
 import { Amplify } from 'aws-amplify'
-
-const trimEnv = (v: string | undefined) => (v ?? '').trim()
-const env = (key: string) => trimEnv(import.meta.env[key] as string | undefined)
+import { getClientConfig } from '@reprman/client-config'
 
 /**
- * Vite injects env at compile time. `nx serve client-web` runs `vite` with
- * `envDir` pointing at the repo root, so values are read from `<repo>/.env`
- * (see apps/client-web/vite.config.ts). Production / CI typically set the same
- * `VITE_*` variables in the host environment instead.
+ * When env vars are unset, the app runs without Cognito (unchanged behavior).
+ * Call `setClientConfig()` from the app entry before this function.
  */
 export function isCognitoConfigured(): boolean {
-  return Boolean(
-    env('VITE_COGNITO_USER_POOL_ID') && env('VITE_COGNITO_USER_POOL_CLIENT_ID')
-  )
+  const config = getClientConfig()
+  return Boolean(config.cognitoUserPoolId && config.cognitoUserPoolClientId)
 }
 
-/**
- * When `true`, show the home sign-in wall even if Cognito env vars were not baked into this build
- * (you will see setup instructions until vars are added and the dev server restarted).
- */
 export function requireHomeSignInWall(): boolean {
-  return env('VITE_REQUIRE_HOME_SIGN_IN') === 'true'
+  return getClientConfig().requireHomeSignIn
 }
 
-/**
- * Skip the home Sign In / Sign Up card and use the repr list without signing in (e.g. local dev).
- */
 export function allowAnonymousHome(): boolean {
-  return env('VITE_ALLOW_ANONYMOUS_HOME') === 'true'
+  return getClientConfig().allowAnonymousHome
 }
 
-/**
- * When true, "/" shows Sign In / Sign Up while signed out, and header/settings follow the same rules.
- * Default: on (so buttons appear even if Cognito env vars are missing — you will see the setup warning).
- * Set VITE_ALLOW_ANONYMOUS_HOME=true to turn this off when Cognito is not configured.
- */
 export function homeAuthGateActive(): boolean {
   return (
     isCognitoConfigured() || requireHomeSignInWall() || !allowAnonymousHome()
   )
 }
 
-/**
- * Call once at startup. When env vars are unset, the app runs without Cognito (unchanged behavior).
- */
 export function configureAmplify(): void {
-  const userPoolId = env('VITE_COGNITO_USER_POOL_ID')
-  const userPoolClientId = env('VITE_COGNITO_USER_POOL_CLIENT_ID')
-  const identityPoolId = env('VITE_COGNITO_IDENTITY_POOL_ID')
+  const config = getClientConfig()
+  const {
+    cognitoUserPoolId: userPoolId,
+    cognitoUserPoolClientId: userPoolClientId,
+    cognitoIdentityPoolId: identityPoolId,
+    reprsApiBaseUrl,
+  } = config
 
   if (!userPoolId || !userPoolClientId) {
     console.error(
-      '[env] Missing Cognito configuration: VITE_COGNITO_USER_POOL_ID and/or VITE_COGNITO_USER_POOL_CLIENT_ID'
+      '[env] Missing Cognito configuration: cognito user pool id and/or client id'
     )
   }
 
-  if (!env('VITE_REPRS_API_BASE_URL')) {
+  if (!reprsApiBaseUrl) {
     console.error(
-      '[env] Missing VITE_REPRS_API_BASE_URL: repr API disabled, local fallback active'
+      '[env] Missing reprs API base URL: repr API disabled, local fallback active'
     )
   }
 

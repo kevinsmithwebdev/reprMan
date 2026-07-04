@@ -1,6 +1,6 @@
 import type { CategoryFilter, Repr } from '@reprman/types'
 
-import { getFilteredReprs } from './Home.helpers'
+import { getFilteredReprs } from '@reprman/utilities'
 
 const repr = (overrides: Partial<Repr> = {}): Repr => ({
   id: '1',

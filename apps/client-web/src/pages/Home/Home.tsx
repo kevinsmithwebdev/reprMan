@@ -5,25 +5,20 @@ import {
   HomeAuthCard,
   ReprsList,
 } from '@reprman/components'
-import {
-  homeAuthGateActive,
-  isCognitoConfigured,
-  useCognitoAuth,
-} from '@reprman/cognito-auth'
+import { isCognitoConfigured, useAuthGate } from '@reprman/cognito-auth'
 import { useCategories, useReprs } from '@reprman/state'
-
-import { getFilteredReprs } from './Home.helpers'
+import { getFilteredReprs } from '@reprman/utilities'
 
 const Home = () => {
   const { reprs, reprsLoaded } = useReprs()
   const { filter } = useCategories()
-  const { sessionChecked, signedIn } = useCognitoAuth()
+  const { isLoading, isSignedOut } = useAuthGate()
 
-  if (homeAuthGateActive() && isCognitoConfigured() && !sessionChecked) {
+  if (isLoading) {
     return <CenteredSpinner id="Home-page" layout="fill" />
   }
 
-  if (homeAuthGateActive() && !signedIn) {
+  if (isSignedOut) {
     return (
       <div
         id="Home-page"

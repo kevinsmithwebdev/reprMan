@@ -1,0 +1,16 @@
+{
+  "name": "modals-mobile",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/modals-mobile/src",
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0",
+        "cwd": "libs/modals-mobile"
+      }
+    }
+  },
+  "tags": ["scope:client", "platform:mobile"]
+}

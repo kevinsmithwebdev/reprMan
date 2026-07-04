@@ -8,9 +8,14 @@ import {
   isStripeConfigured,
 } from '../../lib/stripeClient'
 
+import {
+  getStripeCheckoutCancelUrl,
+  getStripeCheckoutSuccessUrl,
+} from '../../lib/stripeClient'
+
 const checkoutUrls = () => {
-  const success = process.env.STRIPE_CHECKOUT_SUCCESS_URL?.trim()
-  const cancel = process.env.STRIPE_CHECKOUT_CANCEL_URL?.trim()
+  const success = getStripeCheckoutSuccessUrl()
+  const cancel = getStripeCheckoutCancelUrl()
   if (!success || !cancel) {
     throw new Error('Stripe checkout redirect URLs are not configured')
   }

@@ -43,17 +43,26 @@ describe('cdk app', () => {
     process.env.CDK_PROD_CORS_ORIGINS = ''
 
     jest.isolateModules(() => {
-      const { reprServerDevStack } =
+      const { reprServerDevStack, reprServerProdStack } =
         // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
         require('./app') as typeof import('./app')
-      const template = Template.fromStack(reprServerDevStack)
-      template.hasResourceProperties('AWS::ApiGatewayV2::Api', {
+      const devTemplate = Template.fromStack(reprServerDevStack)
+      const prodTemplate = Template.fromStack(reprServerProdStack)
+      devTemplate.hasResourceProperties('AWS::ApiGatewayV2::Api', {
         CorsConfiguration: {
           AllowOrigins: ['http://localhost:3000'],
         },
       })
+      prodTemplate.hasResourceProperties('AWS::ApiGatewayV2::Api', {
+        CorsConfiguration: {
+          AllowOrigins: ['https://www.reprman.com', 'https://reprman.com'],
+        },
+      })
       expect(
-        Object.keys(template.findResources('AWS::ApiGatewayV2::Api'))
+        Object.keys(devTemplate.findResources('AWS::ApiGatewayV2::Api'))
+      ).toHaveLength(1)
+      expect(
+        Object.keys(prodTemplate.findResources('AWS::ApiGatewayV2::Api'))
       ).toHaveLength(1)
     })
   })

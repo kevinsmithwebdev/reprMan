@@ -2,14 +2,14 @@ import { ModalSelection } from '@reprman/modals/ModalContainer/ModalContainer.ty
 import { useL10n } from '@reprman/localization'
 import React, { FC } from 'react'
 import { Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
 import { setModal } from '@reprman/state/modal'
 import { selectAtReprLimit } from '@reprman/state/reprsQuota'
-import store from '@reprman/state/store'
-import { useSelector } from 'react-redux'
 
 interface AddReprButtonProps {}
 
 const AddReprButton: FC<AddReprButtonProps> = () => {
+  const dispatch = useDispatch()
   const { t } = useL10n()
   const atLimit = useSelector(selectAtReprLimit)
 
@@ -26,9 +26,7 @@ const AddReprButton: FC<AddReprButtonProps> = () => {
       disabled={atLimit}
       title={atLimit ? t('billing.reprLimitReachedShort') : undefined}
       onClick={() =>
-        store.dispatch(
-          setModal({ selection: ModalSelection.EDIT_REPR, props: {} })
-        )
+        dispatch(setModal({ selection: ModalSelection.EDIT_REPR, props: {} }))
       }
     >
       {t('buttons.addReprButton')}

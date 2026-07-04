@@ -1,12 +1,13 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import {
   setCategoryFilterCategories,
   useCategories,
 } from '@reprman/state/categories'
-import store from '@reprman/state/store'
 
 const FilterForm = () => {
+  const dispatch = useDispatch()
   const { categories } = useCategories()
   const { filter } = useCategories()
 
@@ -22,7 +23,7 @@ const FilterForm = () => {
       newCategories.splice(index, 1)
     }
 
-    store.dispatch(setCategoryFilterCategories(newCategories))
+    dispatch(setCategoryFilterCategories(newCategories))
   }
 
   const renderCategoryCheckBox = (category: string) => (

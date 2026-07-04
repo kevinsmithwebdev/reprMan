@@ -46,6 +46,7 @@ yarn-error.log*
 apps/server/cdk-outputs.json
 apps/server/cdk.out
 apps/server/dist
+libs/shared/*/dist/
 
 # stuff I don't want pushed
 /personal
@@ -55,3 +56,11 @@ apps/server/dist
 
 # Accidental `nul` file breaks `git add` on Windows (reserved device name)
 nul
+
+# Expo / React Native (apps/client-mobile)
+apps/client-mobile/.expo/
+apps/client-mobile/dist/
+apps/client-mobile/web-build/
+apps/client-mobile/.metro-health-check*
+apps/client-mobile/expo-env.d.ts
+apps/client-mobile/**/*.tsbuildinfo

@@ -2,34 +2,18 @@ import { DEFAULT_DAYS_WARNING, DEFAULT_WARNING_RATIO } from '@reprman/constants'
 import { clearAllReprsSAC } from '@reprman/state/sagas/reprs/reprs.actions'
 import { saveUserSettingsSAC } from '@reprman/state/sagas/settings'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-
-const hoisted = vi.hoisted(() => ({
-  dispatch: vi.fn(),
-}))
-
-vi.mock('@reprman/state/store', () => ({
-  default: { dispatch: hoisted.dispatch },
-}))
-
-vi.mock('@reprman/localization/Localization.module', () => ({
-  default: {
-    getInstance: () => ({
-      t: (key: string) => `t:${key}`,
-    }),
-  },
-}))
-
-// Imported after mocks so `@reprman/state/store` resolves to the test double.
-// eslint-disable-next-line import/first -- vi.mock is hoisted; source must load after factory runs
 import { getSupplementalSettingsCardData } from './Settings.helpers'
 
 describe('getSupplementalSettingsCardData', () => {
+  const dispatch = vi.fn()
+  const translate = (key: string) => `t:${key}`
+
   beforeEach(() => {
-    hoisted.dispatch.mockClear()
+    dispatch.mockClear()
   })
 
   it('returns two supplemental cards with localized copy', () => {
-    const cards = getSupplementalSettingsCardData()
+    const cards = getSupplementalSettingsCardData(dispatch, translate)
     expect(cards).toHaveLength(2)
     expect(cards[0].title).toBe('t:pages.settings.resetSettings.title')
     expect(cards[0].subtitle).toBe('t:pages.settings.resetSettings.subtitle')
@@ -40,10 +24,10 @@ describe('getSupplementalSettingsCardData', () => {
   })
 
   it('first card reset button dispatches saveUserSettingsSAC with defaults', () => {
-    const cards = getSupplementalSettingsCardData()
+    const cards = getSupplementalSettingsCardData(dispatch, translate)
     cards[0].buttons[0].onClick()
-    expect(hoisted.dispatch).toHaveBeenCalledTimes(1)
-    expect(hoisted.dispatch).toHaveBeenCalledWith(
+    expect(dispatch).toHaveBeenCalledTimes(1)
+    expect(dispatch).toHaveBeenCalledWith(
       saveUserSettingsSAC({
         practiceDelay: DEFAULT_DAYS_WARNING,
         warningRatio: DEFAULT_WARNING_RATIO,
@@ -52,9 +36,9 @@ describe('getSupplementalSettingsCardData', () => {
   })
 
   it('second card delete button dispatches clearAllReprsSAC', () => {
-    const cards = getSupplementalSettingsCardData()
+    const cards = getSupplementalSettingsCardData(dispatch, translate)
     cards[1].buttons[0].onClick()
-    expect(hoisted.dispatch).toHaveBeenCalledTimes(1)
-    expect(hoisted.dispatch).toHaveBeenCalledWith(clearAllReprsSAC())
+    expect(dispatch).toHaveBeenCalledTimes(1)
+    expect(dispatch).toHaveBeenCalledWith(clearAllReprsSAC())
   })
 })

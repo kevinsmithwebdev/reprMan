@@ -113,7 +113,8 @@ describe('repr handlers', () => {
       expect(res.statusCode).toBe(400)
     })
 
-    it('returns 403 when the repr quota is exceeded', async () => {
+    it('returns 403 when creating a new repr at the quota limit', async () => {
+      jest.spyOn(reprStore, 'reprExists').mockResolvedValue(false)
       jest.spyOn(reprStore, 'getUserConfig').mockResolvedValue({
         pk: 'USER#user-1',
         sk: 'CONFIG',
@@ -129,6 +130,24 @@ describe('repr handlers', () => {
 
       expect(res.statusCode).toBe(403)
       expect(JSON.parse(res.body).code).toBe('REPR_LIMIT_REACHED')
+    })
+
+    it('allows editing an existing repr when at the quota limit', async () => {
+      jest.spyOn(reprStore, 'reprExists').mockResolvedValue(true)
+      const countSpy = jest
+        .spyOn(reprStore, 'countReprsForUser')
+        .mockResolvedValue(25)
+      jest.spyOn(reprStore, 'upsertRepr').mockResolvedValue('updated')
+
+      const res = await putReprHandler(
+        authEvent({
+          body: JSON.stringify(validRepr),
+          pathParameters: { id: 'r1' },
+        })
+      )
+
+      expect(res.statusCode).toBe(200)
+      expect(countSpy).not.toHaveBeenCalled()
     })
 
     it('allows unlimited reprs for unlimited subscription tier', async () => {

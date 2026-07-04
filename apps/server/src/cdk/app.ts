@@ -42,7 +42,7 @@ const prodCors = parseCorsOriginsString(
     process.env.CDK_PROD_CORS_ORIGINS,
     app.node.tryGetContext('prodCorsOrigins') as string | undefined
   ),
-  ['http://localhost:3000', 'https://www.reprman.com', 'https://reprman.com']
+  ['https://www.reprman.com', 'https://reprman.com']
 )
 
 export const reprServerDevStack = new ReprServerStack(

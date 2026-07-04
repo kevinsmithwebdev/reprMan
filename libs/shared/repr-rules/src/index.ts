@@ -34,3 +34,5 @@ export const withPracticeApplied = (repr: Repr, at?: number): Repr => ({
   ...repr,
   datesPracticed: prependPracticeDate(repr.datesPracticed, at),
 })
+
+export * from './reprStatus'

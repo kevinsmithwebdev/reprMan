@@ -68,21 +68,18 @@ describe('analytics', () => {
     )
   })
 
-  it('trackDailyUniqueUser no-ops without table name', async () => {
+  it('throws when daily usage table env is missing', () => {
     const original = process.env.DAILY_USAGE_TABLE_NAME
     delete process.env.DAILY_USAGE_TABLE_NAME
 
-    await new Promise<void>((resolve, reject) => {
-      jest.isolateModules(() => {
-        const { trackDailyUniqueUser: trackWithoutTable } =
-          // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
-          require('./analytics') as typeof import('./analytics')
-        trackWithoutTable('user-1').then(resolve).catch(reject)
-      })
+    jest.isolateModules(() => {
+      expect(() => {
+        // eslint-disable-next-line global-require -- jest.isolateModules requires synchronous require
+        require('./analytics')
+      }).toThrow(/DAILY_USAGE_TABLE_NAME/)
     })
 
     process.env.DAILY_USAGE_TABLE_NAME = original
-    expect(mockSend).not.toHaveBeenCalled()
   })
 
   it('trackDailyUniqueUser ignores duplicate visitor writes', async () => {

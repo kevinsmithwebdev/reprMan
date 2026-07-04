@@ -13,6 +13,7 @@ import {
   getUserConfig,
   listReprs,
   markPracticed,
+  reprExists,
   upsertRepr,
 } from '../lib/reprStore'
 
@@ -27,10 +28,7 @@ export const getReprsHandler = async (event: any): Promise<any> => {
   try {
     const userId = getUserId(event)
     await trackDailyUniqueUser(userId)
-    const [reprs] = await Promise.all([
-      listReprs(userId),
-      getUserConfig(userId),
-    ])
+    const reprs = await listReprs(userId)
     return jsonResponse(200, { reprs })
   } catch (error: unknown) {
     return mapHandlerError(error)
@@ -48,14 +46,20 @@ export const putReprHandler = async (event: any): Promise<any> => {
       return jsonResponse(400, { message: 'Path id and repr id must match' })
     }
 
-    const [config, count] = await Promise.all([
-      getUserConfig(userId),
-      countReprsForUser(userId),
-    ])
-    const subscription = resolveSubscription(config)
+    const exists = await reprExists(userId, repr.id)
+    if (!exists) {
+      const [config, count] = await Promise.all([
+        getUserConfig(userId),
+        countReprsForUser(userId),
+      ])
+      const subscription = resolveSubscription(config)
 
-    if (subscription.maxReprs !== null && isAtReprLimit(count, subscription)) {
-      return reprLimitReachedResponse(subscription.maxReprs)
+      if (
+        subscription.maxReprs !== null &&
+        isAtReprLimit(count, subscription)
+      ) {
+        return reprLimitReachedResponse(subscription.maxReprs)
+      }
     }
 
     const result = await upsertRepr(userId, repr)

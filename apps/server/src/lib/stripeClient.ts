@@ -1,15 +1,20 @@
 import Stripe from 'stripe'
+import {
+  getStripeCheckoutCancelUrl,
+  getStripeCheckoutSuccessUrl,
+  getStripePortalReturnUrl,
+  getStripePriceId as readStripePriceId,
+  getStripeSecretKey as readStripeSecretKey,
+  getStripeWebhookSecret as readStripeWebhookSecret,
+} from './config'
 
 let stripeClient: Stripe | null = null
 
-export const getStripeSecretKey = (): string | undefined =>
-  process.env.STRIPE_SECRET_KEY?.trim() || undefined
+export const getStripeSecretKey = readStripeSecretKey
 
-export const getStripeWebhookSecret = (): string | undefined =>
-  process.env.STRIPE_WEBHOOK_SECRET?.trim() || undefined
+export const getStripeWebhookSecret = readStripeWebhookSecret
 
-export const getStripePriceId = (): string | undefined =>
-  process.env.STRIPE_PRICE_ID?.trim() || undefined
+export const getStripePriceId = readStripePriceId
 
 export const isStripeConfigured = (): boolean =>
   Boolean(getStripeSecretKey() && getStripePriceId())
@@ -28,4 +33,10 @@ export const subscriptionPeriodEndMs = (
 ): number | undefined => {
   const end = subscription.current_period_end
   return typeof end === 'number' ? end * 1000 : undefined
+}
+
+export {
+  getStripeCheckoutSuccessUrl,
+  getStripeCheckoutCancelUrl,
+  getStripePortalReturnUrl,
 }

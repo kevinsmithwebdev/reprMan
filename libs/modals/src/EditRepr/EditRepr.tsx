@@ -4,7 +4,7 @@ import { Form } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import { Repr, useReprs } from '@reprman/state/reprs'
-import store from '@reprman/state/store'
+import { useDispatch, useSelector } from 'react-redux'
 import { addReprSAC } from '@reprman/state/sagas/reprs/reprs.actions'
 import { useCategories } from '@reprman/state/categories'
 import CategoryPills from '@reprman/components/CategoryPills'
@@ -14,7 +14,6 @@ import {
   selectSubscription,
 } from '@reprman/state/reprsQuota'
 import { useL10n } from '@reprman/localization'
-import { useSelector } from 'react-redux'
 import CategoryLine from './CategoryLine'
 import {
   addCategory,
@@ -31,6 +30,7 @@ export interface EditReprProps {
 }
 
 const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
+  const dispatch = useDispatch()
   const { t } = useL10n()
   const { categories: availableCategories } = useCategories()
   const [enteredCategory, setEnteredCategory] = useState('')
@@ -315,7 +315,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
                 comment: form.comment,
                 learning: form.learning,
               }
-              store.dispatch(addReprSAC(thisRepr))
+              dispatch(addReprSAC(thisRepr))
               closeModal()
             }
           }}

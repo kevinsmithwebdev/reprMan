@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import type { ClientConfig } from '@reprman/client-config'
 
 const { configureMock } = vi.hoisted(() => ({
   configureMock: vi.fn(),
@@ -8,10 +9,16 @@ vi.mock('aws-amplify', () => ({
   Amplify: { configure: configureMock },
 }))
 
-// setupTests.ts mocks this module for other suites; test the real implementation here.
-vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) =>
-  importOriginal<typeof import('./configureAmplify')>()
-)
+vi.unmock('@reprman/cognito-auth/configureAmplify')
+
+const baseConfig = (): ClientConfig => ({
+  cognitoUserPoolId: '',
+  cognitoUserPoolClientId: '',
+  cognitoIdentityPoolId: '',
+  reprsApiBaseUrl: '',
+  requireHomeSignIn: false,
+  allowAnonymousHome: false,
+})
 
 describe('configureAmplify', () => {
   beforeEach(() => {
@@ -20,26 +27,21 @@ describe('configureAmplify', () => {
   })
 
   afterEach(() => {
-    vi.unstubAllEnvs()
     vi.restoreAllMocks()
   })
 
-  async function loadModule(env: Record<string, string>) {
+  async function loadModule(config: ClientConfig = baseConfig()) {
     vi.resetModules()
-    vi.unstubAllEnvs()
-    Object.entries(env).forEach(([key, value]) => {
-      vi.stubEnv(key, value)
-    })
-    return import('./configureAmplify')
+    vi.doUnmock('@reprman/cognito-auth/configureAmplify')
+    const { setClientConfig } = await import('@reprman/client-config')
+    setClientConfig(config)
+    return vi.importActual<
+      typeof import('@reprman/cognito-auth/configureAmplify')
+    >('@reprman/cognito-auth/configureAmplify')
   }
 
   it('reports Cognito as unconfigured when pool env vars are missing', async () => {
-    const mod = await loadModule({
-      VITE_COGNITO_USER_POOL_ID: '',
-      VITE_COGNITO_USER_POOL_CLIENT_ID: '',
-      VITE_REQUIRE_HOME_SIGN_IN: 'false',
-      VITE_ALLOW_ANONYMOUS_HOME: 'false',
-    })
+    const mod = await loadModule(baseConfig())
 
     expect(mod.isCognitoConfigured()).toBe(false)
     expect(mod.homeAuthGateActive()).toBe(true)
@@ -47,10 +49,11 @@ describe('configureAmplify', () => {
 
   it('derives auth gate flags from env', async () => {
     const mod = await loadModule({
-      VITE_COGNITO_USER_POOL_ID: ' pool ',
-      VITE_COGNITO_USER_POOL_CLIENT_ID: ' client ',
-      VITE_REQUIRE_HOME_SIGN_IN: 'true',
-      VITE_ALLOW_ANONYMOUS_HOME: 'true',
+      ...baseConfig(),
+      cognitoUserPoolId: 'pool',
+      cognitoUserPoolClientId: 'client',
+      requireHomeSignIn: true,
+      allowAnonymousHome: true,
     })
 
     expect(mod.isCognitoConfigured()).toBe(true)
@@ -61,21 +64,15 @@ describe('configureAmplify', () => {
 
   it('turns off home auth gate when anonymous home is allowed and Cognito is missing', async () => {
     const mod = await loadModule({
-      VITE_COGNITO_USER_POOL_ID: '',
-      VITE_COGNITO_USER_POOL_CLIENT_ID: '',
-      VITE_REQUIRE_HOME_SIGN_IN: 'false',
-      VITE_ALLOW_ANONYMOUS_HOME: 'true',
+      ...baseConfig(),
+      allowAnonymousHome: true,
     })
 
     expect(mod.homeAuthGateActive()).toBe(false)
   })
 
   it('logs missing env and skips Amplify when Cognito is not configured', async () => {
-    const { configureAmplify } = await loadModule({
-      VITE_COGNITO_USER_POOL_ID: '',
-      VITE_COGNITO_USER_POOL_CLIENT_ID: '',
-      VITE_REPRS_API_BASE_URL: '',
-    })
+    const { configureAmplify } = await loadModule(baseConfig())
 
     configureAmplify()
 
@@ -83,17 +80,17 @@ describe('configureAmplify', () => {
       expect.stringContaining('Missing Cognito configuration')
     )
     expect(console.error).toHaveBeenCalledWith(
-      expect.stringContaining('Missing VITE_REPRS_API_BASE_URL')
+      expect.stringContaining('Missing reprs API base URL')
     )
     expect(configureMock).not.toHaveBeenCalled()
   })
 
   it('configures Amplify with user pool only', async () => {
     const { configureAmplify } = await loadModule({
-      VITE_COGNITO_USER_POOL_ID: 'pool-id',
-      VITE_COGNITO_USER_POOL_CLIENT_ID: 'client-id',
-      VITE_COGNITO_IDENTITY_POOL_ID: '',
-      VITE_REPRS_API_BASE_URL: 'https://api.example.com',
+      ...baseConfig(),
+      cognitoUserPoolId: 'pool-id',
+      cognitoUserPoolClientId: 'client-id',
+      reprsApiBaseUrl: 'https://api.example.com',
     })
 
     configureAmplify()
@@ -111,10 +108,11 @@ describe('configureAmplify', () => {
 
   it('configures Amplify with identity pool when provided', async () => {
     const { configureAmplify } = await loadModule({
-      VITE_COGNITO_USER_POOL_ID: 'pool-id',
-      VITE_COGNITO_USER_POOL_CLIENT_ID: 'client-id',
-      VITE_COGNITO_IDENTITY_POOL_ID: 'identity-pool',
-      VITE_REPRS_API_BASE_URL: 'https://api.example.com',
+      ...baseConfig(),
+      cognitoUserPoolId: 'pool-id',
+      cognitoUserPoolClientId: 'client-id',
+      cognitoIdentityPoolId: 'identity-pool',
+      reprsApiBaseUrl: 'https://api.example.com',
     })
 
     configureAmplify()

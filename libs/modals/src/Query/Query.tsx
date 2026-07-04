@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { Button, Modal } from 'react-bootstrap'
-import store from '@reprman/state/store'
+import { useDispatch } from 'react-redux'
 import ModalBodyParagraphs from '../common/ModalBodyParagraphs'
 
 export interface ChoiceDatum {
@@ -17,6 +17,31 @@ export interface QueryProps {
   title: string
   body: string[]
   choiceDataWithActionTypes: ChoiceDatumWithActionType[]
+}
+
+const QueryChoiceButton: FC<{
+  choice: ChoiceDatumWithActionType
+  closeModal: () => void
+}> = ({ choice, closeModal }) => {
+  const dispatch = useDispatch()
+  const { text, actionType, variant } = choice
+
+  return (
+    <Button
+      style={{ flex: 1 }}
+      key={text}
+      variant={variant || 'primary'}
+      onClick={() => {
+        dispatch({
+          type: actionType,
+          payload: actionType,
+        })
+        closeModal()
+      }}
+    >
+      {text}
+    </Button>
+  )
 }
 
 const Query: FC<QueryProps> = ({
@@ -36,32 +61,16 @@ const Query: FC<QueryProps> = ({
         <ModalBodyParagraphs lines={body} />
       </Modal.Body>
       <Modal.Footer>
-        {choiceDataWithActionTypes.map((choiceWithAction) =>
-          renderButton(choiceWithAction, closeModal)
-        )}
+        {choiceDataWithActionTypes.map((choice) => (
+          <QueryChoiceButton
+            key={choice.text}
+            choice={choice}
+            closeModal={closeModal}
+          />
+        ))}
       </Modal.Footer>
     </>
   )
 }
 
 export default Query
-
-const renderButton = (
-  { text, actionType, variant }: ChoiceDatumWithActionType,
-  closeModal: Function
-) => (
-  <Button
-    style={{ flex: 1 }}
-    key={text}
-    variant={variant || 'primary'}
-    onClick={() => {
-      store.dispatch({
-        type: actionType,
-        payload: actionType,
-      })
-      closeModal()
-    }}
-  >
-    {text}
-  </Button>
-)

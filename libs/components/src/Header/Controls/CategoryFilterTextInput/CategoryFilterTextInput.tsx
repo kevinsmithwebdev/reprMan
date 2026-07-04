@@ -1,11 +1,8 @@
 import { useL10n } from '@reprman/localization'
 import React, { FC } from 'react'
 import { Form } from 'react-bootstrap'
-import {
-  setCategoryFilterText,
-  useCategories,
-} from '@reprman/state/categories'
-import store from '@reprman/state/store'
+import { useDispatch } from 'react-redux'
+import { setCategoryFilterText, useCategories } from '@reprman/state/categories'
 
 export type CategoryFilterTextInputProps = {
   placeholder?: string
@@ -19,6 +16,7 @@ const CategoryFilterTextInput: FC<CategoryFilterTextInputProps> = ({
   style,
 }) => {
   const { t } = useL10n()
+  const dispatch = useDispatch()
   const { filter } = useCategories()
 
   return (
@@ -33,7 +31,7 @@ const CategoryFilterTextInput: FC<CategoryFilterTextInputProps> = ({
       }
       value={filter.text}
       onChange={({ target: { value } }) =>
-        store.dispatch(setCategoryFilterText(value))
+        dispatch(setCategoryFilterText(value))
       }
     />
   )

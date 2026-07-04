@@ -1,8 +1,4 @@
-import {
-  homeAuthGateActive,
-  isCognitoConfigured,
-  useCognitoAuth,
-} from '@reprman/cognito-auth'
+import { isCognitoConfigured, useAuthGate } from '@reprman/cognito-auth'
 import { CenteredSpinner, HomeAuthCard } from '@reprman/components'
 import { useL10n } from '@reprman/localization'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
@@ -24,7 +20,7 @@ const Reports = () => {
   const { t } = useL10n()
   const dispatch = useDispatch()
   const { reprs, reprsLoaded } = useReprs()
-  const { sessionChecked, signedIn } = useCognitoAuth()
+  const { isLoading, isSignedOut } = useAuthGate()
 
   const [selectedLabels, setSelectedLabels] = useState<string[]>([])
   const [includeComments, setIncludeComments] = useState(false)
@@ -78,11 +74,11 @@ const Reports = () => {
     }
   }, [dispatch, includeComments, includeLabels, t, visibleReprs])
 
-  if (homeAuthGateActive() && isCognitoConfigured() && !sessionChecked) {
+  if (isLoading) {
     return <CenteredSpinner id="Reports-page" layout="fill" />
   }
 
-  if (homeAuthGateActive() && !signedIn) {
+  if (isSignedOut) {
     return (
       <div
         id="Reports-page"

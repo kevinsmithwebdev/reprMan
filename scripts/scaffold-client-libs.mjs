@@ -18,6 +18,10 @@ const LIBS = [
   { name: 'constants', dir: 'libs/constants' },
   { name: 'types', dir: 'libs/types' },
   { name: 'theme', dir: 'libs/theme' },
+  { name: 'client-config', dir: 'libs/client-config' },
+  { name: 'client-platform', dir: 'libs/client-platform' },
+  { name: 'components-mobile', dir: 'libs/components-mobile' },
+  { name: 'modals-mobile', dir: 'libs/modals-mobile' },
 ]
 
 const tsconfigContents =

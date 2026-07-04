@@ -1,0 +1,16 @@
+{
+  "name": "client-config",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "library",
+  "sourceRoot": "libs/client-config/src",
+  "targets": {
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0",
+        "cwd": "libs/client-config"
+      }
+    }
+  },
+  "tags": ["scope:client", "platform:shared"]
+}

@@ -13,3 +13,11 @@ export {
   isCognitoConfigured,
   requireHomeSignInWall,
 } from './configureAmplify'
+export { useAuthGate } from './useAuthGate'
+export { useAuthGateRedirect } from './useAuthGateRedirect'
+export type {
+  AuthGateRedirectOptions,
+  AuthGateState,
+} from './useAuthGateRedirect'
+export { useAcceptTermsGate } from './useAcceptTermsGate'
+export type { UseAcceptTermsGateOptions } from './useAcceptTermsGate'

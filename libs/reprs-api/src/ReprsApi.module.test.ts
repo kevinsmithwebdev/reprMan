@@ -1,5 +1,10 @@
 import { fetchAuthSession } from 'aws-amplify/auth'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import {
+  resetClientConfig,
+  setClientConfig,
+  type ClientConfig,
+} from '@reprman/client-config'
 
 import type { Repr } from '@reprman/types'
 
@@ -19,9 +24,29 @@ const validRepr: Repr = {
   learning: false,
 }
 
-const loadModule = async () => {
+const baseConfig = (): ClientConfig => ({
+  cognitoUserPoolId: '',
+  cognitoUserPoolClientId: '',
+  cognitoIdentityPoolId: '',
+  reprsApiBaseUrl: '',
+  requireHomeSignIn: false,
+  allowAnonymousHome: false,
+})
+
+const withApiUrl = async (reprsApiBaseUrl: string) => {
+  const { setClientConfig: setConfig } = await import('@reprman/client-config')
+  setConfig({ ...baseConfig(), reprsApiBaseUrl })
+}
+
+const loadModule = async (apiUrl = 'https://api.example.com') => {
   vi.resetModules()
+  const { setClientConfig: setConfig } = await import('@reprman/client-config')
+  setConfig({
+    ...baseConfig(),
+    reprsApiBaseUrl: apiUrl,
+  })
   const mod = await import('./ReprsApi.module')
+  mod.configureReprsApi()
   return mod.default
 }
 
@@ -35,40 +60,57 @@ describe('ReprsApi.module', () => {
   })
 
   afterEach(() => {
-    vi.unstubAllEnvs()
+    resetClientConfig()
     vi.resetModules()
   })
 
   describe('isReprsApiConfigured', () => {
     it('is true when base URL is set', async () => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
-      const { isReprsApiConfigured } = await import('./ReprsApi.module')
-      expect(isReprsApiConfigured).toBe(true)
+      vi.resetModules()
+      const { setClientConfig: setConfig } = await import(
+        '@reprman/client-config'
+      )
+      setConfig({ ...baseConfig(), reprsApiBaseUrl: 'https://api.example.com' })
+      const mod = await import('./ReprsApi.module')
+      mod.configureReprsApi()
+      expect(mod.isReprsApiConfigured).toBe(true)
     })
 
     it('is false when base URL is empty', async () => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', '   ')
-      const { isReprsApiConfigured } = await import('./ReprsApi.module')
-      expect(isReprsApiConfigured).toBe(false)
+      vi.resetModules()
+      const { setClientConfig: setConfig } = await import(
+        '@reprman/client-config'
+      )
+      setConfig({ ...baseConfig(), reprsApiBaseUrl: '   ' })
+      const mod = await import('./ReprsApi.module')
+      mod.configureReprsApi()
+      expect(mod.isReprsApiConfigured).toBe(false)
     })
 
     it('is true when base URL has surrounding whitespace', async () => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', '  https://api.example.com  ')
-      const { isReprsApiConfigured } = await import('./ReprsApi.module')
-      expect(isReprsApiConfigured).toBe(true)
+      vi.resetModules()
+      const { setClientConfig: setConfig } = await import(
+        '@reprman/client-config'
+      )
+      setConfig({
+        ...baseConfig(),
+        reprsApiBaseUrl: '  https://api.example.com  ',
+      })
+      const mod = await import('./ReprsApi.module')
+      mod.configureReprsApi()
+      expect(mod.isReprsApiConfigured).toBe(true)
     })
   })
 
   describe('request (via public API)', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('throws when API is not configured', async () => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', '')
-      const ReprsApiModule = await loadModule()
+      const ReprsApiModule = await loadModule('')
       await expect(ReprsApiModule.getInstance().listReprs()).rejects.toThrow(
-        'VITE_REPRS_API_BASE_URL is not configured'
+        'reprs API base URL is not configured'
       )
     })
 
@@ -235,8 +277,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('listReprs', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('parses reprs from GET /reprs', async () => {
@@ -263,8 +305,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('ReprsApiModule singleton', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('returns the same instance from getInstance', async () => {
@@ -274,8 +316,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('getUserConfig', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('maps user config fields with defaults', async () => {
@@ -411,8 +453,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('updateUserSettings', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('PATCHes settings and returns parsed response', async () => {
@@ -452,8 +494,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('upsertRepr', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('PUTs repr payload and parses response', async () => {
@@ -476,8 +518,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('markReprPracticed', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('POSTs to practice endpoint and parses repr', async () => {
@@ -502,8 +544,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('removeRepr', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('DELETEs repr by id', async () => {
@@ -523,8 +565,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('createCheckoutSession', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('returns checkout url from POST /billing/checkout-session', async () => {
@@ -553,8 +595,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('createPortalSession', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('returns portal url from POST /billing/portal-session', async () => {
@@ -583,8 +625,8 @@ describe('ReprsApi.module', () => {
   })
 
   describe('acceptTerms', () => {
-    beforeEach(() => {
-      vi.stubEnv('VITE_REPRS_API_BASE_URL', 'https://api.example.com')
+    beforeEach(async () => {
+      await withApiUrl('https://api.example.com')
     })
 
     it('POSTs terms version and returns acceptance payload', async () => {

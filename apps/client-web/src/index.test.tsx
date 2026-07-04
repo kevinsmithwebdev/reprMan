@@ -1,10 +1,18 @@
 import React from 'react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 
-const { renderMock, createRootMock, configureAmplifyMock } = vi.hoisted(() => ({
+const {
+  renderMock,
+  createRootMock,
+  configureAmplifyMock,
+  configureReprsApiMock,
+  setClientConfigMock,
+} = vi.hoisted(() => ({
   renderMock: vi.fn(),
   createRootMock: vi.fn(() => ({ render: renderMock })),
   configureAmplifyMock: vi.fn(),
+  configureReprsApiMock: vi.fn(),
+  setClientConfigMock: vi.fn(),
 }))
 
 vi.mock('react-dom/client', () => ({
@@ -20,6 +28,15 @@ vi.mock('./App', () => ({
 
 vi.mock('./LogBuildInfoOnMount', () => ({
   LogBuildInfoOnMount: () => null,
+}))
+
+vi.mock('@reprman/client-config', () => ({
+  createWebClientConfig: vi.fn(() => ({})),
+  setClientConfig: setClientConfigMock,
+}))
+
+vi.mock('@reprman/reprs-api', () => ({
+  configureReprsApi: configureReprsApiMock,
 }))
 
 vi.mock('@reprman/cognito-auth', () => ({
@@ -51,12 +68,16 @@ describe('index', () => {
     renderMock.mockClear()
     createRootMock.mockClear()
     configureAmplifyMock.mockClear()
+    configureReprsApiMock.mockClear()
+    setClientConfigMock.mockClear()
   })
 
   it('mounts the app when #root exists', async () => {
     await import('./index')
     expect(createRootMock).toHaveBeenCalled()
     expect(renderMock).toHaveBeenCalled()
+    expect(setClientConfigMock).toHaveBeenCalled()
+    expect(configureReprsApiMock).toHaveBeenCalled()
     expect(configureAmplifyMock).toHaveBeenCalled()
   })
 

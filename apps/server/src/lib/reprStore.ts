@@ -8,20 +8,17 @@ import {
   GetCommand,
   PutCommand,
   QueryCommand,
-  ScanCommand,
   UpdateCommand,
 } from '@aws-sdk/lib-dynamodb'
 import type { Repr } from '@reprman/shared/repr-model'
 import type { PracticeSettings, UserConfigItem } from '@reprman/shared/quota'
 import { computeTrialEndsAtMs } from '@reprman/shared/subscription'
 import { withPracticeApplied } from '@reprman/shared/repr-rules'
+import { serverConfig } from './config'
 import { keyForUserConfig } from './userConfig'
 
-const TABLE_NAME = process.env.REPRS_TABLE_NAME ?? ''
-
-if (!TABLE_NAME) {
-  throw new Error('REPRS_TABLE_NAME is required')
-}
+const TABLE_NAME = serverConfig.reprsTableName
+const STRIPE_CUSTOMER_INDEX = serverConfig.stripeCustomerIndexName
 
 const client = DynamoDBDocumentClient.from(new DynamoDBClient({}))
 
@@ -214,8 +211,13 @@ export const markPracticed = async (
   userId: string,
   reprId: string
 ): Promise<Repr | null> => {
-  const reprs = await listReprs(userId)
-  const repr = reprs.find((item) => item.id === reprId)
+  const result = await client.send(
+    new GetCommand({
+      TableName: TABLE_NAME,
+      Key: keyFor(userId, reprId),
+    })
+  )
+  const repr = result.Item?.repr as Repr | undefined
   if (!repr) {
     return null
   }
@@ -306,14 +308,17 @@ export const findUserIdByStripeCustomerId = async (
   stripeCustomerId: string
 ): Promise<string | null> => {
   const result = await client.send(
-    new ScanCommand({
+    new QueryCommand({
       TableName: TABLE_NAME,
-      FilterExpression: 'sk = :configSk AND stripeCustomerId = :customerId',
+      IndexName: STRIPE_CUSTOMER_INDEX,
+      KeyConditionExpression:
+        'stripeCustomerId = :customerId AND sk = :configSk',
       ExpressionAttributeValues: {
-        ':configSk': 'CONFIG',
         ':customerId': stripeCustomerId,
+        ':configSk': 'CONFIG',
       },
       ProjectionExpression: 'pk',
+      Limit: 1,
     })
   )
   const item = result.Items?.[0]

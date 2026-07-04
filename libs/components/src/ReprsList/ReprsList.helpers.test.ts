@@ -2,8 +2,8 @@ import moment from 'moment'
 import { describe, expect, it, vi } from 'vitest'
 
 import { Repr, Settings } from '@reprman/types'
-import * as reprLineHelpers from '@reprman/components/ReprLine/ReprLine.helpers'
-import { ReprStatus } from '@reprman/components/ReprLine/ReprLine.helpers'
+import * as reprStatus from '@reprman/shared/repr-rules'
+import { ReprStatus } from '@reprman/shared/repr-rules'
 
 import {
   groupReprsByStatus,
@@ -70,7 +70,7 @@ describe('groupReprsByStatus', () => {
   })
 
   it('omits reprs when status is not in the section map', () => {
-    vi.spyOn(reprLineHelpers, 'getReprStatusForRepr').mockReturnValue(
+    vi.spyOn(reprStatus, 'getReprStatusForRepr').mockReturnValue(
       'UNKNOWN' as ReprStatus
     )
 

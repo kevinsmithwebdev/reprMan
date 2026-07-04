@@ -1,18 +1,14 @@
 import React, { FC, useMemo } from 'react'
-import { ReprStatus } from '@reprman/components/ReprLine/ReprLine.helpers'
+import {
+  ReprStatus,
+  REPR_STATUS_SECTION_TITLE_KEYS,
+} from '@reprman/shared/repr-rules'
 import { useL10n } from '@reprman/localization'
 import { useSettings } from '@reprman/state/settings'
 import { groupReprsByStatus } from './ReprsList.helpers'
 import ReprsListSection from './ReprsListSection'
 import { ReprsListProps } from './ReprsList.types'
 import { useReprsListAnimation } from './useReprsListAnimation'
-
-const SECTION_TITLE_KEYS: Record<ReprStatus, string> = {
-  [ReprStatus.LEARNING]: 'components.reprsList.sectionLearning',
-  [ReprStatus.OVERDUE]: 'components.reprsList.sectionOverdue',
-  [ReprStatus.WARNING]: 'components.reprsList.sectionWarning',
-  [ReprStatus.UP_TO_DATE]: 'components.reprsList.sectionUpToDate',
-}
 
 const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
   const { t } = useL10n()
@@ -45,7 +41,7 @@ const ReprsList: FC<ReprsListProps> = ({ reprs }) => {
           <ReprsListSection
             key={section.status}
             sectionId={`reprs-section-${section.status}`}
-            title={t(SECTION_TITLE_KEYS[section.status])}
+            title={t(REPR_STATUS_SECTION_TITLE_KEYS[section.status])}
             reprs={section.reprs}
             marginTop={sectionIndex > 0}
           />

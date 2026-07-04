@@ -13,13 +13,10 @@ import { postPortalSessionHandler } from './billing/portalSession'
 import { postStripeWebhookHandler } from './billing/webhook'
 import { getUserId } from '../lib/auth'
 import { enforceUserActionRateLimit, RateLimitAction } from '../lib/rateLimit'
+import { matchesApiPath } from '../lib/apiRoutes'
+import { getBuildInfo } from '../lib/config'
 
-const serverBuildInfo = {
-  version: process.env.APP_VERSION ?? 'unknown',
-  buildNumber: process.env.APP_BUILD_NUMBER ?? 'local',
-  buildTimeUtc: process.env.APP_BUILD_TIME_UTC ?? 'unknown',
-  gitSha: process.env.APP_GIT_SHA ?? 'unknown',
-}
+const serverBuildInfo = getBuildInfo()
 
 console.info('[server-build]', serverBuildInfo)
 
@@ -27,7 +24,7 @@ type RouteHandler = (event: any) => Promise<any>
 
 type RouteMatch = {
   method: string
-  matches: (path: string) => boolean
+  apiGatewayPath: string
   handler: RouteHandler
   rateLimitAction?: RateLimitAction
   requiresAuth?: boolean
@@ -36,69 +33,69 @@ type RouteMatch = {
 const routes: RouteMatch[] = [
   {
     method: 'GET',
-    matches: (path) => path === '/user/config',
+    apiGatewayPath: '/user/config',
     handler: (event) => getUserConfigHandler(event),
     rateLimitAction: 'read',
     requiresAuth: true,
   },
   {
     method: 'PATCH',
-    matches: (path) => path === '/user/settings',
+    apiGatewayPath: '/user/settings',
     handler: (event) => patchUserSettingsHandler(event),
     rateLimitAction: 'write',
     requiresAuth: true,
   },
   {
     method: 'POST',
-    matches: (path) => path === '/user/terms-acceptance',
+    apiGatewayPath: '/user/terms-acceptance',
     handler: (event) => postTermsAcceptanceHandler(event),
     rateLimitAction: 'terms',
     requiresAuth: true,
   },
   {
     method: 'POST',
-    matches: (path) => path === '/billing/checkout-session',
+    apiGatewayPath: '/billing/checkout-session',
     handler: (event) => postCheckoutSessionHandler(event),
     rateLimitAction: 'billingSession',
     requiresAuth: true,
   },
   {
     method: 'POST',
-    matches: (path) => path === '/billing/portal-session',
+    apiGatewayPath: '/billing/portal-session',
     handler: (event) => postPortalSessionHandler(event),
     rateLimitAction: 'billingSession',
     requiresAuth: true,
   },
   {
     method: 'POST',
-    matches: (path) => path === '/billing/stripe-webhook',
+    apiGatewayPath: '/billing/stripe-webhook',
     handler: (event) => postStripeWebhookHandler(event),
     requiresAuth: false,
   },
   {
     method: 'GET',
-    matches: (path) => path === '/reprs',
+    apiGatewayPath: '/reprs',
     handler: (event) => getReprsHandler(event),
     rateLimitAction: 'read',
     requiresAuth: true,
   },
   {
     method: 'PUT',
-    matches: (path) => path.startsWith('/reprs/'),
+    apiGatewayPath: '/reprs/{id}',
     handler: (event) => putReprHandler(event),
     rateLimitAction: 'write',
     requiresAuth: true,
   },
   {
     method: 'POST',
-    matches: (path) => path.startsWith('/reprs/') && path.endsWith('/practice'),
+    apiGatewayPath: '/reprs/{id}/practice',
     handler: (event) => markReprPracticedHandler(event),
     rateLimitAction: 'practice',
     requiresAuth: true,
   },
   {
     method: 'DELETE',
-    matches: (path) => path.startsWith('/reprs/'),
+    apiGatewayPath: '/reprs/{id}',
     handler: (event) => deleteReprHandler(event),
     rateLimitAction: 'write',
     requiresAuth: true,
@@ -113,12 +110,16 @@ export const handler = async (event: any): Promise<any> => {
     rawPath: path,
   } = event
   const route = routes.find(
-    (entry) => entry.method === method && entry.matches(path)
+    (entry) =>
+      entry.method === method && matchesApiPath(path, entry.apiGatewayPath)
   )
   if (route) {
     if (route.requiresAuth && route.rateLimitAction) {
       const userId = getUserId(event)
-      const blocked = await enforceUserActionRateLimit(userId, route.rateLimitAction)
+      const blocked = await enforceUserActionRateLimit(
+        userId,
+        route.rateLimitAction
+      )
       if (blocked) {
         return jsonResponse(
           429,

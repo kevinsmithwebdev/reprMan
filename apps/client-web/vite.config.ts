@@ -50,9 +50,18 @@ export default defineConfig({
 
       // Client libs — `@reprman/<lib>` (barrel) and `@reprman/<lib>/<sub>`
       // (deep import). Order matters: deeper / more specific first.
+      {
+        find: /^@reprman\/localization\/languageDetectionCore$/,
+        replacement: path.resolve(
+          root,
+          'libs/localization/src/languageDetectionCore.ts'
+        ),
+      },
       ...[
         'components',
+        'components-mobile',
         'modals',
+        'modals-mobile',
         'state',
         'cognito-auth',
         'localization',
@@ -61,6 +70,8 @@ export default defineConfig({
         'constants',
         'types',
         'theme',
+        'client-config',
+        'client-platform',
       ].flatMap((name) => [
         {
           find: new RegExp(`^@reprman/${name}/(.+)$`),
@@ -68,6 +79,20 @@ export default defineConfig({
         },
         { find: new RegExp(`^@reprman/${name}$`), replacement: lib(name) },
       ]),
+      {
+        find: /^@reprman\/client-config\/createExpoClientConfig$/,
+        replacement: path.resolve(
+          root,
+          'libs/client-config/src/createExpoClientConfig.ts'
+        ),
+      },
+      {
+        find: /^@reprman\/client-platform\/storage\.web$/,
+        replacement: path.resolve(
+          root,
+          'libs/client-platform/src/storage.web.ts'
+        ),
+      },
     ],
   },
   build: {
@@ -103,10 +128,14 @@ export default defineConfig({
       '../../libs/utilities/src/**/*.test.{ts,tsx}',
       '../../libs/modals/src/**/*.test.{ts,tsx}',
       '../../libs/modals/src/**/integration-tests/**/*.test.{ts,tsx}',
+      '../../libs/components-mobile/src/**/*.test.{ts,tsx}',
+      '../../libs/modals-mobile/src/**/*.test.{ts,tsx}',
+      '../../apps/client-mobile/app/**/*.test.{ts,tsx}',
       '../../libs/state/src/**/*.test.{js,ts,tsx}',
       '../../libs/cognito-auth/src/**/*.test.{ts,tsx}',
       '../../libs/cognito-auth/src/**/integration-tests/**/*.test.{ts,tsx}',
       '../../libs/reprs-api/src/**/*.test.{ts,tsx}',
+      '../../libs/client-config/src/**/*.test.{ts,tsx}',
       '../../libs/theme/src/**/*.test.{ts,tsx}',
       '../../libs/shared/repr-validation/src/**/*.test.{ts,tsx}',
       '../../libs/shared/repr-model/src/**/*.test.{js,ts}',

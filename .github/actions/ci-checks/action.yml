@@ -15,7 +15,7 @@ runs:
 
     - name: Lint and build (Nx affected)
       shell: bash
-      run: npx nx affected -t lint,build --base="${{ inputs.nx-base }}"
+      run: npx nx affected -t lint,build,typecheck --base="${{ inputs.nx-base }}"
 
     - name: Tests with coverage
       shell: bash

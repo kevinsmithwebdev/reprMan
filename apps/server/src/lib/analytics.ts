@@ -7,10 +7,11 @@ import {
   PutCommand,
   UpdateCommand,
 } from '@aws-sdk/lib-dynamodb'
+import { analyticsEnvironment, serverConfig } from './config'
 
 type ActionType = 'create' | 'edit' | 'delete' | 'practice'
 
-const usageTableName = process.env.DAILY_USAGE_TABLE_NAME ?? ''
+const usageTableName = serverConfig.dailyUsageTableName
 const usageTtlDays = 120
 
 const client = DynamoDBDocumentClient.from(new DynamoDBClient({}))
@@ -46,15 +47,11 @@ const trackMetric = (
 export const trackAction = (action: ActionType): void => {
   trackMetric('ActionCount', 1, {
     Action: action,
-    Environment: 'prod',
+    Environment: analyticsEnvironment(),
   })
 }
 
 export const trackDailyUniqueUser = async (userId: string): Promise<void> => {
-  if (!usageTableName) {
-    return
-  }
-
   const now = new Date()
   const day = getDayKey(now)
   const ttl = toEpochSeconds(
@@ -94,7 +91,9 @@ export const trackDailyUniqueUser = async (userId: string): Promise<void> => {
       })
     )
 
-    trackMetric('DailyUniqueVisitors', 1, { Environment: 'prod' })
+    trackMetric('DailyUniqueVisitors', 1, {
+      Environment: analyticsEnvironment(),
+    })
   } catch (error) {
     if (error instanceof ConditionalCheckFailedException) {
       return

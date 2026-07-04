@@ -4,7 +4,8 @@
 
 Repr data is stored in AWS (DynamoDB) through an authenticated API.
 
-- Client app: `apps/client-web`
+- Web client: `apps/client-web`
+- Mobile client: `apps/client-mobile` (Expo / React Native)
 - Backend app: `apps/server` (TypeScript Lambda handlers + CDK stacks)
 
 ### Required environment (local frontend)
@@ -21,6 +22,16 @@ aws cloudformation describe-stacks \
 ```
 
 Set `VITE_COGNITO_USER_POOL_ID`, `VITE_COGNITO_USER_POOL_CLIENT_ID`, and `VITE_REPRS_API_BASE_URL` accordingly.
+
+### Required environment (local mobile)
+
+Expo reads `EXPO_PUBLIC_*` variables from the **repository root** `.env` (see [`.env.example`](.env.example)). Mirror the web `VITE_*` values:
+
+- `EXPO_PUBLIC_COGNITO_USER_POOL_ID`
+- `EXPO_PUBLIC_COGNITO_USER_POOL_CLIENT_ID`
+- `EXPO_PUBLIC_REPRS_API_BASE_URL`
+
+Run the app with `yarn start:mobile` (or `nx run client-mobile:start`), then open in Expo Go or a simulator.
 
 ### Build and test server
 

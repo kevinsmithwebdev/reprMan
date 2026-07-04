@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import { ConfirmationModalResponse } from '@reprman/modals/ModalContainer/ModalContainer.types'
+import { useDispatch } from 'react-redux'
 import { Button, Modal } from 'react-bootstrap'
-import store from '@reprman/state/store'
 import { useL10n } from '@reprman/localization'
 
 export interface ConfirmationProps {
@@ -11,6 +11,7 @@ export interface ConfirmationProps {
 }
 
 const Confirmation: FC<ConfirmationProps> = ({ closeModal, title, body }) => {
+  const dispatch = useDispatch()
   const { t } = useL10n()
   return (
     <>
@@ -23,7 +24,7 @@ const Confirmation: FC<ConfirmationProps> = ({ closeModal, title, body }) => {
           style={{ flex: 1 }}
           variant="success"
           onClick={() => {
-            store.dispatch({ type: ConfirmationModalResponse.YES })
+            dispatch({ type: ConfirmationModalResponse.YES })
             closeModal()
           }}
         >
@@ -33,7 +34,7 @@ const Confirmation: FC<ConfirmationProps> = ({ closeModal, title, body }) => {
           style={{ flex: 1 }}
           variant="danger"
           onClick={() => {
-            store.dispatch({ type: ConfirmationModalResponse.NO })
+            dispatch({ type: ConfirmationModalResponse.NO })
             closeModal()
           }}
         >

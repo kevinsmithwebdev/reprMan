@@ -10,14 +10,11 @@ import * as kms from 'aws-cdk-lib/aws-kms'
 import * as lambda from 'aws-cdk-lib/aws-lambda'
 import * as sns from 'aws-cdk-lib/aws-sns'
 import * as snsSubs from 'aws-cdk-lib/aws-sns-subscriptions'
+import * as path from 'node:path'
 import { Construct } from 'constructs'
-
-function firstNonEmpty(
-  ...candidates: (string | undefined)[]
-): string | undefined {
-  const found = candidates.find((c) => Boolean(c?.trim()))
-  return found?.trim()
-}
+import { API_ROUTES, HttpMethod } from '../lib/apiRoutes'
+import { STRIPE_CUSTOMER_INDEX_NAME } from '../lib/config'
+import { firstNonEmpty } from './utils'
 
 export type ReprStage = 'dev' | 'prod'
 
@@ -70,6 +67,16 @@ export class ReprServerStack extends cdk.Stack {
       },
     })
 
+    table.addGlobalSecondaryIndex({
+      indexName: STRIPE_CUSTOMER_INDEX_NAME,
+      partitionKey: {
+        name: 'stripeCustomerId',
+        type: dynamodb.AttributeType.STRING,
+      },
+      sortKey: { name: 'sk', type: dynamodb.AttributeType.STRING },
+      projectionType: dynamodb.ProjectionType.KEYS_ONLY,
+    })
+
     const dailyUsageTable = new dynamodb.Table(this, 'DailyUsageTable', {
       partitionKey: { name: 'pk', type: dynamodb.AttributeType.STRING },
       sortKey: { name: 'sk', type: dynamodb.AttributeType.STRING },
@@ -81,8 +88,9 @@ export class ReprServerStack extends cdk.Stack {
     const reprHandler = new lambda.Function(this, 'ReprHandler', {
       runtime: lambda.Runtime.NODEJS_20_X,
       handler: 'handlers/router.handler',
-      code: lambda.Code.fromAsset('dist'),
+      code: lambda.Code.fromAsset(path.join(__dirname, '../../dist')),
       environment: {
+        STAGE: stage,
         REPRS_TABLE_NAME: table.tableName,
         DAILY_USAGE_TABLE_NAME: dailyUsageTable.tableName,
         DEFAULT_MAX_REPRS_ALLOWED: String(
@@ -211,83 +219,55 @@ export class ReprServerStack extends cdk.Stack {
       reprHandler
     )
 
-    this.httpApi.addRoutes({
-      path: '/user/config',
-      methods: [apigwv2.HttpMethod.GET],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
+    const httpMethodMap: Record<HttpMethod, apigwv2.HttpMethod> = {
+      GET: apigwv2.HttpMethod.GET,
+      POST: apigwv2.HttpMethod.POST,
+      PUT: apigwv2.HttpMethod.PUT,
+      PATCH: apigwv2.HttpMethod.PATCH,
+      DELETE: apigwv2.HttpMethod.DELETE,
+    }
 
-    this.httpApi.addRoutes({
-      path: '/user/settings',
-      methods: [apigwv2.HttpMethod.PATCH],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
+    const addProtectedRoute = (
+      routePath: string,
+      methods: apigwv2.HttpMethod[]
+    ) => {
+      this.httpApi.addRoutes({
+        path: routePath,
+        methods,
+        integration,
+        authorizer,
+        authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
+      })
+    }
 
-    this.httpApi.addRoutes({
-      path: '/user/terms-acceptance',
-      methods: [apigwv2.HttpMethod.POST],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
+    const addPublicRoute = (
+      routePath: string,
+      methods: apigwv2.HttpMethod[]
+    ) => {
+      this.httpApi.addRoutes({
+        path: routePath,
+        methods,
+        integration,
+      })
+    }
 
-    this.httpApi.addRoutes({
-      path: '/reprs',
-      methods: [apigwv2.HttpMethod.GET],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
-
-    this.httpApi.addRoutes({
-      path: '/reprs/{id}',
-      methods: [apigwv2.HttpMethod.PUT, apigwv2.HttpMethod.DELETE],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
-
-    this.httpApi.addRoutes({
-      path: '/reprs/{id}/practice',
-      methods: [apigwv2.HttpMethod.POST],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
-
-    this.httpApi.addRoutes({
-      path: '/billing/checkout-session',
-      methods: [apigwv2.HttpMethod.POST],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
-
-    this.httpApi.addRoutes({
-      path: '/billing/portal-session',
-      methods: [apigwv2.HttpMethod.POST],
-      integration,
-      authorizer,
-      authorizationScopes: apiScopes.length > 0 ? apiScopes : undefined,
-    })
-
-    this.httpApi.addRoutes({
-      path: '/billing/stripe-webhook',
-      methods: [apigwv2.HttpMethod.POST],
-      integration,
-    })
+    for (const route of API_ROUTES) {
+      const methods = route.methods.map((method) => httpMethodMap[method])
+      if (route.requiresAuth) {
+        addProtectedRoute(route.apiGatewayPath, methods)
+      } else {
+        addPublicRoute(route.apiGatewayPath, methods)
+      }
+    }
 
     this.apiBaseUrlOutput = new cdk.CfnOutput(this, 'ApiBaseUrl', {
       value: this.httpApi.apiEndpoint,
       description: 'HTTP API base URL (no trailing slash)',
     })
 
-    const defaultStage = this.httpApi.defaultStage?.node
-      .defaultChild as apigwv2.CfnStage | undefined
+    const defaultStage = this.httpApi.defaultStage?.node.defaultChild as
+      | apigwv2.CfnStage
+      | undefined
     if (defaultStage) {
       defaultStage.defaultRouteSettings = {
         throttlingBurstLimit: Number(

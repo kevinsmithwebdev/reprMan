@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { createWebClientConfig, setClientConfig } from '@reprman/client-config'
 import { CognitoAuthProvider, configureAmplify } from '@reprman/cognito-auth'
+import { configureReprsApi } from '@reprman/reprs-api'
 import store from '@reprman/state/store'
 
 import App from './App'
 import { LogBuildInfoOnMount } from './LogBuildInfoOnMount'
 import './index.css'
 
+setClientConfig(createWebClientConfig())
+configureReprsApi()
 configureAmplify()
 
 const rootElement = document.getElementById('root')
