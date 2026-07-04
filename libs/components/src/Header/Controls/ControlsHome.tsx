@@ -1,8 +1,8 @@
 import AddReprButton from '@reprman/components/AddReprButton'
 import React, { FC } from 'react'
+import Link from 'next/link'
 import { Badge, Dropdown } from 'react-bootstrap'
 import { FileEarmarkBarGraph, FilterCircle } from 'react-bootstrap-icons'
-import { Link } from 'react-router-dom'
 import { useL10n } from '@reprman/localization'
 import { useCategories } from '@reprman/state/categories'
 import { useReprs } from '@reprman/state/reprs'
@@ -36,13 +36,15 @@ const ControlsHome: FC = () => {
           gap: '8px',
         }}
       >
-        <CategoryFilterTextInput
-          style={{ maxWidth: 220, minWidth: 140 }}
-        />
+        <CategoryFilterTextInput style={{ maxWidth: 220, minWidth: 140 }} />
         <Dropdown id="filter-button">
           <Dropdown.Toggle
             aria-label={t('components.categoryFilter.openMenuAriaLabel')}
-            style={{ display: 'flex', alignItems: 'center', position: 'relative' }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              position: 'relative',
+            }}
           >
             <FilterCircle size={20} aria-hidden />
             {!!numFiltersText && (
@@ -71,7 +73,7 @@ const ControlsHome: FC = () => {
           </Dropdown.Menu>
         </Dropdown>
         <Link
-          to="/reports"
+          href="/reports"
           title={t('components.controls.reportsPageTitle')}
           aria-label={t('components.controls.reportsPageAriaLabel')}
           style={{

@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 
 export const LogBuildInfoOnMount = () => {
@@ -8,10 +10,10 @@ export const LogBuildInfoOnMount = () => {
     }
     didLog.current = true
     console.info('[reprman] build', {
-      version: import.meta.env.VITE_VERSION,
-      buildNumber: import.meta.env.VITE_BUILD_NUMBER,
-      buildTimeUtc: import.meta.env.VITE_BUILD_TIME_UTC,
-      gitSha: import.meta.env.VITE_GIT_SHA,
+      version: process.env.NEXT_PUBLIC_VERSION,
+      buildNumber: process.env.NEXT_PUBLIC_BUILD_NUMBER,
+      buildTimeUtc: process.env.NEXT_PUBLIC_BUILD_TIME_UTC,
+      gitSha: process.env.NEXT_PUBLIC_GIT_SHA,
     })
   }, [])
   return null

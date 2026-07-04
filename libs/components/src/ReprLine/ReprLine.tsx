@@ -2,7 +2,7 @@ import React, { FC, useEffect, useReducer } from 'react'
 import Card from 'react-bootstrap/Card'
 
 import { Repr } from '@reprman/types'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import { getDateAndFrom } from '@reprman/utilities'
 import ReprButton, { ReprButtonType } from '@reprman/components/ReprButton'
 import { useL10n } from '@reprman/localization'
@@ -25,18 +25,18 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
   const { settings } = useSettings()
   const { title, id, datesPracticed, categories, comment } = repr
   const lastPracticed = getLastPracticedAt(datesPracticed)
-  const [, bumpCooldownRender] = useReducer(
-    (version: number) => version + 1,
-    0
-  )
+  const [, bumpCooldownRender] = useReducer((version: number) => version + 1, 0)
   const practiceOnCooldown = isWithinPracticeCooldown(datesPracticed)
   const reprColors = getReprColorsForRepr(repr, settings)
-  const navigate = useNavigate()
+  const router = useRouter()
 
   useEffect(() => {
     if (!practiceOnCooldown) return undefined
     const remaining = PRACTICE_COOLDOWN_MS - (Date.now() - lastPracticed)
-    const timeoutId = globalThis.window.setTimeout(bumpCooldownRender, remaining)
+    const timeoutId = globalThis.window.setTimeout(
+      bumpCooldownRender,
+      remaining
+    )
     return () => globalThis.window.clearTimeout(timeoutId)
   }, [lastPracticed, practiceOnCooldown])
 
@@ -44,7 +44,7 @@ const ReprLine: FC<ReprLineProps> = ({ repr }) => {
     <Card
       text="dark"
       className={`repr-line-component mb-2 ${reprColors.className}`}
-      onClick={() => navigate(`view/${id}`)}
+      onClick={() => router.push(`/view/${id}`)}
     >
       <Card.Body className="repr-line-body">
         <Card.Title style={{ fontWeight: 700 }}>{title}</Card.Title>

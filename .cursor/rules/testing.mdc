@@ -29,7 +29,7 @@ alwaysApply: false
 
 ## Runner and stack
 
-- **Client UI and libs pulled into client-web Vitest**: `yarn test` → `nx run client-web:test` → Vitest (jsdom) from [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Use **Vitest** (`vi`, `describe`, …), not Jest, for these tests.
+- **Client UI and libs pulled into client-web Vitest**: `yarn test` → `nx run client-web:test` → Vitest (jsdom) from [apps/client-web/vitest.config.ts](apps/client-web/vitest.config.ts). Use **Vitest** (`vi`, `describe`, …), not Jest, for these tests.
 - **Server (`apps/server`)**: **Jest** (Node) via `yarn test:server` → `nx run server:test`. Test files: `apps/server/src/**/*.test.ts` (see [apps/server/jest.config.js](apps/server/jest.config.js)).
 - **Shared packages with an Nx Jest target** (quota, repr-validation, repr-rules, constants): **Jest** via `nx run <project>:test`. Same `*.test.ts` naming; do not introduce `*.spec.ts` outside e2e.
 - **E2E (Playwright)**: `yarn test:e2e` → `nx run client-web:test:e2e` → [apps/client-web/e2e/playwright.config.cts](apps/client-web/e2e/playwright.config.cts). Specs in `e2e/specs/**/*.spec.ts`. Local setup: [apps/client-web/e2e/README.md](apps/client-web/e2e/README.md).
@@ -37,7 +37,7 @@ alwaysApply: false
 
 ## Integration tests (pages and `libs/components`)
 
-- **Pages** (`apps/client-web/src/pages/<Page>/`): `integration-tests/**/*.test.tsx` (or `.test.ts` if no JSX).
+- **Views** (`apps/client-web/src/views/<View>/`): `integration-tests/**/*.test.tsx` (or `.test.ts` if no JSX).
 - **`libs/components`** modules: `libs/components/src/<Component>/integration-tests/**/*.test.tsx`.
 - **Harness**: render through [apps/client-web/src/test-utils/renderWithAppShell.tsx](apps/client-web/src/test-utils/renderWithAppShell.tsx) — Redux `Provider`, `MemoryRouter`, `CognitoAuthProvider`. Pass `preloadedState` and/or an existing `store` from [createTestStore.ts](apps/client-web/src/test-utils/createTestStore.ts) (no saga middleware).
 - **Imports from `libs/**`into app test-utils**: prefer a **repo-relative** path into`apps/client-web/src/test-utils`where ESLint`import/no-relative-packages`applies;`@client-web/test-utils` exists in Vite for resolution when appropriate.
@@ -51,10 +51,10 @@ Run **`yarn test:coverage`** from the repo root. CI and Sonar consume the merged
 
 After editing any non-excluded source file under `apps/client-web/src` or `libs/**`:
 
-1. Run **`yarn test`** (or `nx run client-web:test --skip-nx-cache` if Nx cache might hide failures). Vitest runs with coverage and **per-file thresholds** from [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts); the run must exit 0.
+1. Run **`yarn test`** (or `nx run client-web:test --skip-nx-cache` if Nx cache might hide failures). Vitest runs with coverage and **per-file thresholds** from [apps/client-web/vitest.config.ts](apps/client-web/vitest.config.ts); the run must exit 0.
 2. In the terminal coverage table, find every file you touched. Confirm it meets the row in the table below (same rules as merge). Uncovered line numbers are listed in the last column — add or extend tests until those lines are covered.
 3. For a quick check on one area: `cd apps/client-web && node ../../node_modules/vitest/vitest.mjs run --coverage path/to/YourFile.test.ts` (still enforces thresholds for all included files in the report).
-4. If you add a **public export** from a lib barrel (`libs/*/src/index.ts`), grep for imports of that symbol and run **`yarn start`** or **`yarn test:e2e`** once — a missing re-export breaks the Vite app at runtime (blank page) even when unit tests pass (sagas often mock `@reprman/reprs-api`).
+4. If you add a **public export** from a lib barrel (`libs/*/src/index.ts`), grep for imports of that symbol and run **`yarn start`** or **`yarn test:e2e`** once — a missing re-export breaks the Next.js app at runtime even when unit tests pass (sagas often mock `@reprman/reprs-api`).
 5. Do **not** rely on the HTML report alone; the text summary and a non-zero exit code are the gate.
 
 `yarn validate` = lint + prettier + `yarn test` + e2e; use it before claiming the repo is green.
@@ -73,7 +73,7 @@ After editing any non-excluded source file under `apps/client-web/src` or `libs/
 
 ## Excluded from coverage (Vitest, Jest, Sonar)
 
-Canonical list: [scripts/coverage-exclude-globs.mjs](scripts/coverage-exclude-globs.mjs) (wired into [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts), [apps/server/jest.config.js](apps/server/jest.config.js), and [sonar-project.properties](sonar-project.properties)).
+Canonical list: [scripts/coverage-exclude-globs.mjs](scripts/coverage-exclude-globs.mjs) (wired into [apps/client-web/vitest.config.ts](apps/client-web/vitest.config.ts), [apps/server/jest.config.js](apps/server/jest.config.js), and [sonar-project.properties](sonar-project.properties)).
 
 Excluded patterns include:
 
@@ -93,7 +93,7 @@ Interface-only `*.types.ts` files listed in the Vite coverage exclude are not th
 
 ## Vitest discovery and coverage (monorepo)
 
-- Test **include** and **coverage** live in [apps/client-web/vite.config.ts](apps/client-web/vite.config.ts). Lib tests are discovered via `**/*.test.{ts,tsx,js}` globs under `../../libs/...` (no `*.spec.*` patterns).
+- Test **include** and **coverage** live in [apps/client-web/vitest.config.ts](apps/client-web/vitest.config.ts). Lib tests are discovered via `**/*.test.{ts,tsx,js}` globs under `../../libs/...` (no `*.spec.*` patterns).
 - **Sonar** unit-test detection: [sonar-project.properties](sonar-project.properties) → `**/*.test.ts`, `**/*.test.tsx` only (not Playwright specs).
 - Full merged coverage (Vitest + Jest, for CI/Sonar): `yarn test:coverage` → [scripts/run-all-coverage.mjs](scripts/run-all-coverage.mjs).
 - Coverage uses **`allowExternal: true`** and **POSIX-style absolute `coverage.include` paths** so `libs/**` appears on Windows; if you change coverage layout, keep those constraints in mind.

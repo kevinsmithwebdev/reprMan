@@ -63,6 +63,11 @@
       "@reprman/client-config/createExpoClientConfig": [
         "libs/client-config/src/createExpoClientConfig.ts"
       ],
+      "@reprman/client-config/createNextClientConfig": [
+        "libs/client-config/src/createNextClientConfig.ts"
+      ],
+
+      "@reprman/localization/server": ["libs/localization/src/server/index.ts"],
 
       "@reprman/client-platform": ["libs/client-platform/src/index.ts"],
       "@reprman/client-platform/*": ["libs/client-platform/src/*"],

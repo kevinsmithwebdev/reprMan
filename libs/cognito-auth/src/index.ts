@@ -1,3 +1,5 @@
+'use client'
+
 export { default as CognitoAuthBar } from './CognitoAuthBar'
 export { CognitoAuthProvider, useCognitoAuth } from './CognitoAuthContext'
 export { default as CognitoSignInFields } from './CognitoSignInFields'

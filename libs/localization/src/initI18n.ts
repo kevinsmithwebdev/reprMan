@@ -108,6 +108,9 @@ export const initI18n = ({
     if (typeof globalThis.localStorage !== 'undefined') {
       globalThis.localStorage.setItem(LANGUAGE_STORAGE_KEY, lng)
     }
+    if (typeof document !== 'undefined') {
+      document.cookie = `${LANGUAGE_STORAGE_KEY}=${lng};path=/;max-age=31536000;samesite=lax`
+    }
   })
 
   initialized = true

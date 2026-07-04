@@ -1,3 +1,5 @@
+'use client'
+
 export { default as AcceptTermsGate } from './AcceptTermsGate'
 export { default as ReprLimitBanner } from './ReprLimitBanner/ReprLimitBanner'
 export { default as SubscriptionHeaderStatus } from './SubscriptionHeaderStatus/SubscriptionHeaderStatus'

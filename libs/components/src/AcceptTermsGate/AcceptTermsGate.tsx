@@ -3,16 +3,16 @@ import { TERMS_VERSION } from '@reprman/constants'
 import { useAcceptTermsGate } from '@reprman/cognito-auth'
 import { useL10n } from '@reprman/localization'
 import { Button, Form, Modal, Spinner } from 'react-bootstrap'
-import { useLocation } from 'react-router-dom'
+import { usePathname } from 'next/navigation'
 import TermsLink from '../TermsLink'
 
 const SKIP_PATH_PREFIXES = ['/terms', '/signup', '/signin']
 
 const AcceptTermsGate = () => {
-  const location = useLocation()
+  const pathname = usePathname()
   const { t } = useL10n()
   const skipPath = SKIP_PATH_PREFIXES.some((prefix) =>
-    location.pathname.startsWith(prefix)
+    pathname.startsWith(prefix)
   )
   const { show, accepted, setAccepted, busy, handleAccept } =
     useAcceptTermsGate({ skip: skipPath })

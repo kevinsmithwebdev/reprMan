@@ -1,6 +1,5 @@
 {
   "name": "client-web",
-  "version": "2.0.0",
-  "private": true,
-  "description": "ReprMan web client"
+  "version": "2.0.17",
+  "private": true
 }

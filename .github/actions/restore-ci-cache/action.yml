@@ -12,7 +12,7 @@ runs:
           apps/client-web/.eslintcache
           apps/client-web/node_modules/.vite
           apps/client-web/node_modules/.vitest
-        key: ci-tools-${{ runner.os }}-${{ hashFiles('yarn.lock', 'nx.json', '**/project.json', '.eslintrc.js', 'apps/client-web/vite.config.ts') }}
+        key: ci-tools-${{ runner.os }}-${{ hashFiles('yarn.lock', 'nx.json', '**/project.json', '.eslintrc.js', 'apps/client-web/vitest.config.ts') }}
         restore-keys: |
           ci-tools-${{ runner.os }}-
 

@@ -13,9 +13,9 @@ jobs:
         node-version: [24.x]
 
     env:
-      VITE_REQUIRE_HOME_SIGN_IN: ${{ secrets.VITE_REQUIRE_HOME_SIGN_IN || vars.VITE_REQUIRE_HOME_SIGN_IN || secrets.REACT_APP_REQUIRE_HOME_SIGN_IN || vars.REACT_APP_REQUIRE_HOME_SIGN_IN }}
-      VITE_ALLOW_ANONYMOUS_HOME: ${{ secrets.VITE_ALLOW_ANONYMOUS_HOME || vars.VITE_ALLOW_ANONYMOUS_HOME || secrets.REACT_APP_ALLOW_ANONYMOUS_HOME || vars.REACT_APP_ALLOW_ANONYMOUS_HOME }}
-      VITE_COGNITO_IDENTITY_POOL_ID: ${{ secrets.VITE_COGNITO_IDENTITY_POOL_ID || vars.VITE_COGNITO_IDENTITY_POOL_ID || secrets.REACT_APP_COGNITO_IDENTITY_POOL_ID || vars.REACT_APP_COGNITO_IDENTITY_POOL_ID }}
+      NEXT_PUBLIC_REQUIRE_HOME_SIGN_IN: ${{ secrets.NEXT_PUBLIC_REQUIRE_HOME_SIGN_IN || vars.NEXT_PUBLIC_REQUIRE_HOME_SIGN_IN || secrets.VITE_REQUIRE_HOME_SIGN_IN || vars.VITE_REQUIRE_HOME_SIGN_IN || secrets.REACT_APP_REQUIRE_HOME_SIGN_IN || vars.REACT_APP_REQUIRE_HOME_SIGN_IN }}
+      NEXT_PUBLIC_ALLOW_ANONYMOUS_HOME: ${{ secrets.NEXT_PUBLIC_ALLOW_ANONYMOUS_HOME || vars.NEXT_PUBLIC_ALLOW_ANONYMOUS_HOME || secrets.VITE_ALLOW_ANONYMOUS_HOME || vars.VITE_ALLOW_ANONYMOUS_HOME || secrets.REACT_APP_ALLOW_ANONYMOUS_HOME || vars.REACT_APP_ALLOW_ANONYMOUS_HOME }}
+      NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID: ${{ secrets.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID || vars.NEXT_PUBLIC_COGNITO_IDENTITY_POOL_ID || secrets.VITE_COGNITO_IDENTITY_POOL_ID || vars.VITE_COGNITO_IDENTITY_POOL_ID || secrets.REACT_APP_COGNITO_IDENTITY_POOL_ID || vars.REACT_APP_COGNITO_IDENTITY_POOL_ID }}
 
     permissions:
       contents: read
@@ -63,7 +63,7 @@ jobs:
         run: |
           node ../../scripts/with-build-metadata.mjs APP "npx cdk deploy ReprServerStack-Prod -a \"node dist/cdk/app.js\" --require-approval never --outputs-file cdk-outputs.json"
 
-      - name: Load Vite env from CDK outputs
+      - name: Load Next.js env from CDK outputs
         working-directory: apps/server
         run: |
           set -e
@@ -75,14 +75,16 @@ jobs:
           if [ -z "$CLIENT" ] || [ "$CLIENT" = "null" ]; then echo "::error::Missing UserPoolClientId in cdk-outputs.json"; exit 1; fi
           if [ -z "$API" ] || [ "$API" = "null" ]; then echo "::error::Missing ApiBaseUrl in cdk-outputs.json"; exit 1; fi
           {
-            echo "VITE_COGNITO_USER_POOL_ID=$POOL"
-            echo "VITE_COGNITO_USER_POOL_CLIENT_ID=$CLIENT"
-            echo "VITE_REPRS_API_BASE_URL=$API"
+            echo "NEXT_PUBLIC_COGNITO_USER_POOL_ID=$POOL"
+            echo "NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID=$CLIENT"
+            echo "NEXT_PUBLIC_REPRS_API_BASE_URL=$API"
           } >> "$GITHUB_ENV"
 
-      - name: Build client (production bundle)
-        # Must be a fresh build so runtime config from previous CI caches is never reused.
+      - name: Build Next.js client (SSR bundle)
         run: yarn nx run client-web:build --skip-nx-cache
+
+      - name: Build OpenNext deployment bundle
+        run: yarn nx run client-web:build:open-next --skip-nx-cache
 
       - name: Resolve production bucket
         id: bucket
@@ -101,20 +103,31 @@ jobs:
           REGION: ${{ secrets.AWS_REGION }}
         run: aws s3 ls "s3://$BUCKET/" --region "$REGION"
 
-      - name: Deploy site to S3
+      - name: Deploy static assets to S3
         env:
           BUCKET: ${{ steps.bucket.outputs.name }}
           REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws s3 sync apps/client-web/build "s3://$BUCKET/" \
+          aws s3 sync apps/client-web/.open-next/assets "s3://$BUCKET/" \
             --region "$REGION" \
             --delete \
-            --exclude "index.html" \
             --cache-control "public,max-age=31536000,immutable"
-          aws s3 cp apps/client-web/build/index.html "s3://$BUCKET/index.html" \
-            --region "$REGION" \
-            --cache-control "no-cache,no-store,must-revalidate" \
-            --content-type "text/html; charset=utf-8"
+
+      - name: Deploy OpenNext server bundle
+        env:
+          REGION: ${{ secrets.AWS_REGION }}
+          OPEN_NEXT_LAMBDA: ${{ secrets.AWS_OPEN_NEXT_LAMBDA_NAME }}
+        run: |
+          if [ -z "$OPEN_NEXT_LAMBDA" ]; then
+            echo "::warning::AWS_OPEN_NEXT_LAMBDA_NAME is not set; skipping Lambda code update."
+            echo "Configure a Lambda (OpenNext server handler) and set AWS_OPEN_NEXT_LAMBDA_NAME to enable SSR in production."
+            exit 0
+          fi
+          (cd apps/client-web/.open-next/server-function && zip -r ../server-function.zip .)
+          aws lambda update-function-code \
+            --function-name "$OPEN_NEXT_LAMBDA" \
+            --zip-file fileb://apps/client-web/.open-next/server-function.zip \
+            --region "$REGION"
 
       - name: Invalidate CloudFront cache
         env:

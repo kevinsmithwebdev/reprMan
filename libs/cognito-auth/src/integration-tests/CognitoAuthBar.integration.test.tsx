@@ -38,13 +38,15 @@ vi.mock('@reprman/localization', () => ({
   useL10n: () => ({ t: (key: string) => key }),
 }))
 
-vi.mock('react-router-dom', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('react-router-dom')>()
-  return {
-    ...actual,
-    useNavigate: () => navigateMock,
-  }
-})
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: navigateMock,
+    replace: navigateMock,
+    back: vi.fn(),
+  }),
+  usePathname: () => '/',
+  useParams: () => ({}),
+}))
 
 vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
   const actual = await importOriginal<

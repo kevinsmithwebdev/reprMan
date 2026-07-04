@@ -1,7 +1,7 @@
 import React from 'react'
+import Link from 'next/link'
 import PasswordFormControl from '@reprman/components/PasswordFormControl'
 import { Form } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 
 export type CognitoSignInFieldsProps = {
   idPrefix: string
@@ -55,7 +55,7 @@ const CognitoSignInFields = ({
     {showCreateAccountLink ? (
       <p className="mb-0 small">
         <Link
-          to="/signup"
+          href="/signup"
           className="text-decoration-none"
           onClick={onCreateAccountNavigate}
         >

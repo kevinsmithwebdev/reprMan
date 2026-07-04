@@ -1,6 +1,6 @@
 import React from 'react'
-import { Alert, Button, Card } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import Link from 'next/link'
+import { Alert, Card } from 'react-bootstrap'
 import { useL10n } from '@reprman/localization'
 
 interface HomeAuthCardProps {
@@ -16,11 +16,11 @@ interface HomeAuthCardProps {
  * navigation and surfaces a setup hint when Cognito is not configured.
  */
 const HomeAuthCard = ({ authReady }: HomeAuthCardProps) => {
-  const navigate = useNavigate()
   const { t } = useL10n()
-  const missingAuthMessageKey = import.meta.env.DEV
-    ? 'auth.homeCognitoEnvMissingDev'
-    : 'auth.homeCognitoEnvMissingProd'
+  const missingAuthMessageKey =
+    process.env.NODE_ENV === 'development'
+      ? 'auth.homeCognitoEnvMissingDev'
+      : 'auth.homeCognitoEnvMissingProd'
 
   return (
     <div className="w-100 d-flex justify-content-center">
@@ -36,20 +36,12 @@ const HomeAuthCard = ({ authReady }: HomeAuthCardProps) => {
             </Alert>
           )}
           <div className="d-grid gap-2">
-            <Button
-              variant="primary"
-              type="button"
-              onClick={() => navigate('/signin')}
-            >
+            <Link href="/signin" className="btn btn-primary">
               {t('auth.signInButton')}
-            </Button>
-            <Button
-              variant="outline-primary"
-              type="button"
-              onClick={() => navigate('/signup')}
-            >
+            </Link>
+            <Link href="/signup" className="btn btn-outline-primary">
               {t('auth.signUpButton')}
-            </Button>
+            </Link>
           </div>
         </Card.Body>
       </Card>

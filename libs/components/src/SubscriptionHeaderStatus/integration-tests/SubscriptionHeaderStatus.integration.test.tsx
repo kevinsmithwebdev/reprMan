@@ -64,11 +64,17 @@ vi.mock('@reprman/localization', () => ({
   }),
 }))
 
-vi.mock('react-router-dom', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('react-router-dom')>()
+vi.mock('next/navigation', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('next/navigation')>()
   return {
     ...actual,
-    useNavigate: () => mocks.navigate,
+    useRouter: () => ({
+      push: mocks.navigate,
+      replace: mocks.navigate,
+      back: vi.fn(),
+    }),
+    usePathname: () => '/',
+    useParams: () => ({}),
   }
 })
 

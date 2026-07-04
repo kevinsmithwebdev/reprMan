@@ -1,6 +1,6 @@
 import React from 'react'
+import Link from 'next/link'
 import { Card } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import { useL10n } from '@reprman/localization'
 
 interface AuthUnavailableCardProps {
@@ -26,7 +26,7 @@ const AuthUnavailableCard = ({
     <Card.Body style={{ padding: '10px' }} id={pageId}>
       <Card.Title>{t(titleKey)}</Card.Title>
       <Card.Text>{t(messageKey)}</Card.Text>
-      <Link to="/">{t('auth.signUpBackHome')}</Link>
+      <Link href="/">{t('auth.signUpBackHome')}</Link>
     </Card.Body>
   )
 }

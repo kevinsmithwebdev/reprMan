@@ -17,7 +17,11 @@
     },
     "test": {
       "cache": true,
-      "inputs": ["default", "^default", "{workspaceRoot}/apps/client-web/vite.config.ts"],
+      "inputs": [
+        "default",
+        "^default",
+        "{workspaceRoot}/apps/client-web/vitest.config.ts"
+      ],
       "outputs": ["{projectRoot}/coverage"]
     }
   },

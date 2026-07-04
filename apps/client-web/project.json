@@ -2,13 +2,13 @@
   "name": "client-web",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "application",
-  "sourceRoot": "apps/client-web/src",
+  "sourceRoot": "apps/client-web",
   "targets": {
     "build": {
       "executor": "nx:run-commands",
-      "outputs": ["{projectRoot}/build"],
+      "outputs": ["{projectRoot}/.next"],
       "options": {
-        "command": "node ../../scripts/with-build-metadata.mjs VITE \"npx vite build\"",
+        "command": "node ../../scripts/with-build-metadata.mjs NEXT_PUBLIC \"npx next build\"",
         "cwd": "apps/client-web"
       },
       "configurations": {
@@ -18,11 +18,32 @@
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "node ../../scripts/with-build-metadata.mjs VITE \"npx vite\"",
+        "command": "node ../../scripts/with-build-metadata.mjs NEXT_PUBLIC \"npx next dev --port 3000\"",
         "cwd": "apps/client-web"
       },
       "configurations": {
         "development": {}
+      }
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node ../../scripts/with-build-metadata.mjs NEXT_PUBLIC \"npx next start --port 3000\"",
+        "cwd": "apps/client-web"
+      }
+    },
+    "test:watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "node ../../node_modules/vitest/vitest.mjs --config vitest.config.ts",
+        "cwd": "apps/client-web"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx eslint \"app/**/*.{js,jsx,ts,tsx}\" \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0 --cache --cache-location .eslintcache",
+        "cwd": "apps/client-web"
       }
     },
     "test": {
@@ -35,24 +56,19 @@
         "forwardAllArgs": true
       }
     },
-    "test:watch": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "node ../../node_modules/vitest/vitest.mjs",
-        "cwd": "apps/client-web"
-      }
-    },
-    "lint": {
-      "executor": "nx:run-commands",
-      "options": {
-        "command": "npx eslint \"src/**/*.{js,jsx,ts,tsx}\" --max-warnings=0 --cache --cache-location .eslintcache",
-        "cwd": "apps/client-web"
-      }
-    },
     "test:e2e": {
       "executor": "nx:run-commands",
       "options": {
         "command": "playwright test --config e2e/playwright.config.cts",
+        "cwd": "apps/client-web"
+      }
+    },
+    "build:open-next": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "outputs": ["{projectRoot}/.open-next"],
+      "options": {
+        "command": "npx open-next build",
         "cwd": "apps/client-web"
       }
     }

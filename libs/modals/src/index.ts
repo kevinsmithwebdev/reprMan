@@ -1,3 +1,5 @@
+'use client'
+
 export { default as Confirmation } from './Confirmation'
 export { default as EditRepr } from './EditRepr'
 export { default as Info } from './Info'

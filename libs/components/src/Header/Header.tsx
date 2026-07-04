@@ -1,10 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { homeAuthGateActive } from '@reprman/cognito-auth/configureAmplify'
 import { CognitoAuthBar } from '@reprman/cognito-auth'
 import { useCognitoAuth } from '@reprman/cognito-auth/CognitoAuthContext'
 import { useL10n } from '@reprman/localization'
 import { Nav, Navbar } from 'react-bootstrap'
-import { NavLink, useLocation } from 'react-router-dom'
 import SubscriptionHeaderStatus from '../SubscriptionHeaderStatus/SubscriptionHeaderStatus'
 import LanguageSwitcher from './LanguageSwitcher'
 
@@ -60,8 +61,8 @@ export const initialNarrowBrand = (): boolean =>
   globalThis.window?.matchMedia(HEADER_BRAND_NARROW_MQ).matches ?? false
 
 const Header = () => {
-  const location = useLocation()
-  const rootPath = `/${location.pathname.split('/')[1]}`
+  const pathname = usePathname()
+  const rootPath = `/${pathname.split('/')[1] || ''}`
   const { t, language } = useL10n()
   const { sessionChecked, signedIn } = useCognitoAuth()
 
@@ -84,9 +85,9 @@ const Header = () => {
   }, [narrowBrand, language, t])
 
   const navbarBrandLabel = useMemo(() => {
-    const pageKey = pageTitleKeyForPath(location.pathname)
+    const pageKey = pageTitleKeyForPath(pathname)
     return pageKey ? `${brandBase} - ${t(pageKey)}` : brandBase
-  }, [brandBase, location.pathname, language, t])
+  }, [brandBase, pathname, language, t])
 
   useEffect(() => {
     document.title = navbarBrandLabel
@@ -152,6 +153,20 @@ const Header = () => {
 
 export default Header
 
+const NavLink = ({
+  href,
+  className,
+  children,
+}: {
+  href: string
+  className: string
+  children: React.ReactNode
+}) => (
+  <Link href={href} className={className}>
+    {children}
+  </Link>
+)
+
 const renderLink = (
   route: RouteData,
   rootPath: string,
@@ -179,7 +194,7 @@ const renderLink = (
           {route.name.toUpperCase()}
         </span>
       ) : (
-        <NavLink to={route.path} className={className}>
+        <NavLink href={route.path} className={className}>
           {route.name.toUpperCase()}
         </NavLink>
       )}

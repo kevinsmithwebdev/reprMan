@@ -13,7 +13,7 @@ import {
 import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 
 const dayLabel = (
   count: number,
@@ -24,7 +24,7 @@ const dayLabel = (
 
 const SubscriptionHeaderStatus = () => {
   const { t } = useL10n()
-  const navigate = useNavigate()
+  const router = useRouter()
   const { sessionChecked, signedIn } = useCognitoAuth()
   const subscription = useSelector(selectSubscription)
   const subscriptionLoaded = useSelector(selectSubscriptionLoaded)
@@ -40,7 +40,7 @@ const SubscriptionHeaderStatus = () => {
   }
 
   const goSubscribe = () => {
-    navigate('/subscribe')
+    router.push('/subscribe')
   }
 
   const startCheckout = async () => {

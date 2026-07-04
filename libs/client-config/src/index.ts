@@ -6,3 +6,4 @@ export {
   setClientConfig,
 } from './clientConfigStore'
 export { createWebClientConfig } from './createWebClientConfig'
+export { createNextClientConfig } from './createNextClientConfig'

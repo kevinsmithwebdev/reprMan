@@ -23,9 +23,6 @@ const rootReducer = combineReducers({
 
 export type TestRootState = ReturnType<typeof rootReducer>
 
-/**
- * Redux store for tests: same reducers as production, no saga middleware.
- */
 export function createTestStore(
   preloadedState?: PreloadedState<TestRootState>
 ) {

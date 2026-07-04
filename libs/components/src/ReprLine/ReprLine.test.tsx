@@ -2,13 +2,15 @@ import { act, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import { Route, Routes } from 'react-router-dom'
 import type { Repr } from '@reprman/types'
 import { PRACTICE_COOLDOWN_MS } from '@reprman/shared/repr-rules'
 
 import store from '@reprman/state/store'
-import type { TestStore } from '../../../../apps/client-web/src/test-utils/createTestStore'
-import { renderWithAppShell } from '../../../../apps/client-web/src/test-utils'
+import {
+  navigationMocks,
+  renderWithAppShell,
+  type TestStore,
+} from '../../../../apps/client-web/src/test-utils'
 import ReprLine from './ReprLine'
 
 vi.mock('@reprman/state/store', async () => {
@@ -44,16 +46,11 @@ describe('ReprLine', () => {
   })
 
   it('navigates to the view repr route when the card is clicked', async () => {
-    renderWithAppShell(
-      <Routes>
-        <Route path="/" element={<ReprLine repr={repr} />} />
-        <Route path="/view/:id" element={<div>view page</div>} />
-      </Routes>,
-      renderOptions
-    )
+    navigationMocks.push.mockClear()
+    renderWithAppShell(<ReprLine repr={repr} />, renderOptions)
 
     await userEvent.click(screen.getByText('Cooldown piece'))
-    expect(screen.getByText('view page')).toBeTruthy()
+    expect(navigationMocks.push).toHaveBeenCalledWith('/view/line-1')
   })
 
   describe('practice cooldown effect', () => {

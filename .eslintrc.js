@@ -74,6 +74,7 @@ module.exports = {
   overrides: [
     {
       files: [
+        'apps/client-web/app/**/*.{js,jsx,ts,tsx}',
         'apps/client-web/src/**/*.{js,jsx,ts,tsx}',
         'src/**/*.{js,jsx,ts,tsx}',
       ],

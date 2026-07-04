@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { AuthError, deleteUser, signOut } from 'aws-amplify/auth'
 import { Button, Dropdown, Modal, Spinner } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import { useL10n } from '@reprman/localization'
 import { isCognitoConfigured } from '@reprman/cognito-auth/configureAmplify'
 import { isReprsApiConfigured } from '@reprman/reprs-api'
@@ -24,7 +24,7 @@ import { getUserInitials } from './getUserInitials'
 
 const CognitoAuthBar = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const router = useRouter()
   const { t } = useL10n()
   const { user } = useUser()
   const subscription = useSelector(selectSubscription)
@@ -88,7 +88,7 @@ const CognitoAuthBar = () => {
         })
       )
       setShowDeleteAccountModal(false)
-      navigate('/')
+      router.replace('/')
     } catch (err) {
       const message =
         err instanceof AuthError
@@ -171,7 +171,7 @@ const CognitoAuthBar = () => {
             <Dropdown.Item
               as="button"
               type="button"
-              onClick={() => navigate('/terms')}
+              onClick={() => router.push('/terms')}
               id="cognito-terms-of-use"
             >
               {t('auth.termsOfUseMenu')}
@@ -179,7 +179,7 @@ const CognitoAuthBar = () => {
             <Dropdown.Item
               as="button"
               type="button"
-              onClick={() => navigate('/change-password')}
+              onClick={() => router.push('/change-password')}
               id="cognito-change-password"
             >
               {t('auth.changePasswordMenu')}
@@ -220,7 +220,7 @@ const CognitoAuthBar = () => {
           variant="outline-light"
           size="sm"
           disabled={busySignOut}
-          onClick={() => navigate('/signin')}
+          onClick={() => router.push('/signin')}
           id="cognito-sign-in-open"
         >
           {t('auth.signInButton')}

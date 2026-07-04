@@ -10,7 +10,7 @@ Repr data is stored in AWS (DynamoDB) through an authenticated API.
 
 ### Required environment (local frontend)
 
-Vite reads variables from the **repository root** `.env` (see `apps/client-web/vite.config.ts`). Copy [`.env.example`](.env.example) to `.env` or `.env.local` and fill in values.
+Next.js reads `NEXT_PUBLIC_*` variables from the **repository root** `.env` (see `apps/client-web/next.config.ts`). Copy [`.env.example`](.env.example) to `.env` or `.env.local` and fill in values.
 
 For **local UI against the Dev API**, use the CloudFormation outputs from stack `ReprServerStack-Dev` (`UserPoolId`, `UserPoolClientId`, `ApiBaseUrl`) after a deploy:
 
@@ -21,7 +21,7 @@ aws cloudformation describe-stacks \
   --output table
 ```
 
-Set `VITE_COGNITO_USER_POOL_ID`, `VITE_COGNITO_USER_POOL_CLIENT_ID`, and `VITE_REPRS_API_BASE_URL` accordingly.
+Set `NEXT_PUBLIC_COGNITO_USER_POOL_ID`, `NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID`, and `NEXT_PUBLIC_REPRS_API_BASE_URL` accordingly.
 
 ### Required environment (local mobile)
 
@@ -44,7 +44,7 @@ Run the app with `yarn start:mobile` (or `nx run client-mobile:start`), then ope
 Browser tests live in [`apps/client-web/e2e/specs`](apps/client-web/e2e/specs) (`*.spec.ts`). They need Dev Cognito/API in repo root `.env` plus test credentials in `.env.e2e` (see [`apps/client-web/e2e/README.md`](apps/client-web/e2e/README.md)).
 
 - `yarn test:e2e:install` — install Chromium for Playwright
-- `yarn test:e2e` — run the suite (starts the Vite dev server unless one is already running)
+- `yarn test:e2e` — run the suite (starts the Next.js dev server unless one is already running)
 - `yarn test:e2e:ui` — debug in UI mode
 
 ### CDK stacks (Dev and Prod)
