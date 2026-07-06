@@ -73,9 +73,32 @@ export const getRateLimits = () => ({
 
 export const analyticsEnvironment = (): string => getServerStage()
 
-/** Required table names resolved once at cold start. */
+/** Resolved at first access (Lambda cold start), not at module import (CDK synth). */
+let cachedServerConfig:
+  | {
+      reprsTableName: string
+      dailyUsageTableName: string
+      stripeCustomerIndexName: typeof STRIPE_CUSTOMER_INDEX_NAME
+    }
+  | undefined
+
+export const getServerConfig = () => {
+  cachedServerConfig ??= {
+    reprsTableName: getReprsTableName(),
+    dailyUsageTableName: getDailyUsageTableName(),
+    stripeCustomerIndexName: STRIPE_CUSTOMER_INDEX_NAME,
+  }
+  return cachedServerConfig
+}
+
 export const serverConfig = {
-  reprsTableName: getReprsTableName(),
-  dailyUsageTableName: getDailyUsageTableName(),
-  stripeCustomerIndexName: STRIPE_CUSTOMER_INDEX_NAME,
+  get reprsTableName(): string {
+    return getServerConfig().reprsTableName
+  },
+  get dailyUsageTableName(): string {
+    return getServerConfig().dailyUsageTableName
+  },
+  get stripeCustomerIndexName(): typeof STRIPE_CUSTOMER_INDEX_NAME {
+    return getServerConfig().stripeCustomerIndexName
+  },
 }
