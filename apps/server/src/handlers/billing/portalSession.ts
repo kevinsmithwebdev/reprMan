@@ -2,9 +2,11 @@ import { getUserId } from '../../lib/auth'
 import { mapHandlerError } from '../../lib/handlerErrors'
 import { jsonResponse } from '../../lib/http'
 import { getUserConfig } from '../../lib/reprStore'
-import { getStripeClient, isStripeConfigured } from '../../lib/stripeClient'
-
-import { getStripePortalReturnUrl } from '../../lib/stripeClient'
+import {
+  getStripeClient,
+  isStripeConfigured,
+  getStripePortalReturnUrl,
+} from '../../lib/stripeClient'
 
 const portalReturnUrl = (): string => {
   const url = getStripePortalReturnUrl()

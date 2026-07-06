@@ -66,7 +66,6 @@ export function* addReprWorker({ payload: repr }: any) {
         delay: 6000,
       })
     )
-    return
   }
 }
 

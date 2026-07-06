@@ -22,7 +22,7 @@ const AppLayout = () => {
     <Stack
       screenOptions={{
         headerShown: true,
-        headerBackTitleVisible: false,
+        headerBackButtonDisplayMode: 'minimal',
       }}
     />
   )

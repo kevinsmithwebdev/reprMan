@@ -1,8 +1,5 @@
 import React, { FC, useMemo } from 'react'
-import {
-  ReprStatus,
-  REPR_STATUS_SECTION_TITLE_KEYS,
-} from '@reprman/shared/repr-rules'
+import { REPR_STATUS_SECTION_TITLE_KEYS } from '@reprman/shared/repr-rules'
 import { useL10n } from '@reprman/localization'
 import { useSettings } from '@reprman/state/settings'
 import { groupReprsByStatus } from './ReprsList.helpers'

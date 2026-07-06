@@ -1,12 +1,12 @@
 import React, { FC } from 'react'
 import { Button } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 import {
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalTitle,
 } from '../common/BootstrapModalParts'
-import { useDispatch } from 'react-redux'
 import ModalBodyParagraphs from '../common/ModalBodyParagraphs'
 
 export interface ChoiceDatum {

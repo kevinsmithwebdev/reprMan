@@ -6,9 +6,6 @@ import {
   getStripeClient,
   getStripePriceId,
   isStripeConfigured,
-} from '../../lib/stripeClient'
-
-import {
   getStripeCheckoutCancelUrl,
   getStripeCheckoutSuccessUrl,
 } from '../../lib/stripeClient'

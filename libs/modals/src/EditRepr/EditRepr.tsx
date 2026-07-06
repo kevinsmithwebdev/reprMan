@@ -2,12 +2,6 @@ import React, { FC, useState } from 'react'
 import { getComplement } from '@reprman/utilities'
 import { Form } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
-import {
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalTitle,
-} from '../common/BootstrapModalParts'
 import { Repr, useReprs } from '@reprman/state/reprs'
 import { useDispatch, useSelector } from 'react-redux'
 import { addReprSAC } from '@reprman/state/sagas/reprs/reprs.actions'
@@ -19,6 +13,12 @@ import {
   selectSubscription,
 } from '@reprman/state/reprsQuota'
 import { useL10n } from '@reprman/localization'
+import {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '../common/BootstrapModalParts'
 import CategoryLine from './CategoryLine'
 import {
   addCategory,

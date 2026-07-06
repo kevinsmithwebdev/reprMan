@@ -50,7 +50,12 @@ module.exports = {
     'no-underscore-dangle': 0,
     'no-shadow': 0,
     'no-unused-vars': 0,
-    '@typescript-eslint/no-unused-vars': 1,
+    '@typescript-eslint/no-unused-vars': [
+      1,
+      {
+        argsIgnorePattern: '^_',
+      },
+    ],
     'import/order': 1,
     'react/require-default-props': 0,
     'no-console': [1, { allow: ['warn', 'error', 'info'] }],
@@ -98,8 +103,12 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
         'react-native/no-raw-text': 'off',
         'react-native/no-inline-styles': 'off',
+        'react-native/no-sort-styles': 'off',
         'react-native/sort-styles': 'off',
         'react-native/no-unused-styles': 'off',
+        'react-native/no-color-literals': 'off',
+        'react/prop-types': 'off',
+        'react/jsx-props-no-spreading': 'off',
       },
     },
     {

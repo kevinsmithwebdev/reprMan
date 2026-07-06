@@ -5,7 +5,7 @@ const AuthLayout = () => (
   <Stack
     screenOptions={{
       headerShown: true,
-      headerBackTitleVisible: false,
+      headerBackButtonDisplayMode: 'minimal',
     }}
   />
 )

@@ -2,13 +2,13 @@ import React, { FC } from 'react'
 import { ConfirmationModalResponse } from '@reprman/modals/ModalContainer/ModalContainer.types'
 import { useDispatch } from 'react-redux'
 import { Button } from 'react-bootstrap'
+import { useL10n } from '@reprman/localization'
 import {
   ModalBody,
   ModalFooter,
   ModalHeader,
   ModalTitle,
 } from '../common/BootstrapModalParts'
-import { useL10n } from '@reprman/localization'
 
 export interface ConfirmationProps {
   closeModal: () => void

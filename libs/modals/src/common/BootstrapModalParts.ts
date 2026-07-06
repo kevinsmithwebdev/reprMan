@@ -13,7 +13,7 @@ const resolveComponent = <T>(
     typeof component === 'object' &&
     'default' in (component as object) &&
     (component as { default?: T }).default !== undefined
-      ? (component as { default: T }).default
+      ? (component as unknown as { default: T }).default
       : component
 
   if (

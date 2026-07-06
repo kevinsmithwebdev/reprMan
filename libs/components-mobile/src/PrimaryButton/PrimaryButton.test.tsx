@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from 'vitest'
 import { fireEvent, render, screen } from '@testing-library/react'
 
 vi.mock('react-native', () => {
+  // eslint-disable-next-line global-require -- vitest mock factory runs before ESM imports
   const ReactNative = require('react')
   return {
     ActivityIndicator: () => null,
@@ -28,6 +29,7 @@ vi.mock('react-native', () => {
   }
 })
 
+// eslint-disable-next-line import/first -- mocked react-native must initialize first
 import PrimaryButton from './PrimaryButton'
 
 describe('PrimaryButton', () => {

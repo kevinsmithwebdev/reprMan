@@ -251,14 +251,14 @@ export class ReprServerStack extends cdk.Stack {
       })
     }
 
-    for (const route of API_ROUTES) {
+    API_ROUTES.forEach((route) => {
       const methods = route.methods.map((method) => httpMethodMap[method])
       if (route.requiresAuth) {
         addProtectedRoute(route.apiGatewayPath, methods)
       } else {
         addPublicRoute(route.apiGatewayPath, methods)
       }
-    }
+    })
 
     this.apiBaseUrlOutput = new cdk.CfnOutput(this, 'ApiBaseUrl', {
       value: this.httpApi.apiEndpoint,

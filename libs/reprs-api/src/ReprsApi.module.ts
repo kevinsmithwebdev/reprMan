@@ -84,6 +84,8 @@ export type TermsAcceptanceResponse = {
 
 const trimUrl = (value: string): string => value.trim()
 
+// Mutable flag synced from client config at app startup.
+// eslint-disable-next-line import/no-mutable-exports
 export let isReprsApiConfigured = false
 
 /** Sync API availability from `setClientConfig()`. Call at app startup. */
@@ -120,6 +122,7 @@ const request = async (
   const maxRateLimitRetries = 3
   const maxRetryDelaySec = 10
 
+  /* eslint-disable no-await-in-loop, no-continue -- intentional rate-limit retry */
   for (let attempt = 0; attempt <= maxRateLimitRetries; attempt += 1) {
     const response = await fetch(`${baseUrl}${path}`, {
       method,
@@ -179,6 +182,7 @@ const request = async (
 
     return response.json()
   }
+  /* eslint-enable no-await-in-loop, no-continue */
 
   throw new ReprsApiError(429, 'Rate limit exceeded after retries')
 }

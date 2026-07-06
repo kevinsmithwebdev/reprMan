@@ -49,7 +49,13 @@ const ToastWrapper = () => {
       style={{ marginBottom: '25px' }}
     >
       {toasts.map((toast) => (
-        <ToastItem key={toast.id} {...toast} />
+        <ToastItem
+          key={toast.id}
+          id={toast.id}
+          title={toast.title}
+          body={toast.body}
+          level={toast.level}
+        />
       ))}
     </ToastContainer>
   )

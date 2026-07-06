@@ -1,6 +1,12 @@
 import { MY_EMAIL } from '@reprman/constants'
 import { getServerTranslation } from '@reprman/localization/server'
-import { ServerAboutSection } from './ServerAboutSection'
+import { ServerAboutSection, type AboutSectionData } from './ServerAboutSection'
+
+const ABOUT_SECTION_SLUGS = [
+  'pages.about.historySection',
+  'pages.about.instructionsSection',
+  'pages.about.futureSection',
+] as const
 
 export const AboutPageContent = async () => {
   const { t } = await getServerTranslation()
@@ -23,15 +29,33 @@ export const AboutPageContent = async () => {
         }}
       />
 
-      <ServerAboutSection slug="pages.about.historySection" />
+      <ServerAboutSection
+        section={
+          t(ABOUT_SECTION_SLUGS[0], {
+            returnObjects: true,
+          }) as unknown as AboutSectionData
+        }
+      />
 
       <hr />
 
-      <ServerAboutSection slug="pages.about.instructionsSection" />
+      <ServerAboutSection
+        section={
+          t(ABOUT_SECTION_SLUGS[1], {
+            returnObjects: true,
+          }) as unknown as AboutSectionData
+        }
+      />
 
       <hr />
 
-      <ServerAboutSection slug="pages.about.futureSection" />
+      <ServerAboutSection
+        section={
+          t(ABOUT_SECTION_SLUGS[2], {
+            returnObjects: true,
+          }) as unknown as AboutSectionData
+        }
+      />
 
       <ul>
         <li>{t('pages.about.futureItems.accounts')}</li>

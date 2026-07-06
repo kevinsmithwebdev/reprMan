@@ -16,15 +16,15 @@ export const resolveServerLanguage = async (): Promise<SupportedLanguage> => {
   const headerStore = await headers()
   const acceptLanguage = headerStore.get('accept-language')
   if (acceptLanguage) {
-    for (const part of acceptLanguage.split(',')) {
-      const tag = part.split(';')[0]?.trim()
-      if (!tag) {
-        continue
-      }
-      const lang = languageFromLocaleTag(tag)
-      if (lang) {
-        return lang
-      }
+    const matchedLang = acceptLanguage
+      .split(',')
+      .map((part) => part.split(';')[0]?.trim())
+      .filter((tag): tag is string => Boolean(tag))
+      .map((tag) => languageFromLocaleTag(tag))
+      .find((lang): lang is SupportedLanguage => Boolean(lang))
+
+    if (matchedLang) {
+      return matchedLang
     }
   }
 

@@ -16,10 +16,9 @@ const readBoolEnv = (
  * Build config from Vite `import.meta.env` or an explicit env map (tests).
  */
 export const createWebClientConfig = (
-  env: Record<string, string | undefined> = import.meta.env as Record<
-    string,
-    string | undefined
-  >
+  env: Record<string, string | undefined> = (
+    import.meta as ImportMeta & { env: Record<string, string | undefined> }
+  ).env
 ): ClientConfig => ({
   cognitoUserPoolId: readEnv(env, 'VITE_COGNITO_USER_POOL_ID'),
   cognitoUserPoolClientId: readEnv(env, 'VITE_COGNITO_USER_POOL_CLIENT_ID'),

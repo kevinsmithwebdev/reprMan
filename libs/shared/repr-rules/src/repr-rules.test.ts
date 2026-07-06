@@ -7,7 +7,6 @@ import {
   MAX_PRACTICED_DATES,
   prependPracticeDate,
   PRACTICE_COOLDOWN_MS,
-  ReprStatus,
   withPracticeApplied,
 } from './index'
 

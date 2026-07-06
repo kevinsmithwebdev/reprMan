@@ -14,7 +14,7 @@ import store from '@reprman/state/store'
 import { runGenesisSaga } from '@reprman/state/sagas/genesis/genesis.actions'
 import { configureMobileApp } from '../src/configureMobileApp'
 
-const MobileBootstrap = ({ children }: { children: React.ReactNode }) => {
+const MobileAppShell = () => {
   const dispatch = useDispatch()
   const [ready, setReady] = useState(false)
 
@@ -34,7 +34,15 @@ const MobileBootstrap = ({ children }: { children: React.ReactNode }) => {
     return <LoadingOverlay />
   }
 
-  return <>{children}</>
+  return (
+    <>
+      <ReprLimitBanner />
+      <Stack screenOptions={{ headerShown: false }} />
+      <MobileModalHost />
+      <AcceptTermsGate />
+      <ToastHost />
+    </>
+  )
 }
 
 const RootLayout = () => {
@@ -42,13 +50,7 @@ const RootLayout = () => {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
         <CognitoAuthProvider>
-          <MobileBootstrap>
-            <ReprLimitBanner />
-            <Stack screenOptions={{ headerShown: false }} />
-            <MobileModalHost />
-            <AcceptTermsGate />
-            <ToastHost />
-          </MobileBootstrap>
+          <MobileAppShell />
         </CognitoAuthProvider>
       </Provider>
     </GestureHandlerRootView>

@@ -29,7 +29,9 @@ const SignUpForm: FC = () => {
     handleResend,
   } = useCognitoSignUp(() => router.replace('/(app)'), {
     recordTermsAcceptance: isReprsApiConfigured
-      ? () => ReprsApiModule.getInstance().acceptTerms(TERMS_VERSION)
+      ? async () => {
+          await ReprsApiModule.getInstance().acceptTerms(TERMS_VERSION)
+        }
       : undefined,
   })
 

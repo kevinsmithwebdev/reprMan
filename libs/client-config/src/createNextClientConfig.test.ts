@@ -39,7 +39,7 @@ describe('createNextClientConfig', () => {
   })
 
   it('reads from process.env when no explicit env map is passed', () => {
-    const env = process.env
+    const { env } = process
     process.env = {
       ...env,
       NEXT_PUBLIC_COGNITO_USER_POOL_ID: ' pool ',

@@ -1,5 +1,5 @@
 import { getServerTranslation } from '@reprman/localization/server'
-import { ServerTermsSection } from './ServerTermsSection'
+import { ServerTermsSection, type TermsSectionData } from './ServerTermsSection'
 
 const TERMS_SECTIONS = [
   'pages.terms.purposeSection',
@@ -19,7 +19,11 @@ export const TermsPageContent = async () => {
       {TERMS_SECTIONS.map((slug, index) => (
         <div key={slug}>
           {index > 0 ? <hr /> : null}
-          <ServerTermsSection slug={slug} />
+          <ServerTermsSection
+            section={
+              t(slug, { returnObjects: true }) as unknown as TermsSectionData
+            }
+          />
         </div>
       ))}
     </div>

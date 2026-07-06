@@ -1,10 +1,6 @@
 import { fetchAuthSession } from 'aws-amplify/auth'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import {
-  resetClientConfig,
-  setClientConfig,
-  type ClientConfig,
-} from '@reprman/client-config'
+import { resetClientConfig, type ClientConfig } from '@reprman/client-config'
 
 import type { Repr } from '@reprman/types'
 

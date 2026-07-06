@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import { TERMS_VERSION } from '@reprman/constants'
+import React from 'react'
 import { useAcceptTermsGate } from '@reprman/cognito-auth'
 import { useL10n } from '@reprman/localization'
 import { Button, Form, Modal, Spinner } from 'react-bootstrap'
