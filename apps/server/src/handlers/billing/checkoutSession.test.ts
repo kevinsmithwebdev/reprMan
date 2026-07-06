@@ -7,7 +7,7 @@ const authEvent = (claims: Record<string, unknown> = { sub: 'user-1' }) =>
     requestContext: {
       authorizer: { jwt: { claims } },
     },
-  }) as any
+  } as any)
 
 describe('postCheckoutSessionHandler', () => {
   const originalEnv = { ...process.env }

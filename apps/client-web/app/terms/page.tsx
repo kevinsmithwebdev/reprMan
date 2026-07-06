@@ -5,6 +5,6 @@ export async function generateMetadata() {
   return createPageMetadata({ titleKey: 'pages.terms.title' })
 }
 
-export default function TermsPage() {
-  return <TermsPageContent />
-}
+const TermsPage = () => <TermsPageContent />
+
+export default TermsPage

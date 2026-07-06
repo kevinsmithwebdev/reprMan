@@ -1,45 +1,60 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React from 'react'
-import EditRepr, { EditReprProps } from '@reprman/modals/EditRepr'
-import Confirmation, { ConfirmationProps } from '@reprman/modals/Confirmation'
+'use client'
+
+import React, { useCallback, useMemo } from 'react'
 import { useDispatch } from 'react-redux'
+import ModalContext from 'react-bootstrap/ModalContext'
 import { clearModal, useModal } from '@reprman/state/modal'
-import { Modal } from 'react-bootstrap'
-import Query, { QueryProps } from '@reprman/modals/Query'
-import Info, { InfoProps } from '@reprman/modals/Info/Info'
+import EditRepr, { EditReprProps } from '../EditRepr'
+import Confirmation, { ConfirmationProps } from '../Confirmation'
+import Query, { QueryProps } from '../Query'
+import Info, { InfoProps } from '../Info/Info'
 import { ModalSelection } from './ModalContainer.types'
 
 const ModalContainer = () => {
   const dispatch = useDispatch()
   const { selection, props } = useModal()
-  const closeModal = () => dispatch(clearModal())
+  const closeModal = useCallback(() => dispatch(clearModal()), [dispatch])
+  const modalContext = useMemo(() => ({ onHide: closeModal }), [closeModal])
+
+  if (!selection) {
+    return null
+  }
 
   return (
-    <Modal
-      show={!!selection}
-      onHide={closeModal}
-      backdrop="static"
-      keyboard={false}
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
-      {selection === ModalSelection.EDIT_REPR && (
-        <EditRepr {...(props as EditReprProps)} closeModal={closeModal} />
-      )}
+    <ModalContext.Provider value={modalContext}>
+      <div className="modal-backdrop fade show" />
+      <div
+        className="modal fade show d-block"
+        role="dialog"
+        aria-modal="true"
+        tabIndex={-1}
+        aria-labelledby="contained-modal-title-vcenter"
+      >
+        <div className="modal-dialog modal-dialog-centered">
+          <div className="modal-content">
+            {selection === ModalSelection.EDIT_REPR && (
+              <EditRepr {...(props as EditReprProps)} closeModal={closeModal} />
+            )}
 
-      {selection === ModalSelection.CONFIRMATION && (
-        <Confirmation
-          {...(props as ConfirmationProps)}
-          closeModal={closeModal}
-        />
-      )}
+            {selection === ModalSelection.CONFIRMATION && (
+              <Confirmation
+                {...(props as ConfirmationProps)}
+                closeModal={closeModal}
+              />
+            )}
 
-      {selection === ModalSelection.QUERY && (
-        <Query {...(props as QueryProps)} closeModal={closeModal} />
-      )}
+            {selection === ModalSelection.QUERY && (
+              <Query {...(props as QueryProps)} closeModal={closeModal} />
+            )}
 
-      {selection === ModalSelection.INFO && <Info {...(props as InfoProps)} />}
-    </Modal>
+            {selection === ModalSelection.INFO && (
+              <Info {...(props as InfoProps)} />
+            )}
+          </div>
+        </div>
+      </div>
+    </ModalContext.Provider>
   )
 }
 

@@ -12,7 +12,5 @@
       }
     }
   },
-  "tags": [
-    "scope:client"
-  ]
+  "tags": ["scope:client"]
 }

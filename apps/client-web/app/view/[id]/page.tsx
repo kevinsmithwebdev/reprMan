@@ -1,5 +1,5 @@
 import { createPageMetadata } from '@reprman/localization/server'
-import ViewReprView from '../../src/views/ViewReprView'
+import ViewReprView from '../../../src/views/ViewReprView'
 
 export async function generateMetadata() {
   return createPageMetadata({
@@ -8,6 +8,6 @@ export async function generateMetadata() {
   })
 }
 
-export default function ViewReprPage() {
-  return <ViewReprView />
-}
+const ViewReprPage = () => <ViewReprView />
+
+export default ViewReprPage

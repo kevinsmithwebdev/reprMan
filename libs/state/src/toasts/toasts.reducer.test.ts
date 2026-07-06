@@ -22,7 +22,9 @@ describe('toasts.reducer', () => {
 
   it('removeToastAC removes by id', () => {
     const state = [toast, { ...toast, id: 't2' }]
-    expect(reducer(state, removeToastAC('t1'))).toEqual([{ ...toast, id: 't2' }])
+    expect(reducer(state, removeToastAC('t1'))).toEqual([
+      { ...toast, id: 't2' },
+    ])
   })
 
   it('removeToastAC is a no-op when id is missing', () => {

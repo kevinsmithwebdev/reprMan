@@ -4,6 +4,7 @@ import reducer from './reprsQuota.reducer'
 import {
   resetMaxReprsQuota,
   setMaxReprsQuota,
+  setSubscription,
   setTermsConfig,
 } from './reprsQuota.actions'
 
@@ -46,5 +47,17 @@ describe('reprsQuota.reducer', () => {
       termsVersion: '1',
     }
     expect(reducer(state, resetMaxReprsQuota())).toEqual(initialState)
+  })
+
+  it('setSubscription stores subscription payload', () => {
+    const subscription = {
+      status: 'paid' as const,
+      expiration: '2027-01-01T00:00:00.000Z',
+      maxReprs: 100,
+    }
+    expect(reducer(initialState, setSubscription(subscription))).toEqual({
+      maxReprsAllowed: undefined,
+      subscription,
+    })
   })
 })

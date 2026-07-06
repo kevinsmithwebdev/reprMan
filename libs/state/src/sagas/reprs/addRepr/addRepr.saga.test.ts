@@ -233,11 +233,39 @@ describe('addReprWorker', () => {
     ).toPromise()
 
     expect(dispatched).toContainEqual(setReprs(current))
+    expect(dispatched).toContainEqual(setCategories([]))
     expect(dispatched).toContainEqual(
       expect.objectContaining({
         type: 'SAGA/MAKE_TOAST',
         payload: expect.objectContaining({ level: ToastLevel.FAIL }),
       })
     )
+  })
+
+  it('restores categories when API upsert fails after adding new tags', async () => {
+    apiMock.isConfigured = true
+    apiMock.upsertRepr.mockRejectedValue(new Error('fail'))
+    const current = [existingRepr()]
+    const dispatched: unknown[] = []
+
+    await runSaga(
+      {
+        dispatch: (action) => dispatched.push(action),
+        getState: () => ({
+          reprs: current,
+          categories: {
+            categories: ['existing-tag'],
+            filter: { text: '', categories: [] },
+          },
+        }),
+      },
+      addReprWorker,
+      {
+        payload: { ...newReprPayload(), categories: ['new-tag'] },
+      }
+    ).toPromise()
+
+    expect(dispatched).toContainEqual(setReprs(current))
+    expect(dispatched).toContainEqual(setCategories(['existing-tag']))
   })
 })

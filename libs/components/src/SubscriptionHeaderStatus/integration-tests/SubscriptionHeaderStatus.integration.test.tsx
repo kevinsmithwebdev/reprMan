@@ -3,7 +3,10 @@ import userEvent from '@testing-library/user-event'
 import React from 'react'
 import { describe, expect, it, vi, beforeEach } from 'vitest'
 
-import { renderWithAppShell } from '../../../../../apps/client-web/src/test-utils'
+import {
+  navigationMocks,
+  renderWithAppShell,
+} from '../../../../../apps/client-web/src/test-utils'
 import SubscriptionHeaderStatus from '..'
 
 const mocks = vi.hoisted(() => ({
@@ -17,7 +20,6 @@ const mocks = vi.hoisted(() => ({
     refreshSession: vi.fn(),
   },
   createCheckoutSession: vi.fn<() => Promise<{ url: string }>>(),
-  navigate: vi.fn(),
   locationAssign: vi.fn(),
 }))
 
@@ -64,20 +66,6 @@ vi.mock('@reprman/localization', () => ({
   }),
 }))
 
-vi.mock('next/navigation', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('next/navigation')>()
-  return {
-    ...actual,
-    useRouter: () => ({
-      push: mocks.navigate,
-      replace: mocks.navigate,
-      back: vi.fn(),
-    }),
-    usePathname: () => '/',
-    useParams: () => ({}),
-  }
-})
-
 describe('SubscriptionHeaderStatus (integration)', () => {
   beforeEach(() => {
     mocks.daysUntilExpiration = 7
@@ -90,7 +78,7 @@ describe('SubscriptionHeaderStatus (integration)', () => {
       refreshSession: vi.fn(),
     }
     mocks.createCheckoutSession.mockReset()
-    mocks.navigate.mockReset()
+    navigationMocks.push.mockReset()
     mocks.locationAssign.mockReset()
     vi.stubGlobal('location', { assign: mocks.locationAssign })
   })
@@ -166,10 +154,12 @@ describe('SubscriptionHeaderStatus (integration)', () => {
       },
     })
 
-    userEvent.click(screen.getByRole('button', { name: 'billing.subscribe' }))
+    await userEvent.click(
+      screen.getByRole('button', { name: 'billing.subscribe' })
+    )
 
     await waitFor(() => {
-      expect(mocks.navigate).toHaveBeenCalledWith('/subscribe')
+      expect(navigationMocks.push).toHaveBeenCalledWith('/subscribe')
     })
   })
 

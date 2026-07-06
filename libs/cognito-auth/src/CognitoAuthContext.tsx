@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react'
+import { fetchAuthSession } from 'aws-amplify/auth'
 import { useDispatch } from 'react-redux'
 import { isCognitoConfigured } from '@reprman/cognito-auth/configureAmplify'
 import { clearUser, setUser } from '@reprman/state/user/user.actions'
@@ -37,6 +38,7 @@ export const CognitoAuthProvider = ({
       const next = await userFromCognitoSession()
       if (next) {
         dispatch(setUser(next))
+        await fetchAuthSession()
       } else {
         dispatch(clearUser())
       }

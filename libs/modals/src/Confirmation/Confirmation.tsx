@@ -1,7 +1,13 @@
 import React, { FC } from 'react'
 import { ConfirmationModalResponse } from '@reprman/modals/ModalContainer/ModalContainer.types'
 import { useDispatch } from 'react-redux'
-import { Button, Modal } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
+import {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '../common/BootstrapModalParts'
 import { useL10n } from '@reprman/localization'
 
 export interface ConfirmationProps {
@@ -15,11 +21,11 @@ const Confirmation: FC<ConfirmationProps> = ({ closeModal, title, body }) => {
   const { t } = useL10n()
   return (
     <>
-      <Modal.Header closeButton>
-        <Modal.Title>{title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>{body}</Modal.Body>
-      <Modal.Footer>
+      <ModalHeader closeButton>
+        <ModalTitle>{title}</ModalTitle>
+      </ModalHeader>
+      <ModalBody>{body}</ModalBody>
+      <ModalFooter>
         <Button
           style={{ flex: 1 }}
           variant="success"
@@ -40,7 +46,7 @@ const Confirmation: FC<ConfirmationProps> = ({ closeModal, title, body }) => {
         >
           {t('common.no')}
         </Button>
-      </Modal.Footer>
+      </ModalFooter>
     </>
   )
 }

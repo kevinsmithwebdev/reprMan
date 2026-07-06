@@ -8,6 +8,6 @@ export async function generateMetadata() {
   })
 }
 
-export default function ReportsPage() {
-  return <ReportsView />
-}
+const ReportsPage = () => <ReportsView />
+
+export default ReportsPage

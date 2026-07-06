@@ -2,10 +2,12 @@ import type { Repr } from '@reprman/shared/repr-model'
 
 import {
   getLastPracticedAt,
+  getReprVisualColorsForRepr,
   isWithinPracticeCooldown,
   MAX_PRACTICED_DATES,
   prependPracticeDate,
   PRACTICE_COOLDOWN_MS,
+  ReprStatus,
   withPracticeApplied,
 } from './index'
 
@@ -70,13 +72,51 @@ describe('repr-rules', () => {
     it('returns false exactly at the cooldown boundary', () => {
       const now = 1_000_000
       expect(
-        isWithinPracticeCooldown([now - PRACTICE_COOLDOWN_MS], PRACTICE_COOLDOWN_MS, now)
+        isWithinPracticeCooldown(
+          [now - PRACTICE_COOLDOWN_MS],
+          PRACTICE_COOLDOWN_MS,
+          now
+        )
       ).toBe(false)
     })
 
     it('supports a custom cooldown duration', () => {
       const now = 1_000_000
       expect(isWithinPracticeCooldown([now - 500], 1_000, now)).toBe(true)
+    })
+  })
+
+  describe('getReprVisualColorsForRepr', () => {
+    it('returns learning colors for learning reprs', () => {
+      const colors = getReprVisualColorsForRepr(
+        { ...repr([]), learning: true },
+        { practiceDelay: 30, warningRatio: 0.5 }
+      )
+      expect(colors.borderColor).toBe('#6c757d')
+    })
+
+    it('returns overdue colors when practice is stale', () => {
+      const now = Date.UTC(2024, 5, 1)
+      const colors = getReprVisualColorsForRepr(
+        repr([now - 40 * 24 * 60 * 60 * 1000]),
+        { practiceDelay: 30, warningRatio: 0.5 },
+        now
+      )
+      expect(colors.borderColor).toBe('#ff3300')
+      expect(
+        getReprVisualColorsForRepr(
+          repr([now - 20 * 24 * 60 * 60 * 1000]),
+          { practiceDelay: 30, warningRatio: 0.5 },
+          now
+        ).borderColor
+      ).toBe('#ff9900')
+      expect(
+        getReprVisualColorsForRepr(
+          repr([now - 5 * 24 * 60 * 60 * 1000]),
+          { practiceDelay: 30, warningRatio: 0.5 },
+          now
+        ).borderColor
+      ).toBe('#009933')
     })
   })
 })

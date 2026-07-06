@@ -1,11 +1,70 @@
 import { expect, type Page } from '@playwright/test'
 
-import { waitForAuthenticatedHome } from './auth'
+import {
+  goToAuthenticatedHome,
+  waitForAuthenticatedHome,
+  waitForHomeControls,
+  waitForQuotaLoaded,
+} from './auth'
 
 export type CreateReprOptions = {
   title: string
   comment?: string
   categories?: string[]
+}
+
+const reprLimitUnavailableDialog = (page: Page) =>
+  page.getByRole('dialog', { name: /repr limit unavailable/i })
+
+const createReprTitleInput = (page: Page) =>
+  page.locator('.modal.show').getByRole('textbox').first()
+
+async function isCreateReprFormOpen(page: Page): Promise<boolean> {
+  return createReprTitleInput(page)
+    .isVisible()
+    .catch(() => false)
+}
+
+async function openCreateReprForm(page: Page): Promise<void> {
+  if (await isCreateReprFormOpen(page)) {
+    return
+  }
+
+  if (
+    !(await page
+      .locator('#controls-home-component')
+      .isVisible()
+      .catch(() => false))
+  ) {
+    await goToAuthenticatedHome(page)
+    await waitForHomeControls(page)
+  }
+
+  await waitForQuotaLoaded(page)
+  await expect(page.locator('#add-repr-button')).toBeEnabled({
+    timeout: 10_000,
+  })
+
+  await expect(async () => {
+    if (await isCreateReprFormOpen(page)) {
+      return
+    }
+
+    const quotaDialog = reprLimitUnavailableDialog(page)
+    if (await quotaDialog.isVisible().catch(() => false)) {
+      await quotaDialog.getByLabel(/^close$/i).click()
+      throw new Error('Repr quota not loaded yet')
+    }
+
+    await page.locator('#add-repr-button').click()
+
+    if (await quotaDialog.isVisible().catch(() => false)) {
+      await quotaDialog.getByLabel(/^close$/i).click()
+      throw new Error('Repr quota not loaded yet')
+    }
+
+    await expect(createReprTitleInput(page)).toBeVisible({ timeout: 5_000 })
+  }).toPass({ timeout: 60_000 })
 }
 
 export async function createRepr(
@@ -20,18 +79,14 @@ export async function createRepr(
   ) {
     await waitForHomeControls(page)
   } else {
-    await waitForAuthenticatedHome(page)
+    await goToAuthenticatedHome(page)
+    await waitForHomeControls(page)
   }
-  const addRepr = page.locator('#add-repr-button')
-  if (!(await addRepr.isEnabled().catch(() => false))) {
-    throw new Error(
-      'Cannot create repr: account is at the repr limit. Call ensureCanCreateRepr() once before creating reprs in this test, or clear test data for the E2E user.'
-    )
-  }
-  await addRepr.click()
-  await expect(page.locator('#edit-repr-modal')).toBeVisible()
 
-  await page.locator('#edit-repr-title-input').fill(title)
+  await openCreateReprForm(page)
+
+  const titleInput = createReprTitleInput(page)
+  await titleInput.fill(title)
   if (comment) {
     await page.getByPlaceholder('Enter comment...').fill(comment)
   }
@@ -40,13 +95,11 @@ export async function createRepr(
     const categoryInput = page.getByPlaceholder('Enter new category...')
     await categoryInput.fill(category)
     await categoryInput.press('Enter')
-    await expect(
-      page.locator('#edit-repr-modal').getByText(category)
-    ).toBeVisible()
+    await expect(page.getByRole('dialog').getByText(category)).toBeVisible()
   }
 
   await page.locator('#edit-repr-save-button').click()
-  await expect(page.locator('#edit-repr-modal')).not.toBeVisible({
+  await expect(titleInput).not.toBeVisible({
     timeout: 15_000,
   })
   await expect(reprCard(page, title)).toBeVisible({ timeout: 15_000 })
@@ -93,12 +146,13 @@ export async function editReprOnViewPage(
   newTitle: string
 ): Promise<void> {
   await clickViewReprCardButton(page, 'Edit')
-  await expect(page.locator('#edit-repr-modal')).toBeVisible({
+  const titleInput = createReprTitleInput(page)
+  await expect(titleInput).toBeVisible({
     timeout: 15_000,
   })
-  await page.locator('#edit-repr-title-input').fill(newTitle)
+  await titleInput.fill(newTitle)
   await page.locator('#edit-repr-save-button').click()
-  await expect(page.locator('#edit-repr-modal')).not.toBeVisible()
+  await expect(titleInput).not.toBeVisible()
   await expect(page.getByText(newTitle).first()).toBeVisible()
 }
 
@@ -125,13 +179,6 @@ export async function markReprPracticed(
   await expect(card.getByText(/never/i)).not.toBeVisible({ timeout: 10_000 })
 }
 
-/** Home toolbar is shown only after reprs have finished loading. */
-export async function waitForHomeControls(page: Page): Promise<void> {
-  await expect(page.locator('#controls-home-component')).toBeVisible({
-    timeout: 60_000,
-  })
-}
-
 export async function resetHomeFilters(page: Page): Promise<void> {
   await waitForHomeControls(page)
   await page.locator('#category-filter-text-input').fill('')
@@ -154,11 +201,17 @@ export async function filterReprsByCategory(
 ): Promise<void> {
   await waitForHomeControls(page)
   await clearCategoryFilters(page)
-  await page.getByRole('button', { name: 'Open category filter' }).click()
-  await page
-    .locator('#filter-form')
-    .getByLabel(category, { exact: true })
-    .check()
+  await expect(async () => {
+    const filterButton = page.getByRole('button', {
+      name: 'Open category filter',
+    })
+    await filterButton.click()
+    const checkbox = page
+      .locator('#filter-form')
+      .getByLabel(category, { exact: true })
+    await expect(checkbox).toBeVisible({ timeout: 5_000 })
+    await checkbox.check()
+  }).toPass({ timeout: 60_000 })
 }
 
 export async function clearCategoryFilters(page: Page): Promise<void> {

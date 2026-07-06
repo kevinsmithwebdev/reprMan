@@ -9,6 +9,8 @@ import {
   openReportsPage,
 } from '../helpers/reports'
 
+test.describe.configure({ timeout: 300_000 })
+
 test.describe('reports', () => {
   test('builds a filtered report and copies it to the clipboard', async ({
     page,

@@ -1,8 +1,8 @@
-import { ControlsBarShell } from '@reprman/components'
-import { useL10n } from '@reprman/localization'
-;('use client')
+'use client'
 
 import React, { FC } from 'react'
+import { ControlsBarShell } from '@reprman/components'
+import { useL10n } from '@reprman/localization'
 import { Button, Form } from 'react-bootstrap'
 import { Clipboard2PlusFill } from 'react-bootstrap-icons'
 

@@ -8,6 +8,6 @@ export async function generateMetadata() {
   })
 }
 
-export default function SignInPage() {
-  return <SignInView />
-}
+const SignInPage = () => <SignInView />
+
+export default SignInPage

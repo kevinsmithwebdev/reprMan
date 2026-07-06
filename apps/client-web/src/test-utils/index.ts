@@ -11,3 +11,4 @@ export {
   setMockPathname,
   setMockParams,
 } from './nextNavigationMock'
+export { testRepr, loadedAppState, withModal } from './fixtures'

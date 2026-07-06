@@ -2,7 +2,6 @@ import { describe, expect, it, vi, beforeEach } from 'vitest'
 import { runSaga } from 'redux-saga'
 
 import {
-  resetMaxReprsQuota,
   setMaxReprsQuota,
   setSubscription,
   setTermsConfig,
@@ -41,7 +40,7 @@ describe('loadReprsWorker', () => {
       loadReprsWorker
     ).toPromise()
 
-    expect(dispatched).toEqual([resetMaxReprsQuota(), storeReprsSAC([])])
+    expect(dispatched).toEqual([setMaxReprsQuota(null), storeReprsSAC([])])
   })
 
   it('loads cloud reprs and user config when API is configured', async () => {
@@ -151,6 +150,41 @@ describe('loadReprsWorker', () => {
       loadReprsWorker
     ).toPromise()
 
-    expect(dispatched).toEqual([resetMaxReprsQuota(), storeReprsSAC([])])
+    expect(getUserConfig).toHaveBeenCalledTimes(3)
+    expect(dispatched).toEqual([storeReprsSAC([]), setMaxReprsQuota(null)])
+  }, 10_000)
+
+  it('retries user config after reprs are stored', async () => {
+    apiConfigured = true
+    getUserConfig
+      .mockRejectedValueOnce(new Error('auth pending'))
+      .mockResolvedValueOnce({
+        subscription: {
+          status: 'trial',
+          expiration: '2026-04-01T00:00:00.000Z',
+          maxReprs: 100,
+        },
+        maxReprsAllowed: 100,
+        practiceDelay: 30,
+        warningRatio: 0.5,
+        termsAcceptedAt: undefined,
+        termsVersion: undefined,
+        currentTermsVersion: '1',
+      })
+    listReprs.mockResolvedValue([])
+
+    const dispatched: unknown[] = []
+    await runSaga(
+      {
+        dispatch: (action) => dispatched.push(action),
+        getState: () => ({}),
+      },
+      loadReprsWorker
+    ).toPromise()
+
+    expect(getUserConfig).toHaveBeenCalledTimes(2)
+    expect(listReprs).toHaveBeenCalledTimes(1)
+    expect(dispatched[0]).toEqual(storeReprsSAC([]))
+    expect(dispatched).toContainEqual(setMaxReprsQuota(100))
   })
 })

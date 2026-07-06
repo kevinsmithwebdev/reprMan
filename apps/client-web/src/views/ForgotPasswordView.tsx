@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Card } from 'react-bootstrap'
 import { AuthUnavailableCard, CenteredSpinner } from '@reprman/components'
@@ -11,7 +10,7 @@ import {
   useCognitoForgotPassword,
 } from '@reprman/cognito-auth'
 import { useL10n } from '@reprman/localization'
-import { useReplaceWhen } from '../../hooks/useReplaceWhen'
+import { useReplaceWhen } from '../hooks/useReplaceWhen'
 import ForgotPasswordConfirmStep from './ForgotPassword/ForgotPasswordConfirmStep'
 import ForgotPasswordRequestStep from './ForgotPassword/ForgotPasswordRequestStep'
 

@@ -40,6 +40,14 @@ export function* addReprWorker({ payload: repr }: any) {
   }
 
   yield put(setReprs(newReprs))
+
+  const currentCategories = (yield select(selectCategories)) as Categories
+  const mergedCategories =
+    repr.categories.length === 0
+      ? currentCategories
+      : mergeCategories(currentCategories, repr.categories)
+  yield put(setCategories(mergedCategories))
+
   try {
     if (isReprsApiConfigured) {
       const targetRepr = repr.id ? repr : newReprs[0]
@@ -47,6 +55,7 @@ export function* addReprWorker({ payload: repr }: any) {
     }
   } catch (error: unknown) {
     yield put(setReprs(currentReprs))
+    yield put(setCategories(currentCategories))
     yield put(
       makeToastSAC({
         body: toUserFriendlyApiErrorMessage(
@@ -59,13 +68,6 @@ export function* addReprWorker({ payload: repr }: any) {
     )
     return
   }
-
-  const currentCategories = (yield select(selectCategories)) as Categories
-  const mergedCategories =
-    repr.categories.length === 0
-      ? currentCategories
-      : mergeCategories(currentCategories, repr.categories)
-  yield put(setCategories(mergedCategories))
 }
 
 export default [takeLatest(ADD_REPR, addReprWorker)]

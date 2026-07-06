@@ -7,9 +7,7 @@ import ModalBodyParagraphs from '../ModalBodyParagraphs'
 describe('ModalBodyParagraphs (integration)', () => {
   it('renders each line as a paragraph', () => {
     render(
-      <ModalBodyParagraphs
-        lines={['First line', 'Header:', 'Second line']}
-      />
+      <ModalBodyParagraphs lines={['First line', 'Header:', 'Second line']} />
     )
 
     expect(screen.getByText('First line')).toBeTruthy()

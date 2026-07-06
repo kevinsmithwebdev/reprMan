@@ -1,32 +1,29 @@
-import { fireEvent, screen } from '@testing-library/react'
+import { fireEvent, screen, waitFor } from '@testing-library/react'
 import React from 'react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
-import { renderWithAppShell } from '../../../../apps/client-web/src/test-utils'
+import {
+  navigationMocks,
+  renderWithAppShell,
+} from '../../../../apps/client-web/src/test-utils'
 import CognitoAuthBar from '../CognitoAuthBar'
 
-const {
-  signOutMock,
-  deleteUserMock,
-  navigateMock,
-  MockAuthError,
-  useCognitoAuthMock,
-} = vi.hoisted(() => {
-  class MockAuthError extends Error {
-    override name = 'AuthError'
-  }
-  return {
-    signOutMock: vi.fn(),
-    deleteUserMock: vi.fn(),
-    navigateMock: vi.fn(),
-    MockAuthError,
-    useCognitoAuthMock: vi.fn(() => ({
-      sessionChecked: true,
-      signedIn: false,
-      refreshSession: vi.fn(),
-    })),
-  }
-})
+const { signOutMock, deleteUserMock, MockAuthError, useCognitoAuthMock } =
+  vi.hoisted(() => {
+    class MockAuthError extends Error {
+      override name = 'AuthError'
+    }
+    return {
+      signOutMock: vi.fn(),
+      deleteUserMock: vi.fn(),
+      MockAuthError,
+      useCognitoAuthMock: vi.fn(() => ({
+        sessionChecked: true,
+        signedIn: false,
+        refreshSession: vi.fn(),
+      })),
+    }
+  })
 
 vi.mock('aws-amplify/auth', () => ({
   AuthError: MockAuthError,
@@ -36,16 +33,6 @@ vi.mock('aws-amplify/auth', () => ({
 
 vi.mock('@reprman/localization', () => ({
   useL10n: () => ({ t: (key: string) => key }),
-}))
-
-vi.mock('next/navigation', () => ({
-  useRouter: () => ({
-    push: navigateMock,
-    replace: navigateMock,
-    back: vi.fn(),
-  }),
-  usePathname: () => '/',
-  useParams: () => ({}),
 }))
 
 vi.mock('@reprman/cognito-auth/configureAmplify', async (importOriginal) => {
@@ -74,7 +61,8 @@ describe('CognitoAuthBar (integration)', () => {
   beforeEach(() => {
     signOutMock.mockReset()
     deleteUserMock.mockReset()
-    navigateMock.mockReset()
+    navigationMocks.push.mockReset()
+    navigationMocks.replace.mockReset()
     signOutMock.mockResolvedValue(undefined)
     deleteUserMock.mockResolvedValue(undefined)
     useCognitoAuthMock.mockReturnValue({
@@ -151,11 +139,12 @@ describe('CognitoAuthBar (integration)', () => {
       name: 'auth.deleteAccount',
     })
     fireEvent.click(deleteButtons.at(-1)!)
-    await Promise.resolve()
 
-    expect(deleteUserMock).toHaveBeenCalled()
-    expect(store.getState().user).toEqual({ email: '' })
-    expect(navigateMock).toHaveBeenCalledWith('/')
+    await waitFor(() => {
+      expect(deleteUserMock).toHaveBeenCalled()
+      expect(store.getState().user).toEqual({ email: '' })
+      expect(navigationMocks.replace).toHaveBeenCalledWith('/')
+    })
   })
 
   it('navigates to terms and change-password from menu', async () => {
@@ -188,11 +177,11 @@ describe('CognitoAuthBar (integration)', () => {
     expect(screen.getByText('billing.subscriptionLabel')).toBeTruthy()
     expect(screen.getByText('billing.status.trial')).toBeTruthy()
     fireEvent.click(document.getElementById('cognito-terms-of-use')!)
-    expect(navigateMock).toHaveBeenCalledWith('/terms')
+    expect(navigationMocks.push).toHaveBeenCalledWith('/terms')
 
-    navigateMock.mockClear()
+    navigationMocks.push.mockClear()
     fireEvent.click(document.getElementById('cognito-change-password')!)
-    expect(navigateMock).toHaveBeenCalledWith('/change-password')
+    expect(navigationMocks.push).toHaveBeenCalledWith('/change-password')
   })
 
   it('shows auth error toast when sign-out fails', async () => {
@@ -214,7 +203,8 @@ describe('CognitoAuthBar (integration)', () => {
     await Promise.resolve()
 
     expect(signOutMock).toHaveBeenCalled()
-    expect(navigateMock).not.toHaveBeenCalled()
+    expect(navigationMocks.push).not.toHaveBeenCalled()
+    expect(navigationMocks.replace).not.toHaveBeenCalled()
   })
 
   it('shows auth error toast when delete account fails', async () => {
@@ -240,7 +230,8 @@ describe('CognitoAuthBar (integration)', () => {
     await Promise.resolve()
 
     expect(deleteUserMock).toHaveBeenCalled()
-    expect(navigateMock).not.toHaveBeenCalled()
+    expect(navigationMocks.push).not.toHaveBeenCalled()
+    expect(navigationMocks.replace).not.toHaveBeenCalled()
   })
 
   it('closes delete-account modal from cancel', async () => {

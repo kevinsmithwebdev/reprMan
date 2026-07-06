@@ -8,6 +8,6 @@ export async function generateMetadata() {
   })
 }
 
-export default function SettingsPage() {
-  return <SettingsView />
-}
+const SettingsPage = () => <SettingsView />
+
+export default SettingsPage

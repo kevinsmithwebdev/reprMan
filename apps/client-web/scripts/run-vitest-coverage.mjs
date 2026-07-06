@@ -19,6 +19,8 @@ spawnSync(
 const args = [
   '../../node_modules/vitest/vitest.mjs',
   'run',
+  '--config',
+  'vitest.config.ts',
   '--coverage',
   ...process.argv.slice(2),
 ]

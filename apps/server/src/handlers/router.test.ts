@@ -11,7 +11,7 @@ const routeEvent = (method: string, rawPath: string) =>
   ({
     requestContext: { http: { method } },
     rawPath,
-  }) as any
+  } as any)
 
 describe('router handler', () => {
   afterEach(() => {
@@ -19,12 +19,8 @@ describe('router handler', () => {
   })
 
   beforeEach(() => {
-    jest
-      .spyOn(auth, 'getUserId')
-      .mockReturnValue('user-1')
-    jest
-      .spyOn(rateLimit, 'enforceUserActionRateLimit')
-      .mockResolvedValue(null)
+    jest.spyOn(auth, 'getUserId').mockReturnValue('user-1')
+    jest.spyOn(rateLimit, 'enforceUserActionRateLimit').mockResolvedValue(null)
   })
 
   it('routes GET /user/config', async () => {

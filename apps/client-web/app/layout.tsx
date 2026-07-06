@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import type { Metadata } from 'next'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Providers } from './providers'
@@ -14,18 +15,14 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>
-        <Providers>
-          <AppShell>{children}</AppShell>
-        </Providers>
-      </body>
-    </html>
-  )
-}
+const RootLayout = ({ children }: { children: ReactNode }) => (
+  <html lang="en">
+    <body>
+      <Providers>
+        <AppShell>{children}</AppShell>
+      </Providers>
+    </body>
+  </html>
+)
+
+export default RootLayout

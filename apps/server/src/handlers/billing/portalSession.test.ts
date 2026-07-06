@@ -7,7 +7,7 @@ const authEvent = () =>
     requestContext: {
       authorizer: { jwt: { claims: { sub: 'user-1' } } },
     },
-  }) as any
+  } as any)
 
 describe('postPortalSessionHandler', () => {
   const originalEnv = { ...process.env }

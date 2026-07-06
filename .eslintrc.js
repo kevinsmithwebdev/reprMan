@@ -32,6 +32,7 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
+    'react/react-in-jsx-scope': 'off',
     'arrow-body-style': ['off'],
     'no-use-before-define': ['off'],
     'import/extensions': [

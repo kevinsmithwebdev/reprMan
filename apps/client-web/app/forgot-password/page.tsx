@@ -8,6 +8,6 @@ export async function generateMetadata() {
   })
 }
 
-export default function ForgotPasswordPage() {
-  return <ForgotPasswordView />
-}
+const ForgotPasswordPage = () => <ForgotPasswordView />
+
+export default ForgotPasswordPage

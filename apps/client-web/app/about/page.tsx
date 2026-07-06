@@ -5,6 +5,6 @@ export async function generateMetadata() {
   return createPageMetadata({ titleKey: 'pages.about.title' })
 }
 
-export default function AboutPage() {
-  return <AboutPageContent />
-}
+const AboutPage = () => <AboutPageContent />
+
+export default AboutPage

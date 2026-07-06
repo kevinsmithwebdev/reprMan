@@ -2,7 +2,12 @@ import React, { FC, useState } from 'react'
 import { getComplement } from '@reprman/utilities'
 import { Form } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
-import Modal from 'react-bootstrap/Modal'
+import {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '../common/BootstrapModalParts'
 import { Repr, useReprs } from '@reprman/state/reprs'
 import { useDispatch, useSelector } from 'react-redux'
 import { addReprSAC } from '@reprman/state/sagas/reprs/reprs.actions'
@@ -77,12 +82,10 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   if (!quotaLoaded) {
     return (
       <>
-        <Modal.Header closeButton>
-          <Modal.Title>
-            {t('modals.editRepr.quotaUnavailable.title')}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{t('modals.editRepr.quotaUnavailable.body')}</Modal.Body>
+        <ModalHeader closeButton>
+          <ModalTitle>{t('modals.editRepr.quotaUnavailable.title')}</ModalTitle>
+        </ModalHeader>
+        <ModalBody>{t('modals.editRepr.quotaUnavailable.body')}</ModalBody>
       </>
     )
   }
@@ -92,26 +95,26 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
   if (isCreateMode && atLimit && limitCap !== null) {
     return (
       <>
-        <Modal.Header closeButton>
-          <Modal.Title>{t('modals.editRepr.exceeded.title')}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
+        <ModalHeader closeButton>
+          <ModalTitle>{t('modals.editRepr.exceeded.title')}</ModalTitle>
+        </ModalHeader>
+        <ModalBody>
           {t('modals.editRepr.exceeded.body', { num: limitCap })}
-        </Modal.Body>
+        </ModalBody>
       </>
     )
   }
 
   return (
     <div id="edit-repr-modal">
-      <Modal.Header closeButton>
-        <Modal.Title>
+      <ModalHeader closeButton>
+        <ModalTitle>
           {isCreateMode
             ? t('modals.editRepr.createTitle')
             : t('modals.editRepr.title')}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+        </ModalTitle>
+      </ModalHeader>
+      <ModalBody>
         <Form>
           <Form.Group className="mb-3">
             <Form.Label style={{ fontWeight: 800 }}>
@@ -281,8 +284,8 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
             </Form.Text>
           </Form.Group>
         </Form>
-      </Modal.Body>
-      <Modal.Footer style={{ display: 'flex', justifyContent: 'space-around' }}>
+      </ModalBody>
+      <ModalFooter style={{ display: 'flex', justifyContent: 'space-around' }}>
         <Button
           variant="danger"
           onClick={closeModal}
@@ -322,7 +325,7 @@ const EditRepr: FC<EditReprProps> = ({ closeModal, id }) => {
         >
           {t('buttons.save')}
         </Button>
-      </Modal.Footer>
+      </ModalFooter>
     </div>
   )
 }

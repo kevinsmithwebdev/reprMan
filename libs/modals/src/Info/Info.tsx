@@ -1,5 +1,9 @@
 import React, { FC } from 'react'
-import { Modal } from 'react-bootstrap'
+import {
+  ModalBody,
+  ModalHeader,
+  ModalTitle,
+} from '../common/BootstrapModalParts'
 import ModalBodyParagraphs from '../common/ModalBodyParagraphs'
 
 export interface InfoProps {
@@ -10,12 +14,12 @@ export interface InfoProps {
 const Info: FC<InfoProps> = ({ title, body }) => {
   return (
     <>
-      <Modal.Header closeButton style={{ backgroundColor: '#e6f2ff' }}>
-        <Modal.Title>{title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+      <ModalHeader closeButton style={{ backgroundColor: '#e6f2ff' }}>
+        <ModalTitle>{title}</ModalTitle>
+      </ModalHeader>
+      <ModalBody>
         <ModalBodyParagraphs lines={body} />
-      </Modal.Body>
+      </ModalBody>
     </>
   )
 }

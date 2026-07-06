@@ -8,10 +8,7 @@ interface CenteredSpinnerProps {
   layout?: 'section' | 'fill'
 }
 
-const CenteredSpinner = ({
-  id,
-  layout = 'section',
-}: CenteredSpinnerProps) => {
+const CenteredSpinner = ({ id, layout = 'section' }: CenteredSpinnerProps) => {
   const className =
     layout === 'fill'
       ? 'd-flex justify-content-center align-items-center flex-grow-1 w-100'

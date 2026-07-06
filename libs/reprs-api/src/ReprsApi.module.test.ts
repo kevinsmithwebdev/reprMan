@@ -124,6 +124,28 @@ describe('ReprsApi.module', () => {
       )
     })
 
+    it('retries GET requests on 429 with parsed retry delay', async () => {
+      vi.useFakeTimers()
+      fetchMock
+        .mockResolvedValueOnce({
+          ok: false,
+          status: 429,
+          text: async () =>
+            JSON.stringify({ retryAfterSeconds: 0.001, message: 'slow down' }),
+        })
+        .mockResolvedValueOnce({
+          ok: true,
+          json: async () => ({ reprs: [validRepr] }),
+        })
+
+      const ReprsApiModule = await loadModule()
+      const listPromise = ReprsApiModule.getInstance().listReprs()
+      await vi.runAllTimersAsync()
+      await expect(listPromise).resolves.toEqual([validRepr])
+      expect(fetchMock).toHaveBeenCalledTimes(2)
+      vi.useRealTimers()
+    })
+
     it('sends authorized JSON requests and throws on failed responses', async () => {
       fetchMock.mockResolvedValueOnce({
         ok: false,

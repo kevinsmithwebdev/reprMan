@@ -1,5 +1,11 @@
 import React, { FC } from 'react'
-import { Button, Modal } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
+import {
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  ModalTitle,
+} from '../common/BootstrapModalParts'
 import { useDispatch } from 'react-redux'
 import ModalBodyParagraphs from '../common/ModalBodyParagraphs'
 
@@ -54,13 +60,13 @@ const Query: FC<QueryProps> = ({
 
   return (
     <>
-      <Modal.Header closeButton>
-        <Modal.Title>{title}</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
+      <ModalHeader closeButton>
+        <ModalTitle>{title}</ModalTitle>
+      </ModalHeader>
+      <ModalBody>
         <ModalBodyParagraphs lines={body} />
-      </Modal.Body>
-      <Modal.Footer>
+      </ModalBody>
+      <ModalFooter>
         {choiceDataWithActionTypes.map((choice) => (
           <QueryChoiceButton
             key={choice.text}
@@ -68,7 +74,7 @@ const Query: FC<QueryProps> = ({
             closeModal={closeModal}
           />
         ))}
-      </Modal.Footer>
+      </ModalFooter>
     </>
   )
 }

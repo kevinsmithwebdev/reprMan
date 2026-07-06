@@ -5,6 +5,10 @@ import { e2eEnv } from './env'
 const appOrigin = () =>
   (process.env.E2E_BASE_URL ?? 'http://localhost:3000').replace(/\/$/, '')
 
+const cognitoEnvHint =
+  'Set NEXT_PUBLIC_COGNITO_USER_POOL_ID and NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID ' +
+  '(or legacy VITE_COGNITO_*) in .env at the repo root.'
+
 /** Navigate to the app; surfaces a clear error when the dev server is not running. */
 export async function gotoApp(
   page: Page,
@@ -76,9 +80,7 @@ export async function clearAllReprsViaSettings(page: Page): Promise<void> {
 
   await expect(async () => {
     await gotoApp(page, '/')
-    await expect(page.locator('#controls-home-component')).toBeVisible({
-      timeout: 30_000,
-    })
+    await waitForHomeControls(page)
     if ((await readHomeReprCount(page)) === 0) {
       return
     }
@@ -91,9 +93,7 @@ export async function clearAllReprsViaSettings(page: Page): Promise<void> {
     await expect(clearFailed).not.toBeVisible({ timeout: 180_000 })
 
     await gotoApp(page, '/')
-    await expect(page.locator('#controls-home-component')).toBeVisible({
-      timeout: 30_000,
-    })
+    await waitForHomeControls(page)
     const remaining = await readHomeReprCount(page)
     if (await clearFailed.isVisible().catch(() => false)) {
       throw new Error(
@@ -114,18 +114,87 @@ export async function clearAllReprsViaSettings(page: Page): Promise<void> {
   }).toPass({ timeout: 300_000 })
 }
 
+/**
+ * Home toolbar appears only after reprs finish loading. Polls without re-navigating:
+ * each full page load remounts AppShell and re-dispatches genesis, which resets reprs
+ * and can prevent loadReprs from ever completing during retries.
+ */
+export async function waitForHomeControls(page: Page): Promise<void> {
+  const pathname = () => new URL(page.url()).pathname
+  if (pathname() !== '/') {
+    await gotoApp(page, '/')
+  }
+  await acceptTermsIfRequired(page)
+
+  await expect(async () => {
+    if (
+      await page
+        .locator('#controls-home-component')
+        .isVisible()
+        .catch(() => false)
+    ) {
+      return
+    }
+
+    if (pathname() !== '/') {
+      throw new Error(
+        `Expected home controls on / but the page is at ${pathname()}.`
+      )
+    }
+
+    await acceptTermsIfRequired(page)
+
+    await expect(
+      page
+        .locator('#cognito-user-avatar-toggle')
+        .or(page.locator('#cognito-sign-in-open'))
+    ).toBeVisible({ timeout: 30_000 })
+
+    const homeLoading = page.locator('#Home-page [role="status"]')
+    if (await homeLoading.isVisible().catch(() => false)) {
+      await expect(homeLoading).not.toBeVisible({ timeout: 90_000 })
+    }
+
+    const signedOutHome = page
+      .locator('#Home-page')
+      .getByRole('link', { name: /^sign in$/i })
+    if (await signedOutHome.isVisible().catch(() => false)) {
+      throw new Error(
+        'Home shows the signed-out card while waiting for authenticated controls.'
+      )
+    }
+
+    await expect(page.locator('#controls-home-component')).toBeVisible({
+      timeout: 30_000,
+    })
+  }).toPass({ timeout: 240_000 })
+}
+
 /** Open home and wait until Cognito session + repr list are ready (create not required). */
 export async function waitForAuthenticatedHome(page: Page): Promise<void> {
-  await gotoApp(page, '/')
-
   const avatar = page.locator('#cognito-user-avatar-toggle')
-  const signUpOnHomeWall = page
+  const headerSignIn = page.locator('#cognito-sign-in-open')
+  const homeSignUp = page
     .locator('#Home-page')
-    .getByRole('button', { name: 'Sign Up' })
+    .getByRole('link', { name: /^sign up$/i })
 
-  await expect(avatar.or(signUpOnHomeWall)).toBeVisible({ timeout: 60_000 })
+  const alreadyOnSignedInHome =
+    new URL(page.url()).pathname === '/' &&
+    (await avatar.isVisible().catch(() => false))
 
-  if (await signUpOnHomeWall.isVisible()) {
+  if (!alreadyOnSignedInHome) {
+    await gotoApp(page, '/')
+  }
+
+  await expect(avatar.or(headerSignIn).or(homeSignUp)).toBeVisible({
+    timeout: 60_000,
+  })
+
+  const needsSignIn =
+    (await headerSignIn.isVisible().catch(() => false)) ||
+    (await homeSignUp.isVisible().catch(() => false))
+
+  if (needsSignIn) {
     await page.evaluate(() => {
       for (const key of Object.keys(localStorage)) {
         if (key.startsWith('CognitoIdentityServiceProvider.')) {
@@ -138,14 +207,30 @@ export async function waitForAuthenticatedHome(page: Page): Promise<void> {
   }
 
   await acceptTermsIfRequired(page)
+  await waitForHomeControls(page)
   await expect(page.locator('#add-repr-button')).toBeVisible({
-    timeout: 60_000,
+    timeout: 30_000,
   })
 }
 
 /** Same as {@link waitForAuthenticatedHome}. */
 export async function goToAuthenticatedHome(page: Page): Promise<void> {
   await waitForAuthenticatedHome(page)
+}
+
+/** Subscription banner appears after user config / quota finishes loading. */
+export async function waitForQuotaLoaded(page: Page): Promise<void> {
+  if (
+    !(await page
+      .locator('#cognito-user-avatar-toggle')
+      .isVisible()
+      .catch(() => false))
+  ) {
+    return
+  }
+  await expect(
+    page.getByText(/trial account|days remaining|paid account|unlimited/i)
+  ).toBeVisible({ timeout: 60_000 })
 }
 
 const REPR_LIMIT = 100
@@ -239,7 +324,7 @@ export async function waitForSignedIn(page: Page): Promise<void> {
       : `Signed-in UI did not appear. ${toastHint}`
 
     throw new Error(
-      `${hint} Verify E2E_USER_EMAIL / E2E_USER_PASSWORD in .env.e2e, that the user exists and is confirmed in the Cognito pool from .env (VITE_COGNITO_*), and that VITE_REPRS_API_BASE_URL is reachable.`
+      `${hint} Verify E2E_USER_EMAIL / E2E_USER_PASSWORD in .env.e2e, that the user exists and is confirmed in the Cognito pool from .env (NEXT_PUBLIC_COGNITO_* or VITE_COGNITO_*), and that NEXT_PUBLIC_REPRS_API_BASE_URL (or VITE_REPRS_API_BASE_URL) is reachable.`
     )
   }
 }
@@ -253,27 +338,46 @@ export async function signIn(
   await expect(page).toHaveURL(/\/signin(?:\?.*)?$/, { timeout: 15_000 })
   await expect(page.locator('#SignIn-page')).toBeVisible({ timeout: 30_000 })
 
-  const emailField = page.locator('#signin-page-email')
-  const emailVisible = await emailField
-    .isVisible({ timeout: 5_000 })
-    .catch(() => false)
-  if (!emailVisible) {
+  const emailField = page
+    .locator('#signin-page-email')
+    .or(page.getByRole('textbox', { name: /^email$/i }))
+  const passwordField = page
+    .locator('#signin-page-password')
+    .or(page.getByRole('textbox', { name: /^password$/i }))
+
+  try {
+    await expect(emailField.first()).toBeVisible({ timeout: 60_000 })
+  } catch {
+    const spinnerVisible = await page
+      .locator('#SignIn-page [role="status"]')
+      .isVisible()
+      .catch(() => false)
+    if (spinnerVisible) {
+      throw new Error(
+        'Sign-in form did not load in time (Cognito session check still pending). ' +
+          `Retry, or verify ${cognitoEnvHint}`
+      )
+    }
     throw new Error(
       'Sign-in form is not available on /signin (auth may be unconfigured). ' +
-        'Set VITE_COGNITO_USER_POOL_ID and VITE_COGNITO_USER_POOL_CLIENT_ID in .env at the repo root.'
+        cognitoEnvHint
     )
   }
 
-  await emailField.fill(email)
-  await page.locator('#signin-page-password').fill(password)
+  await emailField.first().fill(email)
+  await passwordField.first().fill(password)
   await page
     .locator('#SignIn-page')
     .getByRole('button', { name: 'Sign In', exact: true })
     .click()
   await waitForSignedIn(page)
+  if (new URL(page.url()).pathname === '/signin') {
+    await expect(page).toHaveURL(/\/$/, { timeout: 60_000 })
+  }
   await acceptTermsIfRequired(page)
+  await waitForHomeControls(page)
   await expect(page.locator('#add-repr-button')).toBeVisible({
-    timeout: 60_000,
+    timeout: 30_000,
   })
 }
 

@@ -85,6 +85,27 @@ describe('Header (integration)', () => {
     )
   })
 
+  it('appends page titles for reports, terms, subscribe, and view routes', () => {
+    const cases: Array<[string, RegExp]> = [
+      ['/reports', /reports/i],
+      ['/terms', /terms/i],
+      ['/subscribe', /subscribe/i],
+      ['/view/repr-1', /view/i],
+      ['/signup', /sign up/i],
+      ['/forgot-password', /reset password/i],
+    ]
+
+    cases.forEach(([path, pattern]) => {
+      const { unmount } = renderWithAppShell(<Header />, {
+        initialEntries: [path],
+      })
+      expect(document.getElementById('header-brand')?.textContent).toMatch(
+        pattern
+      )
+      unmount()
+    })
+  })
+
   it('disables settings nav when auth gate is active and user is signed out', () => {
     renderWithAppShell(<Header />, { initialEntries: ['/'] })
     const settingsNav = document.getElementById('nav-link-Settings')

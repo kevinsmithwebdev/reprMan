@@ -5,13 +5,11 @@ export class UnauthorizedError extends Error {
   }
 }
 
-export const getUserId = (
-  event: {
-    requestContext?: {
-      authorizer?: { jwt?: { claims?: Record<string, unknown> } }
-    }
+export const getUserId = (event: {
+  requestContext?: {
+    authorizer?: { jwt?: { claims?: Record<string, unknown> } }
   }
-): string => {
+}): string => {
   const userId = event.requestContext?.authorizer?.jwt?.claims?.sub
   if (!userId || typeof userId !== 'string') {
     throw new UnauthorizedError()

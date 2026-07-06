@@ -8,6 +8,6 @@ export async function generateMetadata() {
   })
 }
 
-export default function SubscribePage() {
-  return <SubscribeView />
-}
+const SubscribePage = () => <SubscribeView />
+
+export default SubscribePage

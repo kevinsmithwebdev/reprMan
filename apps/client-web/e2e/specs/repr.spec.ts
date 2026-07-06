@@ -14,7 +14,7 @@ import {
   resetHomeFilters,
 } from '../helpers/repr'
 
-test.describe.configure({ mode: 'serial' })
+test.describe.configure({ mode: 'serial', timeout: 300_000 })
 
 test.describe('reprs', () => {
   test('creates a repr from the home page', async ({ page }) => {

@@ -1,5 +1,6 @@
 /// <reference types="vitest/config" />
 import path from 'node:path'
+import react from '@vitejs/plugin-react'
 import { defineConfig } from 'vitest/config'
 import { coverageConfigDefaults } from 'vitest/config'
 import { vitestCoverageExclude } from '../../scripts/coverage-exclude-globs.mjs'
@@ -13,6 +14,12 @@ const sharedLib = (name: string) =>
   path.resolve(root, 'libs/shared', name, 'src/index.ts')
 
 export default defineConfig({
+  plugins: [react()],
+  server: {
+    fs: {
+      allow: [root],
+    },
+  },
   resolve: {
     alias: [
       {
@@ -118,6 +125,8 @@ export default defineConfig({
       '../../libs/cognito-auth/src/**/integration-tests/**/*.test.{ts,tsx}',
       '../../libs/reprs-api/src/**/*.test.{ts,tsx}',
       '../../libs/client-config/src/**/*.test.{ts,tsx}',
+      '../../libs/client-platform/src/**/*.test.{ts,tsx}',
+      '../../libs/localization/src/**/*.test.{ts,tsx}',
       '../../libs/shared/repr-validation/src/**/*.test.{ts,tsx}',
       '../../libs/shared/repr-model/src/**/*.test.{js,ts}',
       '../../libs/shared/repr-rules/src/**/*.test.{ts,tsx}',
