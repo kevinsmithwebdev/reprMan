@@ -44,10 +44,7 @@ export const API_ROUTES: ApiRouteDefinition[] = [
 ]
 
 const escapeRegex = (value: string): string =>
-  value.replace(
-    new RegExp(String.raw`[.*+?^$\{}()|[\]\\]`, 'g'),
-    String.raw`\$&`
-  )
+  value.replace(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`)
 
 export const apiGatewayPathToRegex = (template: string): RegExp => {
   const pattern = escapeRegex(template).replace(/\\\{[^}]+\\\}/g, '[^/]+')
