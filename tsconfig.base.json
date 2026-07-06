@@ -60,9 +60,6 @@
 
       "@reprman/client-config": ["libs/client-config/src/index.ts"],
       "@reprman/client-config/*": ["libs/client-config/src/*"],
-      "@reprman/client-config/createExpoClientConfig": [
-        "libs/client-config/src/createExpoClientConfig.ts"
-      ],
       "@reprman/client-config/createNextClientConfig": [
         "libs/client-config/src/createNextClientConfig.ts"
       ],
@@ -71,12 +68,6 @@
 
       "@reprman/client-platform": ["libs/client-platform/src/index.ts"],
       "@reprman/client-platform/*": ["libs/client-platform/src/*"],
-
-      "@reprman/components-mobile": ["libs/components-mobile/src/index.ts"],
-      "@reprman/components-mobile/*": ["libs/components-mobile/src/*"],
-
-      "@reprman/modals-mobile": ["libs/modals-mobile/src/index.ts"],
-      "@reprman/modals-mobile/*": ["libs/modals-mobile/src/*"],
 
       "@client-web/test-utils": ["apps/client-web/src/test-utils/index.ts"],
       "@client-web/test-utils/*": ["apps/client-web/src/test-utils/*"]

@@ -15,9 +15,7 @@ const alias = {
   '@reprman/shared/subscription': sharedLibRoot('subscription'),
 
   '@reprman/components': libRoot('components'),
-  '@reprman/components-mobile': libRoot('components-mobile'),
   '@reprman/modals': libRoot('modals'),
-  '@reprman/modals-mobile': libRoot('modals-mobile'),
   '@reprman/state': libRoot('state'),
   '@reprman/cognito-auth': libRoot('cognito-auth'),
   '@reprman/localization': libRoot('localization'),

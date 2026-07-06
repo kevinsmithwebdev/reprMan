@@ -69,9 +69,7 @@ export default defineConfig({
       },
       ...[
         'components',
-        'components-mobile',
         'modals',
-        'modals-mobile',
         'state',
         'cognito-auth',
         'localization',

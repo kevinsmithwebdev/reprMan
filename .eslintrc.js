@@ -68,7 +68,6 @@ module.exports = {
         // (for `@reprman/*` shared lib paths).
         project: [
           path.resolve(__dirname, 'apps/client-web/tsconfig.json'),
-          path.resolve(__dirname, 'apps/client-mobile/tsconfig.json'),
           path.resolve(__dirname, 'tsconfig.base.json'),
         ],
       },
@@ -86,29 +85,6 @@ module.exports = {
       ],
       rules: {
         'import/no-extraneous-dependencies': 'off',
-      },
-    },
-    {
-      files: [
-        'apps/client-mobile/**/*.{js,jsx,ts,tsx}',
-        'libs/components-mobile/**/*.{js,jsx,ts,tsx}',
-        'libs/modals-mobile/**/*.{js,jsx,ts,tsx}',
-      ],
-      extends: ['plugin:react-native/all'],
-      plugins: ['react-native'],
-      env: {
-        'react-native/react-native': true,
-      },
-      rules: {
-        'import/no-extraneous-dependencies': 'off',
-        'react-native/no-raw-text': 'off',
-        'react-native/no-inline-styles': 'off',
-        'react-native/no-sort-styles': 'off',
-        'react-native/sort-styles': 'off',
-        'react-native/no-unused-styles': 'off',
-        'react-native/no-color-literals': 'off',
-        'react/prop-types': 'off',
-        'react/jsx-props-no-spreading': 'off',
       },
     },
     {

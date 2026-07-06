@@ -4,8 +4,7 @@
 
 Repr data is stored in AWS (DynamoDB) through an authenticated API.
 
-- Web client: `apps/client-web`
-- Mobile client: `apps/client-mobile` (Expo / React Native)
+- Web client: `apps/client-web` (Next.js)
 - Backend app: `apps/server` (TypeScript Lambda handlers + CDK stacks)
 
 ### Required environment (local frontend)
@@ -22,16 +21,6 @@ aws cloudformation describe-stacks \
 ```
 
 Set `NEXT_PUBLIC_COGNITO_USER_POOL_ID`, `NEXT_PUBLIC_COGNITO_USER_POOL_CLIENT_ID`, and `NEXT_PUBLIC_REPRS_API_BASE_URL` accordingly.
-
-### Required environment (local mobile)
-
-Expo reads `EXPO_PUBLIC_*` variables from the **repository root** `.env` (see [`.env.example`](.env.example)). Mirror the web `VITE_*` values:
-
-- `EXPO_PUBLIC_COGNITO_USER_POOL_ID`
-- `EXPO_PUBLIC_COGNITO_USER_POOL_CLIENT_ID`
-- `EXPO_PUBLIC_REPRS_API_BASE_URL`
-
-Run the app with `yarn start:mobile` (or `nx run client-mobile:start`), then open in Expo Go or a simulator.
 
 ### Build and test server
 
