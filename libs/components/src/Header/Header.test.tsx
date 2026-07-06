@@ -32,7 +32,7 @@ describe('Header', () => {
       dispatchEvent: vi.fn(),
     }))
 
-    renderWithAppShell(<Header />, { initialEntries: ['/about'] })
+    renderWithAppShell(<Header />, { initialPathname: '/about' })
     expect(screen.getByText(/HOME/i)).toBeTruthy()
     const brand = document.getElementById('header-brand')
     expect(brand?.textContent).not.toMatch(/Repertoire Management/i)
@@ -51,7 +51,7 @@ describe('Header', () => {
     }))
 
     await i18next.changeLanguage('en')
-    renderWithAppShell(<Header />, { initialEntries: ['/'] })
+    renderWithAppShell(<Header />, { initialPathname: '/' })
 
     const brand = document.getElementById('header-brand')
     expect(brand?.textContent).toMatch(/Repertoire Management/i)

@@ -25,11 +25,10 @@ const ModalContainer = () => {
   return (
     <ModalContext.Provider value={modalContext}>
       <div className="modal-backdrop fade show" />
-      <div
+      <dialog
+        open
         className="modal fade show d-block"
-        role="dialog"
-        aria-modal="true"
-        tabIndex={-1}
+        style={{ border: 'none', padding: 0, background: 'transparent' }}
         aria-labelledby="contained-modal-title-vcenter"
       >
         <div className="modal-dialog modal-dialog-centered">
@@ -54,7 +53,7 @@ const ModalContainer = () => {
             )}
           </div>
         </div>
-      </div>
+      </dialog>
     </ModalContext.Provider>
   )
 }

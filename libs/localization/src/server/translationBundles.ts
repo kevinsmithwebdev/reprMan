@@ -46,7 +46,16 @@ const interpolate = (
   }
   return value.replace(/\{\{(\w+)\}\}/g, (_, token: string) => {
     const replacement = options[token]
-    return replacement == null ? '' : String(replacement)
+    if (replacement == null) {
+      return ''
+    }
+    if (typeof replacement === 'string') {
+      return replacement
+    }
+    if (typeof replacement === 'number' || typeof replacement === 'boolean') {
+      return String(replacement)
+    }
+    return ''
   })
 }
 

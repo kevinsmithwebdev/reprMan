@@ -1,8 +1,7 @@
 /// <reference types="vitest/config" />
 import path from 'node:path'
 import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vitest/config'
-import { coverageConfigDefaults } from 'vitest/config'
+import { defineConfig, coverageConfigDefaults } from 'vitest/config'
 import { vitestCoverageExclude } from '../../scripts/coverage-exclude-globs.mjs'
 
 const root = path.resolve(__dirname, '../..')

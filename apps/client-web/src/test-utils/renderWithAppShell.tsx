@@ -16,8 +16,6 @@ export type RenderWithAppShellOptions = Omit<RenderOptions, 'wrapper'> & {
   store?: TestStore
   /** Pathname for `usePathname()` (default `'/'`). */
   initialPathname?: string
-  /** @deprecated Use `initialPathname` — first entry is used as pathname. */
-  initialEntries?: string[]
 }
 
 export type RenderWithAppShellResult = ReturnType<typeof render> & {
@@ -30,11 +28,10 @@ export function renderWithAppShell(
     preloadedState,
     store: storeOption,
     initialPathname,
-    initialEntries,
     ...renderOptions
   }: RenderWithAppShellOptions = {}
 ): RenderWithAppShellResult {
-  const pathname = initialPathname ?? initialEntries?.[0] ?? '/'
+  const pathname = initialPathname ?? '/'
   setMockPathname(pathname)
   const store = storeOption ?? createTestStore(preloadedState)
 

@@ -10,6 +10,6 @@ describe('TermsContent (integration)', () => {
     renderWithAppShell(<TermsContent />)
     expect(screen.getByText('Purpose')).toBeTruthy()
     expect(screen.getByText('Agreement')).toBeTruthy()
-    expect(document.querySelectorAll('hr').length).toBe(5)
+    expect(document.querySelectorAll('hr')).toHaveLength(5)
   })
 })

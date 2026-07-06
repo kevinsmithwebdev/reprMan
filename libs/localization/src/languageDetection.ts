@@ -14,7 +14,7 @@ export {
 } from './languageDetectionCore'
 
 export const readStoredLanguage = (): SupportedLanguage | null => {
-  if (typeof globalThis.localStorage === 'undefined') {
+  if (globalThis.localStorage === undefined) {
     return null
   }
   const stored = globalThis.localStorage.getItem(LANGUAGE_STORAGE_KEY)

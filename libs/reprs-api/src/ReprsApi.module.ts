@@ -111,6 +111,64 @@ const getAccessToken = async (): Promise<string> => {
 }
 
 const REQUEST_TIMEOUT_MS = 30_000
+const MAX_RATE_LIMIT_RETRIES = 3
+const MAX_RETRY_DELAY_SEC = 10
+const DEFAULT_RETRY_DELAY_SEC = 15
+
+const sleep = (ms: number): Promise<void> =>
+  new Promise((resolve) => {
+    setTimeout(resolve, ms)
+  })
+
+const parseRetryDelaySec = (text: string, maxRetryDelaySec: number): number => {
+  if (!text) {
+    return DEFAULT_RETRY_DELAY_SEC
+  }
+  try {
+    const parsed = JSON.parse(text) as ApiErrorPayload
+    if (
+      typeof parsed.retryAfterSeconds === 'number' &&
+      Number.isFinite(parsed.retryAfterSeconds)
+    ) {
+      return Math.min(parsed.retryAfterSeconds, maxRetryDelaySec)
+    }
+  } catch {
+    // Use default retry delay for non-JSON 429 responses.
+  }
+  return DEFAULT_RETRY_DELAY_SEC
+}
+
+const shouldRetryRateLimit = (
+  response: Response,
+  attempt: number,
+  maxRetries: number,
+  method: string
+): boolean =>
+  response.status === 429 && attempt < maxRetries && method === 'GET'
+
+const parseApiError = (
+  text: string,
+  status: number
+): { payload?: ApiErrorPayload; message: string } => {
+  let payload: ApiErrorPayload | undefined
+  let message = text || `Request failed (${status})`
+
+  if (!text) {
+    return { payload, message }
+  }
+
+  try {
+    const parsed = JSON.parse(text) as ApiErrorPayload
+    payload = parsed
+    if (typeof parsed.message === 'string' && parsed.message.trim()) {
+      message = parsed.message
+    }
+  } catch {
+    // Keep plain-text fallback message for non-JSON errors.
+  }
+
+  return { payload, message }
+}
 
 const request = async (
   path: string,
@@ -119,11 +177,9 @@ const request = async (
 ): Promise<Json> => {
   const baseUrl = assertConfigured()
   const token = await getAccessToken()
-  const maxRateLimitRetries = 3
-  const maxRetryDelaySec = 10
 
   /* eslint-disable no-await-in-loop, no-continue -- intentional rate-limit retry */
-  for (let attempt = 0; attempt <= maxRateLimitRetries; attempt += 1) {
+  for (let attempt = 0; attempt <= MAX_RATE_LIMIT_RETRIES; attempt += 1) {
     const response = await fetch(`${baseUrl}${path}`, {
       method,
       headers: {
@@ -135,48 +191,17 @@ const request = async (
     })
 
     if (
-      response.status === 429 &&
-      attempt < maxRateLimitRetries &&
-      method === 'GET'
+      shouldRetryRateLimit(response, attempt, MAX_RATE_LIMIT_RETRIES, method)
     ) {
       const text = await response.text()
-      let retryDelaySec = 15
-      if (text) {
-        try {
-          const parsed = JSON.parse(text) as ApiErrorPayload
-          if (
-            typeof parsed.retryAfterSeconds === 'number' &&
-            Number.isFinite(parsed.retryAfterSeconds)
-          ) {
-            retryDelaySec = Math.min(parsed.retryAfterSeconds, maxRetryDelaySec)
-          }
-        } catch {
-          // Use default retry delay for non-JSON 429 responses.
-        }
-      }
-      await new Promise((resolve) => {
-        setTimeout(resolve, retryDelaySec * 1000)
-      })
+      const retryDelaySec = parseRetryDelaySec(text, MAX_RETRY_DELAY_SEC)
+      await sleep(retryDelaySec * 1000)
       continue
     }
 
     if (!response.ok) {
       const text = await response.text()
-      let payload: ApiErrorPayload | undefined
-      let message = text || `Request failed (${response.status})`
-
-      if (text) {
-        try {
-          const parsed = JSON.parse(text) as ApiErrorPayload
-          payload = parsed
-          if (typeof parsed.message === 'string' && parsed.message.trim()) {
-            message = parsed.message
-          }
-        } catch {
-          // Keep plain-text fallback message for non-JSON errors.
-        }
-      }
-
+      const { payload, message } = parseApiError(text, response.status)
       throw new ReprsApiError(response.status, message, payload)
     }
 

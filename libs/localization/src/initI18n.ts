@@ -105,7 +105,7 @@ export const initI18n = ({
       storage.setItem(LANGUAGE_STORAGE_KEY, lng).catch(() => {})
       return
     }
-    if (typeof globalThis.localStorage !== 'undefined') {
+    if (globalThis.localStorage !== undefined) {
       globalThis.localStorage.setItem(LANGUAGE_STORAGE_KEY, lng)
     }
     if (typeof document !== 'undefined') {

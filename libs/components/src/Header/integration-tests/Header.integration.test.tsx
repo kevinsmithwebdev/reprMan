@@ -51,35 +51,35 @@ describe('Header (integration)', () => {
   })
 
   it('renders brand and nav on home', () => {
-    renderWithAppShell(<Header />, { initialEntries: ['/'] })
+    renderWithAppShell(<Header />, { initialPathname: '/' })
     expect(document.getElementById('header-component')).toBeTruthy()
     expect(document.getElementById('header-brand')).toBeTruthy()
     expect(screen.getByText(/HOME/i)).toBeTruthy()
   })
 
   it('appends page title for settings route', () => {
-    renderWithAppShell(<Header />, { initialEntries: ['/settings'] })
+    renderWithAppShell(<Header />, { initialPathname: '/settings' })
     expect(document.getElementById('header-brand')?.textContent).toMatch(
       /settings/i
     )
   })
 
   it('uses narrow brand label on small viewports', () => {
-    renderWithAppShell(<Header />, { initialEntries: ['/about'] })
+    renderWithAppShell(<Header />, { initialPathname: '/about' })
     const brand = document.getElementById('header-brand')
     expect(brand?.textContent).toMatch(/ReprMan/i)
     expect(brand?.textContent).not.toMatch(/Repertoire Management/i)
   })
 
   it('appends page title for the sign-in route', () => {
-    renderWithAppShell(<Header />, { initialEntries: ['/signin'] })
+    renderWithAppShell(<Header />, { initialPathname: '/signin' })
     expect(document.getElementById('header-brand')?.textContent).toMatch(
       /sign in/i
     )
   })
 
   it('appends page title for the change-password route', () => {
-    renderWithAppShell(<Header />, { initialEntries: ['/change-password'] })
+    renderWithAppShell(<Header />, { initialPathname: '/change-password' })
     expect(document.getElementById('header-brand')?.textContent).toMatch(
       /change password/i
     )
@@ -97,7 +97,7 @@ describe('Header (integration)', () => {
 
     cases.forEach(([path, pattern]) => {
       const { unmount } = renderWithAppShell(<Header />, {
-        initialEntries: [path],
+        initialPathname: path,
       })
       expect(document.getElementById('header-brand')?.textContent).toMatch(
         pattern
@@ -107,7 +107,7 @@ describe('Header (integration)', () => {
   })
 
   it('disables settings nav when auth gate is active and user is signed out', () => {
-    renderWithAppShell(<Header />, { initialEntries: ['/'] })
+    renderWithAppShell(<Header />, { initialPathname: '/' })
     const settingsNav = document.getElementById('nav-link-Settings')
     expect(settingsNav?.querySelector('[aria-disabled="true"]')).toBeTruthy()
   })

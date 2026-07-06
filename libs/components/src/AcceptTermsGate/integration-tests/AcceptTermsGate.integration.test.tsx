@@ -57,7 +57,7 @@ describe('AcceptTermsGate (integration)', () => {
           userId: 'user-1',
         },
       },
-      initialEntries: ['/'],
+      initialPathname: '/',
     })
 
     expect(screen.getByRole('dialog')).toBeTruthy()
@@ -85,7 +85,7 @@ describe('AcceptTermsGate (integration)', () => {
           userId: 'user-1',
         },
       },
-      initialEntries: ['/'],
+      initialPathname: '/',
     })
     const dispatchSpy = vi.spyOn(store, 'dispatch')
 
@@ -115,7 +115,7 @@ describe('AcceptTermsGate (integration)', () => {
           userId: 'user-1',
         },
       },
-      initialEntries: ['/terms'],
+      initialPathname: '/terms',
     })
 
     expect(screen.queryByRole('dialog')).toBeNull()
