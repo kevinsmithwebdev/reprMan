@@ -54,10 +54,9 @@ const websiteJsonLd = {
 const RootLayout = ({ children }: { children: ReactNode }) => (
   <html lang="en">
     <body>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
-      />
+      <script type="application/ld+json">
+        {JSON.stringify(websiteJsonLd)}
+      </script>
       <Providers>
         <AppShell>{children}</AppShell>
       </Providers>
