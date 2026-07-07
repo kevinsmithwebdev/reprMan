@@ -5,6 +5,7 @@ export async function generateMetadata() {
   return createPageMetadata({
     titleKey: 'auth.homeSignedOutTitle',
     descriptionKey: 'meta.description',
+    canonicalPath: '/',
   })
 }
 

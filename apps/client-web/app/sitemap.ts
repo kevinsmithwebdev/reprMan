@@ -2,7 +2,12 @@ import type { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://reprman.com'
-  const lastModified = new Date()
+  const buildTime = process.env.NEXT_PUBLIC_BUILD_TIME_UTC
+  const parsedBuildTime = buildTime ? new Date(buildTime) : null
+  const lastModified =
+    parsedBuildTime && !Number.isNaN(parsedBuildTime.valueOf())
+      ? parsedBuildTime
+      : new Date()
 
   return [
     {
