@@ -58,7 +58,15 @@ export function* loadReprsWorker() {
     }
   }
   if (!userConfigLoaded) {
+    // Mirror unlimited quota fallback so the UI is not stuck on "Loading…".
     yield put(setMaxReprsQuota(null))
+    yield put(
+      setSubscription({
+        status: 'unlimited',
+        expiration: null,
+        maxReprs: null,
+      })
+    )
   }
 }
 

@@ -4,7 +4,6 @@ import {
   goToAuthenticatedHome,
   waitForAuthenticatedHome,
   waitForHomeControls,
-  waitForQuotaLoaded,
 } from './auth'
 
 export type CreateReprOptions = {
@@ -40,11 +39,14 @@ async function openCreateReprForm(page: Page): Promise<void> {
     await waitForHomeControls(page)
   }
 
-  await waitForQuotaLoaded(page)
   await expect(page.locator('#add-repr-button')).toBeEnabled({
     timeout: 10_000,
   })
 
+  // Quota may still be loading after home controls appear; EditRepr shows
+  // "Repr limit unavailable" until /user/config finishes (or falls back).
+  // Do not wait for subscription header/menu text — paid/unlimited hide the
+  // banner, and a failed config can leave the menu on "Loading…" forever.
   await expect(async () => {
     if (await isCreateReprFormOpen(page)) {
       return

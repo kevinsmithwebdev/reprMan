@@ -43,8 +43,13 @@ const PasswordFormControl = ({
         onClick={() => setVisible((v) => !v)}
         aria-label={visible ? t('auth.hidePassword') : t('auth.showPassword')}
         aria-pressed={visible}
+        className="d-inline-flex align-items-center justify-content-center"
       >
-        {visible ? <EyeSlash aria-hidden /> : <Eye aria-hidden />}
+        {visible ? (
+          <EyeSlash size={20} aria-hidden />
+        ) : (
+          <Eye size={20} aria-hidden />
+        )}
       </Button>
     </InputGroup>
   )

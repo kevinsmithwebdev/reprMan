@@ -218,21 +218,6 @@ export async function goToAuthenticatedHome(page: Page): Promise<void> {
   await waitForAuthenticatedHome(page)
 }
 
-/** Subscription banner appears after user config / quota finishes loading. */
-export async function waitForQuotaLoaded(page: Page): Promise<void> {
-  if (
-    !(await page
-      .locator('#cognito-user-avatar-toggle')
-      .isVisible()
-      .catch(() => false))
-  ) {
-    return
-  }
-  await expect(
-    page.getByText(/trial account|days remaining|paid account|unlimited/i)
-  ).toBeVisible({ timeout: 60_000 })
-}
-
 const REPR_LIMIT = 100
 
 /** Reads the filtered repr count from the home toolbar (e.g. "94 reprs"). */

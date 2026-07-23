@@ -151,7 +151,15 @@ describe('loadReprsWorker', () => {
     ).toPromise()
 
     expect(getUserConfig).toHaveBeenCalledTimes(3)
-    expect(dispatched).toEqual([storeReprsSAC([]), setMaxReprsQuota(null)])
+    expect(dispatched).toEqual([
+      storeReprsSAC([]),
+      setMaxReprsQuota(null),
+      setSubscription({
+        status: 'unlimited',
+        expiration: null,
+        maxReprs: null,
+      }),
+    ])
   }, 10_000)
 
   it('retries user config after reprs are stored', async () => {

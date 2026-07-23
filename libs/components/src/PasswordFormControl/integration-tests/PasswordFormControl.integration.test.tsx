@@ -23,14 +23,16 @@ describe('PasswordFormControl (integration)', () => {
     const input = screen.getByDisplayValue('secret')
     expect(input).toHaveAttribute('type', 'password')
 
-    await userEvent.click(
-      screen.getByRole('button', { name: /show password/i })
-    )
+    const showButton = screen.getByRole('button', { name: /show password/i })
+    expect(showButton.querySelector('svg')).toBeTruthy()
+
+    await userEvent.click(showButton)
     expect(screen.getByDisplayValue('secret')).toHaveAttribute('type', 'text')
 
-    await userEvent.click(
-      screen.getByRole('button', { name: /hide password/i })
-    )
+    const hideButton = screen.getByRole('button', { name: /hide password/i })
+    expect(hideButton.querySelector('svg')).toBeTruthy()
+
+    await userEvent.click(hideButton)
     expect(screen.getByDisplayValue('secret')).toHaveAttribute(
       'type',
       'password'

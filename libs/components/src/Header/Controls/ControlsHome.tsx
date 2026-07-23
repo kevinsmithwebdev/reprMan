@@ -46,7 +46,7 @@ const ControlsHome: FC = () => {
               position: 'relative',
             }}
           >
-            <FilterCircle size={20} aria-hidden />
+            <FilterCircle size={20} color="#d0d0d0" aria-hidden />
             {!!numFiltersText && (
               <Badge
                 pill

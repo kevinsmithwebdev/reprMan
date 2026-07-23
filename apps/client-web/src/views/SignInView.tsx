@@ -54,7 +54,7 @@ const SignInView = () => {
       style={{ maxWidth: 480, margin: '0 auto' }}
       id="SignIn-page"
     >
-      <Card.Title>{t('pages.signin.title')}</Card.Title>
+      <Card.Title className="mt-3 mb-4">{t('pages.signin.title')}</Card.Title>
       <Form onSubmit={handleSignIn}>
         <CognitoSignInFields
           idPrefix="signin-page"

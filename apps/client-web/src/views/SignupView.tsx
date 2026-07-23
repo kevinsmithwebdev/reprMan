@@ -67,7 +67,7 @@ const SignupView = () => {
       style={{ maxWidth: 480, margin: '0 auto' }}
       id="Signup-page"
     >
-      <Card.Title>{t('pages.signup.title')}</Card.Title>
+      <Card.Title className="mt-3 mb-4">{t('pages.signup.title')}</Card.Title>
 
       {flow.step === 'register' ? (
         <SignupRegisterStep
