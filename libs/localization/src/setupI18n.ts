@@ -1,4 +1,4 @@
-import { createPlatformStorage } from '@reprman/client-platform/storage.web'
+import { createPlatformStorage } from '@reprman/client-platform/storage'
 import { resolveInitialLanguage } from './languageDetection'
 import { initI18n } from './initI18n'
 

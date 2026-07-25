@@ -7,3 +7,4 @@ export {
 } from './clientConfigStore'
 export { createWebClientConfig } from './createWebClientConfig'
 export { createNextClientConfig } from './createNextClientConfig'
+export { createExpoClientConfig } from './createExpoClientConfig'

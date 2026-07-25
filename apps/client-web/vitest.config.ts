@@ -95,6 +95,13 @@ export default defineConfig({
         ),
       },
       {
+        find: /^@reprman\/client-platform\/storage$/,
+        replacement: path.resolve(
+          root,
+          'libs/client-platform/src/storage.web.ts'
+        ),
+      },
+      {
         find: /^@reprman\/client-platform\/storage\.web$/,
         replacement: path.resolve(
           root,
