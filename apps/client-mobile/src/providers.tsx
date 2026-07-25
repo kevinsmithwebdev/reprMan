@@ -6,6 +6,7 @@ import { configureReprsApi } from '@reprman/reprs-api'
 import store from '@reprman/state/store'
 
 import { ToastBridge } from '@/components/toast-bridge'
+import { GenesisBootstrap } from '@/components/genesis-bootstrap'
 
 let configured = false
 
@@ -29,6 +30,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={store}>
       <CognitoAuthProvider>
+        <GenesisBootstrap />
         <ToastBridge />
         {children}
       </CognitoAuthProvider>
