@@ -1,5 +1,5 @@
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useL10n } from '@reprman/localization'
 import { useReprs } from '@reprman/state/reprs'
 
@@ -12,8 +12,8 @@ export default function ReprDetailScreen() {
 
   if (!reprsLoaded) {
     return (
-      <View style={styles.container}>
-        <Text style={styles.meta}>{t('common.loading')}</Text>
+      <View style={styles.centered}>
+        <ActivityIndicator size="large" />
       </View>
     )
   }
@@ -21,9 +21,9 @@ export default function ReprDetailScreen() {
   if (!repr) {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>{t('errors.reprNotFound')}</Text>
-        <Pressable onPress={() => router.back()}>
-          <Text style={styles.link}>{t('auth.signUpBackHome')}</Text>
+        <Text style={styles.title}>{t('errors.couldNotRemoveRepr')}</Text>
+        <Pressable onPress={() => router.replace('/dashboard')}>
+          <Text style={styles.link}>{t('buttons.back')}</Text>
         </Pressable>
       </View>
     )
@@ -35,35 +35,41 @@ export default function ReprDetailScreen() {
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>{repr.title}</Text>
 
-        {repr.categories.length > 0 ? (
-          <View style={styles.section}>
-            <Text style={styles.label}>{t('controls.categories')}</Text>
-            <Text style={styles.value}>{repr.categories.join(', ')}</Text>
-          </View>
-        ) : null}
-
-        {repr.comment ? (
-          <View style={styles.section}>
-            <Text style={styles.label}>{t('controls.comment')}</Text>
-            <Text style={styles.value}>{repr.comment}</Text>
-          </View>
-        ) : null}
-
         <View style={styles.section}>
-          <Text style={styles.label}>{t('controls.learning')}</Text>
+          <Text style={styles.label}>{t('pages.viewRepr.data.categories')}</Text>
           <Text style={styles.value}>
-            {repr.learning ? t('common.yes') : t('common.no')}
+            {repr.categories.length > 0
+              ? repr.categories.join(', ')
+              : t('pages.viewRepr.data.noCategories')}
           </Text>
         </View>
 
         <View style={styles.section}>
-          <Text style={styles.label}>{t('controls.datesPracticed')}</Text>
+          <Text style={styles.label}>{t('pages.viewRepr.data.comment')}</Text>
+          <Text style={styles.value}>
+            {repr.comment || t('pages.viewRepr.data.noComment')}
+          </Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.label}>{t('pages.viewRepr.data.learning')}</Text>
+          <Text style={styles.value}>
+            {repr.learning
+              ? t('pages.viewRepr.data.learningYes')
+              : t('pages.viewRepr.data.learningNo')}
+          </Text>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.label}>
+            {t('pages.viewRepr.data.datesPracticed')}
+          </Text>
           <Text style={styles.value}>
             {repr.datesPracticed.length > 0
               ? repr.datesPracticed
                   .map((ts) => new Date(ts).toLocaleDateString())
                   .join(', ')
-              : '—'}
+              : t('common.never')}
           </Text>
         </View>
       </ScrollView>
@@ -72,6 +78,12 @@ export default function ReprDetailScreen() {
 }
 
 const styles = StyleSheet.create({
+  centered: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+  },
   container: {
     padding: 24,
     gap: 16,
@@ -96,10 +108,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#222',
     lineHeight: 22,
-  },
-  meta: {
-    fontSize: 15,
-    color: '#666',
   },
   link: {
     marginTop: 16,
