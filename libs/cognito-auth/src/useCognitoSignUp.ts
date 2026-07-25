@@ -1,4 +1,3 @@
-import type React from 'react'
 import { useState } from 'react'
 import {
   AuthError,
@@ -11,6 +10,7 @@ import { useDispatch } from 'react-redux'
 import { makeToastSAC, runGenesisSaga, setUser } from '@reprman/state'
 import { ToastLevel } from '@reprman/types'
 
+import type { AuthSubmitEvent } from './authSubmitEvent'
 import { userFromCognitoSession } from './cognitoSession'
 
 export type SignUpStep = 'register' | 'confirm'
@@ -94,7 +94,7 @@ export const useCognitoSignUp = (
   }
 
   const handleRegister = async (
-    e: React.FormEvent,
+    e: AuthSubmitEvent | undefined,
     options: {
       acceptedTerms: boolean
       termsRequiredMessage: string
@@ -106,7 +106,7 @@ export const useCognitoSignUp = (
       termsAcceptFailedMessage: string
     }
   ) => {
-    e.preventDefault()
+    e?.preventDefault()
     if (!options.acceptedTerms) {
       dispatch(
         makeToastSAC({
@@ -171,14 +171,14 @@ export const useCognitoSignUp = (
   }
 
   const handleConfirm = async (
-    e: React.FormEvent,
+    e: AuthSubmitEvent | undefined,
     options: {
       signedInMessage: string
       unexpectedErrorMessage: string
       termsAcceptFailedMessage: string
     }
   ) => {
-    e.preventDefault()
+    e?.preventDefault()
     setBusy(true)
     try {
       await confirmSignUp({

@@ -1,6 +1,6 @@
 {
   "name": "repr-man",
-  "version": "2.0.28",
+  "version": "2.0.29",
   "private": true,
   "engines": {
     "node": ">=20"
@@ -65,11 +65,13 @@
     "migrate:repr-learning": "node scripts/backfill-repr-learning.mjs",
     "migrate:user-config": "node scripts/backfill-user-config.mjs",
     "postinstall": "simple-git-hooks && node scripts/patch-vitest-coverage.mjs",
-    "prettier:check": "prettier --check \"apps/client-web/app\" \"apps/client-web/src\" \"apps/server/src\" \"libs/**/*.{ts,tsx,js,jsx,json}\" \"scripts/**/*.{js,mjs,cjs,ts}\"",
-    "prettier": "prettier --write \"apps/client-web/app\" \"apps/client-web/src\" \"apps/server/src\" \"libs/**/*.{ts,tsx,js,jsx,json}\" \"scripts/**/*.{js,mjs,cjs,ts}\"",
+    "prettier:check": "prettier --check \"apps/client-web/app\" \"apps/client-web/src\" \"apps/client-mobile/src\" \"apps/server/src\" \"libs/**/*.{ts,tsx,js,jsx,json}\" \"scripts/**/*.{js,mjs,cjs,ts}\"",
+    "prettier": "prettier --write \"apps/client-web/app\" \"apps/client-web/src\" \"apps/client-mobile/src\" \"apps/server/src\" \"libs/**/*.{ts,tsx,js,jsx,json}\" \"scripts/**/*.{js,mjs,cjs,ts}\"",
     "check:path-aliases": "node scripts/check-path-aliases.mjs",
     "sonar:scan": "sonar-scanner -Dsonar.organization=\"$SONAR_ORGANIZATION\"",
     "start": "nx serve client-web",
+    "start:mobile": "nx serve client-mobile",
+    "start:android": "nx run client-mobile:android",
     "test:coverage": "node scripts/run-all-coverage.mjs",
     "test:e2e:install": "playwright install chromium",
     "test:e2e:ui": "playwright test --config apps/client-web/e2e/playwright.config.cts --ui",

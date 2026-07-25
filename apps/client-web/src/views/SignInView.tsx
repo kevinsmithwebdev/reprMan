@@ -6,11 +6,11 @@ import { useRouter } from 'next/navigation'
 import { Button, Card, Form, Spinner } from 'react-bootstrap'
 import { AuthUnavailableCard, CenteredSpinner } from '@reprman/components'
 import {
-  CognitoSignInFields,
   isCognitoConfigured,
   useCognitoAuth,
   useCognitoSignIn,
 } from '@reprman/cognito-auth'
+import { CognitoSignInFields } from '@reprman/cognito-auth/web'
 import { useL10n } from '@reprman/localization'
 import { useReplaceWhen } from '../hooks/useReplaceWhen'
 

@@ -35,6 +35,7 @@
       "@reprman/state/*": ["libs/state/src/*"],
 
       "@reprman/cognito-auth": ["libs/cognito-auth/src/index.ts"],
+      "@reprman/cognito-auth/web": ["libs/cognito-auth/src/web.ts"],
       "@reprman/cognito-auth/*": ["libs/cognito-auth/src/*"],
 
       "@reprman/localization": ["libs/localization/src/index.ts"],

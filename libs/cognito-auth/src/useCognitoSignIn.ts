@@ -1,4 +1,3 @@
-import type { FormEvent } from 'react'
 import { useState } from 'react'
 import { AuthError, signIn } from 'aws-amplify/auth'
 import { useDispatch } from 'react-redux'
@@ -6,6 +5,7 @@ import { useL10n } from '@reprman/localization'
 import { runGenesisSaga } from '@reprman/state/sagas/genesis/genesis.actions'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { ToastLevel } from '@reprman/types'
+import type { AuthSubmitEvent } from './authSubmitEvent'
 
 export function useCognitoSignIn(
   refreshSession: () => Promise<void>,
@@ -29,8 +29,8 @@ export function useCognitoSignIn(
     )
   }
 
-  const handleSignIn = async (e: FormEvent) => {
-    e.preventDefault()
+  const handleSignIn = async (e?: AuthSubmitEvent) => {
+    e?.preventDefault()
     setBusy(true)
     try {
       const result = await signIn({

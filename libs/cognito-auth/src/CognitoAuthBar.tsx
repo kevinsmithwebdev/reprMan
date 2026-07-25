@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { AuthError, deleteUser, signOut } from 'aws-amplify/auth'
+import { AuthError, deleteUser } from 'aws-amplify/auth'
 import { Button, Dropdown, Modal, Spinner } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
@@ -19,6 +19,7 @@ import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { loadReprsSAC } from '@reprman/state/sagas/reprs/reprs.actions'
 import { ToastLevel } from '@reprman/types'
 import { useCognitoAuth } from './CognitoAuthContext'
+import { useCognitoSignOut } from './useCognitoSignOut'
 import './CognitoAuthBar.css'
 import { getUserInitials } from './getUserInitials'
 
@@ -30,7 +31,7 @@ const CognitoAuthBar = () => {
   const subscription = useSelector(selectSubscription)
   const subscriptionLoaded = useSelector(selectSubscriptionLoaded)
   const { sessionChecked, signedIn } = useCognitoAuth()
-  const [busySignOut, setBusySignOut] = useState(false)
+  const { busy: busySignOut, handleSignOut } = useCognitoSignOut()
   const [busyDeleteAccount, setBusyDeleteAccount] = useState(false)
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false)
 
@@ -44,33 +45,6 @@ const CognitoAuthBar = () => {
       dispatch(loadReprsSAC())
     }
   }, [dispatch, sessionChecked, signedIn, subscriptionLoaded])
-
-  const notifyAuthError = (err: unknown) => {
-    const message =
-      err instanceof AuthError ? err.message : t('auth.signInUnexpectedError')
-    dispatch(
-      makeToastSAC({
-        body: message,
-        level: ToastLevel.FAIL,
-        delay: 6000,
-      })
-    )
-  }
-
-  const handleSignOut = async () => {
-    setBusySignOut(true)
-    try {
-      await signOut()
-      dispatch(clearUser())
-      dispatch(resetReprs())
-      dispatch(clearAllCategoryData())
-      dispatch(resetSettingsAC())
-    } catch (err) {
-      notifyAuthError(err)
-    } finally {
-      setBusySignOut(false)
-    }
-  }
 
   const handleDeleteAccount = async () => {
     setBusyDeleteAccount(true)
