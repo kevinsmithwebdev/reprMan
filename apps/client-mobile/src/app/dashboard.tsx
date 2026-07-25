@@ -26,19 +26,22 @@ export default function DashboardScreen() {
   }
 
   const renderItem = ({ item }: { item: Repr }) => (
-    <View style={styles.reprRow}>
+    <Pressable
+      style={styles.reprRow}
+      onPress={() => router.push(`/repr/${item.id}`)}
+    >
       <Text style={styles.reprTitle}>{item.title}</Text>
       {item.categories.length > 0 ? (
         <Text style={styles.reprMeta}>{item.categories.join(', ')}</Text>
       ) : null}
-    </View>
+    </Pressable>
   )
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.headerText}>
-          <Text style={styles.title}>{t('common.reprMan')}</Text>
+          <Text style={styles.title}>{t('brand.reprMan')}</Text>
           <Text style={styles.body} numberOfLines={1}>
             {user.email || user.name || ''}
           </Text>
@@ -69,12 +72,14 @@ export default function DashboardScreen() {
             reprs.length === 0 ? styles.emptyList : styles.list
           }
           ListEmptyComponent={
-            <Text style={styles.empty}>{t('controls.reprsList.emptyList')}</Text>
+            <Text style={styles.empty}>
+              {t('components.reprsList.emptyList')}
+            </Text>
           }
           ListHeaderComponent={
             reprs.length > 0 ? (
               <Text style={styles.count}>
-                {t('controls.reprsList.reprsCountShort', {
+                {t('components.reprsList.reprsCountShort', {
                   count: reprs.length,
                 })}
               </Text>

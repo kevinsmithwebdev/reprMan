@@ -56,6 +56,7 @@ function AuthNavigator() {
       <Stack.Screen name="sign-in" options={{ title: 'Sign in' }} />
       <Stack.Screen name="sign-up" options={{ title: 'Create account' }} />
       <Stack.Screen name="dashboard" options={{ title: 'ReprMan' }} />
+      <Stack.Screen name="repr/[id]" options={{ title: 'Repr' }} />
     </Stack>
   )
 }
