@@ -3,8 +3,11 @@
 # dependencies
 node_modules
 package-lock.json
+# Expo app keeps its own npm lockfile (isolated from root Yarn)
+!apps/client-mobile/package-lock.json
 /.pnp
 .pnp.js
+
 
 # testing
 /coverage

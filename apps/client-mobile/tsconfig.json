@@ -1,0 +1,43 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true,
+    "typeRoots": ["./node_modules/@types"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/assets/*": ["./assets/*"],
+      "@reprman/shared/repr-model": ["./libs/shared/repr-model/src/index.ts"],
+      "@reprman/shared/repr-validation": [
+        "./libs/shared/repr-validation/src/index.ts"
+      ],
+      "@reprman/shared/repr-rules": ["./libs/shared/repr-rules/src/index.ts"],
+      "@reprman/shared/quota": ["./libs/shared/quota/src/index.ts"],
+      "@reprman/shared/subscription": [
+        "./libs/shared/subscription/src/index.ts"
+      ],
+      "@reprman/state": ["./libs/state/src/index.ts"],
+      "@reprman/state/*": ["./libs/state/src/*"],
+      "@reprman/cognito-auth": ["./libs/cognito-auth/src/index.ts"],
+      "@reprman/cognito-auth/web": ["./libs/cognito-auth/src/web.ts"],
+      "@reprman/cognito-auth/*": ["./libs/cognito-auth/src/*"],
+      "@reprman/localization": ["./libs/localization/src/index.ts"],
+      "@reprman/localization/*": ["./libs/localization/src/*"],
+      "@reprman/reprs-api": ["./libs/reprs-api/src/index.ts"],
+      "@reprman/reprs-api/*": ["./libs/reprs-api/src/*"],
+      "@reprman/utilities": ["./libs/utilities/src/index.ts"],
+      "@reprman/utilities/*": ["./libs/utilities/src/*"],
+      "@reprman/constants": ["./libs/constants/src/index.ts"],
+      "@reprman/constants/*": ["./libs/constants/src/*"],
+      "@reprman/types": ["./libs/types/src/index.ts"],
+      "@reprman/types/*": ["./libs/types/src/*"],
+      "@reprman/client-config": ["./libs/client-config/src/index.ts"],
+      "@reprman/client-config/*": ["./libs/client-config/src/*"],
+      "@reprman/client-platform": ["./libs/client-platform/src/index.ts"],
+      "@reprman/client-platform/*": ["./libs/client-platform/src/*"],
+      "@reprman/modals": ["./libs/modals/src/index.ts"],
+      "@reprman/modals/*": ["./libs/modals/src/*"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
+}

@@ -1,0 +1,44 @@
+{
+  "name": "client-mobile",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/client-mobile/src",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx expo start",
+        "cwd": "apps/client-mobile"
+      }
+    },
+    "android": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx expo start --android",
+        "cwd": "apps/client-mobile"
+      }
+    },
+    "ios": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx expo start --ios",
+        "cwd": "apps/client-mobile"
+      }
+    },
+    "web": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx expo start --web",
+        "cwd": "apps/client-mobile"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx expo lint",
+        "cwd": "apps/client-mobile"
+      }
+    }
+  },
+  "tags": []
+}

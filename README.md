@@ -5,7 +5,26 @@
 Repr data is stored in AWS (DynamoDB) through an authenticated API.
 
 - Web client: `apps/client-web` (Next.js)
+- Mobile client: `apps/client-mobile` (Expo / React Native — starter template)
 - Backend app: `apps/server` (TypeScript Lambda handlers + CDK stacks)
+
+### Mobile (Expo)
+
+The mobile app lives in [`apps/client-mobile`](apps/client-mobile) with its own `package.json` / `node_modules` (npm). From the repo root:
+
+```bash
+yarn start:mobile
+# or
+yarn start:android
+```
+
+Or `cd apps/client-mobile && npm start`. First-time setup after clone: `cd apps/client-mobile && npm install`.
+
+Auth uses the same Cognito pool/API as web. Repo-root `.env` `NEXT_PUBLIC_*` values are loaded via `app.config.js` and mapped to `EXPO_PUBLIC_*` (see [`.env.example`](.env.example)).
+
+After `npm install`, a local `apps/client-mobile/libs` junction/symlink is created so Metro can resolve shared `@reprman/*` packages (run `npm run link:libs` if needed).
+
+**Note:** Amplify Auth needs a [development build](https://docs.expo.dev/develop/development-builds/introduction/) (`npx expo run:android` / `run:ios`), not Expo Go.
 
 ### Required environment (local frontend)
 
