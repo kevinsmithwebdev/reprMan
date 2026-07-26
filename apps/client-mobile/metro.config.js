@@ -61,6 +61,20 @@ config.resolver.extraNodeModules = {
   uuid: forceMobileModule('uuid'),
 }
 
+// React Compiler injects `react/compiler-runtime`. extraNodeModules alone does
+// not always cover that subpath when the origin is a shared lib whose realpath
+// sits under the monorepo root (React 18, no compiler-runtime).
+const resolveReactFromMobile = (moduleName) => {
+  if (moduleName !== 'react' && !moduleName.startsWith('react/')) {
+    return null
+  }
+  try {
+    return require.resolve(moduleName, { paths: [projectRoot] })
+  } catch {
+    return null
+  }
+}
+
 const resolveExisting = (candidates) => {
   for (const candidate of candidates) {
     if (fs.existsSync(candidate)) {
@@ -120,6 +134,14 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
         type: 'sourceFile',
         filePath: path.resolve(filePath),
       }
+    }
+  }
+
+  const reactPath = resolveReactFromMobile(moduleName)
+  if (reactPath) {
+    return {
+      type: 'sourceFile',
+      filePath: reactPath,
     }
   }
 
