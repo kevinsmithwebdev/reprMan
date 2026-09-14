@@ -1,6 +1,6 @@
 {
   "name": "repr-man",
-  "version": "2.0.43",
+  "version": "2.0.44",
   "private": true,
   "engines": {
     "node": ">=20"

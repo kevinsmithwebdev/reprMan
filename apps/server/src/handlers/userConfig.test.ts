@@ -7,7 +7,7 @@ const authEvent = {
   },
 } as any
 
-const trialEnd = Date.parse('2026-08-01T00:00:00.000Z')
+const MS_IN_A_DAY = 86_400_000
 
 describe('getUserConfigHandler', () => {
   let getUserConfigSpy: jest.SpiedFunction<typeof reprStore.getUserConfig>
@@ -21,10 +21,12 @@ describe('getUserConfigHandler', () => {
   })
 
   it('returns subscription and mirrored maxReprsAllowed for trial user', async () => {
+    // Relative to Date.now() — absolute calendar dates expire and flake in CI.
+    const trialEndsAtMs = Date.now() + 10 * MS_IN_A_DAY
     getUserConfigSpy.mockResolvedValue({
       pk: 'USER#user-1',
       sk: 'CONFIG',
-      trialEndsAtMs: trialEnd,
+      trialEndsAtMs,
     })
 
     const res = await getUserConfigHandler(authEvent)
@@ -43,7 +45,7 @@ describe('getUserConfigHandler', () => {
       pk: 'USER#user-1',
       sk: 'CONFIG',
       stripeSubscriptionStatus: 'active',
-      stripeCurrentPeriodEndMs: trialEnd,
+      stripeCurrentPeriodEndMs: Date.now() + 30 * MS_IN_A_DAY,
       termsAcceptedAt: '2026-01-01T00:00:00.000Z',
       termsVersion: '1',
       practiceDelay: 10,
