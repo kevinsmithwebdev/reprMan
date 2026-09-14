@@ -99,5 +99,13 @@ module.exports = {
         'import/no-extraneous-dependencies': 'off',
       },
     },
+    {
+      // Native-only platform modules; RN deps live in apps/client-mobile, not root.
+      files: ['**/*.native.{ts,tsx}'],
+      rules: {
+        'import/no-unresolved': 'off',
+        'import/no-extraneous-dependencies': 'off',
+      },
+    },
   ],
 }
