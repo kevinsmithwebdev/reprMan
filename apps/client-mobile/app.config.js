@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('node:path')
 const dotenv = require('dotenv')
 
 const workspaceRoot = path.resolve(__dirname, '../..')

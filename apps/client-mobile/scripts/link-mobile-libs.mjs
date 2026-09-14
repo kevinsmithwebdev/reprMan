@@ -16,6 +16,10 @@ const mobileRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..')
 const linkPath = join(mobileRoot, 'libs')
 const targetPath = resolve(mobileRoot, '../../libs')
 
+/** Absolute binaries so spawn does not search a writable PATH (S4036). */
+const WINDOWS_CMD = 'C:\\Windows\\System32\\cmd.exe'
+const UNIX_RM = '/bin/rm'
+
 const removeExistingLink = () => {
   if (!existsSync(linkPath)) {
     return
@@ -27,7 +31,7 @@ const removeExistingLink = () => {
   }
   // Directory junction (Windows) or leftover directory: remove the link only.
   const result = spawnSync(
-    process.platform === 'win32' ? 'cmd' : 'rm',
+    process.platform === 'win32' ? WINDOWS_CMD : UNIX_RM,
     process.platform === 'win32' ? ['/c', 'rmdir', linkPath] : ['-f', linkPath],
     { stdio: 'inherit' }
   )
@@ -40,7 +44,7 @@ removeExistingLink()
 
 if (process.platform === 'win32') {
   const result = spawnSync(
-    'cmd',
+    WINDOWS_CMD,
     ['/c', 'mklink', '/J', linkPath, targetPath],
     { stdio: 'inherit' }
   )

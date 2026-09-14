@@ -22,7 +22,9 @@ const ensureClientConfigured = () => {
 
 ensureClientConfigured()
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function Providers({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   useEffect(() => {
     ensureClientConfigured()
   }, [])
