@@ -81,6 +81,7 @@ module.exports = {
       files: [
         'apps/client-web/app/**/*.{js,jsx,ts,tsx}',
         'apps/client-web/src/**/*.{js,jsx,ts,tsx}',
+        'apps/client-mobile/src/**/*.{js,jsx,ts,tsx}',
         'src/**/*.{js,jsx,ts,tsx}',
       ],
       rules: {
