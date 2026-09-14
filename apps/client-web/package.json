@@ -1,5 +1,8 @@
 {
   "name": "client-web",
   "version": "2.0.17",
-  "private": true
+  "private": true,
+  "scripts": {
+    "build": "node ../../scripts/with-build-metadata.mjs NEXT_PUBLIC \"npx next build\""
+  }
 }
