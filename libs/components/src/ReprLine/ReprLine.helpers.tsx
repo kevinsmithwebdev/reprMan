@@ -23,10 +23,12 @@ const statusToColors: Record<ReprStatus, ReprColor> = {
 
 export const getReprColorsForRepr = (
   repr: Repr,
-  settings: Settings
-): ReprColor => statusToColors[getReprStatusForRepr(repr, settings)]
+  settings: Settings,
+  nowMs?: number
+): ReprColor => statusToColors[getReprStatusForRepr(repr, settings, nowMs)]
 
 export const getReprColors = (
   lastPracticed: number,
-  settings: Settings
-): ReprColor => statusToColors[getReprStatus(lastPracticed, settings)]
+  settings: Settings,
+  nowMs?: number
+): ReprColor => statusToColors[getReprStatus(lastPracticed, settings, nowMs)]

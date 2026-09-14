@@ -1,5 +1,4 @@
-import { afterAll, beforeAll, describe, expect, it, vi } from 'vitest'
-import moment from 'moment'
+import { describe, expect, it } from 'vitest'
 import {
   isWithinPracticeCooldown,
   PRACTICE_COOLDOWN_MS,
@@ -14,15 +13,11 @@ import {
   warningReturn,
 } from './ReprLine.helpers'
 
-const BASE_DATE = '2020-12-31'
+const NOW_MS = Date.parse('2020-12-31T00:00:00.000Z')
+const MS_IN_A_DAY = 86_400_000
 
-const SECONDS_IN_A_DAY = 86400
-
-const getDaysAgoTS = (days: number) =>
-  moment()
-    .utc()
-    .subtract(days * SECONDS_IN_A_DAY, 'seconds')
-    .valueOf()
+/** Deterministic "practiced N days before NOW_MS" — no wall-clock drift. */
+const daysAgoMs = (days: number) => NOW_MS - days * MS_IN_A_DAY
 
 describe('isWithinPracticeCooldown', () => {
   it('is true when practiced less than a minute ago', () => {
@@ -45,15 +40,6 @@ describe('isWithinPracticeCooldown', () => {
 })
 
 describe('ReprLine.helpers', () => {
-  beforeAll(() => {
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date(BASE_DATE))
-  })
-
-  afterAll(() => {
-    vi.useRealTimers()
-  })
-
   describe('getReprColors', () => {
     const mockSettings = { practiceDelay: 40, warningRatio: 0.75 }
 
@@ -63,88 +49,98 @@ describe('ReprLine.helpers', () => {
         title: 't',
         categories: [],
         dateCreated: 0,
-        datesPracticed: [getDaysAgoTS(100)],
+        datesPracticed: [daysAgoMs(100)],
         comment: '',
         learning: true,
       }
-      expect(getReprColorsForRepr(learningRepr, mockSettings)).toStrictEqual(
-        learningReturn
+      expect(
+        getReprColorsForRepr(learningRepr, mockSettings, NOW_MS)
+      ).toStrictEqual(learningReturn)
+    })
+
+    it('returns success for 0 days ago', () => {
+      expect(getReprColors(daysAgoMs(0), mockSettings, NOW_MS)).toStrictEqual(
+        successReturn
       )
     })
 
-    describe('for 0 days ago', () => {
-      const daysPassed = 0
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return success object', () => {
-        expect(actualReturn).toStrictEqual(successReturn)
-      })
-    })
-
-    describe('for halfway between now and warning', () => {
+    it('returns success halfway between now and warning', () => {
       const daysPassed =
         (mockSettings.practiceDelay * mockSettings.warningRatio) / 2
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return success object', () => {
-        expect(actualReturn).toStrictEqual(successReturn)
-      })
+      expect(
+        getReprColors(daysAgoMs(daysPassed), mockSettings, NOW_MS)
+      ).toStrictEqual(successReturn)
     })
 
-    describe('for on the warning', () => {
+    it('returns success exactly on the warning boundary (exclusive >)', () => {
       const daysPassed = mockSettings.practiceDelay * mockSettings.warningRatio
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return success object', () => {
-        expect(actualReturn).toStrictEqual(successReturn)
-      })
+      expect(
+        getReprColors(daysAgoMs(daysPassed), mockSettings, NOW_MS)
+      ).toStrictEqual(successReturn)
     })
 
-    describe('for halfway between warning and danger', () => {
+    it('returns warning just past the warning boundary', () => {
+      const daysPassed =
+        mockSettings.practiceDelay * mockSettings.warningRatio + 0.0001
+      expect(
+        getReprColors(daysAgoMs(daysPassed), mockSettings, NOW_MS)
+      ).toStrictEqual(warningReturn)
+    })
+
+    it('returns warning halfway between warning and danger', () => {
       const fullPracticeDelay = mockSettings.practiceDelay
       const fullWarning = mockSettings.practiceDelay * mockSettings.warningRatio
       const daysPassed = (fullPracticeDelay + fullWarning) / 2
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return warning object', () => {
-        expect(actualReturn).toStrictEqual(warningReturn)
-      })
+      expect(
+        getReprColors(daysAgoMs(daysPassed), mockSettings, NOW_MS)
+      ).toStrictEqual(warningReturn)
     })
 
-    describe('for on the danger', () => {
-      const daysPassed = mockSettings.practiceDelay
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return warning object', () => {
-        expect(actualReturn).toStrictEqual(warningReturn)
-      })
+    it('returns warning exactly on the danger boundary (exclusive >)', () => {
+      expect(
+        getReprColors(
+          daysAgoMs(mockSettings.practiceDelay),
+          mockSettings,
+          NOW_MS
+        )
+      ).toStrictEqual(warningReturn)
     })
 
-    describe('for just passed the danger', () => {
+    it('returns danger just past the danger boundary', () => {
       const daysPassed = mockSettings.practiceDelay * 1.00001
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return danger object', () => {
-        expect(actualReturn).toStrictEqual(dangerReturn)
-      })
+      expect(
+        getReprColors(daysAgoMs(daysPassed), mockSettings, NOW_MS)
+      ).toStrictEqual(dangerReturn)
     })
 
-    describe('for 10 days passed the danger', () => {
-      const daysPassed = mockSettings.practiceDelay + 10
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return danger object', () => {
-        expect(actualReturn).toStrictEqual(dangerReturn)
-      })
+    it('returns danger for 10 days past danger', () => {
+      expect(
+        getReprColors(
+          daysAgoMs(mockSettings.practiceDelay + 10),
+          mockSettings,
+          NOW_MS
+        )
+      ).toStrictEqual(dangerReturn)
     })
 
-    describe('for 100 days passed the danger', () => {
-      const daysPassed = mockSettings.practiceDelay + 100
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return danger object', () => {
-        expect(actualReturn).toStrictEqual(dangerReturn)
-      })
+    it('returns danger for 100 days past danger', () => {
+      expect(
+        getReprColors(
+          daysAgoMs(mockSettings.practiceDelay + 100),
+          mockSettings,
+          NOW_MS
+        )
+      ).toStrictEqual(dangerReturn)
     })
 
-    describe('for 1000 days passed the danger', () => {
-      const daysPassed = mockSettings.practiceDelay + 1000
-      const actualReturn = getReprColors(getDaysAgoTS(daysPassed), mockSettings)
-      it('should return danger object', () => {
-        expect(actualReturn).toStrictEqual(dangerReturn)
-      })
+    it('returns danger for 1000 days past danger', () => {
+      expect(
+        getReprColors(
+          daysAgoMs(mockSettings.practiceDelay + 1000),
+          mockSettings,
+          NOW_MS
+        )
+      ).toStrictEqual(dangerReturn)
     })
   })
 })
