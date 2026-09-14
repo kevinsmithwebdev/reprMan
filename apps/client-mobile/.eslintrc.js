@@ -2,19 +2,16 @@ const path = require('path')
 
 /**
  * Expo / React Native app.
- * Root CI does not install Expo/RN, and deep-merging the shared config would
- * keep eslint-import-resolver-typescript (which loads ./tsconfig.json →
- * expo/tsconfig.base). Keep style rules; disable import resolution here.
+ * Root CI does not install Expo/RN packages. Keep style rules from the shared
+ * config; disable import-resolution rules that need those packages.
+ *
+ * Important: do not replace `import/resolver` here. ESLint deep-merges settings,
+ * and clearing `typescript.project` makes the resolver fall back to cwd →
+ * ./tsconfig.json → expo/tsconfig.base (missing in root CI). The root config
+ * pins an explicit project list that never includes the Expo tsconfig.
  */
 module.exports = {
   extends: [path.join(__dirname, '../../.eslintrc.js')],
-  settings: {
-    'import/resolver': {
-      node: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
-      },
-    },
-  },
   rules: {
     'import/no-unresolved': 'off',
     'import/named': 'off',
