@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import Link from 'next/link'
 import { Button, Form, Spinner } from 'react-bootstrap'
 import { useL10n } from '@reprman/localization'
 
@@ -57,12 +58,17 @@ const SignupConfirmStep = ({
       </div>
       <button
         type="button"
-        className="btn btn-link p-0"
+        className="btn btn-link p-0 mb-3"
         disabled={busy}
         onClick={onEditEmail}
       >
         {t('auth.signUpEditEmail')}
       </button>
+      <p className="mb-0 small">
+        <Link href="/signin" className="auth-screen-cross-link">
+          {t('auth.signInButton')}
+        </Link>
+      </p>
     </Form>
   )
 }

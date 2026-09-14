@@ -60,7 +60,7 @@ const SettingsView = () => {
 
   const { t } = useL10n()
 
-  useReplaceWhen(isSignedOut && !isLoading, '/')
+  useReplaceWhen(isSignedOut && !isLoading, '/signin')
 
   if (isLoading) {
     return <CenteredSpinner id="Settings-page" />

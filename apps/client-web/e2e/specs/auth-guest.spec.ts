@@ -16,12 +16,14 @@ test.describe('sign in', () => {
 test.describe('sign in page', () => {
   test.use({ storageState: guestStorageState })
 
-  test('navigates from home to sign in', async ({ page }) => {
+  test('redirects home to sign in when signed out', async ({ page }) => {
     await gotoApp(page, '/')
-    await page.getByRole('button', { name: 'Sign In' }).first().click()
     await expect(page).toHaveURL(/\/signin/)
     await expect(page.locator('#SignIn-page')).toBeVisible()
     await expect(page.locator('#signin-page-email')).toBeVisible()
+    await expect(
+      page.locator('#SignIn-page').getByRole('link', { name: /^sign up$/i })
+    ).toBeVisible()
     expect(e2eEnv.userEmail()).toBeTruthy()
   })
 })

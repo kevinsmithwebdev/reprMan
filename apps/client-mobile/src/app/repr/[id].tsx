@@ -67,7 +67,9 @@ export default function ReprDetailScreen() {
         <Text style={styles.title}>{repr.title}</Text>
 
         <View style={styles.section}>
-          <Text style={styles.label}>{t('pages.viewRepr.data.categories')}</Text>
+          <Text style={styles.label}>
+            {t('pages.viewRepr.data.categories')}
+          </Text>
           <Text style={styles.value}>
             {repr.categories.length > 0
               ? repr.categories.join(', ')

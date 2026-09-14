@@ -1,6 +1,7 @@
 import React from 'react'
 import { useL10n } from '@reprman/localization'
 import { COPYRIGHT_YEAR, MY_EMAIL } from '@reprman/constants'
+import { colors } from '@reprman/theme'
 
 const Footer = () => {
   const { t } = useL10n()
@@ -13,7 +14,7 @@ const Footer = () => {
         alignItems: 'center',
         minHeight: '40px',
         padding: '8px 12px',
-        backgroundColor: '#222',
+        backgroundColor: colors.almostBlack,
         color: '#ddd',
         position: 'sticky',
         width: '100%',

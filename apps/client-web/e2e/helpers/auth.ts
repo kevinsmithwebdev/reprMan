@@ -1,4 +1,5 @@
 import { expect, type Page } from '@playwright/test'
+import { DEFAULT_MAX_REPRS_ALLOWED } from '@reprman/shared/quota'
 
 import { e2eEnv } from './env'
 
@@ -174,9 +175,6 @@ export async function waitForHomeControls(page: Page): Promise<void> {
 export async function waitForAuthenticatedHome(page: Page): Promise<void> {
   const avatar = page.locator('#cognito-user-avatar-toggle')
   const headerSignIn = page.locator('#cognito-sign-in-open')
-  const homeSignUp = page
-    .locator('#Home-page')
-    .getByRole('link', { name: /^sign up$/i })
 
   const alreadyOnSignedInHome =
     new URL(page.url()).pathname === '/' &&
@@ -186,13 +184,11 @@ export async function waitForAuthenticatedHome(page: Page): Promise<void> {
     await gotoApp(page, '/')
   }
 
-  await expect(avatar.or(headerSignIn).or(homeSignUp)).toBeVisible({
+  await expect(avatar.or(headerSignIn)).toBeVisible({
     timeout: 60_000,
   })
 
-  const needsSignIn =
-    (await headerSignIn.isVisible().catch(() => false)) ||
-    (await homeSignUp.isVisible().catch(() => false))
+  const needsSignIn = await headerSignIn.isVisible().catch(() => false)
 
   if (needsSignIn) {
     await page.evaluate(() => {
@@ -218,8 +214,6 @@ export async function goToAuthenticatedHome(page: Page): Promise<void> {
   await waitForAuthenticatedHome(page)
 }
 
-const REPR_LIMIT = 100
-
 /** Reads the filtered repr count from the home toolbar (e.g. "94 reprs"). */
 export async function readHomeReprCount(page: Page): Promise<number> {
   await expect(page.locator('#controls-home-component')).toBeVisible({
@@ -231,6 +225,37 @@ export async function readHomeReprCount(page: Page): Promise<number> {
   const text = (await countLabel.textContent()) ?? '0 reprs'
   const match = text.match(/(\d+)/)
   return match ? Number.parseInt(match[1], 10) : 0
+}
+
+async function isUnpaidLimitedAccount(page: Page): Promise<boolean> {
+  const status = page.locator('#subscription-header-status')
+  if (!(await status.isVisible().catch(() => false))) {
+    return false
+  }
+  const statusText = ((await status.innerText()) ?? '').toLowerCase()
+  return statusText.includes('limited') || statusText.includes('subscribe')
+}
+
+/** Waits until subscription/quota state is reflected on the home toolbar. */
+async function waitForReprQuotaReady(page: Page): Promise<void> {
+  await expect(async () => {
+    const count = await readHomeReprCount(page)
+    const addEnabled = await page
+      .locator('#add-repr-button')
+      .isEnabled()
+      .catch(() => false)
+    const status = page.locator('#subscription-header-status')
+    if (!(await status.isVisible().catch(() => false))) {
+      throw new Error('Waiting for subscription status in header')
+    }
+    if (
+      (await isUnpaidLimitedAccount(page)) &&
+      count >= DEFAULT_MAX_REPRS_ALLOWED &&
+      addEnabled
+    ) {
+      throw new Error('Waiting for repr limit to disable Add Repr')
+    }
+  }).toPass({ timeout: 90_000 })
 }
 
 /** Deletes all reprs when the E2E account already has repertoire data. */
@@ -248,17 +273,21 @@ export async function ensureCanCreateRepr(page: Page): Promise<void> {
 
 /**
  * Deletes all reprs when the account cannot fit {@link freeSlots} more creates
- * (disabled + Add Repr or count near {@link REPR_LIMIT}).
+ * (disabled Add Repr or not enough headroom on unpaid limited accounts).
  */
 export async function ensureReprHeadroom(
   page: Page,
   freeSlots = 1
 ): Promise<void> {
   await waitForAuthenticatedHome(page)
+  await waitForReprQuotaReady(page)
   const count = await readHomeReprCount(page)
   const addRepr = page.locator('#add-repr-button')
   const addEnabled = await addRepr.isEnabled().catch(() => false)
-  const needClear = !addEnabled || count + freeSlots > REPR_LIMIT
+  const unpaidLimited = await isUnpaidLimitedAccount(page)
+  const needClear =
+    !addEnabled ||
+    (unpaidLimited && count + freeSlots > DEFAULT_MAX_REPRS_ALLOWED)
 
   if (!needClear) {
     return

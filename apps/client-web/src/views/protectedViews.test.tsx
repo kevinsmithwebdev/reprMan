@@ -83,11 +83,13 @@ describe('protected views', () => {
     })
   })
 
-  it('shows home auth card when signed out', () => {
+  it('redirects signed-out users from home to sign in', () => {
     gateMocks.signedIn = false
-    renderWithAppShell(<HomePage />, { preloadedState: loadedAppState() })
-    expect(document.getElementById('Home-page')).toBeTruthy()
-    expect(screen.getByText('ReprMan')).toBeTruthy()
+    const { container } = renderWithAppShell(<HomePage />, {
+      preloadedState: loadedAppState(),
+    })
+    expect(container.firstChild).toBeNull()
+    expect(navigationMocks.replace).toHaveBeenCalledWith('/signin')
   })
 
   it('renders repr list on home when signed in', () => {
@@ -116,12 +118,13 @@ describe('protected views', () => {
     expect(store.getState().toasts).toBeTruthy()
   })
 
-  it('shows signed-out reports auth card', () => {
+  it('redirects signed-out users from reports to sign in', () => {
     gateMocks.signedIn = false
-    renderWithAppShell(<ReportsView />, {
+    const { container } = renderWithAppShell(<ReportsView />, {
       preloadedState: loadedAppState([testRepr()]),
     })
-    expect(screen.getByText('ReprMan')).toBeTruthy()
+    expect(container.firstChild).toBeNull()
+    expect(navigationMocks.replace).toHaveBeenCalledWith('/signin')
   })
 
   it('saves settings and dispatches supplemental actions', async () => {
@@ -143,7 +146,7 @@ describe('protected views', () => {
     gateMocks.signedIn = false
     const { container } = renderWithAppShell(<SettingsView />)
     expect(container.firstChild).toBeNull()
-    expect(navigationMocks.replace).toHaveBeenCalledWith('/')
+    expect(navigationMocks.replace).toHaveBeenCalledWith('/signin')
   })
 
   it('starts checkout from subscribe view', async () => {

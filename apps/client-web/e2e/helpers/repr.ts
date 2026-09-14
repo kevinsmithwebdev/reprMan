@@ -1,6 +1,7 @@
-import { expect, type Page } from '@playwright/test'
+import { expect, type Locator, type Page } from '@playwright/test'
 
 import {
+  ensureCanCreateRepr,
   goToAuthenticatedHome,
   waitForAuthenticatedHome,
   waitForHomeControls,
@@ -15,8 +16,54 @@ export type CreateReprOptions = {
 const reprLimitUnavailableDialog = (page: Page) =>
   page.getByRole('dialog', { name: /repr limit unavailable/i })
 
+const reprLimitExceededDialog = (page: Page) =>
+  page.getByRole('dialog', { name: /allowed reprs exceeded/i })
+
 const createReprTitleInput = (page: Page) =>
   page.locator('.modal.show').getByRole('textbox').first()
+
+export async function assertNoRateLimitToast(page: Page): Promise<void> {
+  const rateLimit = page
+    .getByRole('alert')
+    .filter({ hasText: /rate limit exceeded/i })
+    .or(page.getByText(/rate limit exceeded/i))
+  if (
+    await rateLimit
+      .first()
+      .isVisible()
+      .catch(() => false)
+  ) {
+    throw new Error(
+      'ReprMan API write rate limit exceeded. Wait for the limit to reset before re-running e2e.'
+    )
+  }
+}
+
+async function assertReprSaveDidNotFail(page: Page): Promise<void> {
+  const failNotice = page
+    .getByRole('alert')
+    .filter({ hasText: /could not save|rate limit exceeded/i })
+    .or(
+      page.locator('.toast-body').filter({
+        hasText: /could not save|rate limit exceeded/i,
+      })
+    )
+  if (
+    await failNotice
+      .first()
+      .isVisible()
+      .catch(() => false)
+  ) {
+    const message = (await failNotice.first().textContent())?.trim()
+    throw new Error(message ?? 'Repr save failed')
+  }
+}
+
+function reprCardExact(page: Page, title: string): Locator {
+  return page
+    .locator('.repr-line-component')
+    .filter({ has: page.getByText(title, { exact: true }) })
+}
 
 async function isCreateReprFormOpen(page: Page): Promise<boolean> {
   return createReprTitleInput(page)
@@ -39,9 +86,14 @@ async function openCreateReprForm(page: Page): Promise<void> {
     await waitForHomeControls(page)
   }
 
-  await expect(page.locator('#add-repr-button')).toBeEnabled({
-    timeout: 10_000,
-  })
+  await expect(async () => {
+    const addRepr = page.locator('#add-repr-button')
+    if (await addRepr.isEnabled().catch(() => false)) {
+      return
+    }
+    await ensureCanCreateRepr(page)
+    await expect(addRepr).toBeEnabled({ timeout: 5_000 })
+  }).toPass({ timeout: 120_000 })
 
   // Quota may still be loading after home controls appear; EditRepr shows
   // "Repr limit unavailable" until /user/config finishes (or falls back).
@@ -53,9 +105,15 @@ async function openCreateReprForm(page: Page): Promise<void> {
     }
 
     const quotaDialog = reprLimitUnavailableDialog(page)
+    const limitExceededDialog = reprLimitExceededDialog(page)
     if (await quotaDialog.isVisible().catch(() => false)) {
       await quotaDialog.getByLabel(/^close$/i).click()
       throw new Error('Repr quota not loaded yet')
+    }
+    if (await limitExceededDialog.isVisible().catch(() => false)) {
+      await limitExceededDialog.getByLabel(/^close$/i).click()
+      await ensureCanCreateRepr(page)
+      throw new Error('At repr limit; cleared reprs, retrying')
     }
 
     await page.locator('#add-repr-button').click()
@@ -63,6 +121,11 @@ async function openCreateReprForm(page: Page): Promise<void> {
     if (await quotaDialog.isVisible().catch(() => false)) {
       await quotaDialog.getByLabel(/^close$/i).click()
       throw new Error('Repr quota not loaded yet')
+    }
+    if (await limitExceededDialog.isVisible().catch(() => false)) {
+      await limitExceededDialog.getByLabel(/^close$/i).click()
+      await ensureCanCreateRepr(page)
+      throw new Error('At repr limit; cleared reprs, retrying')
     }
 
     await expect(createReprTitleInput(page)).toBeVisible({ timeout: 5_000 })
@@ -85,6 +148,7 @@ export async function createRepr(
     await waitForHomeControls(page)
   }
 
+  await ensureCanCreateRepr(page)
   await openCreateReprForm(page)
 
   const titleInput = createReprTitleInput(page)
@@ -100,31 +164,77 @@ export async function createRepr(
     await expect(page.getByRole('dialog').getByText(category)).toBeVisible()
   }
 
+  const upsertResponse = page.waitForResponse(
+    (resp) =>
+      resp.request().method() === 'PUT' &&
+      /\/reprs\/[^/]+$/.test(new URL(resp.url()).pathname),
+    { timeout: 30_000 }
+  )
+
   await page.locator('#edit-repr-save-button').click()
   await expect(titleInput).not.toBeVisible({
     timeout: 15_000,
   })
-  await expect(reprCard(page, title)).toBeVisible({ timeout: 15_000 })
+
+  const saveResult = await upsertResponse
+  if (saveResult.status() >= 400) {
+    const body = (await saveResult.text().catch(() => '')).trim()
+    if (saveResult.status() === 429) {
+      let waitHint = ''
+      try {
+        const parsed = JSON.parse(body) as { retryAfterSeconds?: number }
+        if (
+          typeof parsed.retryAfterSeconds === 'number' &&
+          Number.isFinite(parsed.retryAfterSeconds)
+        ) {
+          const minutes = Math.ceil(parsed.retryAfterSeconds / 60)
+          waitHint = ` Retry in about ${minutes} minute${
+            minutes === 1 ? '' : 's'
+          }.`
+        }
+      } catch {
+        // Keep the raw body when retryAfterSeconds is missing.
+      }
+      throw new Error(
+        `API write rate limit exceeded (60 writes/hour).${waitHint} ` +
+          'This is not an app bug — wait for the window to reset, or use a dedicated E2E Cognito user / raise RATE_LIMIT_WRITE_PER_HOUR on the API. ' +
+          `Details: ${body || '429'}`
+      )
+    }
+    throw new Error(
+      `Create repr failed (${saveResult.status()}${body ? `: ${body}` : ''})`
+    )
+  }
+
+  await assertNoRateLimitToast(page)
+  await assertReprSaveDidNotFail(page)
+  await expect(reprCardExact(page, title)).toBeVisible({ timeout: 30_000 })
 }
 
 export function reprCard(page: Page, title: string) {
-  return page.locator('.repr-line-component').filter({ hasText: title })
+  return reprCardExact(page, title)
 }
 
 export async function openReprFromHome(
   page: Page,
   title: string
 ): Promise<void> {
-  const card = reprCard(page, title).first()
-  if (!(await card.isVisible().catch(() => false))) {
-    await waitForAuthenticatedHome(page)
-    await waitForHomeControls(page)
-    await resetHomeFilters(page)
-  }
-  await expect(card).toBeVisible({ timeout: 30_000 })
-  await card.click()
-  await expect(page).toHaveURL(/\/view\//)
-  await expect(page.getByText(title).first()).toBeVisible()
+  await waitForHomeControls(page)
+  await resetHomeFilters(page)
+
+  await expect(async () => {
+    await assertNoRateLimitToast(page)
+    const card = reprCardExact(page, title).first()
+    await expect(card).toBeVisible({ timeout: 3_000 })
+    await page.locator('#footer-component').evaluate((footer) => {
+      footer.style.pointerEvents = 'none'
+    })
+    await card.locator('.card-title').click({ timeout: 3_000 })
+    await expect(page).toHaveURL(/\/view\//, { timeout: 5_000 })
+    await expect(page.getByText(title, { exact: true }).first()).toBeVisible({
+      timeout: 3_000,
+    })
+  }).toPass({ timeout: 45_000 })
 }
 
 /** View repr card buttons sit above the sticky footer, which blocks normal Playwright clicks. */
@@ -223,11 +333,16 @@ export async function clearCategoryFilters(page: Page): Promise<void> {
   if (!(await filterButton.isVisible().catch(() => false))) {
     return
   }
-  await filterButton.click()
-  const checkboxes = page.locator('#filter-form input[type="checkbox"]:checked')
+  const filterForm = page.locator('#filter-form')
+  if (!(await filterForm.isVisible().catch(() => false))) {
+    await filterButton.click()
+  }
+  const checkboxes = filterForm.locator('input[type="checkbox"]:checked')
   const count = await checkboxes.count()
   for (let i = 0; i < count; i += 1) {
     await checkboxes.nth(0).uncheck()
   }
-  await filterButton.click()
+  if (await filterForm.isVisible().catch(() => false)) {
+    await filterButton.click()
+  }
 }

@@ -5,6 +5,7 @@ import { homeAuthGateActive } from '@reprman/cognito-auth/configureAmplify'
 import { CognitoAuthBar } from '@reprman/cognito-auth/web'
 import { useCognitoAuth } from '@reprman/cognito-auth/CognitoAuthContext'
 import { useL10n } from '@reprman/localization'
+import { colors } from '@reprman/theme'
 import { Nav, Navbar } from 'react-bootstrap'
 import SubscriptionHeaderStatus from '../SubscriptionHeaderStatus/SubscriptionHeaderStatus'
 import LanguageSwitcher from './LanguageSwitcher'
@@ -114,10 +115,10 @@ const Header = () => {
     >
       <Navbar
         id="Header"
-        bg="dark"
         expand={false}
         className="mb-0 header-navbar"
         variant="dark"
+        style={{ backgroundColor: colors.almostBlack }}
       >
         <div className="header-navbar-inner">
           <Navbar.Brand

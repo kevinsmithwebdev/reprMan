@@ -66,7 +66,7 @@ const SignInView = () => {
           emailLabel={tForm('auth.email')}
           passwordLabel={tForm('auth.password')}
           createAccountLabel={tForm('auth.signUpButton')}
-          onCreateAccountNavigate={() => router.push('/signup')}
+          showCreateAccountLink={false}
         />
         <div className="d-flex flex-wrap gap-2 align-items-center mt-3">
           <Button variant="primary" type="submit" disabled={busy}>
@@ -83,10 +83,12 @@ const SignInView = () => {
           <Link href="/forgot-password" className="small">
             {t('auth.forgotPasswordLink')}
           </Link>
-          <Link href="/" className="small">
-            {t('auth.signUpBackHome')}
-          </Link>
         </div>
+        <p className="mb-0 mt-3 small">
+          <Link href="/signup" className="auth-screen-cross-link">
+            {tForm('auth.signUpButton')}
+          </Link>
+        </p>
       </Form>
     </Card.Body>
   )

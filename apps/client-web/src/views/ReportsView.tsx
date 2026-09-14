@@ -1,7 +1,7 @@
 'use client'
 
-import { isCognitoConfigured, useAuthGate } from '@reprman/cognito-auth'
-import { CenteredSpinner, HomeAuthCard } from '@reprman/components'
+import { useAuthGate } from '@reprman/cognito-auth'
+import { CenteredSpinner } from '@reprman/components'
 import { useL10n } from '@reprman/localization'
 import { makeToastSAC } from '@reprman/state/sagas/toast/toast.actions'
 import { useReprs } from '@reprman/state/reprs'
@@ -16,12 +16,15 @@ import {
   sortReprsByTitle,
 } from './Reports/Reports.helpers'
 import ReportsControls from './Reports/ReportsControls'
+import { useReplaceWhen } from '../hooks/useReplaceWhen'
 
 const ReportsView = () => {
   const { t } = useL10n()
   const dispatch = useDispatch()
   const { reprs, reprsLoaded } = useReprs()
   const { isLoading, isSignedOut } = useAuthGate()
+
+  useReplaceWhen(isSignedOut && !isLoading, '/signin')
 
   const [selectedLabels, setSelectedLabels] = useState<string[]>([])
   const [includeComments, setIncludeComments] = useState(false)
@@ -80,15 +83,7 @@ const ReportsView = () => {
   }
 
   if (isSignedOut) {
-    return (
-      <div
-        id="Reports-page"
-        className="app-page-padded d-flex flex-grow-1 justify-content-center"
-        style={{ minHeight: 0 }}
-      >
-        <HomeAuthCard authReady={isCognitoConfigured()} />
-      </div>
-    )
+    return null
   }
 
   if (!reprsLoaded) {

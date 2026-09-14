@@ -1,35 +1,25 @@
 'use client'
 
 import React from 'react'
-import {
-  CenteredSpinner,
-  ControlsHome,
-  HomeAuthCard,
-  ReprsList,
-} from '@reprman/components'
-import { isCognitoConfigured, useAuthGate } from '@reprman/cognito-auth'
+import { CenteredSpinner, ControlsHome, ReprsList } from '@reprman/components'
+import { useAuthGate } from '@reprman/cognito-auth'
 import { useCategories, useReprs } from '@reprman/state'
 import { getFilteredReprs } from '@reprman/utilities'
+import { useReplaceWhen } from '../hooks/useReplaceWhen'
 
 export const HomePage = () => {
   const { reprs, reprsLoaded } = useReprs()
   const { filter } = useCategories()
   const { isLoading, isSignedOut } = useAuthGate()
 
+  useReplaceWhen(isSignedOut && !isLoading, '/signin')
+
   if (isLoading) {
     return <CenteredSpinner id="Home-page" layout="fill" />
   }
 
   if (isSignedOut) {
-    return (
-      <div
-        id="Home-page"
-        className="app-page-padded d-flex flex-grow-1 justify-content-center"
-        style={{ minHeight: 0 }}
-      >
-        <HomeAuthCard authReady={isCognitoConfigured()} />
-      </div>
-    )
+    return null
   }
 
   if (!reprsLoaded) {

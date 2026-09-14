@@ -84,19 +84,17 @@ const SignupRegisterStep = ({
           }
         />
       </Form.Group>
-      <div className="d-flex flex-wrap gap-2 align-items-center">
-        <Button
-          variant="primary"
-          type="submit"
-          disabled={busy || !acceptedTerms}
-        >
-          {busy ? (
-            <Spinner animation="border" size="sm" className="me-1" />
-          ) : null}
-          {t('auth.signUpSubmit')}
-        </Button>
-        <Link href="/">{t('auth.signUpBackHome')}</Link>
-      </div>
+      <Button variant="primary" type="submit" disabled={busy || !acceptedTerms}>
+        {busy ? (
+          <Spinner animation="border" size="sm" className="me-1" />
+        ) : null}
+        {t('auth.signUpSubmit')}
+      </Button>
+      <p className="mb-0 mt-3 small">
+        <Link href="/signin" className="auth-screen-cross-link">
+          {t('auth.signInButton')}
+        </Link>
+      </p>
     </Form>
   )
 }
